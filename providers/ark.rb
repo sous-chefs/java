@@ -59,13 +59,18 @@ action :install do
       FileUtils.chown new_resource.owner, new_resource.owner, app_root
     end
 
-    r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
-      source new_resource.url
-      checksum new_resource.checksum
-      mode 0755
-      action :nothing
+    # a quick hack to allow using a local file
+    if new_resource.url =~ /^\/.*\/.*$/
+      FileUtils.cp new_resource.url, "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+    else 
+      r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+        source new_resource.url
+        checksum new_resource.checksum
+        mode 0755
+        action :nothing
+      end
+      r.run_action(:create_if_missing)
     end
-    r.run_action(:create_if_missing)
     
     require 'tmpdir'
     
