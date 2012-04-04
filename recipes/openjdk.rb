@@ -19,7 +19,7 @@
 
 version = node['java']['jdk_version']
 java_home = node['java']['java_home']
-java_home_parent = File.dirname java_home
+java_home_parent = ::File.dirname java_home
 jdk_home = ""
 
 pkgs = value_for_platform(
@@ -57,7 +57,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         jdk_home = Dir.glob("#{java_home_parent}/java*#{version}*openjdk{,[-\.]#{arch}}")[0]
         Chef::Log.debug("jdk_home is #{jdk_home}")
         # delete the symlink if it already exists
-        if File.exists? java_home
+        if ::File.exists? java_home
           FileUtils.rm_f java_home
         end
         FileUtils.ln_sf jdk_home, java_home
