@@ -51,13 +51,17 @@ Attributes
 
 See `attributes/default.rb` for default values.
 
-* `node["java"]["install_flavor"]` - Flavor of JVM you would like installed (`oracle` or `openjdk`), default `openjdk`.
+* `node["java"]["install_flavor"]` - Flavor of JVM you would like installed (`oracle` or
+`openjdk`), default `openjdk`.
 * `node['java']['java_home']` - Default location of the "`$JAVA_HOME`".
-* `node['java']['tarball']` - name of the tarball to retrieve from your corporate repository default `jdk1.6.0_29_i386.tar.gz`
-* `node['java']['tarball_checksum']` - checksum for the tarball, if you use a different tarball, you also need to create a new sha256 checksum
-* `node['java']['jdk']` - version and architecture specific attributes
-  for setting the URL on Oracle's site for the JDK, and the checksum
-  of the .tar.gz.
+* `node['java']['tarball']` - Name of the tarball to retrieve from your corporate
+repository default `jdk1.6.0_29_i386.tar.gz`
+* `node['java']['tarball_checksum']` - Checksum for the tarball, if you use a different
+tarball, you also need to create a new sha256 checksum
+* `node['java']['jdk']` - Version and architecture specific attributes for setting the
+URL on Oracle's site for the JDK, and the checksum of the .tar.gz.
+* `node['java']['remove_deprecated_packages']` - Removes the now deprecated Ubuntu JDK
+packages from the system, default `false`
 
 Recipes
 =======
