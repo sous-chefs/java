@@ -53,7 +53,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         # not currently set jdk 7 as the default jvm on installation
         require "fileutils"
         arch = node['kernel']['machine'] =~ /x86_64/ ?
-                                            platform_version == '12.04' ?
+                                            node['platform_version'] == '12.04' ?
                                               "amd64" :
                                               "x86_64" :
                                             "i386"
