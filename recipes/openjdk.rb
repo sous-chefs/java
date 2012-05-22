@@ -39,6 +39,14 @@ ruby_block  "set-env-java-home" do
   end
 end
 
+file "/etc/profile.d/jdk.sh" do
+  content <<-EOS
+    export JAVA_HOME=#{node['java']["java_home"]}
+  EOS
+  mode 0755
+end
+
+
 if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
   ruby_block "update-java-alternatives" do
     block do
