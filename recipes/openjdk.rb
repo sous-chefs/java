@@ -53,7 +53,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         # not currently set jdk 7 as the default jvm on installation
         require "fileutils"
         arch = node['kernel']['machine'] =~ /x86_64/ ? "x86_64" : "i386"
-        arch = 'amd64' if arch == 'x86_64' && node["platform_version"].to_f >= 12.04
+        arch = 'amd64' if arch == 'x86_64' && node['platform'] == 'ubuntu' && node["platform_version"].to_f >= 12.04
         glob = "#{java_home_parent}/java*#{version}*openjdk{,[-\.]#{arch}}"
         Chef::Log.debug("glob is #{glob}")
         jdk_home = Dir.glob(glob)[0]
