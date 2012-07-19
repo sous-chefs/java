@@ -54,8 +54,9 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         require "fileutils"
         arch = node['kernel']['machine'] =~ /x86_64/ ? "x86_64" : "i386"
         arch = 'amd64' if arch == 'x86_64' && node["platform_version"].to_f >= 12.04
-        Chef::Log.debug("glob is #{java_home_parent}/java*#{version}*openjdk*")
-        jdk_home = Dir.glob("#{java_home_parent}/java*#{version}*openjdk{,[-\.]#{arch}}")[0]
+        glob = "#{java_home_parent}/java*#{version}*openjdk{,[-\.]#{arch}}"
+        Chef::Log.debug("glob is #{glob}")
+        jdk_home = Dir.glob(glob)[0]
         Chef::Log.debug("jdk_home is #{jdk_home}")
         # delete the symlink if it already exists
         if ::File.exists? java_home
