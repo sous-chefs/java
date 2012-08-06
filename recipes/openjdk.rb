@@ -85,6 +85,6 @@ end
 pkgs.each do |pkg|
   package pkg do
     action :install
-    notifies :create, "ruby_block[update-java-alternatives]"  if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
+    notifies :create, "ruby_block[update-java-alternatives]", :immediately if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
   end
 end
