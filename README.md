@@ -3,34 +3,48 @@ Description
 
 Installs a Java. Uses OpenJDK by default but supports installation of Oracle's JDK.
 
-This cookbook also provides the `java_ark` LWRP which other java
-cookbooks can use to install java-related applications from binary
-packages.
-
-The `java_ark` LWPR may move to its own cookbook at some point in the
-future as its functionality is useful for other purposes.
-
 **IMPORTANT NOTE** As of 26 March 2012 you can no longer directly download
-the JDK from Oracle's website without using a full-fledged browser.
-For that reason, the java::oracle recipe forces you to set up a
-private repository accessible by HTTP. It is best to override the
-dummy URL using a role.
+the JDK from Oracle's website without using a special cookie. This cookbook uses
+that cookie to download the oracle recipe on your behalf, but . . . 
+
+the java::oracle recipe forces you to set either override
+the node['java']['oracle']['accept_onerous_download_terms'] to true or set up a
+private repository accessible by HTTP. 
 
 Example
 
+### override the `accept_onerous_download_terms`
+
 roles/base.rb
 
-    normal_attributes(
-      :java => {
-        :jdk => {
-          "6" => {
-            :x86_64 => {
-              :url => "http://hqlprrepo01.hq.un.fao.org/corporate/jdk-6u30-linux-x64.bin"
-            }
-          }
-        }
-      }
-    )
+```
+default_attributes(
+  :java => {
+     :oracle => {
+       "accept_onerous_download_terms" => true
+     }
+   }
+)
+```
+
+
+### alternately, using a role
+
+roles/base.rb
+
+```
+default_attributes(
+  :java => {
+     :jdk => {
+       "6" => {
+         :x86_64 => {
+           :url => "http://hqlprrepo01.hq.un.fao.org/corporate/jdk-6u30-linux-x64.bin"
+         }
+       }
+     }
+   }
+)
+```
 
 You are most encouraged to voice your complaints to Oracle and/or
 switch to OpenJDK.
@@ -84,7 +98,14 @@ This recipe installs the `openjdk` flavor of Java.
 oracle
 ------
 
-This recipe installs the `oracle` flavor of Java. This recipe does not
+This recipe installs the `oracle` flavor of Java. Since update JDK 1.6u27
+you must use a browser cookie in order to accept Oracle's Terms of Service. 
+
+You must specifically set node['java']['oracle']['accept_onerous_download_terms'] to
+true using an attribute. It is set to false by default. If you do not accept
+Oracle's onerous terms of service, you must override the url and checksum 
+attribute with your own.
+
 use distribution packages as Oracle changed the licensing terms with
 JDK 1.6u27 and prohibited the practice for both the debian and EL worlds.
 
@@ -107,88 +128,13 @@ same machine that require different versions of the JVM.
 Resources/Providers
 ===================
 
-This LWRP provides an easy way to manage java applications. It uses
-the LWRP arkive (deliberately misspelled). It is an arkive and not an
-"archive" because the `java_ark` lwrp is not the same as a java
-archive or "jar". Essentially, you provide the `java_ark` with the URL
-to a tarball and the commands within the extracted result that you
-want symlinked to /usr/bin/
-
-The `java_ark` LWPR may move to its own cookbook at some point in the
-future as its functionality is useful for other purposes.
-
-By default, the extracted directory is extracted to
-`app_root/extracted_dir_name` and symlinked to `app_root/default`
-
-# Actions
-
-- `:install`: extracts the tarball and makes necessary symlinks
-- `:remove`: removes the tarball and run update-alternatives for all
-  symlinked `bin_cmds`
-
-# Attribute Parameters
-
-- `url`: path to tarball, .tar.gz, .bin (oracle-specific), and .zip
-  currently supported
-- `checksum`: sha256 checksum, not used for security but avoid
-  redownloading the archive on each chef-client run
-- `app_home`: the default for installations of this type of
-  application, for example, `/usr/lib/tomcat/default`. If your
-  application is not set to the default, it will be placed at the same
-  level in the directory hierarchy but the directory name will be
-   `app_root/extracted_directory_name + "_alt"`
-- `app_home_mode`: file mode for app_home, is an integer
-- `bin_cmds`: array of binary commands that should be symlinked to
-  /usr/bin, examples are mvn, java, javac, etc. These cmds must be in
-  the bin/ subdirectory of the extracted folder. Will be ignored if this
-  java_ark is not the default
-- `owner`: owner of extracted directory, set to "root" by default
-- `default`: whether this the default installation of this package,
-  boolean true or false
-
-
-# Examples
-
-    # install jdk6 from Oracle
-    java_ark "jdk" do
-        url 'http://download.oracle.com/otn-pub/java/jdk/6u29-b11/jdk-6u29-linux-x64.bin'
-        checksum  'a8603fa62045ce2164b26f7c04859cd548ffe0e33bfc979d9fa73df42e3b3365'
-        app_home '/usr/local/java/default'
-        bin_cmds ["java", "javac"]
-        action :install
-    end
-
-    # installs maven2
-    java_ark "maven2" do
-        url "http://www.apache.org/dist/maven/binaries/apache-maven-2.2.1-bin.tar.gz"
-        checksum  "b9a36559486a862abfc7fb2064fd1429f20333caae95ac51215d06d72c02d376"
-        app_home "/usr/local/maven/default"
-        bin_cmds ["mvn"]
-        action :install
-    end
-
-Usage
-=====
-
-Simply include the `java` recipe where ever you would like Java installed.
-
-To install Oracle flavored Java on Debian or Ubuntu override the `node['java']['install_flavor']` attribute with in role:
-
-    name "java"
-    description "Install Oracle Java on Ubuntu"
-    override_attributes(
-      "java" => {
-        "install_flavor" => "oracle"
-      }
-    )
-    run_list(
-      "recipe[java]"
-    )
+This cookbook includess the "java_ark" LWRP that has been deprecated in favor of 
+the [ark](http://github.com/opscode-cookbooks/ark) cookbook.
 
 License and Author
 ==================
 
-Author:: Seth Chisamore (<schisamo@opscode.com>)
+Author:: Scott Chisamore (<schisamo@opscode.com>)
 Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 
 Copyright:: 2008-2012, Opscode, Inc
