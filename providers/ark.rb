@@ -31,10 +31,49 @@ def parse_app_dir_name url
     package_name = file_name.scan(/[a-z]+/)[0]
     app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
   else
-    app_dir_name = file_name.split(/(.tar.gz|.zip)/)[0]
+    app_dir_name = file_name.split(/(.tar.gz|.tgz|.zip)/)[0]
     app_dir_name = app_dir_name.split("-bin")[0]
   end
   [app_dir_name, file_name]
+end
+
+def download_direct_from_oracle(tarball_name, new_resource)
+  download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+  jdk_id = new_resource.url.scan(/\/([6789]u[0-9][0-9]?-b[0-9][0-9])\//)[0][0]
+  cookie = "oraclelicensejdk-#{jdk_id}-oth-JPR=accept-securebackup-cookie;gpw_e24=http://edelivery.oracle.com"
+  if node['java']['oracle']['accept_onerous_download_terms']
+    
+    # install the curl package
+    p = package "curl" do
+      action :nothing
+    end
+    p.run_action(:install)
+
+    cmd = Chef::ShellOut.new(
+                               %Q[ curl -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
+                               )
+    cmd.run_command
+    cmd.error!
+  else
+    Chef::Application.fatal!("You must set the attribute node['attribute']['oracle']['accept_onerous_download_terms'] to true if you want to download directly from the oracle site!")
+  end
+end
+
+def download_jdk(tarball_name, new_resource)
+  # a quick hack to allow using a local file
+  if new_resource.url =~ /^\/.*\/.*$/
+    FileUtils.cp new_resource.url, "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+  elsif new_resource.url =~ /^http:\/\/download.oracle.com.*$/
+    download_direct_from_oracle tarball_name, new_resource
+  else
+    r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+      source new_resource.url
+      checksum new_resource.checksum
+      mode 0755
+      action :nothing
+    end
+    r.run_action(:create_if_missing)
+  end
 end
 
 action :install do
@@ -59,19 +98,8 @@ action :install do
       FileUtils.chown new_resource.owner, new_resource.owner, app_root
     end
 
-    # a quick hack to allow using a local file
-    if new_resource.url =~ /^\/.*\/.*$/
-      FileUtils.cp new_resource.url, "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
-    else 
-      r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
-        source new_resource.url
-        checksum new_resource.checksum
-        mode 0755
-        action :nothing
-      end
-      r.run_action(:create_if_missing)
-    end
-    
+    download_jdk tarball_name, new_resource
+
     require 'tmpdir'
     
     tmpdir = Dir.mktmpdir
@@ -92,7 +120,7 @@ action :install do
       unless cmd.exitstatus == 0
         Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
       end
-    when /^.*\.tar.gz/
+    when /^.*\.(tar.gz|tgz)$/
       cmd = Chef::ShellOut.new(
                          %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
                                ).run_command

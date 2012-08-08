@@ -76,6 +76,10 @@ tarball, you also need to create a new sha256 checksum
 URL on Oracle's site for the JDK, and the checksum of the .tar.gz.
 * `node['java']['remove_deprecated_packages']` - Removes the now deprecated Ubuntu JDK
 packages from the system, default `false`
+* `node['java']['oracle']['accept_onerous_download_terms']` - Indicates that you accept 
+  oracle's EULA
+
+
 
 Recipes
 =======
@@ -125,11 +129,36 @@ This recipe installs the 32-bit Java virtual machine without setting
 it as the default. This can be useful if you have applications on the
 same machine that require different versions of the JVM.
 
+
+Testing with Vagrant
+====================
+
+The cookbook comes with a `Vagrantfile`, allowing you to test-drive the installation and configuration with Vagrant, a tool for building virtualized development infrastructures.
+
+First, make sure you have VirtualBox and Vagrant installed
+
+Next, clone this cookbook
+
+You need to download the required third-party cookbooks (unless you already have them in `~/cookbooks`).
+
+The easiest way is to use the bundled [_Berkshelf_](http://berkshelf.com) support:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~bash
+  berks install --shims ./tmp/cookbooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The `Vagrantfile` supports two combinations of Linux distribution and JVM so far:
+
+* Ubuntu Lucid 32 bit, oracle 7 jvm
+* CentOS 6 32 bit, oracle 7 jvm
+
+
 Resources/Providers
 ===================
 
 This cookbook includess the "java_ark" LWRP that has been deprecated in favor of 
 the [ark](http://github.com/opscode-cookbooks/ark) cookbook.
+
 
 License and Author
 ==================
