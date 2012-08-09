@@ -1,19 +1,22 @@
 distros = {
   :lucid32 => {
     :url    => 'http://files.vagrantup.com/lucid32.box',
-    :recipe => "openjdk"
+    :recipe => "openjdk",
+    :run_list => [ "apt" ]
   },
   :centos6_32 => {
     :url      => 'http://vagrant.sensuapp.org/centos-6-i386.box',
-    :recipe => "openjdk"
+    :recipe =>  "openjdk" 
   },
   :debian_squeeze_32 => {
     :url => 'http://mathie-vagrant-boxes.s3.amazonaws.com/debian_squeeze_32.box',
-    :recipe => "openjdk"
+    :recipe => "openjdk",
+    :run_list => [ "apt" ]
   },
   :precise32 => {
     :url => 'http://files.vagrantup.com/precise32.box',
-    :recipe => "openjdk"
+    :recipe => "openjdk",
+    :run_list => [ "apt" ]
   }
 }
 
@@ -37,14 +40,19 @@ Vagrant::Config.run do |config|
         chef.provisioning_path = '/etc/vagrant-chef'
         chef.log_level         = :debug
 
+	
         chef.run_list = [
                          "minitest-handler",
                          "java::#{options[:recipe]}" 
                         ]
-        
+        if options[:run_list]
+          options[:run_list].each {|recipe| chef.run_list.insert(0, recipe) }
+        end
+
         chef.json = {
           java: {
             jdk_version: "6",
+	    bin_cmds: [ "java", "jar", "jps", "jstack", "jstat" ],
             oracle: {
               accept_onerous_download_terms: true
             }

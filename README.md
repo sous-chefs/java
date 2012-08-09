@@ -68,6 +68,7 @@ See `attributes/default.rb` for default values.
 * `node["java"]["install_flavor"]` - Flavor of JVM you would like installed (`oracle` or
 `openjdk`), default `openjdk`.
 * `node['java']['java_home']` - Default location of the "`$JAVA_HOME`".
+* `node['java']['bin_cmds']` - binary commands within the JDK that should be symlinked to /usr/bin/
 * `node['java']['tarball']` - Name of the tarball to retrieve from your corporate
 repository default `jdk1.6.0_29_i386.tar.gz`
 * `node['java']['tarball_checksum']` - Checksum for the tarball, if you use a different
