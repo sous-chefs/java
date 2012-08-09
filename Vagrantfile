@@ -1,9 +1,19 @@
 distros = {
   :lucid32 => {
-    :url      => 'http://files.vagrantup.com/lucid32.box'
+    :url    => 'http://files.vagrantup.com/lucid32.box',
+    :recipe => "openjdk"
   },
   :centos6_32 => {
-    :url      => 'http://vagrant.sensuapp.org/centos-6-i386.box'
+    :url      => 'http://vagrant.sensuapp.org/centos-6-i386.box',
+    :recipe => "openjdk"
+  },
+  :debian_squeeze_32 => {
+    :url => 'http://mathie-vagrant-boxes.s3.amazonaws.com/debian_squeeze_32.box',
+    :recipe => "openjdk"
+  },
+  :precise32 => {
+    :url => 'http://files.vagrantup.com/precise32.box',
+    :recipe => "openjdk"
   }
 }
 
@@ -29,7 +39,7 @@ Vagrant::Config.run do |config|
 
         chef.run_list = [
                          "minitest-handler",
-                         "java::oracle" 
+                         "java::#{options[:recipe]}" 
                         ]
         
         chef.json = {
