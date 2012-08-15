@@ -17,19 +17,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version = node['java']['jdk_version']
+jdk_version = node['java']['jdk_version']
 java_home = node['java']['java_home']
 java_home_parent = ::File.dirname java_home
 jdk_home = ""
 
 pkgs = value_for_platform(
   ["centos","redhat","fedora","scientific","amazon"] => {
-    "default" => ["java-1.#{version}.0-openjdk","java-1.#{version}.0-openjdk-devel"]
+    "default" => ["java-1.#{jdk_version}.0-openjdk","java-1.#{jdk_version}.0-openjdk-devel"]
   },
   ["arch","freebsd"] => {
-    "default" => ["openjdk#{version}"]
+    "default" => ["openjdk#{jdk_version}"]
   },
-  "default" => ["openjdk-#{version}-jdk"]
+  "default" => ["openjdk-#{jdk_version}-jdk"]
   )
 
 # done by special request for rberger
@@ -44,7 +44,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
     block do
       arch = node['kernel']['machine'] =~ /x86_64/ ? "x86_64" : "i386"
       arch = 'amd64' if arch == 'x86_64' && node["platform_version"].to_f >= 12.04
-      if platform?("ubuntu", "debian") and version == 6
+      if platform?("ubuntu", "debian") and jdk_version == 6
         java_name = if node["platform_version"].to_f >= 11.10
           "java-1.6.0-openjdk"
         else
@@ -60,8 +60,8 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         # have to do this on ubuntu for version 7 because Ubuntu does
         # not currently set jdk 7 as the default jvm on installation
         require "fileutils"
-        Chef::Log.debug("glob is #{java_home_parent}/java*#{version}*openjdk*")
-        jdk_home = Dir.glob("#{java_home_parent}/java*#{version}*openjdk{,[-\.]#{arch}}")[0]
+        Chef::Log.debug("glob is #{java_home_parent}/java*#{jdk_version}*openjdk*")
+        jdk_home = Dir.glob("#{java_home_parent}/java*#{jdk_version}*openjdk{,[-\.]#{arch}}")[0]
         Chef::Log.debug("jdk_home is #{jdk_home}")
         # delete the symlink if it already exists
         if ::File.exists? java_home
