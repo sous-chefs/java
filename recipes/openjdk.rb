@@ -50,7 +50,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         else
           "java-6-openjdk"
         end
-        java_name += "-i386" if arch == "i386" && node['platform_version'] >= 12.04
+        java_name += "-i386" if arch == "i386" && node['platform_version'].to_f >= 12.04
         run_context = Chef::RunContext.new(node, {})
         r = Chef::Resource::Execute.new("update-java-alternatives", run_context)
         r.command "update-java-alternatives -s #{java_name}"
