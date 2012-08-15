@@ -17,19 +17,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version = node['java']['jdk_version']
+jdk_version = node['java']['jdk_version']
 java_home = node['java']['java_home']
 java_home_parent = ::File.dirname java_home
 jdk_home = ""
 
 pkgs = value_for_platform(
   ["centos","redhat","fedora","scientific","amazon"] => {
-    "default" => ["java-1.#{version}.0-openjdk","java-1.#{version}.0-openjdk-devel"]
+    "default" => ["java-1.#{jdk_version}.0-openjdk","java-1.#{jdk_version}.0-openjdk-devel"]
   },
   ["arch","freebsd"] => {
-    "default" => ["openjdk#{version}"]
+    "default" => ["openjdk#{jdk_version}"]
   },
-  "default" => ["openjdk-#{version}-jdk"]
+  "default" => ["openjdk-#{jdk_version}-jdk"]
   )
 
 # done by special request for rberger
@@ -42,20 +42,26 @@ end
 if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
   ruby_block "update-java-alternatives" do
     block do
-      if platform?("ubuntu", "debian") and version == 6
+      arch = node['kernel']['machine'] =~ /x86_64/ ? "x86_64" : "i386"
+      arch = 'amd64' if arch == 'x86_64' && node["platform_version"].to_f >= 12.04
+      if platform?("ubuntu", "debian") and jdk_version == 6
+        java_name = if node["platform_version"].to_f >= 11.10
+          "java-1.6.0-openjdk"
+        else
+          "java-6-openjdk"
+        end
+        java_name += "-i386" if arch == "i386" && node['platform_version'].to_f >= 12.04
         run_context = Chef::RunContext.new(node, {})
         r = Chef::Resource::Execute.new("update-java-alternatives", run_context)
-        r.command "update-java-alternatives -s java-6-openjdk"
+        r.command "update-java-alternatives -s #{java_name}"
         r.returns [0,2]
         r.run_action(:create)
       else
         # have to do this on ubuntu for version 7 because Ubuntu does
         # not currently set jdk 7 as the default jvm on installation
         require "fileutils"
-        arch = node['kernel']['machine'] =~ /x86_64/ ? "x86_64" : "i386"
-        arch = 'amd64' if arch == 'x86_64' && node["platform_version"].to_f >= 12.04
-        Chef::Log.debug("glob is #{java_home_parent}/java*#{version}*openjdk*")
-        jdk_home = Dir.glob("#{java_home_parent}/java*#{version}*openjdk{,[-\.]#{arch}}")[0]
+        Chef::Log.debug("glob is #{java_home_parent}/java*#{jdk_version}*openjdk*")
+        jdk_home = Dir.glob("#{java_home_parent}/java*#{jdk_version}*openjdk{,[-\.]#{arch}}")[0]
         Chef::Log.debug("jdk_home is #{jdk_home}")
         # delete the symlink if it already exists
         if ::File.exists? java_home
@@ -79,6 +85,6 @@ end
 pkgs.each do |pkg|
   package pkg do
     action :install
-    notifies :create, "ruby_block[update-java-alternatives]"  if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
+    notifies :create, "ruby_block[update-java-alternatives]", :immediately if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
   end
 end
