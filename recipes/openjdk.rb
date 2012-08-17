@@ -1,5 +1,5 @@
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
-# Author:: Seth Chisamore (<schisamo@opscode.com>)
+# Author:: Scott Chisamore (<schisamo@opscode.com>)
 # Cookbook Name:: java
 # Recipe:: openjdk
 #
@@ -39,6 +39,14 @@ ruby_block  "set-env-java-home" do
   end
 end
 
+file "/etc/profile.d/jdk.sh" do
+  content <<-EOS
+    export JAVA_HOME=#{node['java']["java_home"]}
+  EOS
+  mode 0755
+end
+
+
 if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
   ruby_block "update-java-alternatives" do
     block do
@@ -47,7 +55,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
         r = Chef::Resource::Execute.new("update-java-alternatives", run_context)
         r.command "update-java-alternatives -s java-6-openjdk"
         r.returns [0,2]
-        r.run_action(:create)
+        r.run_action(:create)   
       else
         # have to do this on ubuntu for version 7 because Ubuntu does
         # not currently set jdk 7 as the default jvm on installation
@@ -62,14 +70,14 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
           FileUtils.rm_f java_home
         end
         FileUtils.ln_sf jdk_home, java_home
-
+        
+      end
+      node['java']['bin_cmds'].each do |bin_cmd|
         cmd = Chef::ShellOut.new(
-          %Q[ update-alternatives --install /usr/bin/java java #{java_home}/bin/java 1;
-             update-alternatives --set java #{java_home}/bin/java  ]
-          ).run_command
-        unless cmd.exitstatus == 0 or  cmd.exitstatus == 2
-          Chef::Application.fatal!("Failed to update-alternatives for openjdk!")
-        end
+                                 %Q[ update-alternatives --install /usr/bin/#{bin_cmd} #{bin_cmd} #{java_home}/bin/#{bin_cmd} 1;
+                                       update-alternatives --set #{bin_cmd} #{java_home}/bin/#{bin_cmd}  ]
+                                 ).run_command
+        cmd.error!
       end
     end
     action :nothing

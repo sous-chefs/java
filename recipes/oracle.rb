@@ -1,4 +1,4 @@
-#
+B#
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 # Cookbook Name:: java
 # Recipe:: oracle
@@ -36,10 +36,6 @@ when "7"
   tarball_checksum = node['java']['jdk']['7'][arch]['checksum']
 end
 
-if tarball_url =~ /example.com/
-  Chef::Application.fatal!("You must change the download link to your private repository. You can no longer download java directly from http://download.oracle.com without a web broswer")
-end
-
 ruby_block  "set-env-java-home" do
   block do
     ENV["JAVA_HOME"] = java_home
@@ -58,7 +54,7 @@ java_ark "jdk" do
   url tarball_url
   checksum tarball_checksum
   app_home java_home
-  bin_cmds ["java", "jar"]
+  bin_cmds node['java']["java_home"]
   action :install
 end
 
