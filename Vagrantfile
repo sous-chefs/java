@@ -4,8 +4,8 @@ distros = {
     :recipe => "openjdk",
     :run_list => [ "apt" ]
   },
-  :centos6_32 => {
-    :url      => 'http://vagrant.sensuapp.org/centos-6-i386.box',
+  :centos6_3_32 => {
+    :url      => 'https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-6.3-i386.box',
     :recipe =>  "openjdk" 
   },
   :debian_squeeze_32 => {
@@ -32,11 +32,11 @@ Vagrant::Config.run do |config|
         vm.memory_size = 1024
       end
 
-      dist_config.vm.network :bridged, '33.33.33.10'
+#      dist_config.vm.network :bridged, '33.33.33.10'
       
       dist_config.vm.provision :chef_solo do |chef|
 
-        chef.cookbooks_path    = [ '/tmp/cookbooks' ]
+        chef.cookbooks_path    = [ '/tmp/java-cookbooks' ]
         chef.provisioning_path = '/etc/vagrant-chef'
         chef.log_level         = :debug
 
