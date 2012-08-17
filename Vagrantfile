@@ -1,6 +1,6 @@
 distros = {
   :lucid32 => {
-    :url    => 'http://files.vagrantup.com/lucid32.box',
+    :url    => 'https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-ubuntu-10.04-i386.box',
     :recipe => "openjdk",
     :run_list => [ "apt" ]
   },
@@ -14,7 +14,7 @@ distros = {
     :run_list => [ "apt" ]
   },
   :precise32 => {
-    :url => 'http://files.vagrantup.com/precise32.box',
+    :url => 'https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-ubuntu-12.04-i386.box',
     :recipe => "openjdk",
     :run_list => [ "apt" ]
   }
@@ -32,8 +32,6 @@ Vagrant::Config.run do |config|
         vm.memory_size = 1024
       end
 
-#      dist_config.vm.network :bridged, '33.33.33.10'
-      
       dist_config.vm.provision :chef_solo do |chef|
 
         chef.cookbooks_path    = [ '/tmp/java-cookbooks' ]
