@@ -1,3 +1,9 @@
+## v1.5.4:
+
+* [COOK-885] - update alternatives called on wrong file
+* [COOK-1607] - use shellout instead of execute resource to update
+  alternatives
+
 ## v1.5.2:
 
 * [COOK-1200] - remove sun-java6-jre on Ubuntu before installing
