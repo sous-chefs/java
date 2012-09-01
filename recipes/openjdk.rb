@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-jdk_version = node['java']['jdk_version']
+jdk_version = node['java']['jdk_version'].to_i
 java_home = node['java']['java_home']
 java_home_parent = ::File.dirname java_home
 jdk_home = ""
@@ -51,17 +51,13 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
           "java-6-openjdk"
         end
         java_name += "-i386" if arch == "i386" && node['platform_version'].to_f >= 12.04
-        run_context = Chef::RunContext.new(node, {})
-        r = Chef::Resource::Execute.new("update-java-alternatives", run_context)
-        r.command "update-java-alternatives -s #{java_name}"
-        r.returns [0,2]
-        r.run_action(:create)
+        Chef::ShellOut.new("update-java-alternatives","-s", java_name, :returns => [0,2]).run_command
       else
         # have to do this on ubuntu for version 7 because Ubuntu does
         # not currently set jdk 7 as the default jvm on installation
         require "fileutils"
-        Chef::Log.debug("glob is #{java_home_parent}/java*#{jdk_version}*openjdk*")
-        jdk_home = Dir.glob("#{java_home_parent}/java*#{jdk_version}*openjdk{,[-\.]#{arch}}")[0]
+        Chef::Log.debug("glob is #{java_home_parent}/java*#{jdk_version}*openjdk*#{arch}")
+        jdk_home = Dir.glob("#{java_home_parent}/java*#{jdk_version}*openjdk*#{arch}").first
         Chef::Log.debug("jdk_home is #{jdk_home}")
         # delete the symlink if it already exists
         if ::File.exists? java_home
