@@ -37,6 +37,37 @@ def parse_app_dir_name url
   [app_dir_name, file_name]
 end
 
+def oracle_downloaded?(download_path, new_resource)
+  if ::File.exists? download_path
+    require 'digest'
+    downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
+    downloaded_sha == new_resource.checksum
+  else
+    return false
+  end
+end
+
+def download_direct_from_oracle(tarball_name, new_resource)
+  download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+  jdk_id = new_resource.url.scan(/\/([6789]u[0-9][0-9]?-b[0-9][0-9])\//)[0][0]
+  cookie = "oraclelicensejdk-#{jdk_id}-oth-JPR=accept-securebackup-cookie;gpw_e24=http://edelivery.oracle.com"
+  if node['java']['oracle']['accept_onerous_download_terms']
+    # install the curl package
+    p = package "curl" do
+      action :nothing
+    end
+    p.run_action(:install)
+    Chef::Log.debug "downloading oracle tarball straight from the source"
+    cmd = Chef::ShellOut.new(
+                               %Q[ curl -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
+                               )
+    cmd.run_command
+    cmd.error!
+  else
+    Chef::Application.fatal!("You must set the attribute node['attribute']['oracle']['accept_onerous_download_terms'] to true if you want to download directly from the oracle site!")
+  end
+end
+
 action :install do
   app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
@@ -59,13 +90,23 @@ action :install do
       FileUtils.chown new_resource.owner, new_resource.owner, app_root
     end
 
-    r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
-      source new_resource.url
-      checksum new_resource.checksum
-      mode 0755
-      action :nothing
+    if new_resource.url =~ /^http:\/\/download.oracle.com.*$/
+      download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+      if  oracle_downloaded?(download_path, new_resource)
+        Chef::Log.debug("oracle tarball already downloaded, not downloading again")
+      else 
+        download_direct_from_oracle tarball_name, new_resource
+      end
+    else
+      Chef::Log.debug("downloading tarball from an unofficial repository")
+      r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+        source new_resource.url
+        checksum new_resource.checksum
+        mode 0755
+        action :nothing
+      end
+      r.run_action(:create_if_missing)
     end
-    r.run_action(:create_if_missing)
     
     require 'tmpdir'
     
