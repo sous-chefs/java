@@ -185,6 +185,14 @@ To install Oracle flavored Java on Debian or Ubuntu override the `node['java']['
       "recipe[java]"
     )
 
+Development
+===========
+
+This cookbook uses
+[test-kitchen](https://github.com/opscode/test-kitchen) for
+integration tests. Pull requests should pass existing tests in
+files/default/tests/minitest-handler. Additional tests are always welcome.
+
 License and Author
 ==================
 
