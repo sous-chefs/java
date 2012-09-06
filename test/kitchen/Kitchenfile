@@ -1,3 +1,5 @@
 cookbook "java" do
+  configuration("openjdk"){ runtimes [] }
+  configuration("oracle"){ runtimes [] }
   runtimes []
 end
