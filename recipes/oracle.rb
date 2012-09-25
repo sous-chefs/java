@@ -46,10 +46,8 @@ ruby_block  "set-env-java-home" do
   end
 end
 
-file "/etc/profile.d/jdk.sh" do
-  content <<-EOS
-    export JAVA_HOME=#{node['java']["java_home"]}
-  EOS
+template "/etc/profile.d/jdk.sh" do
+  source "jdk.erb"
   mode 0755
 end
 
@@ -61,4 +59,5 @@ java_ark "jdk" do
   bin_cmds ["java"]
   action :install
 end
+
 
