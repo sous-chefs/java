@@ -6,33 +6,32 @@ Installs a Java. Uses OpenJDK by default but supports installation of Oracle's J
 This cookbook contains the `java_ark` LWPR which has been deprecated
 in favor of [ark](https://github.com/opscode-cookbooks/ark).
 
-**IMPORTANT NOTE** 
+**IMPORTANT NOTE**
+
 As of 26 March 2012 you can no longer directly download
 the JDK from Oracle's website without using a special cookie. This cookbook uses
-that cookie to download the oracle recipe on your behalf, but . . . 
+that cookie to download the oracle recipe on your behalf, but . . .
 
-the java::oracle recipe forces you to set either override 
-the node['java']['oracle']['accept_onerous_download_terms'] to true or set up a
-private repository accessible by HTTP. 
+the java::oracle recipe forces you to set either override
+the `node['java']['oracle']['accept_oracle_download_terms']` to true or set up a
+private repository accessible by HTTP.
 
 Example
 
-### override the `accept_onerous_download_terms`
+### override the `accept_oracle_download_terms`
 
 roles/base.rb
 This cookbook also provides the `java_ark` LWRP which other java
 cookbooks can use to install java-related applications from binary
 packages.
- 
-```
-default_attributes(
-  :java => {
-     :oracle => {
-       "accept_onerous_download_terms" => true
-     }
-   }
-)
-```
+
+    default_attributes(
+      :java => {
+         :oracle => {
+           "accept_oracle_download_terms" => true
+         }
+       }
+    )
 
 You are most encouraged to voice your complaints to Oracle and/or
 switch to OpenJDK.
@@ -64,8 +63,8 @@ tarball, you also need to create a new sha256 checksum
 URL on Oracle's site for the JDK, and the checksum of the .tar.gz.
 * `node['java']['remove_deprecated_packages']` - Removes the now deprecated Ubuntu JDK
 packages from the system, default `false`
-* `node['java']['oracle']['accept_onerous_download_terms']` - Indicates that you accept 
-  oracle's EULA
+* `node['java']['oracle']['accept_oracle_download_terms']` - Indicates that you accept
+  Oracle's EULA
 
 Recipes
 =======

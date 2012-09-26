@@ -64,7 +64,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     cmd.run_command
     cmd.error!
   else
-    Chef::Application.fatal!("You must set the attribute node['attribute']['oracle']['accept_onerous_download_terms'] to true if you want to download directly from the oracle site!")
+    Chef::Application.fatal!("You must set the attribute node['attribute']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
   end
 end
 
@@ -80,11 +80,11 @@ action :install do
   else
     app_home = new_resource.app_home
   end
-  
+
   unless ::File.exists?(app_dir)
     Chef::Log.info "Adding #{new_resource.name} to #{app_dir}"
     require 'fileutils'
-    
+
     unless ::File.exists?(app_root)
       FileUtils.mkdir app_root, :mode => new_resource.app_home_mode
       FileUtils.chown new_resource.owner, new_resource.owner, app_root
@@ -94,7 +94,7 @@ action :install do
       download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
       if  oracle_downloaded?(download_path, new_resource)
         Chef::Log.debug("oracle tarball already downloaded, not downloading again")
-      else 
+      else
         download_direct_from_oracle tarball_name, new_resource
       end
     else
@@ -107,9 +107,9 @@ action :install do
       end
       r.run_action(:create_if_missing)
     end
-    
+
     require 'tmpdir'
-    
+
     tmpdir = Dir.mktmpdir
     case tarball_name
     when /^.*\.bin/

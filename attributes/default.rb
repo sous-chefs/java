@@ -36,10 +36,8 @@ else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
 end
 
-# If you change this to true, you can download directly from the
-# oracle site
-# Larry Ellison may own your soul after you change this to true
-default['java']['oracle']['accept_onerous_download_terms'] = false
+# If you change this to true, you can download directly from Oracle
+default['java']['oracle']['accept_oracle_download_terms'] = false
 
 # direct download paths for oracle, u been warned!
 
