@@ -1,3 +1,8 @@
 cookbook "java" do
+  configuration("openjdk"){ runtimes [] }
+  configuration("oracle"){
+    runtimes []
+    run_list_extras ["java_test::oracle"]
+  }
   runtimes []
 end

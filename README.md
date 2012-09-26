@@ -3,33 +3,34 @@ Description
 
 Installs a Java. Uses OpenJDK by default but supports installation of Oracle's JDK.
 
+This cookbook contains the `java_ark` LWPR which has been deprecated
+in favor of [ark](https://github.com/opscode-cookbooks/ark).
+
+**IMPORTANT NOTE**
+
+As of 26 March 2012 you can no longer directly download
+the JDK from Oracle's website without using a special cookie. This cookbook uses
+that cookie to download the oracle recipe on your behalf, but . . .
+
+the java::oracle recipe forces you to set either override
+the `node['java']['oracle']['accept_oracle_download_terms']` to true or set up a
+private repository accessible by HTTP.
+
+Example
+
+### override the `accept_oracle_download_terms`
+
+roles/base.rb
 This cookbook also provides the `java_ark` LWRP which other java
 cookbooks can use to install java-related applications from binary
 packages.
 
-The `java_ark` LWPR may move to its own cookbook at some point in the
-future as its functionality is useful for other purposes.
-
-**IMPORTANT NOTE** As of 26 March 2012 you can no longer directly download
-the JDK from Oracle's website without using a full-fledged browser.
-For that reason, the java::oracle recipe forces you to set up a
-private repository accessible by HTTP. It is best to override the
-dummy URL using a role.
-
-Example
-
-roles/base.rb
-
-    normal_attributes(
+    default_attributes(
       :java => {
-        :jdk => {
-          "6" => {
-            :x86_64 => {
-              :url => "http://hqlprrepo01.hq.un.fao.org/corporate/jdk-6u30-linux-x64.bin"
-            }
-          }
-        }
-      }
+         :oracle => {
+           "accept_oracle_download_terms" => true
+         }
+       }
     )
 
 You are most encouraged to voice your complaints to Oracle and/or
@@ -62,6 +63,8 @@ tarball, you also need to create a new sha256 checksum
 URL on Oracle's site for the JDK, and the checksum of the .tar.gz.
 * `node['java']['remove_deprecated_packages']` - Removes the now deprecated Ubuntu JDK
 packages from the system, default `false`
+* `node['java']['oracle']['accept_oracle_download_terms']` - Indicates that you accept
+  Oracle's EULA
 
 Recipes
 =======
@@ -107,15 +110,8 @@ same machine that require different versions of the JVM.
 Resources/Providers
 ===================
 
-This LWRP provides an easy way to manage java applications. It uses
-the LWRP arkive (deliberately misspelled). It is an arkive and not an
-"archive" because the `java_ark` lwrp is not the same as a java
-archive or "jar". Essentially, you provide the `java_ark` with the URL
-to a tarball and the commands within the extracted result that you
-want symlinked to /usr/bin/
-
-The `java_ark` LWPR may move to its own cookbook at some point in the
-future as its functionality is useful for other purposes.
+This cookbook contains the `java_ark` LWPR which has been deprecated
+in favor of [ark](https://github.com/opscode-cookbooks/ark).
 
 By default, the extracted directory is extracted to
 `app_root/extracted_dir_name` and symlinked to `app_root/default`
@@ -158,14 +154,6 @@ By default, the extracted directory is extracted to
         action :install
     end
 
-    # installs maven2
-    java_ark "maven2" do
-        url "http://www.apache.org/dist/maven/binaries/apache-maven-2.2.1-bin.tar.gz"
-        checksum  "b9a36559486a862abfc7fb2064fd1429f20333caae95ac51215d06d72c02d376"
-        app_home "/usr/local/maven/default"
-        bin_cmds ["mvn"]
-        action :install
-    end
 
 Usage
 =====
@@ -184,6 +172,14 @@ To install Oracle flavored Java on Debian or Ubuntu override the `node['java']['
     run_list(
       "recipe[java]"
     )
+
+Development
+===========
+
+This cookbook uses
+[test-kitchen](https://github.com/opscode/test-kitchen) for
+integration tests. Pull requests should pass existing tests in
+files/default/tests/minitest-handler. Additional tests are always welcome.
 
 License and Author
 ==================
