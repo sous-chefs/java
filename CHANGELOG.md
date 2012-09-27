@@ -1,3 +1,9 @@
+## v1.6.0:
+
+* [COOK-1218] - Install Oracle JDK from Oracle download directly
+* [COOK-1631] - set JAVA_HOME in openjdk recipe
+* [COOK-1655] - Install correct architecture on Amazon Linux
+
 ## v1.5.4:
 
 * [COOK-885] - update alternatives called on wrong file
