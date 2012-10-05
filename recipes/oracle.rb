@@ -58,7 +58,7 @@ java_ark "jdk" do
   url tarball_url
   checksum tarball_checksum
   app_home java_home
-  bin_cmds ["java", "jar"]
-  action :install
+  bin_cmds node['java']['bin_cmds']
+  action node['java']['action']
 end
 
