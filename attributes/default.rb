@@ -36,10 +36,10 @@ else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
 end
 
-# If you change this to true, you can download directly from Oracle
+# if you change this to true, you can download directly from Oracle
 default['java']['oracle']['accept_oracle_download_terms'] = false
 
-# direct download paths for oracle, u been warned!
+# direct download paths for oracle, you have been warned!
 
 # jdk6 attributes
 # x86_64
