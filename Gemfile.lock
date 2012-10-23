@@ -3,7 +3,7 @@ GEM
   specs:
     archive-tar-minitar (0.5.2)
     bunny (0.7.9)
-    chef (10.14.2)
+    chef (10.16.0)
       bunny (>= 0.6.0, < 0.8.0)
       erubis
       highline (>= 1.6.9)
@@ -21,9 +21,9 @@ GEM
       treetop (~> 1.4.9)
       uuidtools
       yajl-ruby (~> 1.1)
-    childprocess (0.3.5)
+    childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
-    coderay (1.0.7)
+    coderay (1.0.8)
     erubis (2.7.0)
     ffi (1.1.5)
     foodcritic (1.6.1)
@@ -35,7 +35,7 @@ GEM
       rak (~> 1.4)
       treetop (~> 1.4.10)
       yajl-ruby (~> 1.1.0)
-    gherkin (2.11.2)
+    gherkin (2.11.5)
       json (>= 1.4.6)
     gist (3.1.0)
     hashr (0.0.22)
@@ -43,7 +43,7 @@ GEM
     i18n (0.6.1)
     ipaddress (0.8.0)
     json (1.5.4)
-    librarian (0.0.24)
+    librarian (0.0.25)
       archive-tar-minitar (>= 0.5.2)
       chef (>= 0.10)
       highline
@@ -67,7 +67,7 @@ GEM
       net-ssh (>= 2.1.4)
       net-ssh-gateway (>= 0.99.0)
     nokogiri (1.5.0)
-    ohai (6.14.1)
+    ohai (6.14.0)
       ipaddress
       mixlib-cli
       mixlib-config
@@ -84,7 +84,7 @@ GEM
       mime-types (>= 1.16)
     slop (2.4.4)
     systemu (2.5.2)
-    test-kitchen (0.5.4)
+    test-kitchen (0.6.0)
       foodcritic (~> 1.4)
       hashr (~> 0.0.20)
       highline (>= 1.6.9)
@@ -93,7 +93,7 @@ GEM
       vagrant (~> 1.0.2)
       yajl-ruby (~> 1.1.0)
     thor (0.16.0)
-    treetop (1.4.10)
+    treetop (1.4.11)
       polyglot
       polyglot (>= 0.3.1)
     uuidtools (2.1.3)
