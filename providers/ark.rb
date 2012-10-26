@@ -122,7 +122,7 @@ action :install do
 
     require 'tmpdir'
 
-    description = "create tmpdir,\\nextract compressed data into tmpdir,\\n
+    description = "create tmpdir, extract compressed data into tmpdir,
                     move extracted data to #{app_dir} and delete tmpdir"
     converge_by(description) do
        tmpdir = Dir.mktmpdir
