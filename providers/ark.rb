@@ -64,7 +64,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     cmd.run_command
     cmd.error!
   else
-    Chef::Application.fatal!("You must set the attribute node['attribute']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
+    Chef::Application.fatal!("You must set the attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
   end
 end
 
