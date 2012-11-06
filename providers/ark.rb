@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+def whyrun_supported?
+  true
+end
+
 def parse_app_dir_name url
   file_name = url.split('/')[-1]
   # funky logic to parse oracle's non-standard naming convention
@@ -56,13 +60,17 @@ def download_direct_from_oracle(tarball_name, new_resource)
     p = package "curl" do
       action :nothing
     end
+    # no converge_by block since the package provider will take care of this run_action
     p.run_action(:install)
-    Chef::Log.debug "downloading oracle tarball straight from the source"
-    cmd = Chef::ShellOut.new(
-                               %Q[ curl -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
+    description = "download oracle tarball straight from the server"
+    converge_by(description) do
+       Chef::Log.debug "downloading oracle tarball straight from the source"
+       cmd = Chef::ShellOut.new(
+                                  %Q[ curl -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
                                )
-    cmd.run_command
-    cmd.error!
+       cmd.run_command
+       cmd.error!
+    end
   else
     Chef::Application.fatal!("You must set the attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
   end
@@ -86,8 +94,11 @@ action :install do
     require 'fileutils'
 
     unless ::File.exists?(app_root)
-      FileUtils.mkdir app_root, :mode => new_resource.app_home_mode
-      FileUtils.chown new_resource.owner, new_resource.owner, app_root
+      description = "create dir #{app_root} and change owner to #{new_resource.owner}"
+      converge_by(description) do
+          FileUtils.mkdir app_root, :mode => new_resource.app_home_mode
+          FileUtils.chown new_resource.owner, new_resource.owner, app_root
+      end
     end
 
     if new_resource.url =~ /^http:\/\/download.oracle.com.*$/
@@ -105,46 +116,50 @@ action :install do
         mode 0755
         action :nothing
       end
+      #no converge by on run_action remote_file takes care of it.
       r.run_action(:create_if_missing)
     end
 
     require 'tmpdir'
 
-    tmpdir = Dir.mktmpdir
-    case tarball_name
-    when /^.*\.bin/
-      cmd = Chef::ShellOut.new(
-                               %Q[ cd "#{tmpdir}";
-                                   cp "#{Chef::Config[:file_cache_path]}/#{tarball_name}" . ;
-                                   bash ./#{tarball_name} -noregister
-                                 ] ).run_command
-      unless cmd.exitstatus == 0
-        Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-      end
-    when /^.*\.zip/
-      cmd = Chef::ShellOut.new(
-                         %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmpdir}" ]
-                               ).run_command
-      unless cmd.exitstatus == 0
-        Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-      end
-    when /^.*\.tar.gz/
-      cmd = Chef::ShellOut.new(
-                         %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
-                               ).run_command
-      unless cmd.exitstatus == 0
-        Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-      end
-    end
+    description = "create tmpdir, extract compressed data into tmpdir,
+                    move extracted data to #{app_dir} and delete tmpdir"
+    converge_by(description) do
+       tmpdir = Dir.mktmpdir
+       case tarball_name
+       when /^.*\.bin/
+         cmd = Chef::ShellOut.new(
+                                  %Q[ cd "#{tmpdir}";
+                                      cp "#{Chef::Config[:file_cache_path]}/#{tarball_name}" . ;
+                                      bash ./#{tarball_name} -noregister
+                                    ] ).run_command
+         unless cmd.exitstatus == 0
+           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
+         end
+       when /^.*\.zip/
+         cmd = Chef::ShellOut.new(
+                            %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmpdir}" ]
+                                  ).run_command
+         unless cmd.exitstatus == 0
+           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
+         end
+       when /^.*\.tar.gz/
+         cmd = Chef::ShellOut.new(
+                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
+                                  ).run_command
+         unless cmd.exitstatus == 0
+           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
+         end
+       end
 
-    cmd = Chef::ShellOut.new(
-                       %Q[ mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" ]
-                             ).run_command
-    unless cmd.exitstatus == 0
-        Chef::Application.fatal!(%Q[ Command \' mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" \' failed ])
-      end
-    FileUtils.rm_r tmpdir
-    new_resource.updated_by_last_action(true)
+       cmd = Chef::ShellOut.new(
+                          %Q[ mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" ]
+                                ).run_command
+       unless cmd.exitstatus == 0
+           Chef::Application.fatal!(%Q[ Command \' mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" \' failed ])
+         end
+       FileUtils.rm_r tmpdir
+     end
   end
 
   #update-alternatives
@@ -152,9 +167,12 @@ action :install do
     Chef::Log.debug "app_home is #{app_home} and app_dir is #{app_dir}"
     current_link = ::File.symlink?(app_home) ? ::File.readlink(app_home) : nil
     if current_link != app_dir
-      Chef::Log.debug "symlinking #{app_dir} to #{app_home}"
-      FileUtils.rm_f app_home
-      FileUtils.ln_sf app_dir, app_home
+      description = "symlink  #{app_dir} to #{app_home}"
+      converge_by(description) do
+         Chef::Log.debug "symlinking #{app_dir} to #{app_home}"
+         FileUtils.rm_f app_home
+         FileUtils.ln_sf app_dir, app_home
+      end
     end
     if new_resource.bin_cmds
       new_resource.bin_cmds.each do |cmd|
@@ -165,12 +183,14 @@ action :install do
         end
         should_be_link = "#{app_home}/bin/#{cmd}"
         if current_bin_link != should_be_link
-          cmd = Chef::ShellOut.new(
-                                   %Q[ update-alternatives --install /usr/bin/#{cmd} #{cmd} #{app_home}/bin/#{cmd} 1;
-                                       update-alternatives --set #{cmd} #{app_home}/bin/#{cmd}  ]
-                                   ).run_command
-          unless cmd.exitstatus == 0
-            Chef::Application.fatal!(%Q[ update alternatives  failed ])
+          converge_by("update-alternatives") do
+             cmd = Chef::ShellOut.new(
+                                      %Q[ update-alternatives --install /usr/bin/#{cmd} #{cmd} #{app_home}/bin/#{cmd} 1;
+                                          update-alternatives --set #{cmd} #{app_home}/bin/#{cmd}  ]
+                                     ).run_command
+             unless cmd.exitstatus == 0
+                Chef::Application.fatal!(%Q[ update alternatives  failed ])
+             end
           end
         end
       end
@@ -190,10 +210,13 @@ action :remove do
         returns [0,2]
         action :nothing
       end
+      # the execute resource will take care of of the run_action(:run)
       cmd.run_action(:run)
     end
-    Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
-    FileUtils.rm_rf app_dir
-    new_resource.updated_by_last_action(true)
+    description = "remove #{new_resource.name} at #{app_dir}"
+    converge_by(description) do
+       Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
+       FileUtils.rm_rf app_dir
+    end
   end
 end
