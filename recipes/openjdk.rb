@@ -29,7 +29,7 @@ pkgs = value_for_platform(
   ["arch","freebsd"] => {
     "default" => ["openjdk#{jdk_version}"]
   },
-  "default" => ["openjdk-#{jdk_version}-jdk"]
+  "default" => ["openjdk-#{jdk_version}-jdk","default-jre-headless"]
   )
 
 # done by special request for rberger
