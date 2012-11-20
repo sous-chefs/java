@@ -1,3 +1,7 @@
+## v1.6.4:
+
+* [COOK-1930] - fixed typo in attribute for java 5 on i586
+
 ## v1.6.2:
 
 * whyrun support in `java_ark` LWRP
