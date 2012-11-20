@@ -1,3 +1,11 @@
+## v1.6.2:
+
+* whyrun support in `java_ark` LWRP
+* CHEF-1804 compatibility
+* [COOK-1786]- install Java 6u37 and Java 7u9
+* [COOK-1819] -incorrect warning text about
+  `node['java']['oracle']['accept_oracle_download_terms']`
+
 ## v1.6.0:
 
 * [COOK-1218] - Install Oracle JDK from Oracle download directly
