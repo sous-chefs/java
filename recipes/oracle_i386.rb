@@ -38,7 +38,7 @@ end
 
 yum_package "glibc" do
   arch "i686"
-  only_if { platform_family?("rhel") }
+  only_if { platform_family?( "rhel", "fedora" ) }
 end
 
 java_ark "jdk-alt" do
