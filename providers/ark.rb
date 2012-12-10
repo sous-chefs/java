@@ -84,7 +84,7 @@ action :install do
   unless new_resource.default
     Chef::Log.debug("processing alternate jdk")
     app_dir = app_dir  + "_alt"
-    app_home = app_dir
+    app_home = new_resource.app_home + "_alt"
   else
     app_home = new_resource.app_home
   end
@@ -162,41 +162,78 @@ action :install do
      end
   end
 
-  #update-alternatives
-  if new_resource.default
-    Chef::Log.debug "app_home is #{app_home} and app_dir is #{app_dir}"
-    current_link = ::File.symlink?(app_home) ? ::File.readlink(app_home) : nil
-    if current_link != app_dir
-      description = "symlink  #{app_dir} to #{app_home}"
-      converge_by(description) do
-         Chef::Log.debug "symlinking #{app_dir} to #{app_home}"
-         FileUtils.rm_f app_home
-         FileUtils.ln_sf app_dir, app_home
-      end
-    end
-    if new_resource.bin_cmds
-      new_resource.bin_cmds.each do |cmd|
-        if ::File.exists? "/usr/bin/#{cmd}"
-          current_bin_link = ::File.readlink("/usr/bin/#{cmd}")
-        else
-          current_bin_link = false
-        end
-        should_be_link = "#{app_home}/bin/#{cmd}"
-        if current_bin_link != should_be_link
-          converge_by("update-alternatives") do
-             cmd = Chef::ShellOut.new(
-                                      %Q[ update-alternatives --install /usr/bin/#{cmd} #{cmd} #{app_home}/bin/#{cmd} 1;
-                                          update-alternatives --set #{cmd} #{app_home}/bin/#{cmd}  ]
-                                     ).run_command
-             unless cmd.exitstatus == 0
-                Chef::Application.fatal!(%Q[ update alternatives  failed ])
-             end
-          end
-        end
+  #set up .jinfo file for update-java-alternatives
+  java_name =  app_home.split('/')[-1]
+  jinfo_file = "#{app_root}/.#{java_name}.jinfo"
+  if platform_family?("debian") && !::File.exists?(jinfo_file)
+    description = "Add #{jinfo_file} for debian"
+    converge_by(description) do
+      Chef::Log.debug "Adding #{jinfo_file} for debian"
+      template "#{jinfo_file}" do
+        source "oracle.jinfo.erb"
+        variables(
+          :priority => new_resource.alternatives_priority,
+          :bin_cmds => new_resource.bin_cmds,
+          :name => java_name,
+          :app_dir => app_home
+        ) 
+        action :create
       end
     end
   end
+  
+  #link app_home to app_dir
+  Chef::Log.debug "app_home is #{app_home} and app_dir is #{app_dir}"
+  current_link = ::File.symlink?(app_home) ? ::File.readlink(app_home) : nil
+  if current_link != app_dir
+    description = "Symlink #{app_dir} to #{app_home}"
+    converge_by(description) do
+       Chef::Log.debug "Symlinking #{app_dir} to #{app_home}"
+       FileUtils.rm_f app_home
+       FileUtils.ln_sf app_dir, app_home
+    end
+  end
+
+  #update-alternatives     
+  if new_resource.bin_cmds
+    new_resource.bin_cmds.each do |cmd|
+
+      bin_path = "/usr/bin/#{cmd}"
+      alt_path = "#{app_home}/bin/#{cmd}"
+      priority = new_resource.alternatives_priority
+
+      # install the alternative if needed
+      alternative_exists = Chef::ShellOut.new("update-alternatives --display #{cmd} | grep #{alt_path}").run_command.exitstatus == 0
+      unless alternative_exists
+        description = "Add alternative for #{cmd}"
+        converge_by(description) do
+          Chef::Log.debug "Adding alternative for #{cmd}"
+          install_cmd = Chef::ShellOut.new("update-alternatives --install #{bin_path} #{cmd} #{alt_path} #{priority}").run_command
+          unless install_cmd.exitstatus == 0
+            Chef::Application.fatal!(%Q[ set alternative failed ])
+          end
+        end
+      end
+
+      # set the alternative if default
+      if new_resource.default
+        alternative_is_set = Chef::ShellOut.new("update-alternatives --display #{cmd} | grep \"link currently points to #{alt_path}\"").run_command.exitstatus == 0
+        unless alternative_is_set
+          description = "Set alternative for #{cmd}"
+          converge_by(description) do
+            Chef::Log.debug "Setting alternative for #{cmd}"
+            set_cmd = Chef::ShellOut.new("update-alternatives --set #{cmd} #{alt_path}").run_command
+            unless set_cmd.exitstatus == 0
+              Chef::Application.fatal!(%Q[ set alternative failed ])
+            end
+          end
+        end
+      end
+      
+    end
+  end
 end
+
 
 action :remove do
   app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
