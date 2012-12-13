@@ -27,7 +27,7 @@ pkgs = value_for_platform(
     "default" => ["java-1.#{jdk_version}.0-openjdk","java-1.#{jdk_version}.0-openjdk-devel"]
   },
   ["debian","ubuntu"] => {
-    "default" => ["openjdk#{jdk_version}","default-jre-headless"]
+    "default" => ["openjdk-#{jdk_version}-jdk","default-jre-headless"]
   },
   ["arch","freebsd"] => {
     "default" => ["openjdk#{jdk_version}"]
