@@ -34,6 +34,7 @@ ruby_block  "set-env-java-home" do
   block do
     ENV["JAVA_HOME"] = java_home
   end
+  not_if { ENV["JAVA_HOME"] == java_home }
 end
 
 yum_package "glibc" do
