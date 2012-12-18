@@ -1,3 +1,16 @@
+## v1.7.0:
+
+* [COOK-2001] - improvements for Oracle update-alternatives
+  - When installing an Oracle JDK it is now registered with a higher
+    priority than OpenJDK. (Related to COOK-1131.)
+  - When running both the oracle and oracle_i386 recipes, alternatives
+    are now created for both JDKs.
+  - Alternatives are now created for all binaries listed in version
+    specific attributes. (Related to COOK-1563 and COOK-1635.)
+  - When installing Oracke JDKs on Ubuntu, create .jinfo files for use
+    with update-java-alternatives. Commands to set/install
+    alternatives now only run if needed.
+
 ## v1.6.4:
 
 * [COOK-1930] - fixed typo in attribute for java 5 on i586
