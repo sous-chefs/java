@@ -32,6 +32,9 @@ when "freebsd"
   default['java']['java_home'] = "/usr/local/openjdk#{java['jdk_version']}"
 when "arch"
   default['java']['java_home'] = "/usr/lib/jvm/java-#{java['jdk_version']}-openjdk"
+when "windows"
+  default['java']['install_flavor'] = "windows"
+  default['java']['url'] = "http:\\fake.repo.url"
 else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
 end
