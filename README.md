@@ -46,6 +46,7 @@ Platform
 * CentOS, Red Hat, Fedora, Scientific, Amazon
 * ArchLinux
 * FreeBSD
+* Windows
 
 Attributes
 ==========
@@ -65,6 +66,9 @@ URL on Oracle's site for the JDK, and the checksum of the .tar.gz.
 packages from the system, default `false`
 * `node['java']['oracle']['accept_oracle_download_terms']` - Indicates that you accept
   Oracle's EULA
+* `node['java']['windows']['url']` - The internal location of your java install for windows
+* `node['java']['windows']['package_name']` - The package name used by windows_package to
+  check in the registry to determine if the install has already been run
 
 Recipes
 =======
@@ -74,7 +78,8 @@ default
 
 Include the default recipe in a run list, to get `java`.  By default
 the `openjdk` flavor of Java is installed, but this can be changed by
-using the `install_flavor` attribute.
+using the `install_flavor` attribute. If the platform is windows it 
+will include the windows recipe instead.
 
 OpenJDK is the default because of licensing changes made upstream by
 Oracle. See notes on the `oracle` recipe below.
@@ -106,6 +111,12 @@ oracle_i386
 This recipe installs the 32-bit Java virtual machine without setting
 it as the default. This can be useful if you have applications on the
 same machine that require different versions of the JVM.
+
+windows
+-------
+
+Because there is no easy way to pull the java msi off oracle's site, 
+this recipe requires you to host it internally on your own http repo.
 
 Resources/Providers
 ===================
