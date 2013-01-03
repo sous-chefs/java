@@ -18,10 +18,10 @@
 # limitations under the License.
 #
 
-Chef::Log.warn("No download url set for java installer.") unless node['java']['url']
+Chef::Log.warn("No download url set for java installer.") unless node['java']['windows']['url']
 
-windows_package node['java']['package_name'] do
-  source node['java']['url']
+windows_package node['java']['windows']['package_name'] do
+  source node['java']['windows']['url']
   action :install
   installer_type :custom
   options "/s"
