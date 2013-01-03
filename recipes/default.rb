@@ -18,7 +18,11 @@
 # limitations under the License.
 #
 
-include_recipe "java::#{node['java']['install_flavor']}"
+if node['platform_family'] == "windows"
+  include_recipe "java::windows"
+else
+  include_recipe "java::#{node['java']['install_flavor']}"
+end
 
 # Purge the deprecated Sun Java packages if remove_deprecated_packages is true
 %w[sun-java6-jdk sun-java6-bin sun-java6-jre].each do |pkg|

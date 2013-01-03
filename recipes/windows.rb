@@ -18,9 +18,11 @@
 # limitations under the License.
 #
 
-windows_package "Java(TM) SE Development Kit 7 (64-bit)" do
+Chef::Log.warn("No download url set for java installer.") unless node['java']['url']
+
+windows_package node['java']['package_name'] do
   source node['java']['url']
   action :install
   installer_type :custom
   options "/s"
- end
+end
