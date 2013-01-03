@@ -26,6 +26,9 @@ pkgs = value_for_platform(
   ["centos","redhat","fedora","scientific","amazon"] => {
     "default" => ["java-1.#{jdk_version}.0-openjdk","java-1.#{jdk_version}.0-openjdk-devel"]
   },
+  ["smartos"] => {
+    "default" => ["sun-jdk#{jdk_version}", "sun-jre#{jdk_version}"]
+  },
   ["arch","freebsd"] => {
     "default" => ["openjdk#{jdk_version}"]
   },
@@ -37,6 +40,10 @@ ruby_block  "set-env-java-home" do
   block do
     ENV["JAVA_HOME"] = java_home
   end
+end
+
+directory "/etc/profile.d" do
+  mode 0755
 end
 
 file "/etc/profile.d/jdk.sh" do
@@ -85,6 +92,17 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon")
     action :nothing
   end
 end
+
+# accepts license agreement for java on smartos install
+if platform?("smartos")
+  file "/opt/local/.dlj_license_accepted" do
+    owner "root"
+    group "root"
+    mode "0755"
+    action :create
+  end
+end
+
 
 pkgs.each do |pkg|
   package pkg do
