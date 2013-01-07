@@ -1,3 +1,28 @@
+## v1.7.0:
+
+* [COOK-2001] - improvements for Oracle update-alternatives
+  - When installing an Oracle JDK it is now registered with a higher
+    priority than OpenJDK. (Related to COOK-1131.)
+  - When running both the oracle and oracle_i386 recipes, alternatives
+    are now created for both JDKs.
+  - Alternatives are now created for all binaries listed in version
+    specific attributes. (Related to COOK-1563 and COOK-1635.)
+  - When installing Oracke JDKs on Ubuntu, create .jinfo files for use
+    with update-java-alternatives. Commands to set/install
+    alternatives now only run if needed.
+
+## v1.6.4:
+
+* [COOK-1930] - fixed typo in attribute for java 5 on i586
+
+## v1.6.2:
+
+* whyrun support in `java_ark` LWRP
+* CHEF-1804 compatibility
+* [COOK-1786]- install Java 6u37 and Java 7u9
+* [COOK-1819] -incorrect warning text about
+  `node['java']['oracle']['accept_oracle_download_terms']`
+
 ## v1.6.0:
 
 * [COOK-1218] - Install Oracle JDK from Oracle download directly

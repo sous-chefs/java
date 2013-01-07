@@ -42,15 +42,28 @@ default['java']['oracle']['accept_oracle_download_terms'] = false
 # direct download paths for oracle, you have been warned!
 
 # jdk6 attributes
+default['java']['jdk']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "HtmlConverter", "idlj", "jar", "jarsigner", 
+                                            "java", "javac", "javadoc", "javah", "javap", "javaws", "jconsole", "jcontrol", "jdb", "jhat", 
+                                            "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm", 
+                                            "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry", 
+                                            "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
+
 # x86_64
 default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u37-b06/jdk-6u37-linux-x64.bin'
 default['java']['jdk']['6']['x86_64']['checksum'] = '51d594cec29948bdf58918ba802a872826bc7caae3f0aada42b65eacdc14a7f4'
 
 # i586
-default['java']['jdk']['6']['i586']['url'] = 'hhttp://download.oracle.com/otn-pub/java/jdk/6u37-b06/jdk-6u37-linux-i586.bin'
+default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u37-b06/jdk-6u37-linux-i586.bin'
 default['java']['jdk']['6']['i586']['checksum'] = '44cc51ed452a08a3e0b4e397922832607161642e5a6e206f256af86f8fbaae90'
 
 # jdk7 attributes
+
+default['java']['jdk']['7']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "idlj", "jar", "jarsigner", "java", "javac", 
+                                            "javadoc", "javafxpackager", "javah", "javap", "javaws", "jcmd", "jconsole", "jcontrol", "jdb", 
+                                            "jhat", "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm", 
+                                            "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry", 
+                                            "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
+
 # x86_64
 default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u9-b05/jdk-7u9-linux-x64.tar.gz'
 default['java']['jdk']['7']['x86_64']['checksum'] = '1b39fe2a3a45b29ce89e10e59be9fbb671fb86c13402e29593ed83e0b419c8d7'
