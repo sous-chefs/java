@@ -1,3 +1,7 @@
+## v1.8.0:
+
+* [COOK-2095] - Add windows support
+
 ## v1.7.0:
 
 * [COOK-2001] - improvements for Oracle update-alternatives
