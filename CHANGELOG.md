@@ -1,3 +1,7 @@
+## v1.8.2:
+
+* [COOK-2205] - Fix for missing /usr/lib/jvm/default-java on Debian
+
 ## v1.8.0:
 
 * [COOK-2095] - Add windows support
