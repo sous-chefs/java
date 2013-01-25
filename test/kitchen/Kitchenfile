@@ -1,8 +1,5 @@
 cookbook "java" do
-  configuration("openjdk"){ runtimes [] }
-  configuration("oracle"){
-    runtimes []
-    run_list_extras ["java_test::oracle"]
-  }
-  runtimes []
+  configuration "openjdk"
+  configuration "oracle"
+  lint(:ignore => ["FC017"])
 end
