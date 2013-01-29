@@ -1,3 +1,8 @@
+## v1.9.0:
+
+* [COOK-2236] - Update the Oracle Java version in the Java cookbook to
+  release 1.7u11
+
 ## v1.8.2:
 
 * [COOK-2205] - Fix for missing /usr/lib/jvm/default-java on Debian
