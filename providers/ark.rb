@@ -160,6 +160,7 @@ action :install do
          end
        FileUtils.rm_r tmpdir
      end
+     new_resource.updated_by_last_action(true)
   end
 
   #set up .jinfo file for update-java-alternatives
@@ -169,7 +170,7 @@ action :install do
     description = "Add #{jinfo_file} for debian"
     converge_by(description) do
       Chef::Log.debug "Adding #{jinfo_file} for debian"
-      template "#{jinfo_file}" do
+      template jinfo_file do
         source "oracle.jinfo.erb"
         variables(
           :priority => new_resource.alternatives_priority,
@@ -180,6 +181,7 @@ action :install do
         action :create
       end
     end
+    new_resource.updated_by_last_action(true)
   end
   
   #link app_home to app_dir
@@ -213,6 +215,7 @@ action :install do
             Chef::Application.fatal!(%Q[ set alternative failed ])
           end
         end
+        new_resource.updated_by_last_action(true)
       end
 
       # set the alternative if default
@@ -227,6 +230,7 @@ action :install do
               Chef::Application.fatal!(%Q[ set alternative failed ])
             end
           end
+          new_resource.updated_by_last_action(true)
         end
       end
       
@@ -255,5 +259,6 @@ action :remove do
        Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
        FileUtils.rm_rf app_dir
     end
+    new_resource.updated_by_last_action(true)
   end
 end
