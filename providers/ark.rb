@@ -35,7 +35,7 @@ def parse_app_dir_name url
     package_name = file_name.scan(/[a-z]+/)[0]
     app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
   else
-    app_dir_name = file_name.split(/(.tar.gz|.zip)/)[0]
+    app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
     app_dir_name = app_dir_name.split("-bin")[0]
   end
   [app_dir_name, file_name]
@@ -143,7 +143,7 @@ action :install do
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
          end
-       when /^.*\.tar.gz/
+       when /^.*\.(tar.gz|tgz)/
          cmd = Chef::ShellOut.new(
                             %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
                                   ).run_command
