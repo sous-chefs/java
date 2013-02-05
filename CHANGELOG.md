@@ -1,3 +1,7 @@
+## v1.9.2:
+
+* [COOK-2306] - FoodCritic fixes for java cookbook
+
 ## v1.9.0:
 
 * [COOK-2236] - Update the Oracle Java version in the Java cookbook to
