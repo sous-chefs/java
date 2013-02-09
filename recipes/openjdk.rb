@@ -40,6 +40,7 @@ ruby_block  "set-env-java-home" do
   block do
     ENV["JAVA_HOME"] = java_home
   end
+  not_if { ENV["JAVA_HOME"] == java_home }
 end
 
 file "/etc/profile.d/jdk.sh" do
