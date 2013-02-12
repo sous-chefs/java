@@ -1,3 +1,9 @@
+## v1.9.4:
+
+* [COOK-2083] - Run set-env-java-home in Java cookbook only if necessary
+* [COOK-2332] - ark provider does not allow for *.tgz tarballs to be used
+* [COOK-2345] - Java cookbook fails on CentOS6 (update-java-alternatives)
+
 ## v1.9.2:
 
 * [COOK-2306] - FoodCritic fixes for java cookbook
