@@ -1,3 +1,7 @@
+## v1.9.6:
+
+* [COOK-2412] - add support for Oracle Linux
+
 ## v1.9.4:
 
 * [COOK-2083] - Run set-env-java-home in Java cookbook only if necessary
