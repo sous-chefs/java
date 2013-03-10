@@ -1,3 +1,8 @@
+## v1.10.0:
+
+* [COOK-2400] - Allow java ark :url to be https
+* [COOK-2436] - Upgrade needed for oracle jdk in java cookbook
+
 ## v1.9.6:
 
 * [COOK-2412] - add support for Oracle Linux
