@@ -63,7 +63,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon",
           "java-6-openjdk"
         end
         java_name += "-i386" if arch == "i386" && node['platform_version'].to_f >= 12.04
-        Chef::ShellOut.new("update-java-alternatives","-s", java_name, :returns => [0,2]).run_command
+        Mixlib::ShellOut.new("update-java-alternatives","-s", java_name, :returns => [0,2]).run_command
       else
         # have to do this on ubuntu for version 7 because Ubuntu does
         # not currently set jdk 7 as the default jvm on installation
@@ -76,7 +76,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon",
           FileUtils.ln_sf jdk_home, java_home
         end
 
-        cmd = Chef::ShellOut.new(
+        cmd = Mixlib::ShellOut.new(
           %Q[ update-alternatives --install /usr/bin/java java #{java_home}/bin/java 1;
              update-alternatives --set java #{java_home}/bin/java  ]
           ).run_command
