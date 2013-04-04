@@ -17,6 +17,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'chef/mixin/shell_out'
+include Chef::Mixin::ShellOut
+
 jdk_version = node['java']['jdk_version'].to_i
 java_home = node['java']['java_home']
 java_home_parent = ::File.dirname java_home
@@ -63,7 +66,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon",
           "java-6-openjdk"
         end
         java_name += "-i386" if arch == "i386" && node['platform_version'].to_f >= 12.04
-        Chef::ShellOut.new("update-java-alternatives","-s", java_name, :returns => [0,2]).run_command
+        shell_out("update-java-alternatives","-s", java_name, :returns => [0,2]).run_command
       else
         # have to do this on ubuntu for version 7 because Ubuntu does
         # not currently set jdk 7 as the default jvm on installation
@@ -76,7 +79,7 @@ if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon",
           FileUtils.ln_sf jdk_home, java_home
         end
 
-        cmd = Chef::ShellOut.new(
+        cmd = shell_out(
           %Q[ update-alternatives --install /usr/bin/java java #{java_home}/bin/java 1;
              update-alternatives --set java #{java_home}/bin/java  ]
           ).run_command
