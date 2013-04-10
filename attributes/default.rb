@@ -36,6 +36,12 @@ when "windows"
   default['java']['install_flavor'] = "windows"
   default['java']['windows']['url'] = nil
   default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
+when "ubuntu"
+  if platform_version.to_f >= 12.04 && java['install_flavor'] == "openjdk" 
+    default['java']['java_home'] = "/usr/lib/jvm/java-1.#{java['jdk_version']}.0-openjdk-#{kernel['machine'] =~ /x86_64/ ? "amd64" : "i386"}"
+  else
+    default['java']['java_home'] = "/usr/lib/jvm/default-java"
+  end
 else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
 end
