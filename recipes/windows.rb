@@ -20,9 +20,26 @@
 
 Chef::Log.warn("No download url set for java installer.") unless node['java']['windows']['url']
 
+unless node['java']['java_home'].nil? || node['java']['java_home'].empty?
+  additional_options = "INSTALLDIR=#{node['java']['java_home']}"
+end
+
+  
 windows_package node['java']['windows']['package_name'] do
   source node['java']['windows']['url']
+  checksum node['java']['windows']['checksum'] unless node['java']['windows']['checksum'].empty? 
   action :install
   installer_type :custom
-  options "/s"
+  options "/s #{additional_options}"
+end
+
+unless node['java']['java_home'].nil? || node['java']['java_home'].empty?
+  env "JAVA_HOME" do
+    value node['java']['java_home']
+  end
+  
+  # update path
+  windows_path node['java']['java_home'] do
+    action :add
+  end 
 end
