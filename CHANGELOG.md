@@ -1,3 +1,8 @@
+## v1.10.2:
+
+* [COOK-2415] - Fixed deprecation warnings in ark provider and openjdk
+  recipe by using Chef::Mixin::ShellOut instead of Chef::ShellOut
+
 ## v1.10.0:
 
 * [COOK-2400] - Allow java ark :url to be https
