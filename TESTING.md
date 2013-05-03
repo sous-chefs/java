@@ -8,7 +8,7 @@ Once the above requirements are met, install the additional requirements:
 
 Install the berkshelf plugin for vagrant, and berkshelf to your local Ruby environment.
 
-    vagrant plugin install berkshelf-vagrant
+    vagrant plugin install vagrant-berkshelf
     gem install berkshelf
 
 Install Test Kitchen 1.0 (unreleased yet, use the alpha / prerelease version).
