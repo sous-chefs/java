@@ -40,7 +40,7 @@ unless node['java']['java_home'].nil? || node['java']['java_home'].empty?
   end
   
   # update path
-  windows_path node['java']['java_home'] do
+  windows_path "#{java_home_win}\\bin" do
     action :add
   end 
 end
