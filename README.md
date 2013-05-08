@@ -12,9 +12,9 @@ As of 26 March 2012 you can no longer directly download
 the JDK from Oracle's website without using a special cookie. This cookbook uses
 that cookie to download the oracle recipe on your behalf, but . . .
 
-the java::oracle recipe forces you to set either override
-the `node['java']['oracle']['accept_oracle_download_terms']` to true or set up a
-private repository accessible by HTTP.
+the `java::oracle` recipe forces you to set either override the
+`node['java']['oracle']['accept_oracle_download_terms']` to true or
+set up a private repository accessible by HTTP.
 
 Example
 
@@ -53,7 +53,7 @@ Attributes
 
 See `attributes/default.rb` for default values.
 
-* `node["java"]["install_flavor"]` - Flavor of JVM you would like installed (`oracle` or
+* `node['java']['install_flavor']` - Flavor of JVM you would like installed (`oracle` or
 `openjdk`), default `openjdk`.
 * `node['java']['java_home']` - Default location of the "`$JAVA_HOME`".
 * `node['java']['tarball']` - Name of the tarball to retrieve from your corporate
@@ -69,28 +69,29 @@ packages from the system, default `false`
 * `node['java']['windows']['url']` - The internal location of your java install for windows
 * `node['java']['windows']['package_name']` - The package name used by windows_package to
   check in the registry to determine if the install has already been run
+* `node['java']['ibm']['url']` - The URL which to download the IBM
+  JDK/SDK. See the `ibm` recipe section below.
+* `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that
+  you accept IBM's EULA (for `java::ibm`)
 
 Recipes
 =======
 
-default
--------
+## default
 
 Include the default recipe in a run list, to get `java`.  By default
 the `openjdk` flavor of Java is installed, but this can be changed by
-using the `install_flavor` attribute. If the platform is windows it 
+using the `install_flavor` attribute. If the platform is windows it
 will include the windows recipe instead.
 
 OpenJDK is the default because of licensing changes made upstream by
 Oracle. See notes on the `oracle` recipe below.
 
-openjdk
--------
+## openjdk
 
 This recipe installs the `openjdk` flavor of Java.
 
-oracle
-------
+## oracle
 
 This recipe installs the `oracle` flavor of Java. This recipe does not
 use distribution packages as Oracle changed the licensing terms with
@@ -105,18 +106,30 @@ After putting the binaries in place, the oracle recipe updates
 /usr/bin/java to point to the installed JDK using the
 `update-alternatives` script
 
-oracle_i386
------------
+## oracle_i386
 
 This recipe installs the 32-bit Java virtual machine without setting
 it as the default. This can be useful if you have applications on the
 same machine that require different versions of the JVM.
 
-windows
--------
+## windows
 
-Because there is no easy way to pull the java msi off oracle's site, 
+Because there is no easy way to pull the java msi off oracle's site,
 this recipe requires you to host it internally on your own http repo.
+
+## ibm
+
+The `java::ibm` recipe is used to install the IBM version of Java.
+Note that IBM requires you to create an account *and* log in to
+download the binary installer for your platform. You must accept the
+license agreement with IBM to use their version of Java. In this
+cookbook, you indicate this by setting
+`node['java']['ibm']['accept_ibm_download_terms']` to `true`. You must
+also host the binary on your own HTTP server to have an automated
+installation.
+
+At this time the `java::ibm` recipe does not support multiple SDK
+installations.
 
 Resources/Providers
 ===================
@@ -127,13 +140,13 @@ in favor of [ark](https://github.com/opscode-cookbooks/ark).
 By default, the extracted directory is extracted to
 `app_root/extracted_dir_name` and symlinked to `app_root/default`
 
-# Actions
+## Actions
 
 - `:install`: extracts the tarball and makes necessary symlinks
 - `:remove`: removes the tarball and run update-alternatives for all
   symlinked `bin_cmds`
 
-# Attribute Parameters
+## Attribute Parameters
 
 - `url`: path to tarball, .tar.gz, .bin (oracle-specific), and .zip
   currently supported
@@ -153,8 +166,7 @@ By default, the extracted directory is extracted to
 - `default`: whether this the default installation of this package,
   boolean true or false
 
-
-# Examples
+## Examples
 
     # install jdk6 from Oracle
     java_ark "jdk" do
@@ -164,7 +176,6 @@ By default, the extracted directory is extracted to
         bin_cmds ["java", "javac"]
         action :install
     end
-
 
 Usage
 =====
@@ -195,10 +206,11 @@ files/default/tests/minitest-handler. Additional tests are always welcome.
 License and Author
 ==================
 
-Author:: Seth Chisamore (<schisamo@opscode.com>)
-Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
+* Author: Seth Chisamore (<schisamo@opscode.com>)
+* Author: Bryan W. Berry (<bryan.berry@gmail.com>)
+* Author: Joshua Timberman (<joshua@opscode.com>)
 
-Copyright:: 2008-2012, Opscode, Inc
+Copyright: 2008-2013, Opscode, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
