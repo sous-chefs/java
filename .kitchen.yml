@@ -12,15 +12,24 @@ platforms:
   driver_config:
     box: opscode-ubuntu-10.04
     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_chef-11.2.0.box
+    require_chef_omnibus: true
+  run_list: ["recipe[apt]"]
+- name: debian-6
+  driver_config:
+    box: opscode-debian-6
+    box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_chef-11.2.0.box
+    require_chef_omnibus: true
   run_list: ["recipe[apt]"]
 - name: centos-6.3
   driver_config:
     box: opscode-centos-6.3
     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box
+    require_chef_omnibus: true
 - name: centos-5.8
   driver_config:
     box: opscode-centos-5.8
     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.8_chef-11.2.0.box
+    require_chef_omnibus: true
 
 suites:
 - name: openjdk

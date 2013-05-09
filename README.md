@@ -39,6 +39,8 @@ switch to OpenJDK.
 Requirements
 ============
 
+Chef 0.10.10+ and Ohai 6.10+ for `platform_family` use.
+
 Platform
 --------
 

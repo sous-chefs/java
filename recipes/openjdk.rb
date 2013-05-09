@@ -22,27 +22,21 @@ java_home = node['java']['java_home']
 java_home_parent = ::File.dirname java_home
 jdk_home = ""
 
-pkgs = value_for_platform(
-  ["centos","redhat","fedora","scientific","amazon","oracle"] => {
-    "default" => ["java-1.#{jdk_version}.0-openjdk","java-1.#{jdk_version}.0-openjdk-devel"]
-  },
-  ["debian","ubuntu"] => {
-    "default" => ["openjdk-#{jdk_version}-jdk","default-jre-headless"]
-  },
-  ["arch","freebsd"] => {
-    "default" => ["openjdk#{jdk_version}"]
-  },
+pkgs = value_for_platform_family(
+  ["rhel","fedora"] => ["java-1.#{jdk_version}.0-openjdk", "java-1.#{jdk_version}.0-openjdk-devel"],
+  "debian" =>  ["openjdk-#{jdk_version}-jdk", "default-jre-headless"],
+  ["arch","freebsd"] => ["openjdk#{jdk_version}"],
   "default" => ["openjdk-#{jdk_version}-jdk"]
-  )
+)
 
 include_recipe "java::set_java_home"
 
-if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon","oracle")
+if platform_family?("debian", "rhel", "fedora")
   ruby_block "update-java-alternatives" do
     block do
       arch = node['kernel']['machine'] =~ /x86_64/ ? "x86_64" : "i386"
       arch = 'amd64' if arch == 'x86_64' && platform?("ubuntu") && node["platform_version"].to_f >= 12.04
-      if platform?("ubuntu", "debian") and jdk_version == 6
+      if platform_family?("debian") and jdk_version == 6
         java_name = if node["platform_version"].to_f >= 11.10
           "java-1.6.0-openjdk"
         else
@@ -78,6 +72,6 @@ end
 pkgs.each do |pkg|
   package pkg do
     action :install
-    notifies :create, "ruby_block[update-java-alternatives]", :immediately if platform?("ubuntu","debian","redhat","centos","fedora","scientific","amazon","oracle")
+    notifies :create, "ruby_block[update-java-alternatives]", :immediately if platform_family?("debian", "rhel", "fedora")
   end
 end
