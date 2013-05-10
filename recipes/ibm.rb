@@ -48,9 +48,7 @@ execute "install-ibm-java" do
     "_JAVA_OPTIONS" => "-Dlax.debug.level=3 -Dlax.debug.all=true",
     "LAX_DEBUG" => "1"
   })
-  command <<-EOH.gsub(/^\s+/, '')
-    ./#{jdk_filename} -f ./installer.properties -i silent
-  EOH
+  command "./#{jdk_filename} -f ./installer.properties -i silent"
   creates "#{node['java']['java_home']}/jre/bin/java"
 end
 
