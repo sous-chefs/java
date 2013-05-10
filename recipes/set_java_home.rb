@@ -28,8 +28,6 @@ directory "/etc/profile.d" do
 end
 
 file "/etc/profile.d/jdk.sh" do
-  content <<-EOS.gsub(/^\s+/, '')
-    export JAVA_HOME=#{node['java']['java_home']}
-  EOS
+  content "export JAVA_HOME=#{node['java']['java_home']}"
   mode 00755
 end
