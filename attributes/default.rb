@@ -40,7 +40,7 @@ else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
 end
 
-if node['java']['install_flavor'] =~ /ibm/
+if node['java']['install_flavor'] == 'ibm'
   default['java']['ibm']['url'] = nil
   default['java']['ibm']['checksum'] = nil
   default['java']['ibm']['accept_ibm_download_terms'] = false
