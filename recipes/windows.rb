@@ -28,7 +28,7 @@ end
   
 windows_package node['java']['windows']['package_name'] do
   source node['java']['windows']['url']
-  checksum node['java']['windows']['checksum'] unless node['java']['windows']['checksum'].empty? 
+  checksum node['java']['windows']['checksum'] unless node['java']['windows']['checksum'].nil? 
   action :install
   installer_type :custom
   options "/s #{additional_options}"
