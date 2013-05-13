@@ -43,7 +43,7 @@ Platform
 --------
 
 * Debian, Ubuntu
-* CentOS, Red Hat, Fedora, Scientific, Amazon
+* CentOS, Red Hat, Fedora, Scientific, Amazon, XenServer
 * ArchLinux
 * FreeBSD
 * Windows
