@@ -69,11 +69,11 @@ default['java']['jdk']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
 
 # x86_64
 default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin'
-default['java']['jdk']['6']['x86_64']['checksum'] = '24425cdb69c11e86d6b58757b29e5ba4e4977660'
+default['java']['jdk']['6']['x86_64']['checksum'] = '6b493aeab16c940cae9e3d07ad2a5c5684fb49cf06c5d44c400c7993db0d12e8'
 
 # i586
 default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-i586.bin'
-default['java']['jdk']['6']['i586']['checksum'] = 'e8de4940befbf2ccad3447bf5fe00ed121cbfe3d'
+default['java']['jdk']['6']['i586']['checksum'] = 'd53b5a2518d80e1d95565f0adda54eee229dc5f4a1d1a3c2f7bf5045b168a357'
 
 # jdk7 attributes
 
@@ -85,8 +85,8 @@ default['java']['jdk']['7']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
 
 # x86_64
 default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u21-b11/jdk-7u21-linux-x64.tar.gz'
-default['java']['jdk']['7']['x86_64']['checksum'] = '5391a86ac11dcd62849de2b354048d83881d2a94'
+default['java']['jdk']['7']['x86_64']['checksum'] = '390700b531491ab51c00432517ac8739b7a61c9817fcde3650aa6dbd9b21c056'
 
 # i586
 default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u21-b11/jdk-7u21-linux-i586.tar.gz'
-default['java']['jdk']['7']['i586']['checksum'] = 'ce05b9a7ecfe348878389671bd82ddc68eac2491'
+default['java']['jdk']['7']['i586']['checksum'] = '15616f80f1c6d331d9a54bed7efa0d504cdf1a026d371a7a735117885d86e369'
