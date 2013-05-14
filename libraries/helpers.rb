@@ -16,6 +16,7 @@
 #
 
 require 'chef/version_constraint'
+require 'uri'
 
 module Opscode
   class OpenJDK
@@ -72,6 +73,14 @@ module Opscode
       when 'debian'
         Chef::VersionConstraint.new("< 7.0").include?(@node['platform_version'])
       end
+    end
+  end
+end
+
+class Chef
+  class Recipe
+    def valid_ibm_jdk_uri?(url)
+      url =~ ::URI::ABS_URI && %w[http https].include?(::URI.parse(url).scheme)
     end
   end
 end

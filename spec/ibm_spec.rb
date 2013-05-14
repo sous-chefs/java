@@ -11,18 +11,18 @@ describe 'java::ibm' do
   end
 
   it 'creates an installer.properties file' do
-    chef_run.should create_file '/var/chef/cache/installer.properties'
+    expect(chef_run).to create_file('/var/chef/cache/installer.properties')
   end
 
   it 'downloads the remote jdk file' do
-    chef_run.should create_remote_file '/var/chef/cache/ibm-java.bin'
+    expect(chef_run).to create_remote_file('/var/chef/cache/ibm-java.bin')
   end
 
   it 'runs the installer' do
-    chef_run.should execute_command "./ibm-java.bin -f ./installer.properties -i silent"
+    expect(chef_run).to execute_command('./ibm-java.bin -f ./installer.properties -i silent')
   end
 
   it 'includes the set_java_home recipe' do
-    chef_run.should include_recipe 'java::set_java_home'
+    expect(chef_run).to include_recipe('java::set_java_home')
   end
 end

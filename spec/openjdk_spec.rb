@@ -21,11 +21,11 @@ describe 'java::openjdk' do
 
         data['packages'].each do |pkg|
           it "installs package #{pkg}" do
-            chef_run.should install_package pkg
+            expect(chef_run).to install_package(pkg)
           end
 
           it 'sends notifiation to update-java-alternatives' do
-            chef_run.package(pkg).should notify("bash[update-java-alternatives]", :run)
+            expect(chef_run.package(pkg)).to notify("bash[update-java-alternatives]", :run)
           end
         end
       end

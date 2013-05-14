@@ -21,7 +21,7 @@ source_url = node['java']['ibm']['url']
 jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
 
-unless source_url =~ ::URI::ABS_URI && %w[http https].include?(jdk_uri.scheme)
+unless valid_ibm_jdk_uri?(source_url)
   raise "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
 end
 

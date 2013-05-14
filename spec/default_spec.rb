@@ -9,7 +9,7 @@ describe 'java::default' do
     runner.converge('java::default')
   end
   it 'should include the openjdk recipe by default' do
-    chef_run.should include_recipe 'java::openjdk'
+    expect(chef_run).to include_recipe('java::openjdk')
   end
 
   context 'windows' do
@@ -17,14 +17,14 @@ describe 'java::default' do
       runner = ChefSpec::ChefRunner.new(
         'platform' => 'windows',
         'version' => '2008R2'
-        )
+      )
       runner.node.set['java']['install_flavor'] = 'windows'
       runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
       runner.converge('java::default')
     end
 
     it 'should include the windows recipe' do
-      chef_run.should include_recipe 'java::windows'
+      expect(chef_run).to include_recipe('java::windows')
     end
   end
 
@@ -36,7 +36,7 @@ describe 'java::default' do
     end
 
     it 'should include the oracle recipe' do
-      chef_run.should include_recipe 'java::oracle'
+      expect(chef_run).to include_recipe('java::oracle')
     end
   end
 
@@ -48,7 +48,7 @@ describe 'java::default' do
     end
 
     it 'should include the oracle_i386 recipe' do
-      chef_run.should include_recipe 'java::oracle_i386'
+      expect(chef_run).to include_recipe('java::oracle_i386')
     end
   end
 
@@ -61,7 +61,7 @@ describe 'java::default' do
     end
 
     it 'should include the ibm recipe' do
-      chef_run.should include_recipe 'java::ibm'
+      expect(chef_run).to include_recipe('java::ibm')
     end
   end
 
