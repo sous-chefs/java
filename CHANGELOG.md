@@ -1,3 +1,24 @@
+## v1.11.0:
+
+This version brings a wealth of tests and (backwards-compatible)
+refactoring, plus some new features (updated Java, IBM recipe).
+
+### Sub-task
+
+- [COOK-2897]: Add ibm recipe to java cookbook
+- [COOK-2903]: move java_home resources to their own recipe
+- [COOK-2904]: refactor ruby_block "update-java-alternatives"
+- [COOK-2905]: use platform_family in java cookbook
+- [COOK-2920]: add chefspec to java cookbook
+
+### Task
+
+- [COOK-2902]: Refactor java cookbook
+
+### Improvement
+
+- [COOK-2900]: update JDK to JDK 7u21, 6u45
+
 ## v1.10.2:
 
 * [COOK-2415] - Fixed deprecation warnings in ark provider and openjdk
