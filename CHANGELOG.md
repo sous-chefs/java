@@ -1,3 +1,9 @@
+## v1.11.2:
+
+### Bug
+
+- Use SHA256 checksums for Oracle downloads, not SHA1.
+
 ## v1.11.0:
 
 This version brings a wealth of tests and (backwards-compatible)
