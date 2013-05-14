@@ -25,7 +25,7 @@ describe 'java::openjdk' do
           end
 
           it 'sends notifiation to update-java-alternatives' do
-            chef_run.package(pkg).should notify("ruby_block[update-java-alternatives]", :create)
+            chef_run.package(pkg).should notify("bash[update-java-alternatives]", :run)
           end
         end
       end

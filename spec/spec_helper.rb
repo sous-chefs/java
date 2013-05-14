@@ -1,3 +1,5 @@
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
+require 'helpers'
 require 'chefspec'
 
 RSpec.configure do |config|

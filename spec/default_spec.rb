@@ -1,7 +1,13 @@
 require 'spec_helper'
 
 describe 'java::default' do
-  let (:chef_run) { ChefSpec::ChefRunner.new.converge('java::default') }
+  let (:chef_run) do
+    runner = ChefSpec::ChefRunner.new(
+      platform: 'debian',
+      version: '7.0'
+    )
+    runner.converge('java::default')
+  end
   it 'should include the openjdk recipe by default' do
     chef_run.should include_recipe 'java::openjdk'
   end

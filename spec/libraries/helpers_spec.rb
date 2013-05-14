@@ -15,10 +15,8 @@
 # limitations under the License.
 #
 
-$:.unshift(File.join(File.dirname(__FILE__), '..', '..', 'libraries'))
 $:.unshift(File.join(File.dirname(__FILE__), '..'))
 require 'spec_helper'
-require 'helpers'
 
 describe Opscode::OpenJDK do
   let(:node) do
