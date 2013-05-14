@@ -1,0 +1,5 @@
+cookbook 'java', :path => '/Users/sethvargo/Development/cookbook-development/java'
+cookbook 'apt', :locked_version => '1.9.2'
+cookbook 'minitest-handler', :locked_version => '0.2.1'
+cookbook 'windows', :locked_version => '1.8.10'
+cookbook 'chef_handler', :locked_version => '1.1.4'

@@ -1,0 +1,2 @@
+foodcritic:   bundle exec foodcritic $COOKBOOK
+chefspec:     (cd $COOKBOOK && bundle exec rspec)

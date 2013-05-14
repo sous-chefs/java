@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - jruby-19mode
+  - 2.0.0
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#chef-hacking"
+    skip_join: true
+    use_notice: true
+before_script: bundle exec berks install
+script: bundle exec strainer test
