@@ -1,9 +1,8 @@
-#
-# Author:: Seth Chisamore (<schisamo@opscode.com>)
+# Author:: Joshua Timberman (<joshua@opscode.com>)
 # Cookbook Name:: java
-# Recipe:: default
+# Recipe:: set_java_home
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,14 +15,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-include_recipe "java::#{node['java']['install_flavor']}"
-
-# Purge the deprecated Sun Java packages if remove_deprecated_packages is true
-%w[sun-java6-jdk sun-java6-bin sun-java6-jre].each do |pkg|
-  package pkg do
-    action :purge
-    only_if { node['java']['remove_deprecated_packages'] }
+ruby_block  "set-env-java-home" do
+  block do
+    ENV["JAVA_HOME"] = node['java']['java_home']
   end
+  not_if { ENV["JAVA_HOME"] == node['java']['java_home'] }
+end
+
+directory "/etc/profile.d" do
+  mode 00755
+end
+
+file "/etc/profile.d/jdk.sh" do
+  content "export JAVA_HOME=#{node['java']['java_home']}"
+  mode 00755
 end
