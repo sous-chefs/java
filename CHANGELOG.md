@@ -1,3 +1,9 @@
+## v1.11.4:
+
+### Bug
+
+- [COOK-2989]: `bash[update-java-alternatives]` resource uses wrong attribute
+
 ## v1.11.2:
 
 ### Bug
