@@ -26,7 +26,7 @@ if platform_family?('debian', 'rhel', 'fedora')
   bash 'update-java-alternatives' do
     command %Q[
       update-alternatives --install /usr/bin/java java #{java_location} 1061;
-      update-alternatives--set java #{node['java']['java_home']}/bin/java
+      update-alternatives --set java #{node['java']['java_home']}/bin/java
     ]
     action :nothing
   end
