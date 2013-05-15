@@ -17,6 +17,7 @@
 
 require 'chef/version_constraint'
 require 'uri'
+require 'pathname'
 
 module Opscode
   class OpenJDK
@@ -25,12 +26,16 @@ module Opscode
 
     def initialize(node)
       @node = node.to_hash
-      @java_home = @node['java']['java_home'] || '/usr/lib/jvm'
+      @java_home = @node['java']['java_home'] || '/usr/lib/jvm/default-java'
       @jdk_version = @node['java']['jdk_version'] || '6'
     end
 
     def java_location
-      File.join(@java_home, openjdk_path, 'bin/java')
+      File.join(java_home_parent(@java_home), openjdk_path, 'bin/java')
+    end
+
+    def java_home_parent(java_home)
+      Pathname.new(java_home).parent.to_s
     end
 
     def openjdk_path
@@ -49,7 +54,7 @@ module Opscode
     def sixty_four
       case @node['platform_family']
       when 'debian'
-        '-amd64'
+        old_version? ? '' : '-amd64'
       when 'rhel'
         '.x86_64'
       else
@@ -66,6 +71,8 @@ module Opscode
       end
     end
 
+    # This method is used above (#sixty_four, #thirty_two) so we know
+    # whether to specify the architecture as part of the path name.
     def old_version?
       case @node['platform']
       when 'ubuntu'

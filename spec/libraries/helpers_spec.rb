@@ -22,7 +22,7 @@ describe Opscode::OpenJDK do
   let(:node) do
     {
       'java' => {
-        'java_home' => '/usr/lib/jvm',
+        'java_home' => '/usr/lib/jvm/default-java',
         'jdk_version' => 6
       },
       'kernel' => {
@@ -56,7 +56,8 @@ describe Opscode::OpenJDK do
     end
 
     it 'sets the java location' do
-      expect(subject.java_location).to eq("#{node['java']['java_home']}/foo/bin/java")
+      expected_path = '/usr/lib/jvm/foo/bin/java'
+      expect(subject.java_location).to eq(expected_path)
     end
   end
 
@@ -83,7 +84,7 @@ describe Opscode::OpenJDK do
     end
 
     it 'sets the java location for 64 bit and JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java'
+      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
       expect(subject.java_location).to eq(expected_path)
     end
   end
@@ -151,7 +152,7 @@ describe Opscode::OpenJDK do
     end
 
     it 'sets the java location for 64 bit and JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java'
+      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
       expect(subject.java_location).to eq(expected_path)
     end
   end
