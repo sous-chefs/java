@@ -12,6 +12,23 @@ describe 'java::openjdk' do
     }
   }
 
+  # Regression test for COOK-2989
+  context 'update-java-alternatives' do
+    let(:chef_run) do
+      ChefSpec::ChefRunner.new(:platform => 'ubuntu', :version => '12.04').converge('java::openjdk')
+    end
+
+    it 'executes update-java-alternatives with the right commands' do
+      # We can't use a regexp in the matcher's #with attributes, so
+      # let's reproduce the code block with the heredoc + gsub:
+      code_string = <<-EOH.gsub(/^\s+/, '')
+      update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java 1061 && \
+      update-alternatives --set java /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java
+      EOH
+      expect(chef_run).to execute_bash_script('update-java-alternatives').with(:code => code_string)
+    end
+  end
+
   platforms.each do |platform, data|
     data['versions'].each do |version|
       context "On #{platform} #{version}" do

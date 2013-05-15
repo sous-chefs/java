@@ -1,9 +1,11 @@
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 # Author:: Seth Chisamore (<schisamo@opscode.com>)
+# Author:: Joshua Timberman (<joshua@opscode.com>)
+#
 # Cookbook Name:: java
 # Recipe:: openjdk
 #
-# Copyright 2010-2011, Opscode, Inc.
+# Copyright 2010-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,10 +26,10 @@ include_recipe 'java::set_java_home'
 if platform_family?('debian', 'rhel', 'fedora')
 
   bash 'update-java-alternatives' do
-    command %Q[
-      update-alternatives --install /usr/bin/java java #{java_location} 1061;
-      update-alternatives--set java #{node['java']['java_home']}/bin/java
-    ]
+    code <<-EOH.gsub(/^\s+/, '')
+      update-alternatives --install /usr/bin/java java #{java_location} 1061 && \
+      update-alternatives --set java #{java_location}
+    EOH
     action :nothing
   end
 
