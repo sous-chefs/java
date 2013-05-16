@@ -14,12 +14,6 @@ platforms:
     box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
     require_chef_omnibus: true
   run_list: ["recipe[apt]"]
-- name: debian-7
-  driver_config:
-    box: opscode-debian-7
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-7.0.0_provisionerless.box
-    require_chef_omnibus: true
-  run_list: ["recipe[apt]"]
 - name: debian-6
   driver_config:
     box: opscode-debian-6
@@ -41,11 +35,25 @@ suites:
 - name: openjdk
   run_list: ["recipe[minitest-handler]", "recipe[java::openjdk]"]
   attributes: {}
+- name: openjdk-7
+  excludes: ["ubuntu-10.04", "debian-6"]
+  run_list: ["recipe[minitest-handler]", "recipe[java::openjdk]"]
+  attributes:
+    java:
+      jdk_version: "7"
 
 - name: oracle
   run_list: ["recipe[minitest-handler]", "recipe[java::oracle]"]
   attributes:
     java:
+      oracle:
+        accept_oracle_download_terms: true
+      install_flavor: "oracle"
+- name: oracle-7
+  run_list: ["recipe[minitest-handler]", "recipe[java::oracle]"]
+  attributes:
+    java:
+      jdk_version: "7"
       oracle:
         accept_oracle_download_terms: true
       install_flavor: "oracle"
