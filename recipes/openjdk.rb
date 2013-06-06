@@ -35,6 +35,16 @@ if platform_family?('debian', 'rhel', 'fedora')
 
 end
 
+if platform_family?('smartos')
+  # accepts license agreement for java on smartos install
+  file '/opt/local/.dlj_license_accepted' do
+    owner 'root'
+    group 'root'
+    mode 0755
+    action :create
+  end
+end
+
 node['java']['openjdk_packages'].each do |pkg|
   package pkg do
     action :install

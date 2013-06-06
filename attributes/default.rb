@@ -36,6 +36,11 @@ when "freebsd"
 when "arch"
   default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
   default['java']['openjdk_packages'] = ["openjdk#{jdk_version}"]
+when "smartos"
+  # /opt/local/java/sun6
+  default['java']['java_home'] = "/opt/local/java/sun#{node['java']['jdk_version']}"
+  default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
+  default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when "windows"
   default['java']['install_flavor'] = "windows"
   default['java']['windows']['url'] = nil
