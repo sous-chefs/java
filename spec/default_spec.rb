@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'java::default' do
-  let (:chef_run) do
+  let(:chef_run) do
     runner = ChefSpec::ChefRunner.new(
-      platform: 'debian',
-      version: '7.0'
+      :platform => 'debian',
+      :version => '7.0'
     )
     runner.converge('java::default')
   end
