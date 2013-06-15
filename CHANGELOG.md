@@ -1,3 +1,10 @@
+## v1.11.6:
+
+### Bug
+
+- [COOK-2847]: Java cookbook does not have opensuse support
+- [COOK-3142]: Syntax Errors spec/default_spec.rb:4-8
+
 ## v1.11.4:
 
 ### Bug
