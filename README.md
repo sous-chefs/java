@@ -36,6 +36,7 @@ Chef 0.10.10+ and Ohai 6.10+ for `platform_family` use.
 * CentOS, Red Hat, Fedora, Scientific, Amazon, XenServer
 * ArchLinux
 * FreeBSD
+* SmartOS
 * Windows
 
 This cookbook includes cross-platform testing support via
@@ -77,6 +78,8 @@ the .tar.gz.
   JDK/SDK. See the `ibm` recipe section below.
 * `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that
   you accept IBM's EULA (for `java::ibm`)
+* `node['java']['accept_license_agreement']` - Indicates that you accept
+  the EULA for openjdk package installation.
 
 Recipes
 =======
@@ -95,6 +98,11 @@ Oracle. See notes on the `oracle` recipe below.
 
 This recipe installs the `openjdk` flavor of Java. It also uses the
 `alternatives` system on RHEL/Debian families to set the default Java.
+
+On platforms such as SmartOS that require the acceptance of a license
+agreement during package installation, set
+`node['java']['accept_license_agreement']` to true in order to indicate
+that you accept the license.
 
 ## oracle
 
