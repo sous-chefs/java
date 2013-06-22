@@ -45,7 +45,7 @@ module Opscode
       when 'rhel', 'fedora'
         'jre-1.%s.0-openjdk%s' % [@jdk_version, arch_dir]
       when 'smartos'
-        'sun%s' % [@jdk_version]
+        'jre'
       end
     end
 
