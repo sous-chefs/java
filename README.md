@@ -33,7 +33,7 @@ Chef 0.10.10+ and Ohai 6.10+ for `platform_family` use.
 ## Platform
 
 * Debian, Ubuntu
-* CentOS, Red Hat, Fedora, Scientific, Amazon
+* CentOS, Red Hat, Fedora, Scientific, Amazon, XenServer
 * ArchLinux
 * FreeBSD
 * Windows

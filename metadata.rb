@@ -12,7 +12,7 @@ recipe "java::oracle", "Installs the Oracle flavor of Java"
 recipe "java::oracle_i386", "Installs the 32-bit jvm without setting it as the default"
 
 
-%w{ debian ubuntu centos redhat scientific fedora amazon arch oracle freebsd windows suse }.each do |os|
+%w{ debian ubuntu centos redhat scientific fedora amazon arch oracle freebsd windows suse xenserver}.each do |os|
   supports os
 end
 
