@@ -42,7 +42,7 @@ module Opscode
       case @node['platform_family']
       when 'debian'
         'java-%s-openjdk%s/jre' % [@jdk_version, arch_dir]
-      when 'rhel'
+      when 'rhel', 'fedora'
         'jre-1.%s.0-openjdk%s' % [@jdk_version, arch_dir]
       end
     end
@@ -55,7 +55,7 @@ module Opscode
       case @node['platform_family']
       when 'debian'
         old_version? ? '' : '-amd64'
-      when 'rhel'
+      when 'rhel', 'fedora'
         '.x86_64'
       else
         '-x86_64'
