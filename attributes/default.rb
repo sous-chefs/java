@@ -25,6 +25,7 @@ default['java']['install_flavor'] = "openjdk"
 default['java']['jdk_version'] = '6'
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"
 default['java']['openjdk_packages'] = []
+default['java']['accept_license_agreement'] = false
 
 case node['platform_family']
 when "rhel", "fedora"
@@ -35,7 +36,7 @@ when "freebsd"
   default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when "arch"
   default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
-  default['java']['openjdk_packages'] = ["openjdk#{jdk_version}"]
+  default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}}"]
 when "windows"
   default['java']['install_flavor'] = "windows"
   default['java']['windows']['url'] = nil
@@ -43,6 +44,9 @@ when "windows"
 when "debian"
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
   default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk", "default-jre-headless"]
+when "smartos"
+  default['java']['java_home'] = "/opt/local/java/sun6"
+  default['java']['openjdk_packages'] = ["sun-jdk#{node['java']['jdk_version']}", "sun-jre#{node['java']['jdk_version']}"]
 else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
   default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk"]

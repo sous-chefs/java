@@ -35,6 +35,16 @@ if platform_family?('debian', 'rhel', 'fedora')
 
 end
 
+if platform_requires_license_acceptance?
+  file "/opt/local/.dlj_license_accepted" do
+    owner "root"
+    group "root"
+    mode "0400"
+    action :create
+    only_if { node['java']['accept_license_agreement'] }
+  end
+end
+
 node['java']['openjdk_packages'].each do |pkg|
   package pkg do
     action :install
