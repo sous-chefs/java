@@ -1,3 +1,16 @@
+## v1.12.0:
+
+### Improvement
+
+- [COOK-2154]: Add SmartOS support to java::openjdk recipe
+- [COOK-3278]: upgrade to Oracle Java 7u25
+
+### Bug
+
+- [COOK-2931]: Adding support for the platform 'xenserver' (for
+  installations of java in DOM0)
+- [COOK-3277]: java cookbook fails on Fedora
+
 ## v1.11.6:
 
 ### Bug
