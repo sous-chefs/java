@@ -24,5 +24,9 @@ windows_package node['java']['windows']['package_name'] do
   source node['java']['windows']['url']
   action :install
   installer_type :custom
-  options "/s"
+  
+  java_home = node['java']['java_home']
+  opts = "/s"
+  opts += " /INSTALLDIR=#{java_home}" unless java_home == nil
+  options opts
 end
