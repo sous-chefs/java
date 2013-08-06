@@ -1,3 +1,61 @@
+## v1.12.0:
+
+### Improvement
+
+- [COOK-2154]: Add SmartOS support to java::openjdk recipe
+- [COOK-3278]: upgrade to Oracle Java 7u25
+
+### Bug
+
+- [COOK-2931]: Adding support for the platform 'xenserver' (for
+  installations of java in DOM0)
+- [COOK-3277]: java cookbook fails on Fedora
+
+## v1.11.6:
+
+### Bug
+
+- [COOK-2847]: Java cookbook does not have opensuse support
+- [COOK-3142]: Syntax Errors spec/default_spec.rb:4-8
+
+## v1.11.4:
+
+### Bug
+
+- [COOK-2989]: `bash[update-java-alternatives]` resource uses wrong attribute
+
+## v1.11.2:
+
+### Bug
+
+- Use SHA256 checksums for Oracle downloads, not SHA1.
+
+## v1.11.0:
+
+This version brings a wealth of tests and (backwards-compatible)
+refactoring, plus some new features (updated Java, IBM recipe).
+
+### Sub-task
+
+- [COOK-2897]: Add ibm recipe to java cookbook
+- [COOK-2903]: move java_home resources to their own recipe
+- [COOK-2904]: refactor ruby_block "update-java-alternatives"
+- [COOK-2905]: use platform_family in java cookbook
+- [COOK-2920]: add chefspec to java cookbook
+
+### Task
+
+- [COOK-2902]: Refactor java cookbook
+
+### Improvement
+
+- [COOK-2900]: update JDK to JDK 7u21, 6u45
+
+## v1.10.2:
+
+* [COOK-2415] - Fixed deprecation warnings in ark provider and openjdk
+  recipe by using Chef::Mixin::ShellOut instead of Chef::ShellOut
+
 ## v1.10.0:
 
 * [COOK-2400] - Allow java ark :url to be https

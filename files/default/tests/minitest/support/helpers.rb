@@ -1,15 +1,14 @@
 #
-# Author:: Seth Chisamore (<schisamo@opscode.com>)
-# Cookbook Name:: java
-# Recipe:: default
+# Cookbook:: java
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Author:: Joshua Timberman <joshua@opscode.com>
+# Copyright:: Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#    http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,12 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe "java::#{node['java']['install_flavor']}"
+module Helpers
+  module Java
+    require 'chef/mixin/shell_out'
+    include Chef::Mixin::ShellOut
+    include MiniTest::Chef::Assertions
+    include MiniTest::Chef::Context
+    include MiniTest::Chef::Resources
 
-# Purge the deprecated Sun Java packages if remove_deprecated_packages is true
-%w[sun-java6-jdk sun-java6-bin sun-java6-jre].each do |pkg|
-  package pkg do
-    action :purge
-    only_if { node['java']['remove_deprecated_packages'] }
   end
 end

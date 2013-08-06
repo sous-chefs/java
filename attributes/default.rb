@@ -24,21 +24,40 @@ default['java']['remove_deprecated_packages'] = false
 default['java']['install_flavor'] = "openjdk"
 default['java']['jdk_version'] = '6'
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"
+default['java']['openjdk_packages'] = []
+default['java']['accept_license_agreement'] = false
 
-case platform
-when "centos","redhat","fedora","scientific","amazon","oracle"
+case node['platform_family']
+when "rhel", "fedora"
   default['java']['java_home'] = "/usr/lib/jvm/java"
+  default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
 when "freebsd"
-  default['java']['java_home'] = "/usr/local/openjdk#{java['jdk_version']}"
+  default['java']['java_home'] = "/usr/local/openjdk#{node['java']['jdk_version']}"
+  default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when "arch"
-  default['java']['java_home'] = "/usr/lib/jvm/java-#{java['jdk_version']}-openjdk"
+  default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
+  default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}}"]
 when "windows"
   default['java']['install_flavor'] = "windows"
   default['java']['windows']['url'] = nil
   default['java']['windows']['checksum'] = nil
   default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
+when "debian"
+  default['java']['java_home'] = "/usr/lib/jvm/default-java"
+  default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk", "default-jre-headless"]
+when "smartos"
+  default['java']['java_home'] = "/opt/local/java/sun6"
+  default['java']['openjdk_packages'] = ["sun-jdk#{node['java']['jdk_version']}", "sun-jre#{node['java']['jdk_version']}"]
 else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
+  default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk"]
+end
+
+if node['java']['install_flavor'] == 'ibm'
+  default['java']['ibm']['url'] = nil
+  default['java']['ibm']['checksum'] = nil
+  default['java']['ibm']['accept_ibm_download_terms'] = false
+  default['java']['java_home'] = "/opt/ibm/java"
 end
 
 # if you change this to true, you can download directly from Oracle
@@ -47,32 +66,32 @@ default['java']['oracle']['accept_oracle_download_terms'] = false
 # direct download paths for oracle, you have been warned!
 
 # jdk6 attributes
-default['java']['jdk']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "HtmlConverter", "idlj", "jar", "jarsigner", 
-                                            "java", "javac", "javadoc", "javah", "javap", "javaws", "jconsole", "jcontrol", "jdb", "jhat", 
-                                            "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm", 
-                                            "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry", 
+default['java']['jdk']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "HtmlConverter", "idlj", "jar", "jarsigner",
+                                            "java", "javac", "javadoc", "javah", "javap", "javaws", "jconsole", "jcontrol", "jdb", "jhat",
+                                            "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm",
+                                            "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry",
                                             "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
 
 # x86_64
-default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u43-b01/jdk-6u43-linux-x64.bin'
-default['java']['jdk']['6']['x86_64']['checksum'] = '653c35ec6c64c3b127dea0afed1f16ba2b32efcaeae86fc02777b70e3e166aee'
+default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin'
+default['java']['jdk']['6']['x86_64']['checksum'] = '6b493aeab16c940cae9e3d07ad2a5c5684fb49cf06c5d44c400c7993db0d12e8'
 
 # i586
-default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u43-b01/jdk-6u43-linux-i586.bin'
-default['java']['jdk']['6']['i586']['checksum'] = '616df04eddac146b1c67de00ae07bb2d1179f470f35f9e661e1f5075423cf4e1'
+default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-i586.bin'
+default['java']['jdk']['6']['i586']['checksum'] = 'd53b5a2518d80e1d95565f0adda54eee229dc5f4a1d1a3c2f7bf5045b168a357'
 
 # jdk7 attributes
 
-default['java']['jdk']['7']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "idlj", "jar", "jarsigner", "java", "javac", 
-                                            "javadoc", "javafxpackager", "javah", "javap", "javaws", "jcmd", "jconsole", "jcontrol", "jdb", 
-                                            "jhat", "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm", 
-                                            "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry", 
+default['java']['jdk']['7']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "idlj", "jar", "jarsigner", "java", "javac",
+                                            "javadoc", "javafxpackager", "javah", "javap", "javaws", "jcmd", "jconsole", "jcontrol", "jdb",
+                                            "jhat", "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm",
+                                            "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry",
                                             "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
 
 # x86_64
-default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-x64.tar.gz'
-default['java']['jdk']['7']['x86_64']['checksum'] = '8611ce31e0b7ecb99d34703ad89b29a545a3fb30356553be3674366cbe722782'
+default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u25-b15/jdk-7u25-linux-x64.tar.gz'
+default['java']['jdk']['7']['x86_64']['checksum'] = 'f80dff0e19ca8d038cf7fe3aaa89538496b80950f4d10ff5f457988ae159b2a6'
 
 # i586
-default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jdk-7u17-linux-i586.tar.gz'
-default['java']['jdk']['7']['i586']['checksum'] = '4046e941e05717538dd4deb1b1f55cb8bb6bd38793c7317034d1f5019086d956'
+default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u25-b15/jdk-7u25-linux-i586.tar.gz'
+default['java']['jdk']['7']['i586']['checksum'] = 'dd89b20afa939992bb7fdc44837fa64f0a98d7ee1e5706fe8a2d9e2247ba6de7'
