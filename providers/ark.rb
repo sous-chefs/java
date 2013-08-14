@@ -24,7 +24,7 @@ def whyrun_supported?
   true
 end
 
-def parse_app_dir_name url
+def parse_app_dir_name(url, tar_dir)
   file_name = url.split('/')[-1]
   # funky logic to parse oracle's non-standard naming convention
   # for jdk1.6
@@ -36,10 +36,21 @@ def parse_app_dir_name url
       update_num = "0" + update_num
     end
     package_name = file_name.scan(/[a-z]+/)[0]
-    app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
+    # Option to set the app dir name manually in case the user
+    # downloads from an alternate location with different naming
+    # conventions.
+    unless tar_dir
+      app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
+    else
+      app_dir_name = tar_dir
+    end
   else
-    app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
-    app_dir_name = app_dir_name.split("-bin")[0]
+    unless tar_dir
+      app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
+      app_dir_name = app_dir_name.split("-bin")[0]
+    else
+      app_dir_name = tar_dir
+    end
   end
   [app_dir_name, file_name]
 end
@@ -80,7 +91,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
 end
 
 action :install do
-  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
+  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url,new_resource.tar_dir_name)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
@@ -99,7 +110,7 @@ action :install do
     unless ::File.exists?(app_root)
       description = "create dir #{app_root} and change owner to #{new_resource.owner}"
       converge_by(description) do
-          FileUtils.mkdir app_root, :mode => new_resource.app_home_mode
+          FileUtils.mkdir_p app_root, :mode => new_resource.app_home_mode
           FileUtils.chown new_resource.owner, new_resource.owner, app_root
       end
     end
@@ -241,7 +252,7 @@ action :install do
 end
 
 action :remove do
-  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
+  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url, new_resource.tar_dir_name)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
