@@ -42,6 +42,17 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   notifies :run, "execute[install-ibm-java]", :immediately
 end
 
+java_alternatives 'set-java-alternatives' do
+  java_location node['java']['java_home']
+  case node['java']['jdk_version']
+  when "6"
+    bin_cmds node['java']['ibm']['6']['bin_cmds']
+  when "7"
+    bin_cmds node['java']['ibm']['7']['bin_cmds']
+  end
+  action :nothing
+end
+
 execute "install-ibm-java" do
   cwd Chef::Config[:file_cache_path]
   environment({
@@ -49,6 +60,7 @@ execute "install-ibm-java" do
     "LAX_DEBUG" => "1"
   })
   command "./#{jdk_filename} -f ./installer.properties -i silent"
+  notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
   creates "#{node['java']['java_home']}/jre/bin/java"
 end
 
