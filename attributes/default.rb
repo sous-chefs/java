@@ -41,6 +41,7 @@ when "windows"
   default['java']['install_flavor'] = "windows"
   default['java']['windows']['url'] = nil
   default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
+  default['java']['windows']['options'] = '/s'
 when "debian"
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
   default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk", "default-jre-headless"]
