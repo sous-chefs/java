@@ -129,6 +129,13 @@ same machine that require different versions of the JVM.
 
 This recipe operates in a similar manner to `java::oracle`.
 
+## oracle_rpm
+
+This recipe installs the Oracle JRE or JDK provided by a custom YUM
+repositories.
+It also uses the `alternatives` system on RHEL families to set
+the default Java.
+
 ## windows
 
 Because there is no easy way to pull the java msi off oracle's site,
