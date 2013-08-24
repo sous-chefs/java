@@ -46,6 +46,8 @@ module Opscode
         'jre-1.%s.0-openjdk%s' % [@jdk_version, arch_dir]
       when 'smartos'
         'jre'
+      else
+        'jre'
       end
     end
 
