@@ -52,11 +52,15 @@ else
   default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk"]
 end
 
-if node['java']['install_flavor'] == 'ibm'
+case node['java']['install_flavor']
+when 'ibm'
   default['java']['ibm']['url'] = nil
   default['java']['ibm']['checksum'] = nil
   default['java']['ibm']['accept_ibm_download_terms'] = false
   default['java']['java_home'] = "/opt/ibm/java"
+when 'oracle_rpm'
+  default['java']['oracle_rpm']['type'] = 'jdk'
+  default['java']['java_home'] = "/usr/java/latest"
 end
 
 # if you change this to true, you can download directly from Oracle
