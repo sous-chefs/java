@@ -24,5 +24,5 @@ windows_package node['java']['windows']['package_name'] do
   source node['java']['windows']['url']
   action :install
   installer_type :custom
-  options "/s"
+  options node['java']['windows']['options']
 end
