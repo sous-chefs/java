@@ -66,6 +66,7 @@ end
 # if you change this to true, you can download directly from Oracle
 default['java']['oracle']['accept_oracle_download_terms'] = false
 
+
 # direct download paths for oracle, you have been warned!
 
 # jdk6 attributes
@@ -74,6 +75,11 @@ default['java']['jdk']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
                                             "jinfo", "jmap", "jps", "jrunscript", "jsadebugd", "jstack", "jstat", "jstatd", "jvisualvm",
                                             "keytool", "native2ascii", "orbd", "pack200", "policytool", "rmic", "rmid", "rmiregistry",
                                             "schemagen", "serialver", "servertool", "tnameserv", "unpack200", "wsgen", "wsimport", "xjc" ]
+
+# Set this attribute to override the java_ark LWRP's autodetection of the directory
+# expanded from the tarball or bin file. Useful if downloading from a mirror
+# other than oracle with a non standard naming scheme, such as a local artifact store.
+node['java']['jdk']['6']['tarball_app_dir'] = nil
 
 # x86_64
 default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin'
@@ -98,3 +104,8 @@ default['java']['jdk']['7']['x86_64']['checksum'] = 'f80dff0e19ca8d038cf7fe3aaa8
 # i586
 default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u25-b15/jdk-7u25-linux-i586.tar.gz'
 default['java']['jdk']['7']['i586']['checksum'] = 'dd89b20afa939992bb7fdc44837fa64f0a98d7ee1e5706fe8a2d9e2247ba6de7'
+
+# Set this attribute to override the java_ark LWRP's autodetection of the directory
+# expanded from the tarball or bin file. Useful if downloading from a mirror
+# other than Oracle with a non standard naming scheme, such as a local artifact store.
+node['java']['jdk']['7']['tarball_app_dir'] = nil

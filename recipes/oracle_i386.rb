@@ -23,10 +23,12 @@ case node['java']['jdk_version']
 when "6"
   tarball_url = node['java']['jdk']['6']['i586']['url']
   tarball_checksum = node['java']['jdk']['6']['i586']['checksum']
+  app_dir = node['java']['jdk']['6']['tarball_app_dir']
   bin_cmds = node['java']['jdk']['6']['bin_cmds']
 when "7"
   tarball_url = node['java']['jdk']['7']['i586']['url']
   tarball_checksum = node['java']['jdk']['7']['i586']['checksum']
+  app_dir = node['java']['jdk']['6']['tarball_app_dir']
   bin_cmds = node['java']['jdk']['7']['bin_cmds']
 end
 
@@ -42,6 +44,7 @@ java_ark "jdk-alt" do
   checksum tarball_checksum
   app_home java_home
   bin_cmds bin_cmds
+  tar_dir_name app_dir
   action :install
   default false
 end
