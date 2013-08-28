@@ -3,6 +3,18 @@ Java Cookbook CHANGELOG
 This file is used to list changes made in each version of the Java cookbook.
 
 
+v1.13.0
+-------
+### Bug
+- **[COOK-3295](https://tickets.opscode.com/browse/COOK-3295)** - Add default `platform_family` option in Java helper
+- **[COOK-3277](https://tickets.opscode.com/browse/COOK-3277)** - Fix support for Fedora
+
+### Improvement
+- **[COOK-3278](https://tickets.opscode.com/browse/COOK-3278)** - Upgrade to Oracle Java 7u25
+- **[COOK-3029](https://tickets.opscode.com/browse/COOK-3029)** - Add Oracle RPM support
+- **[COOK-2931](https://tickets.opscode.com/browse/COOK-2931)** - Add support for the platform `xenserver`
+- **[COOK-2154](https://tickets.opscode.com/browse/COOK-2154)** - Add SmartOS support
+
 v1.12.0
 -------
 ### Improvement
