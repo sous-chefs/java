@@ -68,11 +68,9 @@ def download_direct_from_oracle(tarball_name, new_resource)
     description = "download oracle tarball straight from the server"
     converge_by(description) do
        Chef::Log.debug "downloading oracle tarball straight from the source"
-       cmd = shell_out(
+       cmd = shell_out!(
                                   %Q[ curl -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
                                )
-       cmd.run_command
-       cmd.error!
     end
   else
     Chef::Application.fatal!("You must set the attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
@@ -135,21 +133,21 @@ action :install do
                                   %Q[ cd "#{tmpdir}";
                                       cp "#{Chef::Config[:file_cache_path]}/#{tarball_name}" . ;
                                       bash ./#{tarball_name} -noregister
-                                    ] ).run_command
+                                    ] )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
          end
        when /^.*\.zip/
          cmd = shell_out(
                             %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmpdir}" ]
-                                  ).run_command
+                                  )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
          end
        when /^.*\.(tar.gz|tgz)/
          cmd = shell_out(
                             %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
-                                  ).run_command
+                                  )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
          end
@@ -157,7 +155,7 @@ action :install do
 
        cmd = shell_out(
                           %Q[ mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" ]
-                                ).run_command
+                                )
        unless cmd.exitstatus == 0
            Chef::Application.fatal!(%Q[ Command \' mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" \' failed ])
          end
@@ -208,12 +206,12 @@ action :install do
       priority = new_resource.alternatives_priority
 
       # install the alternative if needed
-      alternative_exists = shell_out("update-alternatives --display #{cmd} | grep #{alt_path}").run_command.exitstatus == 0
+      alternative_exists = shell_out("update-alternatives --display #{cmd} | grep #{alt_path}").exitstatus == 0
       unless alternative_exists
         description = "Add alternative for #{cmd}"
         converge_by(description) do
           Chef::Log.debug "Adding alternative for #{cmd}"
-          install_cmd = shell_out("update-alternatives --install #{bin_path} #{cmd} #{alt_path} #{priority}").run_command
+          install_cmd = shell_out("update-alternatives --install #{bin_path} #{cmd} #{alt_path} #{priority}")
           unless install_cmd.exitstatus == 0
             Chef::Application.fatal!(%Q[ set alternative failed ])
           end
@@ -223,7 +221,7 @@ action :install do
 
       # set the alternative if default
       if new_resource.default
-        alternative_is_set = shell_out("update-alternatives --display #{cmd} | grep \"link currently points to #{alt_path}\"").run_command.exitstatus == 0
+        alternative_is_set = shell_out("update-alternatives --display #{cmd} | grep \"link currently points to #{alt_path}\"").exitstatus == 0
         unless alternative_is_set
           description = "Set alternative for #{cmd}"
           converge_by(description) do
