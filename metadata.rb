@@ -32,3 +32,4 @@ recipe "java::oracle_rpm", "Installs the Oracle RPM flavor of Java"
 end
 
 depends "windows"
+depends "aws"
