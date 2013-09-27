@@ -58,6 +58,13 @@ when 'ibm'
   default['java']['ibm']['checksum'] = nil
   default['java']['ibm']['accept_ibm_download_terms'] = false
   default['java']['java_home'] = "/opt/ibm/java"
+
+  default['java']['ibm']['6']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "HtmlConverter", "idlj", "jar", "jarsigner",
+                                              "java", "javac", "javadoc", "javah", "javap", "javaws", "jconsole", "jcontrol", "jdb", "jdmpview",
+                                              "jrunscript", "keytool", "native2ascii", "policytool", "rmic", "rmid", "rmiregistry",
+                                              "schemagen", "serialver", "tnameserv", "wsgen", "wsimport", "xjc" ]
+
+  default['java']['ibm']['7']['bin_cmds'] = node['java']['ibm']['6']['bin_cmds'] + [ "pack200", "unpack200" ]
 when 'oracle_rpm'
   default['java']['oracle_rpm']['type'] = 'jdk'
   default['java']['java_home'] = "/usr/java/latest"
