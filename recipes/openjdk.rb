@@ -48,6 +48,8 @@ end
 node['java']['openjdk_packages'].each do |pkg|
   package pkg do
     action :install
-    notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('debian', 'rhel', 'fedora')
+    if pkg == node['java']['openjdk_packages'].last
+      notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('debian', 'rhel', 'fedora')
+    end
   end
 end
