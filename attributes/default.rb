@@ -43,7 +43,7 @@ when "windows"
   default['java']['windows']['checksum'] = nil
   default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
 when "debian"
-  default['java']['java_home'] = "/usr/lib/jvm/default-java"
+  default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}"
   default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk", "openjdk-#{node['java']['jdk_version']}-jre-headless"]
 when "smartos"
   default['java']['java_home'] = "/opt/local/java/sun6"
