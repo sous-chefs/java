@@ -50,9 +50,25 @@ else
   end
 end
 
+if node['java'].attribute?("java_home")
+  java_home_win = win_friendly_path(node['java']['java_home'])
+  additional_options = "INSTALLDIR=\"#{java_home_win}\""
+
+  env "JAVA_HOME" do
+    value java_home_win
+  end
+
+  # update path
+  windows_path "#{java_home_win}\\bin" do
+    action :add
+  end
+end
+
+
 windows_package node['java']['windows']['package_name'] do
   source cache_file_path
+  checksum node['java']['windows']['checksum']
   action :install
   installer_type :custom
-  options "/s"
+  options "/s #{additional_options}"
 end
