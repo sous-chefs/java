@@ -21,20 +21,6 @@
 
 java_location = Opscode::OpenJDK.new(node).java_location
 
-include_recipe 'java::set_java_home'
-
-if platform_family?('debian', 'rhel', 'fedora')
-
-  bash 'update-java-alternatives' do
-    code <<-EOH.gsub(/^\s+/, '')
-      update-alternatives --install /usr/bin/java java #{java_location} 1061 && \
-      update-alternatives --set java #{java_location}
-    EOH
-    action :nothing
-  end
-
-end
-
 if platform_requires_license_acceptance?
   file "/opt/local/.dlj_license_accepted" do
     owner "root"
@@ -46,10 +32,19 @@ if platform_requires_license_acceptance?
 end
 
 node['java']['openjdk_packages'].each do |pkg|
-  package pkg do
-    action :install
-    if pkg == node['java']['openjdk_packages'].last
-      notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('debian', 'rhel', 'fedora')
-    end
+  package pkg
+end
+
+if platform_family?('debian', 'rhel', 'fedora')
+  bash 'update-java-alternatives' do
+    code <<-EOH.gsub(/^\s+/, '')
+      update-alternatives --install /usr/bin/java java #{java_location} 1061 && \
+      update-alternatives --set java #{java_location}
+    EOH
+    only_if "update-alternatives --display java | grep '#{java_location} - priority 1061'"
   end
 end
+
+# We must include this recipe AFTER updating the alternatives or else JAVA_HOME
+# will not point to the correct java.
+include_recipe 'java::set_java_home'
