@@ -139,6 +139,16 @@ repositories.
 It also uses the `alternatives` system on RHEL families to set
 the default Java.
 
+## oab-java6
+
+This recipe installs the Sun Java 6 JRE provided by the oab-java.sh script,
+found at https://github.com/flexiondotorg/oab-java6.
+
+## oab-java7
+
+This recipe installs the Oracle Java 7 JRE provided by the oab-java.sh script,
+found at https://github.com/flexiondotorg/oab-java6.
+
 ## windows
 
 Because there is no easy way to pull the java msi off oracle's site,
