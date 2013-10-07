@@ -124,6 +124,17 @@ After putting the binaries in place, the `java::oracle` recipe updates
 `update-alternatives` script. This is all handled in the `java_ark`
 LWRP.
 
+For both **debian** and **centos/rhel**, this recipe pulls the binary
+distribution from the Oracle website, and installs it in the default
+*JAVA_HOME* for each distribution. For debian/ubuntu, this is
+*/usr/lib/jvm/default-java*. For Centos/RHEL, this is */usr/lib/jvm/java*.
+
+After putting the binaries in place, the oracle recipe updates
+**/usr/bin/java** to point to the installed JDK using the
+`update-alternatives` script. Prior setting the _alternative_ of each command
+the recipe **removes** any reference of the given command in the _alternatives_ 
+lib folder (_/var/lib/alternatives/_).
+
 ## oracle_i386
 
 This recipe installs the 32-bit Java virtual machine without setting
@@ -242,6 +253,26 @@ To install IBM flavored Java, set the required attributes:
     run_list(
       "recipe[java]"
     )
+
+If on the other hand you have your own HTTP(S) server that provides the tar file your configuration will look like:
+
+```ruby
+    :java => {
+        :install_flavor => "oracle",
+        # Setup a specific JAVA_HOME that is available for CDH4 /usr/libexec/bigtop-detect-javahome
+        :java_home => "/usr/lib/jvm/default-java",
+        :jdk_version => "7",
+        :arch => "x64",
+        :jdk => {
+            7 => {
+                :x64 => {
+                    :url => "http://vagrant-archive.33.33.33.1.xip.io/jdk/jdk-7u17-linux-x64.tar.gz",
+                    :checksum => "8611ce31e0b7ecb99d34703ad89b29a545a3fb30356553be3674366cbe722782"
+                }
+            }
+        }
+    }
+```
 
 
 Development

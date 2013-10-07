@@ -210,6 +210,8 @@ action :install do
       unless alternative_exists
         description = "Add alternative for #{cmd}"
         converge_by(description) do
+          Chef::Log.debug "Removing alternative /var/lib/alternatives/#{cmd} since alternatives --install fails if such file exists."
+          rm_cmd = MixLib::ShellOut.new("rm /var/lib/alternatives/#{cmd}").run_command
           Chef::Log.debug "Adding alternative for #{cmd}"
           install_cmd = shell_out("update-alternatives --install #{bin_path} #{cmd} #{alt_path} #{priority}")
           unless install_cmd.exitstatus == 0
