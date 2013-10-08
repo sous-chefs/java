@@ -162,6 +162,8 @@ installations.
 Resources/Providers
 ===================
 
+## java_ark
+
 This cookbook contains the `java_ark` LWRP. Generally speaking this
 LWRP is deprecated in favor of `ark` from the
 [ark cookbook](https://github.com/opscode-cookbooks/ark), but it is
@@ -170,13 +172,13 @@ still used in this cookbook for handling the Oracle JDK installation.
 By default, the extracted directory is extracted to
 `app_root/extracted_dir_name` and symlinked to `app_root/default`
 
-## Actions
+### Actions
 
 - `:install`: extracts the tarball and makes necessary symlinks
 - `:remove`: removes the tarball and run update-alternatives for all
   symlinked `bin_cmds`
 
-## Attribute Parameters
+### Attribute Parameters
 
 - `url`: path to tarball, .tar.gz, .bin (oracle-specific), and .zip
   currently supported
@@ -196,7 +198,7 @@ By default, the extracted directory is extracted to
 - `default`: whether this the default installation of this package,
   boolean true or false
 
-## Examples
+### Examples
 
     # install jdk6 from Oracle
     java_ark "jdk" do
@@ -207,6 +209,34 @@ By default, the extracted directory is extracted to
         action :install
     end
 
+## java_alternatives
+
+The `java_alternatives` LWRP uses `update-alternatives` command
+to set and unset command alternatives for various Java tools 
+such as java, javac, etc. 
+
+### Actions
+
+- `:set`: set alternatives for Java tools
+- `:unset`: unset alternatives for Java tools
+
+### Attribute Parameters
+
+- `java_location`: Java installation location.
+- `bin_cmds`: array of Java tool names to set or unset alternatives on.
+- `default`: whether to set the Java tools as system default. Boolean, defaults to `true`. 
+- `priority`: priority of the alternatives. Integer, defaults to `1061`.
+
+### Examples
+
+    # set alternatives for java and javac commands
+    java_alternatives "set java alternatives" do
+        java_location '/usr/local/java`
+        bin_cmds ["java", "javac"]
+        action :set
+    end
+
+### 
 Usage
 =====
 
