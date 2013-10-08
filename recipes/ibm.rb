@@ -42,6 +42,11 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   notifies :run, "execute[install-ibm-java]", :immediately
 end
 
+package "rpm" do
+  action :install
+  only_if platform_family?('ubuntu')
+end
+
 execute "install-ibm-java" do
   cwd Chef::Config[:file_cache_path]
   environment({
