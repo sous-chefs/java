@@ -30,6 +30,11 @@ template "#{Chef::Config[:file_cache_path]}/installer.properties" do
   only_if { node['java']['ibm']['accept_ibm_download_terms'] }
 end
 
+package "rpm" do
+  action :install
+  only_if platform_family?('ubuntu')
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   source source_url
   mode 00755
@@ -40,11 +45,6 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
     action :create_if_missing
   end
   notifies :run, "execute[install-ibm-java]", :immediately
-end
-
-package "rpm" do
-  action :install
-  only_if platform_family?('ubuntu')
 end
 
 execute "install-ibm-java" do
