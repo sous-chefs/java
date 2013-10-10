@@ -213,7 +213,7 @@ action :install do
           Chef::Log.debug "Adding alternative for #{cmd}"
           install_cmd = shell_out("update-alternatives --install #{bin_path} #{cmd} #{alt_path} #{priority}")
           unless install_cmd.exitstatus == 0
-            Chef::Application.fatal!(%Q[ set alternative failed ])
+            Chef::Application.fatal!(%Q[ Set alternative failed: #{install_cmd.error!} ])
           end
         end
         new_resource.updated_by_last_action(true)
@@ -228,7 +228,7 @@ action :install do
             Chef::Log.debug "Setting alternative for #{cmd}"
             set_cmd = shell_out("update-alternatives --set #{cmd} #{alt_path}").run_command
             unless set_cmd.exitstatus == 0
-              Chef::Application.fatal!(%Q[ set alternative failed ])
+              Chef::Application.fatal!(%Q[ Set alternative failed: #{set_cmd.error!} ])
             end
           end
           new_resource.updated_by_last_action(true)
