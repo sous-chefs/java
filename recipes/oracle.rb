@@ -44,6 +44,12 @@ end
 
 include_recipe "java::set_java_home"
 
+unless bin_cmds
+
+    Chef::Log.warn("There were no Bin Commands (see the 'bin_cmds' in the attributes) detected. No alternatives will get linked, i.e. the `/urs/bin/java` will not be there on not reflect the intended version. You are either not providing them explicitly or overriding them accidentaly.")
+
+end
+
 java_ark "jdk" do
   url tarball_url
   checksum tarball_checksum
