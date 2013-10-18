@@ -222,7 +222,7 @@ Optional parameters:
 - `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts`.
 - `keystore_passwd`: the keystore password. Defaults to 'changeit' as specified by the Java Documentation.
 
-At least one of the following 
+Only one of the following 
 - `cert_data`: the certificate data to install
 - `cert_file`: path to a certificate file to install
 - `ssl_endpoint`: an SSL end-point from which to download the certificate
