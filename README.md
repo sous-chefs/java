@@ -201,7 +201,7 @@ By default, the extracted directory is extracted to
 
 ## `java_certificate` LWRP
 
-This cookbook the `java_certificate` LWRP which simplifies
+This cookbook contains the `java_certificate` LWRP which simplifies
 adding certificates to a java keystore. It can also populate the keystore
 with a certificate retrieved from a given SSL end-point. It defaults
 to the default keystore `<java_home>/jre/lib/security/cacerts` with the
