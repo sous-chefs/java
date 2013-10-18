@@ -236,7 +236,6 @@ Only one of the following
         notifies :restart, "runit_service[jenkins]", :delayed
     end
 
-
 Usage
 =====
 
