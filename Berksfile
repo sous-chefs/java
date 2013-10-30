@@ -3,5 +3,4 @@ metadata
 
 group :integration do
   cookbook 'apt', '~> 2.0'
-  cookbook 'minitest-handler', '~> 1.0'
 end
