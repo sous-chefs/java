@@ -20,6 +20,9 @@ platforms:
       box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_chef-11.2.0.box
     run_list:
       - recipe[apt::default]
+  - name: debian-7.1.0
+    run_list:
+      - recipe[apt::default]
   - name: centos-6.4
   - name: centos-5.9
   - name: fedora-18
