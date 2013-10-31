@@ -5,16 +5,22 @@ driver_config:
     memory: 1024
 
 platforms:
+  - name: ubuntu-13.04
+    run_list:
+      - recipe[apt::default]
   - name: ubuntu-12.04
     run_list:
       - recipe[apt::default]
   - name: ubuntu-10.04
     run_list:
       - recipe[apt::default]
-  - name: debian-6
+  - name: debian-6.0.7
     driver_config:
-      box: opscode-debian-6
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_provisionerless.box
+      box: opscode-debian-6.0.7
+      box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_chef-11.2.0.box
+    run_list:
+      - recipe[apt::default]
+  - name: debian-7.1.0
     run_list:
       - recipe[apt::default]
   - name: centos-6.4
@@ -30,21 +36,18 @@ suites:
       - fedora-18
     run_list:
       - recipe[java::openjdk]
-      - recipe[minitest-handler::default]
   - name: openjdk-7
     excludes:
       - ubuntu-10.04
       - debian-6
     run_list:
       - recipe[java::openjdk]
-      - recipe[minitest-handler::default]
     attributes:
       java:
         jdk_version: "7"
   - name: oracle
     run_list:
       - recipe[java::oracle]
-      - recipe[minitest-handler::default]
     attributes:
       java:
         oracle:
@@ -53,7 +56,6 @@ suites:
   - name: oracle-7
     run_list:
       - recipe[java::oracle]
-      - recipe[minitest-handler::default]
     attributes:
       java:
         jdk_version: "7"
