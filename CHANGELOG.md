@@ -3,6 +3,12 @@ Java Cookbook CHANGELOG
 This file is used to list changes made in each version of the Java cookbook.
 
 
+v0.15.2
+-------
+### FIX
+- [COOK-3908] - Fixing JAVA_HOME on Ubuntu 10.04
+
+
 v1.14.0
 -------
 ### Bug
