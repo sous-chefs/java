@@ -3,6 +3,12 @@ Java Cookbook CHANGELOG
 This file is used to list changes made in each version of the Java cookbook.
 
 
+v1.15.0
+-------
+### Bug
+- Fixing version number. Accidently released at 0.15.x instead of 1.15.x
+
+
 v0.15.2
 -------
 ### FIX
