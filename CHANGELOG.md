@@ -3,6 +3,11 @@ Java Cookbook CHANGELOG
 This file is used to list changes made in each version of the Java cookbook.
 
 
+v1.15.2
+-------
+[CHEF-4210] remove unneeded run_command to prevent zombie processes
+
+
 v1.15.0
 -------
 ### Bug
