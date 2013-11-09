@@ -17,6 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+include_recipe 'java::configuration'
 
 java_home = node['java']["java_home"]
 arch = node['java']['arch']

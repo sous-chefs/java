@@ -18,6 +18,7 @@
 # limitations under the License.
 #
 
+include_recipe 'java::configuration'
 include_recipe "java::#{node['java']['install_flavor']}"
 
 # Purge the deprecated Sun Java packages if remove_deprecated_packages is true
