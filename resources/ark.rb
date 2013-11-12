@@ -19,6 +19,16 @@
 
 actions :install, :remove
 
+state_attrs :alternatives_priority,
+            :app_home,
+            :app_home_mode,
+            :bin_cmds,
+            :checksum,
+            :default,
+            :mirrorlist,
+            :owner,
+            :url
+
 attribute :url, :regex => /^(file|https?):\/\/.*(tar.gz|tgz|bin|zip)$/, :default => nil
 attribute :mirrorlist, :kind_of => Array, :default => nil
 attribute :checksum, :regex => /^[a-zA-Z0-9]{40,64}$/, :default => nil
