@@ -162,6 +162,8 @@ installations.
 Resources/Providers
 ===================
 
+## `java_ark` LWRP
+
 This cookbook contains the `java_ark` LWRP. Generally speaking this
 LWRP is deprecated in favor of `ark` from the
 [ark cookbook](https://github.com/opscode-cookbooks/ark), but it is
@@ -170,13 +172,13 @@ still used in this cookbook for handling the Oracle JDK installation.
 By default, the extracted directory is extracted to
 `app_root/extracted_dir_name` and symlinked to `app_root/default`
 
-## Actions
+### Actions
 
 - `:install`: extracts the tarball and makes necessary symlinks
 - `:remove`: removes the tarball and run update-alternatives for all
   symlinked `bin_cmds`
 
-## Attribute Parameters
+### Attribute Parameters
 
 - `url`: path to tarball, .tar.gz, .bin (oracle-specific), and .zip
   currently supported
@@ -196,7 +198,7 @@ By default, the extracted directory is extracted to
 - `default`: whether this the default installation of this package,
   boolean true or false
 
-## Examples
+### Examples
 
     # install jdk6 from Oracle
     java_ark "jdk" do
@@ -205,6 +207,43 @@ By default, the extracted directory is extracted to
         app_home '/usr/local/java/default'
         bin_cmds ["java", "javac"]
         action :install
+    end
+
+## `java_certificate` LWRP
+
+This cookbook contains the `java_certificate` LWRP which simplifies
+adding certificates to a java keystore. It can also populate the keystore
+with a certificate retrieved from a given SSL end-point. It defaults
+to the default keystore `<java_home>/jre/lib/security/cacerts` with the
+default password if a specific keystore is not provided.
+
+### Actions
+
+- `:install`: installs a certificate.
+- `:remove`: removes a certificate.
+
+### Attribute Parameters
+
+- `cert_alias`: The alias of the certificate in the keystore. This defaults
+  to the name of the resource.
+
+Optional parameters:
+- `java_home`: the java home directory. Defaults to `node['java']['java_home']`.
+- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts`.
+- `keystore_passwd`: the keystore password. Defaults to 'changeit' as specified by the Java Documentation.
+
+Only one of the following 
+- `cert_data`: the certificate data to install
+- `cert_file`: path to a certificate file to install
+- `ssl_endpoint`: an SSL end-point from which to download the certificate
+
+### Examples
+
+    java_certificate "Install LDAP server certificate to Java CA keystore for Jenkins" do
+        cert_alias node['jenkins']['ldap']['url'][/\/\/(.*)/, 1]
+        ssl_endpoint node['jenkins']['ldap']['url']
+        action :install
+        notifies :restart, "runit_service[jenkins]", :delayed
     end
 
 Usage
