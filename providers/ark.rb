@@ -47,8 +47,13 @@ end
 def oracle_downloaded?(download_path, new_resource)
   if ::File.exists? download_path
     require 'digest'
-    downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
-    downloaded_sha == new_resource.checksum
+    if new_resource.checksum =~ /^[0-9a-f]{32}$/
+      downloaded_sha =  Digest::MD5.file(download_path).hexdigest
+      downloaded_sha == new_resource.md5 
+    else
+      downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
+      downloaded_sha == new_resource.checksum
+    end
   else
     return false
   end
