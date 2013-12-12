@@ -52,7 +52,9 @@ end
 
 if node['java'].attribute?("java_home")
   java_home_win = win_friendly_path(node['java']['java_home'])
-  additional_options = "INSTALLDIR=\"#{java_home_win}\""
+  # The EXE installer expects escaped quotes, so we need to double escape
+  # them here.
+  additional_options = "INSTALLDIR=\\\"#{java_home_win}\\\""
 
   env "JAVA_HOME" do
     value java_home_win
