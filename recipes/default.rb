@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe "java::#{node['java']['install_flavor']}"
+include_recipe "#{node['java']['flavor_cookbook']}::#{node['java']['install_flavor']}"
 
 # Purge the deprecated Sun Java packages if remove_deprecated_packages is true
 %w[sun-java6-jdk sun-java6-bin sun-java6-jre].each do |pkg|

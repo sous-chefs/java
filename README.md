@@ -51,6 +51,8 @@ See `attributes/default.rb` for default values.
 deprecated Ubuntu JDK packages from the system, default `false`
 * `node['java']['install_flavor']` - Flavor of JVM you would like
 installed (`oracle`, `openjdk`, `ibm`, `windows`), default `openjdk`
+* `node['java']['flavor_cookbook']` - The cookbook that contains 
+the custom flavor you would like to use to install Java.
 on Linux/Unix platforms, `windows` on Windows platforms.
 * `node['java']['jdk_version']` - JDK version to install, defaults to
   `'6'`.
