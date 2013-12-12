@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+include_recipe 'java::configuration'
+
 require 'uri'
 source_url = node['java']['ibm']['url']
 jdk_uri = ::URI.parse(source_url)

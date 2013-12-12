@@ -18,6 +18,7 @@
 # limitations under the License.
 #
 
+include_recipe 'java::configuration'
 require 'uri'
 
 Chef::Log.fatal("No download url set for java installer.") unless node['java'] && node['java']['windows'] && node['java']['windows']['url']
