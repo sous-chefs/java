@@ -25,31 +25,68 @@ unless valid_ibm_jdk_uri?(source_url)
   raise "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
 end
 
-template "#{Chef::Config[:file_cache_path]}/installer.properties" do
-  source "ibm_jdk.installer.properties.erb"
-  only_if { node['java']['ibm']['accept_ibm_download_terms'] }
-end
-
-remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
-  source source_url
-  mode 00755
-  if node['java']['ibm']['checksum']
-    checksum node['java']['ibm']['checksum']
-    action :create
-  else
-    action :create_if_missing
+if jdk_filename =~ /^.*\.(tar.gz|tgz)/
+  # installing from .tar file
+  remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
+    source source_url
+    mode 00755
+    if node['java']['ibm']['checksum']
+      checksum node['java']['ibm']['checksum']
+      action :create
+    else
+      action :create_if_missing
+    end
+    notifies :create, "directory[create-java-home]", :immediately
+    notifies :run, "execute[untar-ibm-java]", :immediately
   end
-  notifies :run, "execute[install-ibm-java]", :immediately
-end
+ 
+  directory "create-java-home" do
+    path node['java']['java_home']
+    mode 00755
+    recursive true
+  end
 
-execute "install-ibm-java" do
-  cwd Chef::Config[:file_cache_path]
-  environment({
-    "_JAVA_OPTIONS" => "-Dlax.debug.level=3 -Dlax.debug.all=true",
-    "LAX_DEBUG" => "1"
-  })
-  command "./#{jdk_filename} -f ./installer.properties -i silent"
-  creates "#{node['java']['java_home']}/jre/bin/java"
+  execute "untar-ibm-java" do
+    cwd Chef::Config[:file_cache_path]
+    command "tar xvzf ./#{jdk_filename} -C #{node['java']['java_home']} --strip 1"
+    creates "#{node['java']['java_home']}/jre/bin/java"
+  end
+else
+  # installing using .bin file
+ 
+  # "installable package" installer needs rpm
+  if platform_family?('debian') && jdk_filename !~ /archive/
+    package "rpm" do
+      action :install
+    end
+  end
+
+  template "#{Chef::Config[:file_cache_path]}/installer.properties" do
+    source "ibm_jdk.installer.properties.erb"
+    only_if { node['java']['ibm']['accept_ibm_download_terms'] }
+  end
+
+  remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
+    source source_url
+    mode 00755
+    if node['java']['ibm']['checksum']
+      checksum node['java']['ibm']['checksum']
+      action :create
+    else
+      action :create_if_missing
+    end
+    notifies :run, "execute[install-ibm-java]", :immediately
+  end
+
+  execute "install-ibm-java" do
+    cwd Chef::Config[:file_cache_path]
+    environment({
+      "_JAVA_OPTIONS" => "-Dlax.debug.level=3 -Dlax.debug.all=true",
+      "LAX_DEBUG" => "1"
+    })
+    command "./#{jdk_filename} -f ./installer.properties -i silent"
+    creates "#{node['java']['java_home']}/jre/bin/java"
+  end
 end
 
 include_recipe "java::set_java_home"
