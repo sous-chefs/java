@@ -65,4 +65,17 @@ describe 'java::default' do
     end
   end
 
+  context 'ibm_tar' do
+    let(:chef_run) do
+      runner = ChefSpec::ChefRunner.new
+      runner.node.set['java']['install_flavor'] = 'ibm_tar'
+      runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.tar.gz'
+      runner.converge('java::default')
+    end
+
+    it 'should include the ibm_tar recipe' do
+      expect(chef_run).to include_recipe('java::ibm_tar')
+    end
+  end
+
 end

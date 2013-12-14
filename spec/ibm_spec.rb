@@ -25,4 +25,49 @@ describe 'java::ibm' do
   it 'includes the set_java_home recipe' do
     expect(chef_run).to include_recipe('java::set_java_home')
   end
+
+  context 'install on ubuntu' do
+    let(:chef_run) do
+      runner = ChefSpec::ChefRunner.new(:platform => 'ubuntu', :version => '12.04')
+      runner.node.set['java']['install_flavor'] = 'ibm'
+      runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
+      runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
+      runner
+    end
+
+    it 'install rpm for installable package' do
+      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
+      chef_run.converge('java::ibm')
+      expect(chef_run).to install_package('rpm')
+    end
+
+    it 'no need to install rpm for tgz package' do
+      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java-archive.bin'
+      chef_run.converge('java::ibm')
+      expect(chef_run).not_to install_package('rpm')
+    end
+  end
+
+  context 'install on centos' do
+    let(:chef_run) do
+      runner = ChefSpec::ChefRunner.new(:platform => 'centos', :version => '5.8')
+      runner.node.set['java']['install_flavor'] = 'ibm'
+      runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
+      runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
+      runner
+    end
+
+    it 'no need to install rpm for installable package' do
+      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
+      chef_run.converge('java::ibm')
+      expect(chef_run).not_to install_package('rpm')
+    end
+
+    it 'no need to install rpm for tgz package' do
+      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java-archive.bin'
+      chef_run.converge('java::ibm')
+      expect(chef_run).not_to install_package('rpm')
+    end
+  end
+
 end
