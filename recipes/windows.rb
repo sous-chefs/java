@@ -26,8 +26,8 @@ pkg_checksum = node['java']['windows']['checksum']
 aws_access_key_id = node['java']['windows']['aws_access_key_id']
 aws_secret_access_key = node['java']['windows']['aws_secret_access_key']
 
-uri = ::URI.parse(::URI.unescape(node['java']['windows']['url']))
-cache_file_path = File.join(Chef::Config[:file_cache_path], File.basename(uri.path))
+uri = ::URI.parse(node['java']['windows']['url'])
+cache_file_path = File.join(Chef::Config[:file_cache_path], File.basename(::URI.unescape(uri.path)))
 
 if aws_access_key_id && aws_secret_access_key
   include_recipe 'aws::default'  # install right_aws gem for aws_s3_file
@@ -52,7 +52,9 @@ end
 
 if node['java'].attribute?("java_home")
   java_home_win = win_friendly_path(node['java']['java_home'])
-  additional_options = "INSTALLDIR=\"#{java_home_win}\""
+  # The EXE installer expects escaped quotes, so we need to double escape
+  # them here.
+  additional_options = "INSTALLDIR=\\\"#{java_home_win}\\\""
 
   env "JAVA_HOME" do
     value java_home_win

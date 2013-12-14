@@ -2,6 +2,26 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.16.0
+-------
+### Improvement
+- **[COOK-3823](https://tickets.opscode.com/browse/COOK-3823)** - Upgrade to JDK 7u45-b18
+
+v1.15.4
+-------
+[COOK-4210] - remove unneeded run_command to prevent zombie processes
+
+
+v1.15.2
+-------
+[CHEF-4210] remove unneeded run_command to prevent zombie processes
+
+
+v1.15.0
+-------
+### Bug
+- Fixing version number. Accidently released at 0.15.x instead of 1.15.x
+
 
 v0.15.2
 -------
