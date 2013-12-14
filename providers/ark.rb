@@ -198,43 +198,12 @@ action :install do
   end
 
   #update-alternatives
-  if new_resource.bin_cmds
-    new_resource.bin_cmds.each do |cmd|
-
-      bin_path = "/usr/bin/#{cmd}"
-      alt_path = "#{app_home}/bin/#{cmd}"
-      priority = new_resource.alternatives_priority
-
-      # install the alternative if needed
-      alternative_exists = shell_out("update-alternatives --display #{cmd} | grep #{alt_path}").exitstatus == 0
-      unless alternative_exists
-        description = "Add alternative for #{cmd}"
-        converge_by(description) do
-          Chef::Log.debug "Adding alternative for #{cmd}"
-          install_cmd = shell_out("update-alternatives --install #{bin_path} #{cmd} #{alt_path} #{priority}")
-          unless install_cmd.exitstatus == 0
-            Chef::Application.fatal!(%Q[ set alternative failed ])
-          end
-        end
-        new_resource.updated_by_last_action(true)
-      end
-
-      # set the alternative if default
-      if new_resource.default
-        alternative_is_set = shell_out("update-alternatives --display #{cmd} | grep \"link currently points to #{alt_path}\"").exitstatus == 0
-        unless alternative_is_set
-          description = "Set alternative for #{cmd}"
-          converge_by(description) do
-            Chef::Log.debug "Setting alternative for #{cmd}"
-            set_cmd = shell_out("update-alternatives --set #{cmd} #{alt_path}")
-            unless set_cmd.exitstatus == 0
-              Chef::Application.fatal!(%Q[ set alternative failed ])
-            end
-          end
-          new_resource.updated_by_last_action(true)
-        end
-      end
-    end
+  java_alternatives 'set-java-alternatives' do
+    java_location app_home
+    bin_cmds new_resource.bin_cmds
+    priority new_resource.alternatives_priority
+    default new_resource.default
+    action :set
   end
 end
 
@@ -243,15 +212,19 @@ action :remove do
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
+  unless new_resource.default
+    Chef::Log.debug("processing alternate jdk")
+    app_dir = app_dir + "_alt"
+    app_home = new_resource.app_home + "_alt"
+  else
+    app_home = new_resource.app_home
+  end
+
   if ::File.exists?(app_dir)
-    new_resource.bin_cmds.each do |cmd|
-      cmd = execute "update_alternatives" do
-        command "update-alternatives --remove #{cmd} #{app_dir} "
-        returns [0,2]
-        action :nothing
-      end
-      # the execute resource will take care of of the run_action(:run)
-      cmd.run_action(:run)
+    java_alternatives 'unset-java-alternatives' do
+      java_location app_home
+      bin_cmds new_resource.bin_cmds
+      action :unset
     end
     description = "remove #{new_resource.name} at #{app_dir}"
     converge_by(description) do
