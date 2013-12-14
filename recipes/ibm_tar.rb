@@ -1,6 +1,5 @@
-# Author:: Joshua Timberman (<joshua@opscode.com>)
 # Cookbook Name:: java
-# Recipe:: ibm
+# Recipe:: ibm_tar
 #
 # Copyright 2013, Opscode, Inc.
 #
@@ -23,19 +22,11 @@ jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
 
 unless valid_ibm_jdk_uri?(source_url)
-  raise "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
+  raise "You must set the attribute `node['java']['ibm']['url']` to a valid URI"
 end
 
-# "installable package" installer needs rpm on Ubuntu
-if platform_family?('debian') && jdk_filename !~ /archive/
-  package "rpm" do
-    action :install
-  end
-end
-
-template "#{Chef::Config[:file_cache_path]}/installer.properties" do
-  source "ibm_jdk.installer.properties.erb"
-  only_if { node['java']['ibm']['accept_ibm_download_terms'] }
+unless jdk_filename =~ /\.(tar.gz|tgz)$/
+  raise "The attribute `node['java']['ibm']['url']` must specify a .tar.gz file"
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
@@ -47,28 +38,19 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   else
     action :create_if_missing
   end
-  notifies :run, "execute[install-ibm-java]", :immediately
+  notifies :create, "directory[create-java-home]", :immediately
+  notifies :run, "execute[untar-ibm-java]", :immediately
 end
 
-java_alternatives 'set-java-alternatives' do
-  java_location node['java']['java_home']
-  case node['java']['jdk_version']
-  when "6"
-    bin_cmds node['java']['ibm']['6']['bin_cmds']
-  when "7"
-    bin_cmds node['java']['ibm']['7']['bin_cmds']
-  end
-  action :nothing
+directory "create-java-home" do
+  path node['java']['java_home']
+  mode 00755
+  recursive true
 end
 
-execute "install-ibm-java" do
+execute "untar-ibm-java" do
   cwd Chef::Config[:file_cache_path]
-  environment({
-    "_JAVA_OPTIONS" => "-Dlax.debug.level=3 -Dlax.debug.all=true",
-    "LAX_DEBUG" => "1"
-  })
-  command "./#{jdk_filename} -f ./installer.properties -i silent"
-  notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
+  command "tar xzf ./#{jdk_filename} -C #{node['java']['java_home']} --strip 1"
   creates "#{node['java']['java_home']}/jre/bin/java"
 end
 
