@@ -19,7 +19,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-java_location = Opscode::OpenJDK.new(node).java_location
+jdk = Opscode::OpenJDK.new(node)
+java_location = jdk.java_location
+alternatives_priority = jdk.alternatives_priority
 
 if platform_requires_license_acceptance?
   file "/opt/local/.dlj_license_accepted" do
@@ -38,10 +40,11 @@ end
 if platform_family?('debian', 'rhel', 'fedora')
   bash 'update-java-alternatives' do
     code <<-EOH.gsub(/^\s+/, '')
-      update-alternatives --install /usr/bin/java java #{java_location} 1061 && \
+      update-alternatives --install /usr/bin/java java #{java_location} #{alternatives_priority} && \
       update-alternatives --set java #{java_location}
     EOH
-    only_if "update-alternatives --display java | grep '#{java_location} - priority 1061'"
+    # skip IF it's THERE and has this priority
+    not_if "update-alternatives --display java | grep '#{java_location} - priority #{alternatives_priority}'"
   end
 end
 
