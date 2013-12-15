@@ -7,10 +7,11 @@ v1.16.2
 ### Improvement
 - **[COOK-3488](https://tickets.opscode.com/browse/COOK-3488)** - set alternatives for ibm jdk
 - **[COOK-3764](https://tickets.opscode.com/browse/COOK-3764)** - IBM Java installer needs 'rpm' package on Ubuntu
+
 ### Bug
 - **[COOK-3857](https://tickets.opscode.com/browse/COOK-3857)** - do not unescape the java windows url before parsing it
-- **#95(https://github.com/socrata/java/pull/95)** - fixes update-alternatives for openjdk installs
-- **#100(https://github.com/socrata/java/pull/100)** - Use escaped quotes for Windows INSTALLDIR
+- **[#95](https://github.com/socrata/java/pull/95)** - fixes update-alternatives for openjdk installs
+- **[#100](https://github.com/socrata/java/pull/100)** - Use escaped quotes for Windows INSTALLDIR
 
 
 v1.16.0
