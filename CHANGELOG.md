@@ -2,6 +2,12 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.16.2
+-------
+[COOK-3488] - set alternatives for ibm jdk
+[COOK-3764] - IBM Java installer needs 'rpm' package on Ubuntu
+
+
 v1.16.0
 -------
 ### Improvement
