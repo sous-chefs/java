@@ -48,9 +48,21 @@ directory "create-java-home" do
   recursive true
 end
 
+java_alternatives 'set-java-alternatives' do
+  java_location node['java']['java_home']
+  case node['java']['jdk_version']
+  when "6"
+    bin_cmds node['java']['ibm']['6']['bin_cmds']
+  when "7"
+    bin_cmds node['java']['ibm']['7']['bin_cmds']
+  end
+  action :nothing
+end
+
 execute "untar-ibm-java" do
   cwd Chef::Config[:file_cache_path]
   command "tar xzf ./#{jdk_filename} -C #{node['java']['java_home']} --strip 1"
+  notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
   creates "#{node['java']['java_home']}/jre/bin/java"
 end
 
