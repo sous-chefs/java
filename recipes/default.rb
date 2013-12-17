@@ -18,6 +18,9 @@
 # limitations under the License.
 #
 
+# Calculate variables that depend on jdk_version
+# If you need to override this in an attribute file you must use
+# force_default or higher precedence.
 case node['platform_family']
 when "rhel", "fedora"
   node.default['java']['java_home'] = "/usr/lib/jvm/java"
@@ -28,11 +31,6 @@ when "freebsd"
 when "arch"
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
   node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}}"]
-when "windows"
-  node.default['java']['install_flavor'] = "windows"
-  node.default['java']['windows']['url'] = nil
-  node.default['java']['windows']['checksum'] = nil
-  node.default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
 when "debian"
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}"
   # Newer Debian & Ubuntu adds the architecture to the path
