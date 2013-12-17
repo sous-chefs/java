@@ -35,13 +35,13 @@ suites:
     excludes:
       - fedora-18
     run_list:
-      - recipe[java::openjdk]
+      - recipe[java::default]
   - name: openjdk-7
     excludes:
       - ubuntu-10.04
       - debian-6
     run_list:
-      - recipe[java::openjdk]
+      - recipe[java::default]
     attributes:
       java:
         jdk_version: "7"
