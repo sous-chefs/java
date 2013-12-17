@@ -2,6 +2,12 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.16.4
+-------
+### Bug
+- **[#103](https://github.com/socrata/java/pull/103)** - set alternatives when using ibm_tar recipe
+- **[#104](https://github.com/socrata/java/pull/104)** - Specify windows attributes in attribute files
+
 v1.16.2
 -------
 ### Improvement
