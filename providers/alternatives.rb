@@ -25,6 +25,11 @@ action :set do
       alt_path = "#{new_resource.java_location}/bin/#{cmd}"
       priority = new_resource.priority
 
+      if !::File.exist?(alt_path)
+        Chef::Log.debug "Skipping setting alternative for #{cmd}. Command #{alt_path} does not exist."
+        next
+      end
+
       # install the alternative if needed
       alternative_exists = shell_out("update-alternatives --display #{cmd} | grep #{alt_path}").exitstatus == 0
       unless alternative_exists
