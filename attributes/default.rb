@@ -21,11 +21,20 @@
 default['java']['remove_deprecated_packages'] = false
 
 # default jdk attributes
-default['java']['install_flavor'] = "openjdk"
 default['java']['jdk_version'] = '6'
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"
 default['java']['openjdk_packages'] = []
 default['java']['accept_license_agreement'] = false
+
+case node['platform_family']
+when "windows"
+  default['java']['install_flavor'] = "windows"
+  default['java']['windows']['url'] = nil
+  default['java']['windows']['checksum'] = nil
+  default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
+else
+  default['java']['install_flavor'] = "openjdk"
+end
 
 case node['java']['install_flavor']
 when 'ibm', 'ibm_tar'
