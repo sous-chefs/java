@@ -47,7 +47,7 @@ suites:
         jdk_version: "7"
   - name: oracle
     run_list:
-      - recipe[java::oracle]
+      - recipe[java::default]
     attributes:
       java:
         oracle:
@@ -55,7 +55,7 @@ suites:
         install_flavor: oracle
   - name: oracle-7
     run_list:
-      - recipe[java::oracle]
+      - recipe[java::default]
     attributes:
       java:
         jdk_version: "7"
