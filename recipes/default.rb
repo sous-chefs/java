@@ -42,6 +42,8 @@ when "debian"
 when "smartos"
   node.default['java']['java_home'] = "/opt/local/java/sun6"
   node.default['java']['openjdk_packages'] = ["sun-jdk#{node['java']['jdk_version']}", "sun-jre#{node['java']['jdk_version']}"]
+when "windows"
+  # Do nothing otherwise we will fall through to the else and set java_home to an invalid path, causing the installer to popup a dialog
 else
   node.default['java']['java_home'] = "/usr/lib/jvm/default-java"
   node.default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk"]
