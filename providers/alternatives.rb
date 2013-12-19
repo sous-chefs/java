@@ -51,7 +51,7 @@ action :set do
           description = "Set alternative for #{cmd}"
           converge_by(description) do
             Chef::Log.debug "Setting alternative for #{cmd}"
-            set_cmd = shell_out("update-alternatives --set #{cmd} #{alt_path}").run_command
+            set_cmd = shell_out("update-alternatives --set #{cmd} #{alt_path}")
             unless set_cmd.exitstatus == 0
               Chef::Application.fatal!(%Q[ set alternative failed ])
             end
@@ -66,7 +66,7 @@ end
 action :unset do
   new_resource.bin_cmds.each do |cmd|
     alt_path = "#{new_resource.java_location}/bin/#{cmd}"
-    cmd = shell_out("update-alternatives --remove #{cmd} #{alt_path}").run_command
+    cmd = shell_out("update-alternatives --remove #{cmd} #{alt_path}")
     if cmd.exitstatus == 0
       new_resource.updated_by_last_action(true)
     end
