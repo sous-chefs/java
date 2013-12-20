@@ -2,6 +2,17 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.17.0
+-------
+- **[COOK-4114](https://tickets.opscode.com/browse/COOK-4114)** - Test Kitchen no longer works after merging Pull Request #95 for openjdk tests on Debian/Ubuntu
+- **[COOK-4124](https://tickets.opscode.com/browse/COOK-4124)** - update-alternatives fails to run
+- **[#81](https://github.com/socrata/java/pull/81)** - Ensure local directory hierarchy
+- **[#97](https://github.com/socrata/java/pull/97)** - Expose LWRP state attributes
+- **[#99](https://github.com/socrata/java/pull/99)** - support for MD5 checksum
+- **[#106](https://github.com/socrata/java/pull/106)** - Fixed windows case to prevent bad java_home variable setting
+- **[Update checksums to the officially-published ones from Oracle](https://github.com/socrata/java/commit/b9e1df24caeb6e22346d2d415b3b4384f15d4ffd)**
+- **[Further test kitchen fixes to use the default recipe](https://github.com/socrata/java/commit/01c0b432705d9cfa6d2dfeaa380983e3f604069f)**
+
 v1.16.4
 -------
 ### Bug
