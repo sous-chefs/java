@@ -20,8 +20,6 @@
 # limitations under the License.
 
 jdk = Opscode::OpenJDK.new(node)
-java_location = jdk.java_location
-alternatives_priority = jdk.alternatives_priority
 
 if platform_requires_license_acceptance?
   file "/opt/local/.dlj_license_accepted" do
@@ -38,13 +36,16 @@ node['java']['openjdk_packages'].each do |pkg|
 end
 
 if platform_family?('debian', 'rhel', 'fedora')
-  bash 'update-java-alternatives' do
-    code <<-EOH.gsub(/^\s+/, '')
-      update-alternatives --install /usr/bin/java java #{java_location} #{alternatives_priority} && \
-      update-alternatives --set java #{java_location}
-    EOH
-    # skip IF it's THERE and has this priority
-    not_if "update-alternatives --display java | grep '#{java_location} - priority #{alternatives_priority}'"
+  java_alternatives 'set-java-alternatives' do
+    java_location jdk.java_location
+    priority jdk.alternatives_priority
+    case node['java']['jdk_version']
+    when "6"
+      bin_cmds node['java']['jdk']['6']['bin_cmds']
+    when "7"
+      bin_cmds node['java']['jdk']['7']['bin_cmds']
+    end
+    action :set
   end
 end
 
