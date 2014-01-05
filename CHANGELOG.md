@@ -2,6 +2,15 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.17.4
+-------
+### Bug
+- **[#111](https://github.com/socrata-cookbooks/java/pull/111)** - Fix alternatives for centos
+
+### Improvement
+- **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** Replace curl with remote_file with cookie header
+- **[#110](https://github.com/socrata-cookbooks/java/pull/110)** - Update openjdk to use the alternatives resource
+
 v1.17.2
 -------
 ### Bug
