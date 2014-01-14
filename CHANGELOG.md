@@ -2,6 +2,12 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.18.0
+-------
+### Improvement
+- **[#118](https://github.com/socrata-cookbooks/java/pull/118)** - Upgrade to 7u51
+- **[#117](https://github.com/socrata-cookbooks/java/pull/117)** - Suggest windows and aws
+
 v1.17.6
 -------
 ### Bug
