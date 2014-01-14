@@ -144,6 +144,13 @@ the default Java.
 Because there is no easy way to pull the java msi off oracle's site,
 this recipe requires you to host it internally on your own http repo.
 
+**IMPORTANT NOTE**
+
+If you use the `windows` recipe, you'll need to make sure you've uploaded
+the `aws` and `windows` cookbooks. As of version 1.18.0, this cookbook 
+references them with `suggests` instead of `depends`, as they are only
+used by the `windows` recipe.
+
 ## ibm
 
 The `java::ibm` recipe is used to install the IBM version of Java.
