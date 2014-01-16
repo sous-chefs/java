@@ -23,7 +23,12 @@
 # force_default or higher precedence.
 case node['platform_family']
 when "rhel", "fedora"
-  node.default['java']['java_home'] = "/usr/lib/jvm/java"
+  case node['java']['install_flavor']
+  when "oracle"
+    node.default['java']['java_home'] = "/usr/lib/jvm/java"
+  else
+    node.default['java']['java_home'] = "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0"
+  end
   node.default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
 when "freebsd"
   node.default['java']['java_home'] = "/usr/local/openjdk#{node['java']['jdk_version']}"
