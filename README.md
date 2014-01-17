@@ -97,6 +97,10 @@ systems, the `install_flavor` is `windows`.
 OpenJDK is the default because of licensing changes made upstream by
 Oracle. See notes on the `oracle` recipe below.
 
+NOTE: In most cases, including just the default recipe will be sufficient.
+It's possible to include the install_type recipes directly, as long as
+the necessary attributes (such as java_home) are set.
+
 ## openjdk
 
 This recipe installs the `openjdk` flavor of Java. It also uses the
