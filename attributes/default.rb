@@ -17,9 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# remove the deprecated Ubuntu jdk packages
-default['java']['remove_deprecated_packages'] = false
-
 # default jdk attributes
 default['java']['jdk_version'] = '6'
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"

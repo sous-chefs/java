@@ -20,7 +20,3 @@
 
 include_recipe "java::compute_paths"
 include_recipe "java::#{node['java']['install_flavor']}"
-
-if node['java']['remove_deprecated_packages']
-  include_recipe "java::purge_packages"
-end
