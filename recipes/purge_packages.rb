@@ -1,9 +1,5 @@
-#
-# Author:: Seth Chisamore (<schisamo@opscode.com>)
 # Cookbook Name:: java
-# Recipe:: default
-#
-# Copyright 2008-2011, Opscode, Inc.
+# Recipe:: purge_packages
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,11 +12,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-include_recipe "java::compute_paths"
-include_recipe "java::#{node['java']['install_flavor']}"
-
-if node['java']['remove_deprecated_packages']
-  include_recipe "java::purge_packages"
+# Purge the deprecated Sun Java packages if remove_deprecated_packages is true
+%w[sun-java6-jdk sun-java6-bin sun-java6-jre].each do |pkg|
+  package pkg do
+    action :purge
+  end
 end
