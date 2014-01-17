@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Purge the deprecated Sun Java packages if remove_deprecated_packages is true
 %w[sun-java6-jdk sun-java6-bin sun-java6-jre].each do |pkg|
   package pkg do
     action :purge
