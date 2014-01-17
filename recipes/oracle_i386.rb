@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+unless node.recipe?('java::default')
+  Chef::Log.warn("Using java::default instead is recommended")
+end
+
 java_home = node['java']["java_home"]
 
 case node['java']['jdk_version']
