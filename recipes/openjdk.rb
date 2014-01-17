@@ -19,6 +19,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+unless node.recipe?('java::default')
+  Chef::Log.warn("Using java::default instead is recommended")
+end
+
 jdk = Opscode::OpenJDK.new(node)
 
 if platform_requires_license_acceptance?
