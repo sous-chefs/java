@@ -20,7 +20,14 @@
 # limitations under the License.
 
 unless node.recipe?('java::default')
-  Chef::Log.warn("Using java::default instead is recommended")
+  Chef::Log.warn("Using java::default instead is recommended.")
+
+  # Even if this recipe is included by itself, a safety check is nice...
+  [ node['java']['openjdk_packages'], node['java']['java_home'] ].each do |v|
+    if v.nil? or v.empty?
+      include_recipe "java::set_attributes_from_version"
+    end
+  end
 end
 
 jdk = Opscode::OpenJDK.new(node)
