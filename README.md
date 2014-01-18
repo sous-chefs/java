@@ -99,6 +99,16 @@ NOTE: In most cases, including just the default recipe will be sufficient.
 It's possible to include the install_type recipes directly, as long as
 the necessary attributes (such as java_home) are set.
 
+## set_attributes_from_version
+
+Sets default attributes based on the JDK version. This logic must be in
+a recipe instead of attributes/default.rb. See [#95](https://github.com/socrata-cookbooks/java/pull/95)
+for details.
+
+## purge_packages
+
+Purges deprecated Sun Java packages.
+
 ## openjdk
 
 This recipe installs the `openjdk` flavor of Java. It also uses the

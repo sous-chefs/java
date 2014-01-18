@@ -1,5 +1,5 @@
 # Cookbook Name:: java
-# Recipe:: compute_paths
+# Recipe:: set_attributes_from_version
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
