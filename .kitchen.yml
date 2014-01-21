@@ -62,3 +62,15 @@ suites:
         oracle:
           accept_oracle_download_terms: true
         install_flavor: oracle
+  - name: oracle-direct
+    run_list:
+      - recipe[java::oracle]
+    attributes:
+      java:
+        oracle:
+          accept_oracle_download_terms: true
+  - name: openjdk-direct
+    run_list:
+      - recipe[java::openjdk]
+    excludes:
+      - fedora-18
