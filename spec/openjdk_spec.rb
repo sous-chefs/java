@@ -22,7 +22,7 @@ describe 'java::openjdk' do
   # Regression test for COOK-2989
   context 'update-java-alternatives' do
     let(:chef_run) do
-      ChefSpec::ChefRunner.new(:platform => 'ubuntu', :version => '12.04').converge('java::openjdk')
+      ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04').converge(described_recipe)
     end
 
     it 'executes update-java-alternatives with the right commands' do
@@ -32,7 +32,7 @@ describe 'java::openjdk' do
       update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java 1061 && \
       update-alternatives --set java /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java
       EOH
-      expect(chef_run).to execute_bash_script('update-java-alternatives').with(:code => code_string)
+      expect(chef_run).to run_bash('update-java-alternatives').with(:code => code_string)
     end
   end
 
@@ -40,7 +40,7 @@ describe 'java::openjdk' do
     data['versions'].each do |version|
       context "On #{platform} #{version}" do
         let(:chef_run) do
-          ChefSpec::ChefRunner.new(:platform => platform, :version => version).converge('java::openjdk')
+          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
         data['packages'].each do |pkg|
@@ -61,7 +61,7 @@ describe 'java::openjdk' do
     {'centos' => '6.3','ubuntu' => '12.04'}.each_pair do |platform, version|
       context platform do
         let(:chef_run) do
-          ChefSpec::ChefRunner.new(:platform => platform, :version => version).converge('java::openjdk')
+          ChefSpec::Runner.new(:platform => platform, :version => version).converge('java::openjdk')
         end
 
         it 'does not write out license file' do
@@ -72,7 +72,7 @@ describe 'java::openjdk' do
 
     context 'smartos' do
       let(:chef_run) do
-        ChefSpec::ChefRunner.new(:platform => 'smartos', :version => 'joyent_20130111T180733Z', :evaluate_guards => true)
+        ChefSpec::Runner.new(:platform => 'smartos', :version => 'joyent_20130111T180733Z', :evaluate_guards => true)
       end
 
       context 'when auto_accept_license is true' do
