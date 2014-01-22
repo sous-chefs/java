@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'java::oracle_i386' do
   let(:chef_run) do
-    runner = ChefSpec::ChefRunner.new
-    runner.converge('java::oracle_i386')
+    runner = ChefSpec::Runner.new
+    runner.converge(described_recipe)
   end
 
   it 'should include the set_java_home recipe' do
