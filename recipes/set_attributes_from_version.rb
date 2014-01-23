@@ -31,7 +31,7 @@ when "freebsd"
   node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when "arch"
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
-  node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}}"]
+  node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when "debian"
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}"
   # Newer Debian & Ubuntu adds the architecture to the path
