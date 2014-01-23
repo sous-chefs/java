@@ -2,34 +2,52 @@ require 'spec_helper'
 
 describe 'java::openjdk' do
   platforms = {
-    'ubuntu' => {
+    'ubuntu-10.04' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'versions' => ['10.04', '12.04'],
+      'platform_family' => 'debian',
       'update_alts' => true
     },
-    'centos' => {
+    'ubuntu-12.04' => {
+      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'platform_family' => 'debian',
+      'update_alts' => true
+    },
+    'debian-6' => {
+      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'platform_family' => 'debian',
+      'update_alts' => true
+    },
+    'debian-7' => {
+      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'platform_family' => 'debian',
+      'update_alts' => true
+    },
+    'centos-6.4' => {
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
-      'versions' => ['5.8', '6.3'],
+      'platform_family' => 'rhel',
       'update_alts' => true
     },
-    'smartos' => {
+    'smartos-joyent_20130111T180733Z' => {
       'packages' => ['sun-jdk6', 'sun-jre6'],
-      'versions' => ['joyent_20130111T180733Z'],
+      'platform_family' => 'smartos',
       'update_alts' => false
     }
   }
 
   platforms.each do |platform, data|
-    data['versions'].each do |version|
+    parts = platform.split('-')
+    os = parts[0]
+    version = parts[1]
+    context "On #{os} #{version}" do
       let(:chef_run) do
-        ChefSpec::Runner.new('platform' => platform, 'version' => version).converge(described_recipe)
+        runner = ChefSpec::Runner.new('platform' => os, 'version' => version)
+        runner.node.set['platform_family'] = data['platform_family']
+        runner.converge(described_recipe)
       end
 
-      context "On #{platform} #{version}" do
-        data['packages'].each do |pkg|
-          it "installs package #{pkg}" do
-            expect(chef_run).to install_package(pkg)
-          end
+      data['packages'].each do |pkg|
+        it "installs package #{pkg}" do
+          expect(chef_run).to install_package(pkg)
         end
       end
 
@@ -96,14 +114,14 @@ describe 'java::openjdk' do
       context 'when auto_accept_license is true' do
         it 'writes out a license acceptance file' do
           chef_run.node.set['java']['accept_license_agreement'] = true
-          expect(chef_run.converge('java::openjdk')).to create_file("/opt/local/.dlj_license_accepted")
+          expect(chef_run.converge(described_recipe)).to create_file("/opt/local/.dlj_license_accepted")
         end
       end
 
       context 'when auto_accept_license is false' do
         it 'does not write license file' do
           chef_run.node.set['java']['accept_license_agreement'] = false
-          expect(chef_run.converge('java::openjdk')).not_to create_file("/opt/local/.dlj_license_accepted")
+          expect(chef_run.converge(described_recipe)).not_to create_file("/opt/local/.dlj_license_accepted")
         end
       end
     end
