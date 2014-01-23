@@ -1,6 +1,7 @@
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 require 'helpers'
 require 'chefspec'
+require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
   config.color_enabled = true
