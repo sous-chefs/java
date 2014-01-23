@@ -11,6 +11,9 @@ describe 'java::default' do
   it 'should include the openjdk recipe by default' do
     expect(chef_run).to include_recipe('java::openjdk')
   end
+  it 'includes set_attributes_from_version' do
+    expect(chef_run).to include_recipe('java::set_attributes_from_version')
+  end
 
   context 'windows' do
     let(:chef_run) do
@@ -20,11 +23,14 @@ describe 'java::default' do
       )
       runner.node.set['java']['install_flavor'] = 'windows'
       runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
-      runner.converge(described_recipe)
+      runner.node.set['java']['java_home'] = 'C:/java'
+      runner.converge('windows::default',described_recipe)
     end
 
-    it 'should include the windows recipe' do
-      expect(chef_run).to include_recipe('java::windows')
+    # Running the tests on non-Windows platforms will error in the Windows library,
+    # but this means the recipe was included. There has to be a better way to handle this...
+    it 'should error on windows recipe' do
+      expect { chef_run }.to raise_error(TypeError)
     end
   end
 

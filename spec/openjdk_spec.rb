@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'java::openjdk' do
   platforms = {
     'ubuntu' => {
-      'packages' => ['openjdk-6-jdk', 'default-jre-headless'],
+      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
       'versions' => ['10.04', '12.04'],
       'update_alts' => true
     },
@@ -19,40 +19,58 @@ describe 'java::openjdk' do
     }
   }
 
-  # Regression test for COOK-2989
-  context 'update-java-alternatives' do
-    let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04').converge(described_recipe)
-    end
-
-    it 'executes update-java-alternatives with the right commands' do
-      # We can't use a regexp in the matcher's #with attributes, so
-      # let's reproduce the code block with the heredoc + gsub:
-      code_string = <<-EOH.gsub(/^\s+/, '')
-      update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java 1061 && \
-      update-alternatives --set java /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java
-      EOH
-      expect(chef_run).to run_bash('update-java-alternatives').with(:code => code_string)
-    end
-  end
-
   platforms.each do |platform, data|
     data['versions'].each do |version|
-      context "On #{platform} #{version}" do
-        let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
-        end
+      let(:chef_run) do
+        ChefSpec::Runner.new('platform' => platform, 'version' => version).converge(described_recipe)
+      end
 
+      context "On #{platform} #{version}" do
         data['packages'].each do |pkg|
           it "installs package #{pkg}" do
             expect(chef_run).to install_package(pkg)
           end
-
-          it 'sends notification to update-java-alternatives' do
-            expectation = data['update_alts'] ? :to : :not_to
-            expect(chef_run.package(pkg)).send(expectation, notify("bash[update-java-alternatives]", :run))
-          end
         end
+      end
+
+      it 'sends notification to update-java-alternatives' do
+        if data['update_alts']
+          expect(chef_run).to notify('java_alternatives[set-java-alternatives]').to(:set)
+        else
+          expect(chef_run).to_not notify('java_alternatives[set-java-alternatives]').to(:set)
+        end
+      end
+    end
+  end
+
+  describe 'conditionally includes set attributes' do
+    context 'when java_home and openjdk_packages are set' do
+      let(:chef_run) do
+        runner = ChefSpec::Runner.new(
+          'platform' => 'ubuntu',
+          'version' => '12.04'
+        )
+        runner.node.set['java']['java_home'] = "/some/path"
+        runner.node.set['java']['openjdk_packages'] = ['dummy','stump']
+        runner.converge(described_recipe)
+      end
+
+      it 'does not include set_attributes_from_version' do
+        expect(chef_run).to_not include_recipe('java::set_attributes_from_version')
+      end
+    end
+
+    context 'when java_home and openjdk_packages are not set' do
+      let(:chef_run) do
+        runner = ChefSpec::Runner.new(
+          'platform' => 'ubuntu',
+          'version' => '12.04'
+        )
+        runner.converge(described_recipe)
+      end
+
+      it 'does not include set_attributes_from_version' do
+        expect(chef_run).to include_recipe('java::set_attributes_from_version')
       end
     end
   end
