@@ -53,9 +53,9 @@ describe 'java::openjdk' do
 
       it 'sends notification to update-java-alternatives' do
         if data['update_alts']
-          expect(chef_run).to notify('java_alternatives[set-java-alternatives]').to(:set)
+          expect(chef_run).to set_java_alternatives('set-java-alternatives')
         else
-          expect(chef_run).to_not notify('java_alternatives[set-java-alternatives]').to(:set)
+          expect(chef_run).to_not set_java_alternatives('set-java-alternatives')
         end
       end
     end
