@@ -2,6 +2,18 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.19.2
+-------
+### Improvement
+- **[#129](https://github.com/socrata-cookbooks/java/pull/129)** - Upgrade to ChefSpec 3
+- Rewrite unit tests for better coverage and to work with ChefSpec 3 (various commits)
+- List Socrata as the maintainer (Socrata took over from Opscode in December 2013)
+
+### Bug
+- **[#133](https://github.com/socrata-cookbooks/java/pull/133)** - Allow jdk_version to be a string or number
+- **[#131](https://github.com/socrata-cookbooks/java/pull/131)** - Fix JDK install on Windows
+- **[Fix openjdk_packages on Arch Linux](https://github.com/socrata-cookbooks/java/commit/677bee7b9bf08988596d40ac65e75984a86bda99)**
+
 v1.19.0
 -------
 Refactor the cookbook to better support wrapper cookbooks and other cookbook authoring patterns.
