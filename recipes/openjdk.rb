@@ -50,7 +50,7 @@ if platform_family?('debian', 'rhel', 'fedora')
   java_alternatives 'set-java-alternatives' do
     java_location jdk.java_home
     priority jdk.alternatives_priority
-    case node['java']['jdk_version']
+    case node['java']['jdk_version'].to_s
     when "6"
       bin_cmds node['java']['jdk']['6']['bin_cmds']
     when "7"
