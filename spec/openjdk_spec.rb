@@ -4,32 +4,26 @@ describe 'java::openjdk' do
   platforms = {
     'ubuntu-10.04' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'platform_family' => 'debian',
       'update_alts' => true
     },
     'ubuntu-12.04' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'platform_family' => 'debian',
       'update_alts' => true
     },
-    'debian-6' => {
+    'debian-6.0.5' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'platform_family' => 'debian',
       'update_alts' => true
     },
-    'debian-7' => {
+    'debian-7.0' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'platform_family' => 'debian',
       'update_alts' => true
     },
     'centos-6.4' => {
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
-      'platform_family' => 'rhel',
       'update_alts' => true
     },
     'smartos-joyent_20130111T180733Z' => {
       'packages' => ['sun-jdk6', 'sun-jre6'],
-      'platform_family' => 'smartos',
       'update_alts' => false
     }
   }
@@ -39,11 +33,7 @@ describe 'java::openjdk' do
     os = parts[0]
     version = parts[1]
     context "On #{os} #{version}" do
-      let(:chef_run) do
-        runner = ChefSpec::Runner.new('platform' => os, 'version' => version)
-        runner.node.set['platform_family'] = data['platform_family']
-        runner.converge(described_recipe)
-      end
+      let(:chef_run) { ChefSpec::Runner.new(:platform => os, :version => version).converge(described_recipe) }
 
       data['packages'].each do |pkg|
         it "installs package #{pkg}" do
@@ -65,8 +55,8 @@ describe 'java::openjdk' do
     context 'when java_home and openjdk_packages are set' do
       let(:chef_run) do
         runner = ChefSpec::Runner.new(
-          'platform' => 'ubuntu',
-          'version' => '12.04'
+          :platform => 'ubuntu',
+          :version => '12.04'
         )
         runner.node.set['java']['java_home'] = "/some/path"
         runner.node.set['java']['openjdk_packages'] = ['dummy','stump']
@@ -81,8 +71,8 @@ describe 'java::openjdk' do
     context 'when java_home and openjdk_packages are not set' do
       let(:chef_run) do
         runner = ChefSpec::Runner.new(
-          'platform' => 'ubuntu',
-          'version' => '12.04'
+          :platform => 'ubuntu',
+          :version => '12.04'
         )
         runner.converge(described_recipe)
       end

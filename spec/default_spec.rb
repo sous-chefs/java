@@ -18,10 +18,9 @@ describe 'java::default' do
   context 'windows' do
     let(:chef_run) do
       runner = ChefSpec::Runner.new(
-        'platform' => 'windows',
-        'version' => '2008R2'
+        :platform => 'windows',
+        :version => '2008R2'
       )
-      runner.node.set['java']['install_flavor'] = 'windows'
       runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
       runner.node.set['java']['java_home'] = 'C:/java'
       runner.converge('windows::default',described_recipe)
