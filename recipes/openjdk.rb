@@ -47,15 +47,11 @@ node['java']['openjdk_packages'].each do |pkg|
 end
 
 if platform_family?('debian', 'rhel', 'fedora')
+  jdk_version = node['java']['jdk_version']
   java_alternatives 'set-java-alternatives' do
     java_location jdk.java_home
     priority jdk.alternatives_priority
-    case node['java']['jdk_version']
-    when "6"
-      bin_cmds node['java']['jdk']['6']['bin_cmds']
-    when "7"
-      bin_cmds node['java']['jdk']['7']['bin_cmds']
-    end
+    bin_cmds node['java']['jdk']["#{jdk_version}"]['bin_cmds']
     action :set
   end
 end
