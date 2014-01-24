@@ -52,7 +52,7 @@ end
 
 java_alternatives 'set-java-alternatives' do
   java_location node['java']['java_home']
-  case node['java']['jdk_version']
+  case node['java']['jdk_version'].to_s
   when "6"
     bin_cmds node['java']['ibm']['6']['bin_cmds']
   when "7"

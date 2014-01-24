@@ -23,7 +23,7 @@ describe Opscode::OpenJDK do
     {
       'java' => {
         'java_home' => '/usr/lib/jvm/default-java',
-        'jdk_version' => 6
+        'jdk_version' => '6'
       },
       'kernel' => {
         'machine' => 'x86_64'

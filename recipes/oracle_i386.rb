@@ -28,7 +28,7 @@ end
 
 java_home = node['java']["java_home"]
 
-case node['java']['jdk_version']
+case node['java']['jdk_version'].to_s
 when "6"
   tarball_url = node['java']['jdk']['6']['i586']['url']
   tarball_checksum = node['java']['jdk']['6']['i586']['checksum']
