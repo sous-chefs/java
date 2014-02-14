@@ -60,6 +60,13 @@ if platform_family?('debian', 'rhel', 'fedora')
   end
 end
 
+if platform_family?('debian')
+  link '/usr/lib/jvm/default-java' do
+    to node['java']['java_home']
+    not_if { node['java']['java_home'] == '/usr/lib/jvm/default-java' }
+  end
+end
+
 # We must include this recipe AFTER updating the alternatives or else JAVA_HOME
 # will not point to the correct java.
 include_recipe 'java::set_java_home'
