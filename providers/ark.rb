@@ -177,6 +177,7 @@ action :install do
     converge_by(description) do
       Chef::Log.debug "Adding #{jinfo_file} for debian"
       template jinfo_file do
+        cookbook "java"
         source "oracle.jinfo.erb"
         variables(
           :priority => new_resource.alternatives_priority,
