@@ -49,6 +49,7 @@ when 'ibm', 'ibm_tar'
 when 'oracle_rpm'
   default['java']['oracle_rpm']['type'] = 'jdk'
   default['java']['java_home'] = "/usr/java/latest"
+  default['java']['set_default'] = true
 end
 
 # if you change this to true, you can download directly from Oracle

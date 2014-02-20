@@ -28,6 +28,7 @@ end
 
 java_home = node['java']["java_home"]
 arch = node['java']['arch']
+set_default = node['java']['set_default']
 
 case node['java']['jdk_version'].to_s
 when "6"
@@ -48,6 +49,7 @@ include_recipe "java::set_java_home"
 
 java_ark "jdk" do
   url tarball_url
+  default set_default
   checksum tarball_checksum
   app_home java_home
   bin_cmds bin_cmds
