@@ -22,6 +22,7 @@ default['java']['jdk_version'] = '6'
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"
 default['java']['openjdk_packages'] = []
 default['java']['accept_license_agreement'] = false
+default['java']['set_default'] = true
 
 case node['platform_family']
 when "windows"
@@ -49,7 +50,6 @@ when 'ibm', 'ibm_tar'
 when 'oracle_rpm'
   default['java']['oracle_rpm']['type'] = 'jdk'
   default['java']['java_home'] = "/usr/java/latest"
-  default['java']['set_default'] = true
 end
 
 # if you change this to true, you can download directly from Oracle

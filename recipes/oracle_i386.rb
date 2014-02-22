@@ -27,7 +27,6 @@ unless node.recipe?('java::default')
 end
 
 java_home = node['java']["java_home"]
-set_default = node['java']['set_default']
 
 case node['java']['jdk_version'].to_s
 when "6"
@@ -48,7 +47,7 @@ yum_package "glibc" do
 end
 
 java_ark "jdk-alt" do
-  url tarball_url
+  url node['java']['set_default']
   default set_default
   checksum tarball_checksum
   app_home java_home
