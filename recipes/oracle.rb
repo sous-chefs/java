@@ -48,6 +48,7 @@ include_recipe "java::set_java_home"
 
 java_ark "jdk" do
   url tarball_url
+  default node['java']['set_default']
   checksum tarball_checksum
   app_home java_home
   bin_cmds bin_cmds
