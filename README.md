@@ -81,6 +81,8 @@ the .tar.gz.
   you accept IBM's EULA (for `java::ibm`)
 * `node['java']['accept_license_agreement']` - Indicates that you accept
   the EULA for openjdk package installation.
+* `node['java']['set_default']` - Indicates whether or not you want the 
+  JDK installed to be default on the system.  Defaults to true.
 
 Recipes
 =======
