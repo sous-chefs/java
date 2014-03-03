@@ -55,3 +55,5 @@ java_ark "jdk-alt" do
   action :install
   default false
 end
+
+include_recipe 'java::default_java_symlink'
