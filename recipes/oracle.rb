@@ -56,3 +56,4 @@ java_ark "jdk" do
   action :install
 end
 
+include_recipe 'java::default_java_symlink'

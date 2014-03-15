@@ -44,4 +44,35 @@ describe 'java::oracle_i386' do
       end
     end
   end
+
+  describe 'default-java' do
+    context 'ubuntu' do
+      let(:chef_run) do
+        ChefSpec::Runner.new(
+          :platform => 'ubuntu',
+          :version => '12.04'
+        ).converge(described_recipe)
+      end
+
+      it 'symlinks /usr/lib/jvm/default-java' do
+        link = chef_run.link('/usr/lib/jvm/default-java')
+        expect(link).to link_to(chef_run.node['java']['java_home'])
+      end
+    end
+
+    context 'centos' do
+      let(:chef_run) do
+        ChefSpec::Runner.new(
+          :platform => 'centos',
+          :version => '6.4'
+        ).converge(described_recipe)
+      end
+
+      it 'does not symlink /usr/lib/jvm/default-java' do
+        link = chef_run.link('/usr/lib/jvm/default-java')
+        expect(link).not_to link_to(chef_run.node['java']['java_home'])
+      end
+    end
+  end
+
 end
