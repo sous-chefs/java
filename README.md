@@ -81,7 +81,7 @@ the .tar.gz.
   you accept IBM's EULA (for `java::ibm`)
 * `node['java']['accept_license_agreement']` - Indicates that you accept
   the EULA for openjdk package installation.
-* `node['java']['set_default']` - Indicates whether or not you want the 
+* `node['java']['set_default']` - Indicates whether or not you want the
   JDK installed to be default on the system.  Defaults to true.
 
 Recipes
@@ -106,6 +106,10 @@ the necessary attributes (such as java_home) are set.
 Sets default attributes based on the JDK version. This logic must be in
 a recipe instead of attributes/default.rb. See [#95](https://github.com/socrata-cookbooks/java/pull/95)
 for details.
+
+## default_java_symlink
+
+Updates /usr/lib/jvm/default-java to point to JAVA_HOME.
 
 ## purge_packages
 
