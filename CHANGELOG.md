@@ -2,6 +2,11 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.21.2
+-------
+### Bug
+- **[#146](https://github.com/socrata-cookbooks/java/pull/146)** - Update Oracle accept-license-terms cookie format
+
 v1.21.0
 -------
 ### Improvement
