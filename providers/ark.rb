@@ -126,17 +126,13 @@ action :install do
       r.run_action(:create_if_missing)
     end
 
-    require 'tmpdir'
-
-    description = "create tmpdir, extract compressed data into tmpdir,
-                    move extracted data to #{app_dir} and delete tmpdir"
+    description = "extract compressed data into Chef file cache path and
+                    move extracted data to #{app_dir}"
     converge_by(description) do
-       tmpdir = Dir.mktmpdir
        case tarball_name
        when /^.*\.bin/
          cmd = shell_out(
-                                  %Q[ cd "#{tmpdir}";
-                                      cp "#{Chef::Config[:file_cache_path]}/#{tarball_name}" . ;
+                                  %Q[ cd "#{Chef::Config[:file_cache_path]}";
                                       bash ./#{tarball_name} -noregister
                                     ] )
          unless cmd.exitstatus == 0
@@ -144,14 +140,14 @@ action :install do
          end
        when /^.*\.zip/
          cmd = shell_out(
-                            %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmpdir}" ]
+                            %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" ]
                                   )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
          end
        when /^.*\.(tar.gz|tgz)/
          cmd = shell_out(
-                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
+                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" ]
                                   )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -159,12 +155,11 @@ action :install do
        end
 
        cmd = shell_out(
-                          %Q[ mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" ]
+                          %Q[ mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" ]
                                 )
        unless cmd.exitstatus == 0
-           Chef::Application.fatal!(%Q[ Command \' mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" \' failed ])
+           Chef::Application.fatal!(%Q[ Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ])
          end
-       FileUtils.rm_r tmpdir
      end
      new_resource.updated_by_last_action(true)
   end
