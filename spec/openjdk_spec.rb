@@ -115,7 +115,6 @@ describe 'java::openjdk' do
         end
       end
     end
-
   end
 
   describe 'default-java' do
@@ -127,9 +126,8 @@ describe 'java::openjdk' do
         ).converge(described_recipe)
       end
 
-      it 'symlinks /usr/lib/jvm/default-java' do
-        link = chef_run.link('/usr/lib/jvm/default-java')
-        expect(link).to link_to(chef_run.node['java']['java_home'])
+      it 'includes default_java_symlink' do
+        expect(chef_run).to include_recipe('java::default_java_symlink')
       end
     end
 
@@ -141,9 +139,8 @@ describe 'java::openjdk' do
         ).converge(described_recipe)
       end
 
-      it 'does not symlink /usr/lib/jvm/default-java' do
-        link = chef_run.link('/usr/lib/jvm/default-java')
-        expect(link).not_to link_to(chef_run.node['java']['java_home'])
+      it 'does not include default_java_symlink' do
+        expect(chef_run).to_not include_recipe('java::default_java_symlink')
       end
     end
   end

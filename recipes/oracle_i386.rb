@@ -56,4 +56,6 @@ java_ark "jdk-alt" do
   default false
 end
 
-include_recipe 'java::default_java_symlink'
+if platform_family?('debian')
+  include_recipe 'java::default_java_symlink'
+end

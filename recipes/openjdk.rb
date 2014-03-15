@@ -61,7 +61,9 @@ if platform_family?('debian', 'rhel', 'fedora')
   end
 end
 
-include_recipe 'java::default_java_symlink'
+if platform_family?('debian')
+  include_recipe 'java::default_java_symlink'
+end
 
 # We must include this recipe AFTER updating the alternatives or else JAVA_HOME
 # will not point to the correct java.
