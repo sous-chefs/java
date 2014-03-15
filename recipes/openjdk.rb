@@ -61,7 +61,7 @@ if platform_family?('debian', 'rhel', 'fedora')
   end
 end
 
-if platform_family?('debian')
+if node['java']['set_default'] and platform_family?('debian')
   include_recipe 'java::default_java_symlink'
 end
 
