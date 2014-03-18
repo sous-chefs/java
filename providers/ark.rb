@@ -30,13 +30,18 @@ def parse_app_dir_name url
   # for jdk1.6
   if file_name =~ /^(jre|jdk).*$/
     major_num = file_name.scan(/\d/)[0]
-    update_num = file_name.scan(/\d+/)[1]
+    update_token = file_name.scan(/u(\d+)/)[0]
+    update_num = update_token ? update_token[0] : "0"
     # pad a single digit number with a zero
     if update_num.length < 2
       update_num = "0" + update_num
     end
     package_name = file_name.scan(/[a-z]+/)[0]
-    app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
+    if update_num == "00"
+      app_dir_name = "#{package_name}1.#{major_num}.0"
+    else
+      app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
+    end
   else
     app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
     app_dir_name = app_dir_name.split("-bin")[0]
@@ -61,7 +66,6 @@ end
 
 def download_direct_from_oracle(tarball_name, new_resource)
   download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
-  jdk_id = new_resource.url.scan(/\/([6789]u[0-9][0-9]?-b[0-9][0-9])\//)[0][0]
   cookie = "oraclelicense=accept-securebackup-cookie"
   if node['java']['oracle']['accept_oracle_download_terms']
     # install the curl package

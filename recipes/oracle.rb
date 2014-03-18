@@ -38,6 +38,10 @@ when "7"
   tarball_url = node['java']['jdk']['7'][arch]['url']
   tarball_checksum = node['java']['jdk']['7'][arch]['checksum']
   bin_cmds = node['java']['jdk']['7']['bin_cmds']
+when "8"
+  tarball_url = node['java']['jdk']['8'][arch]['url']
+  tarball_checksum = node['java']['jdk']['8'][arch]['checksum']
+  bin_cmds = node['java']['jdk']['8']['bin_cmds']
 end
 
 if tarball_url =~ /example.com/
