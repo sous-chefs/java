@@ -1,45 +1,67 @@
-driver_plugin: vagrant
-driver_config:
+---
+driver:
+  name: vagrant
   require_chef_omnibus: true
   customize:
     memory: 1024
 
+provisioner:
+  name: chef_solo
+
 platforms:
-  - name: ubuntu-13.04
+  - name: ubuntu-13.10
+    driver:
+      box: opscode-ubuntu-13.10
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-13.10_chef-provisionerless.box
     run_list:
-      - recipe[apt::default]
+    - recipe[apt]
   - name: ubuntu-12.04
+    driver:
+      box: opscode-ubuntu-12.04
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box
     run_list:
-      - recipe[apt::default]
+    - recipe[apt]
   - name: ubuntu-10.04
+    driver:
+      box: opscode-ubuntu-10.04
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-10.04_chef-provisionerless.box
     run_list:
-      - recipe[apt::default]
-  - name: debian-6.0.7
-    driver_config:
-      box: opscode-debian-6.0.7
-      box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-6.0.7_chef-11.2.0.box
+    - recipe[apt]
+  - name: debian-6.0.8
+    driver:
+      box: opscode-debian-6.0.8
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-6.0.8_chef-provisionerless.box
     run_list:
-      - recipe[apt::default]
-  - name: debian-7.1.0
+    - recipe[apt]
+  - name: debian-7.4
+    driver:
+      box: opscode-debian-7.4
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.4_chef-provisionerless.box
     run_list:
-      - recipe[apt::default]
-  - name: centos-6.4
-  - name: centos-5.9
-  - name: fedora-18
-    driver_config:
-      box: opscode-fedora-18
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode-fedora-18_provisionerless.box
+    - recipe[apt]
+  - name: centos-6.5
+    driver:
+      box: opscode-centos-6.5
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box
+  - name: centos-5.10
+    driver:
+      box: opscode-centos-5.10
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box
+  - name: fedora-19
+    driver:
+      box: opscode-fedora-19
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-19_chef-provisionerless.box
 
 suites:
   - name: openjdk
     excludes:
-      - fedora-18
+      - fedora-19
     run_list:
       - recipe[java::default]
   - name: openjdk-7
     excludes:
       - ubuntu-10.04
-      - debian-6
+      - debian-6.0.8
     run_list:
       - recipe[java::default]
     attributes:
@@ -73,4 +95,4 @@ suites:
     run_list:
       - recipe[java::openjdk]
     excludes:
-      - fedora-18
+      - fedora-19
