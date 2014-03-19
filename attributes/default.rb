@@ -90,3 +90,23 @@ default['java']['jdk']['7']['x86_64']['checksum'] = '764f96c4b078b80adaa5983e754
 # i586
 default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-i586.tar.gz'
 default['java']['jdk']['7']['i586']['checksum'] = '909d353c1caf6b3b54cc20767a7778ef'
+
+# jdk8 attributes
+
+default['java']['jdk']['8']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel", "extcheck", "idlj", "jar", "jarsigner", "java", "javac",
+                                            "javadoc", "javafxpackager", "javah", "javap", "javaws", "jcmd", "jconsole", "jcontrol", "jdb",
+                                            "jdeps", "jhat", "jinfo", "jjs", "jmap", "jmc", "jps", "jrunscript", "jsadebugd", "jstack",
+                                            "jstat", "jstatd", "jvisualvm", "keytool", "native2ascii", "orbd", "pack200", "policytool",
+                                            "rmic", "rmid", "rmiregistry", "schemagen", "serialver", "servertool", "tnameserv",
+                                            "unpack200", "wsgen", "wsimport", "xjc" ]
+
+# Oracle doesn't seem to publish SHA256 checksums for Java releases, so we use MD5 instead.
+# Official checksums for the latest release can be found at http://www.oracle.com/technetwork/java/javase/downloads/javase8-binaries-checksum-2133161.html
+
+# x86_64
+default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8-b132/jdk-8-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = '7e9e5e5229c6603a4d8476050bbd98b1'
+
+# i586
+default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8-b132/jdk-8-linux-i586.tar.gz'
+default['java']['jdk']['8']['i586']['checksum'] = '45556e463a561b470bd9d0c07a73effb'
