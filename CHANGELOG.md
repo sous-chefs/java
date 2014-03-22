@@ -2,6 +2,14 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.22.0
+-------
+### Improvement
+- **[#148](https://github.com/socrata-cookbooks/java/pull/148)** - Add support for Oracle JDK 1.8.0
+- **[#150](https://github.com/socrata-cookbooks/java/pull/150)** - Make use of Chef's cache directory instead of /tmp
+- **[#151](https://github.com/socrata-cookbooks/java/pull/151)** - Update Test Kitchen suites
+- **[#154](https://github.com/socrata-cookbooks/java/pull/154)** - Add safety check for JDK 8 on non-Oracle
+
 v1.21.2
 -------
 ### Bug
