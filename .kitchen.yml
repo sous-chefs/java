@@ -1,7 +1,6 @@
 ---
 driver:
   name: vagrant
-  require_chef_omnibus: true
   customize:
     memory: 1024
 
@@ -12,45 +11,37 @@ platforms:
   - name: ubuntu-13.10
     driver:
       box: opscode-ubuntu-13.10
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-13.10_chef-provisionerless.box
     run_list:
     - recipe[apt]
   - name: ubuntu-12.04
     driver:
       box: opscode-ubuntu-12.04
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box
     run_list:
     - recipe[apt]
   - name: ubuntu-10.04
     driver:
       box: opscode-ubuntu-10.04
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-10.04_chef-provisionerless.box
     run_list:
     - recipe[apt]
   - name: debian-6.0.8
     driver:
       box: opscode-debian-6.0.8
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-6.0.8_chef-provisionerless.box
     run_list:
     - recipe[apt]
   - name: debian-7.4
     driver:
       box: opscode-debian-7.4
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.4_chef-provisionerless.box
     run_list:
     - recipe[apt]
   - name: centos-6.5
     driver:
       box: opscode-centos-6.5
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box
   - name: centos-5.10
     driver:
       box: opscode-centos-5.10
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-5.10_chef-provisionerless.box
   - name: fedora-19
     driver:
       box: opscode-fedora-19
-      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_fedora-19_chef-provisionerless.box
 
 suites:
   - name: openjdk
