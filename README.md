@@ -1,36 +1,55 @@
-Description
-===========
+java
+=====
 
 This cookbook installs a Java JDK/JRE. It defaults to installing
 OpenJDK, but it can also install Oracle and IBM JDKs.
 
-**IMPORTANT NOTE**
+Usage
+-----
 
-As of 26 March 2012 you can no longer directly download the JDK from
-Oracle's website without using a special cookie. This cookbook uses
-that cookie to download the oracle recipe on your behalf, however the
-`java::oracle` recipe forces you to set either override the
-`node['java']['oracle']['accept_oracle_download_terms']` to true or
-set up a private repository accessible by HTTP.
+Simply include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 for Oracle only). 
 
-### Example
+### Examples
 
-override the `accept_oracle_download_terms` in, e.g., `roles/base.rb`
+To install Oracle Java 7 (note that when installing Oracle JDK, `accept_oracle_download_terms` must be set -- see below for details):
 
+    name "java"
+    description "Install Oracle Java"
     default_attributes(
-      :java => {
-         :oracle => {
-           "accept_oracle_download_terms" => true
-         }
-       }
+      "java" => {
+        "install_flavor" => "oracle",
+        "accept_oracle_download_terms" => true,
+        "jdk_version" => "7"
+      }
+    )
+    run_list(
+      "recipe[java]"
+    )
+
+To install IBM flavored Java:
+
+    name "java"
+    description "Install IBM Java on Ubuntu"
+    default_attributes(
+      "java" => {
+        "install_flavor" => "ibm",
+        "ibm" => {
+          "accept_ibm_download_terms" => true,
+          "url" => "http://fileserver.example.com/ibm-java-x86_64-sdk-7.0-4.1.bin",
+          "checksum" => "The SHA256 checksum of the bin"
+        }
+      }
+    )
+    run_list(
+      "recipe[java]"
     )
 
 Requirements
-============
+-----
 
 Chef 0.10.10+ and Ohai 6.10+ for `platform_family` use.
 
-## Platform
+### Platform
 
 * Debian, Ubuntu
 * CentOS, Red Hat, Fedora, Scientific, Amazon, XenServer
@@ -39,11 +58,8 @@ Chef 0.10.10+ and Ohai 6.10+ for `platform_family` use.
 * SmartOS
 * Windows
 
-This cookbook includes cross-platform testing support via
-`test-kitchen`, see `TESTING.md`.
-
 Attributes
-==========
+-----
 
 See `attributes/default.rb` for default values.
 
@@ -85,11 +101,11 @@ the .tar.gz.
   JDK installed to be default on the system.  Defaults to true.
 
 Recipes
-=======
+-----
 
-## default
+### default
 
-Include the default recipe in a run list, to get `java`.  By default
+Include the default recipe in a run list or recipe to get `java`.  By default
 the `openjdk` flavor of Java is installed, but this can be changed by
 using the `install_flavor` attribute. By default on Windows platform
 systems, the `install_flavor` is `windows`.
@@ -101,21 +117,21 @@ NOTE: In most cases, including just the default recipe will be sufficient.
 It's possible to include the install_type recipes directly, as long as
 the necessary attributes (such as java_home) are set.
 
-## set_attributes_from_version
+### set_attributes_from_version
 
-Sets default attributes based on the JDK version. This logic must be in
+Sets default attributes based on the JDK version. This is included by `default.rb`. This logic must be in
 a recipe instead of attributes/default.rb. See [#95](https://github.com/socrata-cookbooks/java/pull/95)
 for details.
 
-## default_java_symlink
+### default_java_symlink
 
 Updates /usr/lib/jvm/default-java to point to JAVA_HOME.
 
-## purge_packages
+### purge_packages
 
 Purges deprecated Sun Java packages.
 
-## openjdk
+### openjdk
 
 This recipe installs the `openjdk` flavor of Java. It also uses the
 `alternatives` system on RHEL/Debian families to set the default Java.
@@ -125,12 +141,29 @@ agreement during package installation, set
 `node['java']['accept_license_agreement']` to true in order to indicate
 that you accept the license.
 
-## oracle
+### oracle
 
 This recipe installs the `oracle` flavor of Java. This recipe does not
 use distribution packages as Oracle changed the licensing terms with
 JDK 1.6u27 and prohibited the practice for both RHEL and Debian family
 platforms.
+
+As of 26 March 2012 you can no longer directly download the JDK from
+Oracle's website without using a special cookie. This cookbook uses
+that cookie to download the oracle recipe on your behalf, however the
+`java::oracle` recipe forces you to set either override the
+`node['java']['oracle']['accept_oracle_download_terms']` to true or
+set up a private repository accessible by HTTP.
+
+override the `accept_oracle_download_terms` in, e.g., `roles/base.rb`
+
+    default_attributes(
+      :java => {
+         :oracle => {
+           "accept_oracle_download_terms" => true
+         }
+       }
+    )
 
 For both RHEL and Debian families, this recipe pulls the binary
 distribution from the Oracle website, and installs it in the default
@@ -142,7 +175,7 @@ After putting the binaries in place, the `java::oracle` recipe updates
 `update-alternatives` script. This is all handled in the `java_ark`
 LWRP.
 
-## oracle_i386
+### oracle_i386
 
 This recipe installs the 32-bit Java virtual machine without setting
 it as the default. This can be useful if you have applications on the
@@ -150,14 +183,14 @@ same machine that require different versions of the JVM.
 
 This recipe operates in a similar manner to `java::oracle`.
 
-## oracle_rpm
+### oracle_rpm
 
 This recipe installs the Oracle JRE or JDK provided by a custom YUM
 repositories.
 It also uses the `alternatives` system on RHEL families to set
 the default Java.
 
-## windows
+### windows
 
 Because there is no easy way to pull the java msi off oracle's site,
 this recipe requires you to host it internally on your own http repo.
@@ -169,7 +202,7 @@ the `aws` and `windows` cookbooks. As of version 1.18.0, this cookbook
 references them with `suggests` instead of `depends`, as they are only
 used by the `windows` recipe.
 
-## ibm
+### ibm
 
 The `java::ibm` recipe is used to install the IBM version of Java.
 Note that IBM requires you to create an account *and* log in to
@@ -185,9 +218,9 @@ At this time the `java::ibm` recipe does not support multiple SDK
 installations.
 
 Resources/Providers
-===================
+-----
 
-## java_ark
+### java_ark
 
 This cookbook contains the `java_ark` LWRP. Generally speaking this
 LWRP is deprecated in favor of `ark` from the
@@ -197,13 +230,13 @@ still used in this cookbook for handling the Oracle JDK installation.
 By default, the extracted directory is extracted to
 `app_root/extracted_dir_name` and symlinked to `app_root/default`
 
-### Actions
+#### Actions
 
 - `:install`: extracts the tarball and makes necessary symlinks
 - `:remove`: removes the tarball and run update-alternatives for all
   symlinked `bin_cmds`
 
-### Attribute Parameters
+#### Attribute Parameters
 
 - `url`: path to tarball, .tar.gz, .bin (oracle-specific), and .zip
   currently supported
@@ -223,7 +256,7 @@ By default, the extracted directory is extracted to
 - `default`: whether this the default installation of this package,
   boolean true or false
 
-### Examples
+#### Examples
 
     # install jdk6 from Oracle
     java_ark "jdk" do
@@ -234,25 +267,25 @@ By default, the extracted directory is extracted to
         action :install
     end
 
-## java_alternatives
+### java_alternatives
 
 The `java_alternatives` LWRP uses `update-alternatives` command
 to set and unset command alternatives for various Java tools
 such as java, javac, etc.
 
-### Actions
+#### Actions
 
 - `:set`: set alternatives for Java tools
 - `:unset`: unset alternatives for Java tools
 
-### Attribute Parameters
+#### Attribute Parameters
 
 - `java_location`: Java installation location.
 - `bin_cmds`: array of Java tool names to set or unset alternatives on.
 - `default`: whether to set the Java tools as system default. Boolean, defaults to `true`.
 - `priority`: priority of the alternatives. Integer, defaults to `1061`.
 
-### Examples
+#### Examples
 
     # set alternatives for java and javac commands
     java_alternatives "set java alternatives" do
@@ -261,53 +294,16 @@ such as java, javac, etc.
         action :set
     end
 
-###
-Usage
-=====
-
-Simply include the `java` recipe where ever you would like Java installed.
-
-To install Oracle flavored Java override the `node['java']['install_flavor']` attribute with in role:
-
-    name "java"
-    description "Install Oracle Java on Ubuntu"
-    default_attributes(
-      "java" => {
-        "install_flavor" => "oracle"
-      }
-    )
-    run_list(
-      "recipe[java]"
-    )
-
-To install IBM flavored Java, set the required attributes:
-
-    name "java"
-    description "Install IBM Java on Ubuntu"
-    default_attributes(
-      "java" => {
-        "install_flavor" => "ibm",
-        "ibm" => {
-          "accept_ibm_download_terms" => true,
-          "url" => "http://fileserver.example.com/ibm-java-x86_64-sdk-7.0-4.1.bin",
-          "checksum" => "The SHA256 checksum of the bin"
-        }
-      }
-    )
-    run_list(
-      "recipe[java]"
-    )
-
+####
 
 Development
-===========
+-----
 
 This cookbook uses
 [test-kitchen](https://github.com/opscode/test-kitchen) for
 integration tests and
-[ChefSpec/RSpec](https://github.com/acrmp/chefspec) for unit tests.
-Pull requests should pass existing tests in
-`files/default/tests/minitest-handler`.
+[ChefSpec/RSpec](https://github.com/sethvargo/chefspec) for unit tests.
+See [TESTING.md](https://github.com/socrata-cookbooks/java/blob/master/TESTING.md) for testing instructions.
 
 At this time due to licensing concerns, the IBM recipe is not set up
 in test kitchen. If you would like to test this locally, copy
@@ -329,7 +325,7 @@ Java SDK you wish to use/test, host it on an internal HTTP server, and
 calculate the SHA256 checksum to use in the suite.
 
 License and Author
-==================
+-----
 
 * Author: Seth Chisamore (<schisamo@opscode.com>)
 * Author: Bryan W. Berry (<bryan.berry@gmail.com>)
