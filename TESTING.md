@@ -1,25 +1,29 @@
-This cookbook includes support for running tests via Test Kitchen (1.0). This has some requirements.
+This cookbook includes support for running tests via Test Kitchen. To get set up to test this cookbook:
 
-1. You must be using the Git repository, rather than the downloaded cookbook from the Chef Community Site.
-2. You must have Vagrant 1.1 installed.
-3. You must have a "sane" Ruby 1.9.3 environment.
+Install the latest version of [Vagrant](http://www.vagrantup.com/downloads.html)
 
-Once the above requirements are met, install the additional requirements:
+Install the latest version of [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (free) or [VMWare Fusion](http://www.vmware.com/products/fusion) (paid).
 
-Install the berkshelf plugin for vagrant, and berkshelf to your local Ruby environment.
+Clone the latest version of the cookbook from the repository.
+
+    git clone git@github.com:socrata-cookbooks/java.git
+    cd java
+
+Install the gems used for testing:
+
+    bundle install
+
+Install the berkshelf plugin for vagrant:
 
     vagrant plugin install vagrant-berkshelf
-    gem install berkshelf
-
-Install Test Kitchen 1.0 (unreleased yet, use the alpha / prerelease version).
-
-    gem install test-kitchen --pre
-
-Install the Vagrant driver for Test Kitchen.
-
-    gem install kitchen-vagrant
 
 Once the above are installed, you should be able to run Test Kitchen:
 
     kitchen list
     kitchen test
+
+You can run a specific test only by specifying it on the command-line:
+
+    kitchen test oracle-8-ubuntu-1204
+    
+Contributions to this cookbook will only be accepted if a full run of `kitchen test` completes successfully.
