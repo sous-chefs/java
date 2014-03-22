@@ -83,4 +83,31 @@ describe 'java::default' do
     end
   end
 
+  context 'Oracle JDK 8' do
+    let(:chef_run) do
+      runner = ChefSpec::Runner.new
+      runner.node.set['java']['install_flavor'] = 'oracle'
+      runner.node.set['java']['jdk_version'] = '8'
+      runner.converge(described_recipe)
+    end
+
+    it 'should not error' do
+      expect{chef_run}.to_not raise_error
+    end
+  end
+
+  context 'OpenJDK 8' do
+    let(:chef_run) do
+      runner = ChefSpec::Runner.new
+      runner.node.set['java']['install_flavor'] = 'openjdk'
+      runner.node.set['java']['jdk_version'] = '8'
+      runner.converge(described_recipe)
+    end
+
+    it 'should error' do
+      expect{chef_run}.to raise_error
+    end
+  end
+
+
 end
