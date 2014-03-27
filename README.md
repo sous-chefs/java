@@ -18,8 +18,10 @@ To install Oracle Java 7 (note that when installing Oracle JDK, `accept_oracle_d
     default_attributes(
       "java" => {
         "install_flavor" => "oracle",
-        "accept_oracle_download_terms" => true,
-        "jdk_version" => "7"
+        "jdk_version" => "7",
+        "oracle" => {
+          "accept_oracle_download_terms" => true
+        }
       }
     )
     run_list(
