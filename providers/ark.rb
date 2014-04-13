@@ -28,7 +28,7 @@ def parse_app_dir_name url
   file_name = url.split('/')[-1]
   # funky logic to parse oracle's non-standard naming convention
   # for jdk1.6
-  if file_name =~ /^(jre|jdk).*$/
+  if file_name =~ /^(jre|jdk|server-jre).*$/
     major_num = file_name.scan(/\d/)[0]
     update_token = file_name.scan(/u(\d+)/)[0]
     update_num = update_token ? update_token[0] : "0"
@@ -36,7 +36,7 @@ def parse_app_dir_name url
     if update_num.length < 2
       update_num = "0" + update_num
     end
-    package_name = file_name.scan(/[a-z]+/)[0]
+    package_name = (file_name =~ /^server-jre.*$/) ? "jdk" : file_name.scan(/[a-z]+/)[0]
     if update_num == "00"
       app_dir_name = "#{package_name}1.#{major_num}.0"
     else
