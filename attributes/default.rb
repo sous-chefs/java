@@ -24,6 +24,10 @@ default['java']['openjdk_packages'] = []
 default['java']['accept_license_agreement'] = false
 default['java']['set_default'] = true
 
+# the following retry parameters apply when downloading oracle java
+default['java']['ark_retries'] = 0
+default['java']['ark_retry_delay'] = 2
+
 case node['platform_family']
 when "windows"
   default['java']['install_flavor'] = "windows"

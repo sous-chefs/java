@@ -57,6 +57,8 @@ java_ark "jdk" do
   app_home java_home
   bin_cmds bin_cmds
   alternatives_priority 1062
+  retries node['java']['ark_retries']
+  retry_delay node['java']['ark_retry_delay']
   action :install
 end
 

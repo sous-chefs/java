@@ -78,7 +78,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     converge_by(description) do
        Chef::Log.debug "downloading oracle tarball straight from the source"
        cmd = shell_out!(
-                                  %Q[ curl --create-dirs -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
+                                  %Q[ curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
                                )
     end
   else
@@ -123,6 +123,8 @@ action :install do
       r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
+        retries new_resource.retries
+        retry_delay new_resource.retry_delay
         mode 0755
         action :nothing
       end

@@ -7,6 +7,10 @@ driver:
 
 provisioner:
   name: chef_solo
+  attributes:
+    java:
+      ark_retries: 2
+      ark_retry_delay: 10
 
 platforms:
   - name: ubuntu-13.10

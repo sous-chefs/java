@@ -40,6 +40,8 @@ attribute :bin_cmds, :kind_of => Array, :default => nil
 attribute :owner, :default => "root"
 attribute :default, :equal_to => [true, false], :default => true
 attribute :alternatives_priority, :kind_of => Integer, :default => 1
+attribute :retries, :kind_of => Integer, :default => 0
+attribute :retry_delay, :kind_of => Integer, :default => 2
 
 # we have to set default for the supports attribute
 # in initializer since it is a 'reserved' attribute name
