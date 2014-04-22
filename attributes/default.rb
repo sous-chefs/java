@@ -84,12 +84,12 @@ default['java']['jdk']['7']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
 # Official checksums for the latest release can be found at http://www.oracle.com/technetwork/java/javase/downloads/java-se-binaries-checksum-1956892.html
 
 # x86_64
-default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz'
-default['java']['jdk']['7']['x86_64']['checksum'] = '764f96c4b078b80adaa5983e75470ff2'
+default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u55-b13/jdk-7u55-linux-x64.tar.gz'
+default['java']['jdk']['7']['x86_64']['checksum'] = '9e1fb7936f0e5aaa1e64d36ba640bc1f'
 
 # i586
-default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-i586.tar.gz'
-default['java']['jdk']['7']['i586']['checksum'] = '909d353c1caf6b3b54cc20767a7778ef'
+default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u55-b13/jdk-7u55-linux-i586.tar.gz'
+default['java']['jdk']['7']['i586']['checksum'] = 'fec08edfd805ffcc34a1c20f38a9cc65'
 
 # jdk8 attributes
 
