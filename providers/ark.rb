@@ -166,6 +166,9 @@ action :install do
        unless cmd.exitstatus == 0
            Chef::Application.fatal!(%Q[ Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ])
          end
+
+       # change ownership of extracted files
+       FileUtils.chown_R new_resource.owner, new_resource.owner, app_root
      end
      new_resource.updated_by_last_action(true)
   end
