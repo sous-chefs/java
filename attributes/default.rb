@@ -24,6 +24,13 @@ default['java']['openjdk_packages'] = []
 default['java']['accept_license_agreement'] = false
 default['java']['set_default'] = true
 
+default['java']['apt']['package'] = 'default-jre'
+default['java']['apt']['uri'] = ''
+default['java']['apt']['key'] = ''
+default['java']['apt']['components'] = []
+default['java']['apt']['keyserver'] = ''
+default['java']['apt']['distribution'] = ''
+
 # the following retry parameters apply when downloading oracle java
 default['java']['ark_retries'] = 0
 default['java']['ark_retry_delay'] = 2

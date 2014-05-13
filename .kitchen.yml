@@ -101,3 +101,14 @@ suites:
       - recipe[java::openjdk]
     excludes:
       - fedora-19
+  - name: apt
+    run_list:
+      - recipe[java::apt]
+    excludes:
+      - fedora-19
+      - centos-6.5
+      - centos-5.10
+    attributes:
+      java:
+        apt:
+          package: default-jre
