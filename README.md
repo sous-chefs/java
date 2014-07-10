@@ -68,7 +68,7 @@ Attributes
 See `attributes/default.rb` for default values.
 
 * `node['java']['install_flavor']` - Flavor of JVM you would like
-installed (`oracle`, `openjdk`, `ibm`, `windows`), default `openjdk`
+installed (`oracle`, `oracle_rpm`, `openjdk`, `ibm`, `windows`), default `openjdk`
 on Linux/Unix platforms, `windows` on Windows platforms.
 * `node['java']['jdk_version']` - JDK version to install, defaults to
   `'6'`.
@@ -101,6 +101,13 @@ the .tar.gz.
   JDK/SDK. See the `ibm` recipe section below.
 * `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that
   you accept IBM's EULA (for `java::ibm`)
+* `node['java']['oracle_rpm']['type']` - Type of java RPM (`jre` or `jdk`), default `jdk`
+* `node['java']['oracle_rpm']['package_version']` - optional, can be set 
+  to pin a version different from the up-to-date one available in the YUM repo,
+  it might be needed to also override the node['java']['java_home'] attribute 
+  to a value consistent with the defined version
+* `node['java']['oracle_rpm']['package_name']` - optional, can be set 
+  to define a package name different from the RPM published by Oracle.
 * `node['java']['accept_license_agreement']` - Indicates that you accept
   the EULA for openjdk package installation.
 * `node['java']['set_default']` - Indicates whether or not you want the
