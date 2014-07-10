@@ -50,7 +50,9 @@ if platform_family?('rhel', 'fedora') and node['java']['set_default']
 
 end
 
-package node['java']['oracle_rpm']['type']  do
-  action :upgrade
+package_name = node['java']['oracle_rpm']['package_name'] || node['java']['oracle_rpm']['type']
+package package_name  do
+  action :install
+  version node['java']['oracle_rpm']['package_version'] if node['java']['oracle_rpm']['package_version']
   notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('rhel', 'fedora') and node['java']['set_default']
 end

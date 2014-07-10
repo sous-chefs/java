@@ -52,7 +52,19 @@ when 'ibm', 'ibm_tar'
 
   default['java']['ibm']['7']['bin_cmds'] = node['java']['ibm']['6']['bin_cmds'] + [ "pack200", "unpack200" ]
 when 'oracle_rpm'
+  # type of java RPM : jdk or jre
   default['java']['oracle_rpm']['type'] = 'jdk'
+
+  # optional, can be overriden to pin to a version different
+  # from the up-to-date.
+  default['java']['oracle_rpm']['package_version'] = nil
+
+  # optional, some distros re-package the official Oracle's RPM
+  # with a different name
+  default['java']['oracle_rpm']['package_name'] = nil
+
+  # set the JAVA_HOME path, it may be overriden
+  # when a package version is provided.
   default['java']['java_home'] = "/usr/java/latest"
 end
 
