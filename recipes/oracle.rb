@@ -56,7 +56,7 @@ java_ark "jdk" do
   checksum tarball_checksum
   app_home java_home
   bin_cmds bin_cmds
-  alternatives_priority 1062
+  alternatives_priority node['java']['alternatives_priority']
   retries node['java']['ark_retries']
   retry_delay node['java']['ark_retry_delay']
   action :install
