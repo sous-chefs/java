@@ -2,7 +2,7 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
-v1.23.0 - 7/25/2014
+v1.24.0 - 7/25/2014
 -------
 New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 
@@ -17,6 +17,10 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 - **[#158](https://github.com/agileorbit-cookbooks/java/pull/158)** - Updated README for accepting oracle terms
 - **[#157](https://github.com/agileorbit-cookbooks/java/pull/157)** -Remove VirtualBox specific box_urls
 - List AgileOrbit as the maintainer (AgileOrbit took over from Socrata in July 2014)
+
+v1.23.0 - 7/25/2014
+-------
+- Tagged but never published to community cookbooks. All changes rolled into 1.24.0
 
 v1.22.0
 -------
