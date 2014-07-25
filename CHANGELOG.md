@@ -2,6 +2,22 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.23.0 - 7/25/2014
+-------
+New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
+
+### Improvement
+- **[#192](https://github.com/agileorbit-cookbooks/java/pull/192)** - Bump JDK7 URLs to 7u65
+- **[#191](https://github.com/agileorbit-cookbooks/java/pull/192)** - Upgrade Oracle's Java 8 to u11
+- **[#188](https://github.com/agileorbit-cookbooks/java/pull/188)** - Allow for alternatives priority to be set from attribute.
+- **[#176](https://github.com/agileorbit-cookbooks/java/pull/176)** - Change ownership of extracted files
+- **[#169](https://github.com/agileorbit-cookbooks/java/pull/169)** - Add retries and retry_delay parameters to java_ark LWRP
+- **[#167](https://github.com/agileorbit-cookbooks/java/pull/167)** - default: don't fail when using java 8 on windows
+- **[#165](https://github.com/agileorbit-cookbooks/java/pull/165)** - Support for Server JRE
+- **[#158](https://github.com/agileorbit-cookbooks/java/pull/158)** - Updated README for accepting oracle terms
+- **[#157](https://github.com/agileorbit-cookbooks/java/pull/157)** -Remove VirtualBox specific box_urls
+- List AgileOrbit as the maintainer (AgileOrbit took over from Socrata in July 2014)
+
 v1.22.0
 -------
 ### Improvement
