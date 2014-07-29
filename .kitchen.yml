@@ -13,6 +13,11 @@ provisioner:
       ark_retry_delay: 10
 
 platforms:
+  - name: ubuntu-14.04
+    run_list:
+    - recipe[apt]
+    driver:
+      box: opscode-ubuntu-14.04
   - name: ubuntu-13.10
     driver:
       box: opscode-ubuntu-13.10
