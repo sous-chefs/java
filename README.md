@@ -7,7 +7,7 @@ OpenJDK, but it can also install Oracle and IBM JDKs.
 Usage
 -----
 
-Simply include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 for Oracle only). 
+Simply include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 for Oracle only).
 
 ### Examples
 
@@ -72,6 +72,8 @@ on Linux/Unix platforms, `windows` on Windows platforms.
   `'6'`.
 * `node['java']['java_home']` - Default location of the
   "`$JAVA_HOME`".
+* `node['java']['set_etc_environment']` - Optionally sets
+  JAVA_HOME in `/etc/environment` for  Default `false`.
 * `node['java']['openjdk_packages']` - Array of OpenJDK package names
   to install in the `java::openjdk` recipe. This is set based on the
   platform.
