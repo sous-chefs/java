@@ -122,7 +122,7 @@ the necessary attributes (such as java_home) are set.
 ### set_attributes_from_version
 
 Sets default attributes based on the JDK version. This is included by `default.rb`. This logic must be in
-a recipe instead of attributes/default.rb. See [#95](https://github.com/socrata-cookbooks/java/pull/95)
+a recipe instead of attributes/default.rb. See [#95](https://github.com/agileorbit-cookbooks/java/pull/95)
 for details.
 
 ### default_java_symlink
@@ -305,7 +305,7 @@ This cookbook uses
 [test-kitchen](https://github.com/opscode/test-kitchen) for
 integration tests and
 [ChefSpec/RSpec](https://github.com/sethvargo/chefspec) for unit tests.
-See [TESTING.md](https://github.com/socrata-cookbooks/java/blob/master/TESTING.md) for testing instructions.
+See [TESTING.md](https://github.com/agileorbit-cookbooks/java/blob/master/TESTING.md) for testing instructions.
 
 At this time due to licensing concerns, the IBM recipe is not set up
 in test kitchen. If you would like to test this locally, copy

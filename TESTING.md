@@ -13,7 +13,7 @@ Install the latest version of [Vagrant](http://www.vagrantup.com/downloads.html)
 
 Clone the latest version of the cookbook from the repository.
 
-    git clone git@github.com:socrata-cookbooks/java.git
+    git clone git@github.com:agileorbit-cookbooks/java.git
     cd java
 
 Install the gems used for testing:
@@ -40,4 +40,4 @@ To run ChefSpec for a specific recipe:
 Running Test Kitchen
 -----
 
-Test Kitchen test suites are defined in [.kitchen.yml](https://github.com/socrata-cookbooks/java/blob/master/.kitchen.yml). Running `kitchen test` will cause Test Kitchen to spin up each platform VM in turn, running the `java::default` recipe with differing parameters in order to test all possible combinations of platform, install_flavor, and JDK version. If the Chef run completes successfully, corresponding tests in `test/integration` are executed. These must also pass.
+Test Kitchen test suites are defined in [.kitchen.yml](https://github.com/agileorbit-cookbooks/java/blob/master/.kitchen.yml). Running `kitchen test` will cause Test Kitchen to spin up each platform VM in turn, running the `java::default` recipe with differing parameters in order to test all possible combinations of platform, install_flavor, and JDK version. If the Chef run completes successfully, corresponding tests in `test/integration` are executed. These must also pass.
