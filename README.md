@@ -74,6 +74,8 @@ on Linux/Unix platforms, `windows` on Windows platforms.
   `'6'`.
 * `node['java']['java_home']` - Default location of the
   "`$JAVA_HOME`".
+* `node['java']['set_etc_environment']` - Optionally sets
+  JAVA_HOME in `/etc/environment` for  Default `false`.
 * `node['java']['openjdk_packages']` - Array of OpenJDK package names
   to install in the `java::openjdk` recipe. This is set based on the
   platform.
