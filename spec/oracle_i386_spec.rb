@@ -12,6 +12,7 @@ describe 'java::oracle_i386' do
 
   it 'should configure a java_ark[jdk] resource' do
     pending "Testing LWRP use is not required at this time, this is tested post-converge."
+    this_should_not_get_executed
   end
 
   describe 'conditionally includes set attributes' do

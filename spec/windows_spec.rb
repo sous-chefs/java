@@ -12,5 +12,6 @@ describe 'java::windows' do
   end
   it 'should do something' do
     pending 'Your recipe examples go here.'
+    this_should_not_get_executed
   end
 end

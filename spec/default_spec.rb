@@ -108,6 +108,4 @@ describe 'java::default' do
       expect{chef_run}.to raise_error
     end
   end
-
-
 end
