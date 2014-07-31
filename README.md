@@ -302,6 +302,17 @@ java_alternatives "set java alternatives" do
 end
 ```
 
+Production Deployment with Oracle Java
+-----
+Oracle has been known to change the behavior of its download site frequently. It is recommended you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
+
+```ruby
+default['java']['jdk_version'] = '7'
+default['java']['install_flavor'] = 'oracle'
+default['java']['jdk']['7']['x86_64']['url'] = 'http://artifactory.example.com/artifacts/jdk-7u65-linux-x64.tar.gz'
+default['java']['oracle']['accept_oracle_download_terms'] = true
+```
+
 Recommendations for inclusion in community cookbooks
 -----
 
