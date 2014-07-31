@@ -2,6 +2,24 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.25.0 - 8/1/2014
+-------
+### Improvement
+- **[#189](https://github.com/agileorbit-cookbooks/java/pull/189)** - Resource ark -> attribute bin_cmds default value
+- **[#168](https://github.com/agileorbit-cookbooks/java/pull/168)** - Add option to put JAVA_HOME in /etc/environment
+- **[#172](https://github.com/agileorbit-cookbooks/java/pull/172)** - Allow ark to pull from http and files ending in .gz.
+
+### Documentation
+- Recommendations for inclusion in community cookbooks
+- Production Deployment with Oracle Java
+- Update testing instructions for chefdk
+- Various Readme formatting.
+
+### Misc
+- Use Supermarket endpoint in berksfile
+- rspec cleanup
+- Adding ubuntu-14.04 to test suite
+
 v1.24.0 - 7/25/2014
 -------
 New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
