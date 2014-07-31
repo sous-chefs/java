@@ -302,6 +302,26 @@ java_alternatives "set java alternatives" do
 end
 ```
 
+Recommendations for inclusion in community cookbooks
+-----
+
+This cookbook is a dependency for many other cookbooks in the Java/Chef sphere. Here are some guidelines for including it into other cookbooks:
+
+### Allow people to not use this cookbook
+Many users manage Java on their own or have systems that already have java installed. Give these users an option to skip this cookbook, for example:
+```ruby
+include_recipe 'java' if node['maven']['install_java']
+```
+
+This would allow a users of the maven cookbook to choose if they want the maven cookbook to install java for them or leave that up to the consumer.
+
+Another good example is from the [Jenkins Cookbook Java recipe](https://github.com/opscode-cookbooks/jenkins/commit/ca2a69d982011dc1bec6a6d0ee4da5c1a1599864).
+
+### Pinning to major version of cookbook and Java
+This cookbook follows semver. It is recommended to pin at the major version of this cookbook when including it in other cookbooks, eg: `depends 'java', '~> 1.0'`
+
+It is acceptable to set the `node['java']['jdk_version']` to a specific version if required for your software to run, eg software xyz requires Java 8 to run. Refrain from pinning to specific patches of the JDK to allow users to consume security updates.
+
 Development
 -----
 
