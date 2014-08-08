@@ -19,6 +19,20 @@ require 'chef/version_constraint'
 require 'uri'
 require 'pathname'
 
+
+module Java
+  module Helper
+    # Check if Java is installed
+    def is_java_installed?()
+      case node['platform_family']
+      when 'windows'
+        File.exists?(File.join(node['java']['java_home'], '\bin\java.exe').gsub("/","\\"))
+      end
+    end
+  end
+end
+
+
 module Opscode
   class OpenJDK
 

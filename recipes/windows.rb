@@ -17,8 +17,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+::Chef::Recipe.send(:include, Java::Helper)
 require 'uri'
+
+## Check if the Java is installed and exit if it is already installed.
+java_is_installed = is_java_installed?()
+Chef::Log.info("Java already installed at #{node['java']['java_home']}... Exiting") if java_is_installed
+return if java_is_installed
 
 Chef::Log.fatal("No download url set for java installer.") unless node['java'] && node['java']['windows'] && node['java']['windows']['url']
 
