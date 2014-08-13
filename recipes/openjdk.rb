@@ -43,7 +43,9 @@ if platform_requires_license_acceptance?
 end
 
 node['java']['openjdk_packages'].each do |pkg|
-  package pkg
+  package pkg do
+    version node['java']['openjdk_version'] if node['java']['openjdk_version']
+  end
 end
 
 if platform_family?('debian', 'rhel', 'fedora')
