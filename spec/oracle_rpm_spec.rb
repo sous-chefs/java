@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'java::oracle_rpm', focus: true do
+describe 'java::oracle_rpm' do
   let(:chef_run) do
     ChefSpec::Runner.new(platform: 'redhat', version: '6.5') do |node|
       node.automatic['java']['install_flavor'] = 'oracle_rpm'
