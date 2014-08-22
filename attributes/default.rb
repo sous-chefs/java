@@ -123,9 +123,9 @@ default['java']['jdk']['8']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
 # Official checksums for the latest release can be found at http://www.oracle.com/technetwork/java/javase/downloads/javase8-binaries-checksum-2133161.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = '13ee1d0bf6baaf2b119115356f234a48'
+default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u20-b26/jdk-8u20-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = 'ec7f89dc3697b402e2c851d0488f6299'
 
 # i586
-default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-i586.tar.gz'
-default['java']['jdk']['8']['i586']['checksum'] = '252bd6545d765ccf9d52ac3ef2ebf0aa'
+default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u20-b26/jdk-8u20-linux-i586.tar.gz'
+default['java']['jdk']['8']['i586']['checksum'] = '5dafdef064e18468f21c65051a6918d7'
