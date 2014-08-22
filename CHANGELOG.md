@@ -2,6 +2,10 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.27.0 - 8/22/2014
+-------
+- Update Oracle JDK8 to version 8u20
+
 v1.26.0 - 8/16/2014
 -------
 - **[#201](https://github.com/agileorbit-cookbooks/java/pull/201)** - Allow pinning of package versions for openjdk
