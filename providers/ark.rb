@@ -54,7 +54,7 @@ def oracle_downloaded?(download_path, new_resource)
     require 'digest'
     if new_resource.checksum =~ /^[0-9a-f]{32}$/
       downloaded_sha =  Digest::MD5.file(download_path).hexdigest
-      downloaded_sha == new_resource.md5 
+      downloaded_sha == new_resource.md5
     else
       downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
       downloaded_sha == new_resource.checksum
@@ -78,7 +78,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     converge_by(description) do
        Chef::Log.debug "downloading oracle tarball straight from the source"
        cmd = shell_out!(
-                                  %Q[ curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
+                                  %Q[ curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} ]
                                )
     end
   else
