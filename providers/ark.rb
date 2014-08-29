@@ -53,8 +53,8 @@ def oracle_downloaded?(download_path, new_resource)
   if ::File.exists? download_path
     require 'digest'
     if new_resource.checksum =~ /^[0-9a-f]{32}$/
-      downloaded_sha =  Digest::MD5.file(download_path).hexdigest
-      downloaded_sha == new_resource.md5 
+      downloaded_md5 =  Digest::MD5.file(download_path).hexdigest
+      downloaded_md5 == new_resource.checksum 
     else
       downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
       downloaded_sha == new_resource.checksum
@@ -153,7 +153,7 @@ action :install do
          end
        when /^.*\.(tar.gz|tgz)/
          cmd = shell_out(
-                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" ]
+                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner]
                                   )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
