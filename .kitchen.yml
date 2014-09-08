@@ -43,6 +43,9 @@ platforms:
       box: opscode-debian-7.4
     run_list:
     - recipe[apt]
+ - name: centos-7.0
+    driver:
+      box: opscode-centos-7.0
   - name: centos-6.5
     driver:
       box: opscode-centos-6.5
@@ -52,11 +55,15 @@ platforms:
   - name: fedora-19
     driver:
       box: opscode-fedora-19
+  - name: fedora-20
+    driver:
+      box: opscode-fedora-20
 
 suites:
   - name: openjdk
     excludes:
       - fedora-19
+      - fedora-20
     run_list:
       - recipe[java::default]
   - name: openjdk-7
@@ -106,3 +113,4 @@ suites:
       - recipe[java::openjdk]
     excludes:
       - fedora-19
+      - fedora-20
