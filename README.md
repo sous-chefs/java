@@ -11,7 +11,7 @@ Simply include the `java` recipe wherever you would like Java installed, such as
 
 ### Examples
 
-To install Oracle Java 7 (note that when installing Oracle JDK, `accept_oracle_download_terms` must be set -- see below for details):
+To install Oracle Java 7 (note that when installing Oracle JDK, `accept_oracle_download_terms` attribute must be set -- see below role for an example):
 ```ruby
 name "java"
 description "Install Oracle Java"
@@ -29,7 +29,7 @@ run_list(
 )
 ```
 
-To install IBM flavored Java:
+Example role to install IBM flavored Java:
 ```ruby
 name "java"
 description "Install IBM Java on Ubuntu"
