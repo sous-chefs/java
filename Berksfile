@@ -3,5 +3,6 @@ metadata
 
 group :integration do
   cookbook 'apt', '~> 2.0'
+  cookbook 'yum', '~> 3.3'
   cookbook 'windows', '~> 1.12'
 end
