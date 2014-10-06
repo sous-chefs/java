@@ -38,6 +38,11 @@ platforms:
       box: opscode-debian-6.0.8
     run_list:
     - recipe[apt]
+  - name: debian-7.6
+    driver:
+      box: opscode-debian-7.6
+    run_list:
+    - recipe[apt]
   - name: debian-7.4
     driver:
       box: opscode-debian-7.4
