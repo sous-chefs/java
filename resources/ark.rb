@@ -45,6 +45,7 @@ attribute :default, :equal_to => [true, false], :default => true
 attribute :alternatives_priority, :kind_of => Integer, :default => 1
 attribute :retries, :kind_of => Integer, :default => 0
 attribute :retry_delay, :kind_of => Integer, :default => 2
+attribute :connect_timeout, :kind_of => Integer, :default => 600 # => 10 minutes
 
 # we have to set default for the supports attribute
 # in initializer since it is a 'reserved' attribute name
