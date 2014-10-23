@@ -6,7 +6,7 @@ driver:
     memory: 1024
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
   attributes:
     java:
       ark_retries: 2
