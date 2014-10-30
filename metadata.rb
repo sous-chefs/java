@@ -38,5 +38,5 @@ recipe "java::windows", "Installs the JDK on Windows"
   supports os
 end
 
-suggests "windows"
+depends "windows"
 suggests "aws"

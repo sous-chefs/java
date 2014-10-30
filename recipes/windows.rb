@@ -70,7 +70,7 @@ end
 
 windows_package node['java']['windows']['package_name'] do
   source cache_file_path
-  checksum node['java']['windows']['checksum']
+  # checksum node['java']['windows']['checksum']
   action :install
   installer_type :custom
   options "/s #{additional_options}"
