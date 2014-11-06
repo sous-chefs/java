@@ -188,6 +188,8 @@ action :install do
       template jinfo_file do
         cookbook "java"
         source "oracle.jinfo.erb"
+        owner new_resource.owner
+        group app_group
         variables(
           :priority => new_resource.alternatives_priority,
           :bin_cmds => new_resource.bin_cmds,
@@ -209,6 +211,7 @@ action :install do
        Chef::Log.debug "Symlinking #{app_dir} to #{app_home}"
        FileUtils.rm_f app_home
        FileUtils.ln_sf app_dir, app_home
+       FileUtils.chown new_resource.owner, app_group, app_home
     end
   end
 
