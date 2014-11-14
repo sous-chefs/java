@@ -2,7 +2,7 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
-v1.29.0 - 11/6/2014
+v1.29.0 - 11/14/2014
 -------
 ### Bug
 - **[#216](https://github.com/agileorbit-cookbooks/java/pull/216)** - Ensure dirs, links, and jinfo files are owned correctly
