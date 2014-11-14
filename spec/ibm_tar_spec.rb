@@ -11,7 +11,7 @@ describe 'java::ibm_tar' do
   end
 
   it 'downloads the remote jdk file' do
-    expect(chef_run).to create_remote_file('/var/chef/cache/ibm-java.tar.gz')
+    expect(chef_run).to create_remote_file(Chef::Config[:file_cache_path] + '/ibm-java.tar.gz')
   end
 
   it 'create java_home directory' do

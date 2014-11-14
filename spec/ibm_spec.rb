@@ -15,11 +15,11 @@ describe 'java::ibm' do
   end
 
   it 'creates an installer.properties file' do
-    expect(chef_run).to create_template('/var/chef/cache/installer.properties')
+    expect(chef_run).to create_template(Chef::Config[:file_cache_path] + '/installer.properties')
   end
 
   it 'downloads the remote jdk file' do
-    expect(chef_run).to create_remote_file('/var/chef/cache/ibm-java.bin')
+    expect(chef_run).to create_remote_file(Chef::Config[:file_cache_path] + '/ibm-java.bin')
   end
 
   it 'runs the installer' do
