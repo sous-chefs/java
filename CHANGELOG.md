@@ -2,6 +2,21 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.29.0 - 11/6/2014
+-------
+### Bug
+- **[#216](https://github.com/agileorbit-cookbooks/java/pull/216)** - Ensure dirs, links, and jinfo files are owned correctly
+- **[#217](https://github.com/agileorbit-cookbooks/java/pull/217)** - Update to Oracle JDK 8u25
+- **[#214](https://github.com/agileorbit-cookbooks/java/pull/214)** - Update to Oracle JDK 7u71-b14
+
+### Improvement
+- Adding a connect_timeout option for downloading java.
+
+### Misc
+- Switched to chef-zero provisioner in test suites.
+- Adding ISSUES.md for guidance on creating new issues for the Java cookbook.
+- Fix IBM unit tests.
+
 v1.28.0 - 9/6/2014
 -------
 ### Improvement

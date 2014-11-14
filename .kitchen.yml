@@ -119,3 +119,12 @@ suites:
     excludes:
       - fedora-19
       - fedora-20
+  - name: oracle-rpm
+    run_list:
+      - recipe[java]
+    attributes:
+      java:
+        install_flavor: oracle_rpm
+        jdk_version: 7
+        oracle: 
+          accept_oracle_download_terms: true
