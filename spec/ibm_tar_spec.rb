@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::ibm_tar' do
   let(:chef_run) do
-    runner = ChefSpec::Runner.new
+    runner = ChefSpec::ServerRunner.new
     runner.node.set['java']['java_home'] = '/home/java'
     runner.node.set['java']['install_flavor'] = 'ibm'
     runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.tar.gz'

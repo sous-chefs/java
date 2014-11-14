@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::oracle' do
   let(:chef_run) do
-    runner = ChefSpec::Runner.new
+    runner = ChefSpec::ServerRunner.new
     runner.converge(described_recipe)
   end
 
@@ -18,7 +18,7 @@ describe 'java::oracle' do
   describe 'conditionally includes set attributes' do
     context 'when java_home is set' do
       let(:chef_run) do
-        runner = ChefSpec::Runner.new(
+        runner = ChefSpec::ServerRunner.new(
           :platform => 'ubuntu',
           :version => '12.04'
         )
@@ -33,7 +33,7 @@ describe 'java::oracle' do
 
     context 'when java_home is not set' do
       let(:chef_run) do
-        runner = ChefSpec::Runner.new(
+        runner = ChefSpec::ServerRunner.new(
           :platform => 'ubuntu',
           :version => '12.04'
         )
@@ -49,7 +49,7 @@ describe 'java::oracle' do
   describe 'default-java' do
     context 'ubuntu' do
       let(:chef_run) do
-        ChefSpec::Runner.new(
+        ChefSpec::ServerRunner.new(
           :platform => 'ubuntu',
           :version => '12.04'
         ).converge(described_recipe)
@@ -62,7 +62,7 @@ describe 'java::oracle' do
 
     context 'centos' do
       let(:chef_run) do
-        ChefSpec::Runner.new(
+        ChefSpec::ServerRunner.new(
           :platform => 'centos',
           :version => '6.4'
         ).converge(described_recipe)

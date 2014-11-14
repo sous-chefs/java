@@ -6,7 +6,7 @@ describe 'java::ibm' do
   end
 
   let(:chef_run) do
-    runner = ChefSpec::Runner.new
+    runner = ChefSpec::ServerRunner.new
     runner.node.set['java']['install_flavor'] = 'ibm'
     runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
     runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
@@ -38,7 +38,7 @@ describe 'java::ibm' do
 
   context 'install on ubuntu' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04')
+      runner = ChefSpec::ServerRunner.new(:platform => 'ubuntu', :version => '12.04')
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
@@ -60,7 +60,7 @@ describe 'java::ibm' do
 
   context 'install on centos' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new(:platform => 'centos', :version => '5.8')
+      runner = ChefSpec::ServerRunner.new(:platform => 'centos', :version => '5.8')
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
