@@ -30,6 +30,7 @@ default['java']['set_etc_environment'] = false
 # the following retry parameters apply when downloading oracle java
 default['java']['ark_retries'] = 0
 default['java']['ark_retry_delay'] = 2
+default['java']['ark_timeout'] = 600
 
 case node['platform_family']
 when "windows"
