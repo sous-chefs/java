@@ -59,6 +59,7 @@ java_ark "jdk" do
   alternatives_priority node['java']['alternatives_priority']
   retries node['java']['ark_retries']
   retry_delay node['java']['ark_retry_delay']
+  connect_timeout node['java']['ark_timeout']
   action :install
 end
 
