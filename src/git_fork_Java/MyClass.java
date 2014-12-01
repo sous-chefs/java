@@ -9,4 +9,12 @@ public class MyClass {
 	public void iLoveYou() {
 		System.out.println("I Love you");
 	}
+	
+	public void iCanDoIt() {
+		System.out.println("I can do it");
+	}
+	
+	public void weAreHappy() {
+		System.out.println("My wife and I are happy.");
+	}
 }
