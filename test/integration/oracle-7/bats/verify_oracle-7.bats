@@ -12,3 +12,8 @@
   run test -L /usr/bin/jar
   [ "$status" -eq 0 ]
 }
+
+@test "properly installs JCE" {
+  run java -jar /tmp/UnlimitedSupportJCETest.jar
+  [ "$output" = "isUnlimitedSupported=TRUE, strength: 2147483647" ]
+}

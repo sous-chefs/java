@@ -130,3 +130,13 @@ default['java']['jdk']['8']['x86_64']['checksum'] = 'e145c03a7edc845215092786bcf
 # i586
 default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-i586.tar.gz'
 default['java']['jdk']['8']['i586']['checksum'] = 'b5b16247f66643727d9b6d4bc7c5efda'
+
+
+default['java']['oracle']['jce']['enabled'] = false
+default['java']['oracle']['jce']['8']['url'] = 'http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
+default['java']['oracle']['jce']['8']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
+default['java']['oracle']['jce']['7']['url'] = 'http://download.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip'
+default['java']['oracle']['jce']['7']['checksum'] = '7a8d790e7bd9c2f82a83baddfae765797a4a56ea603c9150c87b7cdb7800194d'
+default['java']['oracle']['jce']['6']['url'] = 'http://download.oracle.com/otn-pub/java/jce_policy/6/jce_policy-6.zip'
+default['java']['oracle']['jce']['6']['checksum'] = 'd0c2258c3364120b4dbf7dd1655c967eee7057ac6ae6334b5ea8ceb8bafb9262'
+default['java']['oracle']['jce']['home'] = '/opt/java_jce'
