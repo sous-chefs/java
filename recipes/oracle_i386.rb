@@ -37,6 +37,10 @@ when "7"
   tarball_url = node['java']['jdk']['7']['i586']['url']
   tarball_checksum = node['java']['jdk']['7']['i586']['checksum']
   bin_cmds = node['java']['jdk']['7']['bin_cmds']
+when "8"
+  tarball_url = node['java']['jdk']['8']['i586']['url']
+  tarball_checksum = node['java']['jdk']['8']['i586']['checksum']
+  bin_cmds = node['java']['jdk']['8']['bin_cmds']
 end
 
 include_recipe "java::set_java_home"
@@ -48,9 +52,16 @@ end
 
 java_ark "jdk-alt" do
   url tarball_url
+  default node['java']['set_default']
   checksum tarball_checksum
   app_home java_home
   bin_cmds bin_cmds
+  retries node['java']['ark_retries']
+  retry_delay node['java']['ark_retries']
   action :install
   default false
+end
+
+if node['java']['set_default'] and platform_family?('debian')
+  include_recipe 'java::default_java_symlink'
 end

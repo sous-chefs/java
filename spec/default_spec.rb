@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::default' do
   let(:chef_run) do
-    runner = ChefSpec::Runner.new(
+    runner = ChefSpec::ServerRunner.new(
       :platform => 'debian',
       :version => '7.0'
     )
@@ -17,7 +17,7 @@ describe 'java::default' do
 
   context 'windows' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new(
+      runner = ChefSpec::ServerRunner.new(
         :platform => 'windows',
         :version => '2008R2'
       )
@@ -35,7 +35,7 @@ describe 'java::default' do
 
   context 'oracle' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new
+      runner = ChefSpec::ServerRunner.new
       runner.node.set['java']['install_flavor'] = 'oracle'
       runner.converge(described_recipe)
     end
@@ -47,7 +47,7 @@ describe 'java::default' do
 
   context 'oracle_i386' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new
+      runner = ChefSpec::ServerRunner.new
       runner.node.set['java']['install_flavor'] = 'oracle_i386'
       runner.converge(described_recipe)
     end
@@ -59,7 +59,7 @@ describe 'java::default' do
 
   context 'ibm' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new
+      runner = ChefSpec::ServerRunner.new
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
       runner.converge(described_recipe)
@@ -72,7 +72,7 @@ describe 'java::default' do
 
   context 'ibm_tar' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new
+      runner = ChefSpec::ServerRunner.new
       runner.node.set['java']['install_flavor'] = 'ibm_tar'
       runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.tar.gz'
       runner.converge(described_recipe)
@@ -83,4 +83,29 @@ describe 'java::default' do
     end
   end
 
+  context 'Oracle JDK 8' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.node.set['java']['install_flavor'] = 'oracle'
+      runner.node.set['java']['jdk_version'] = '8'
+      runner.converge(described_recipe)
+    end
+
+    it 'should not error' do
+      expect{chef_run}.to_not raise_error
+    end
+  end
+
+  context 'OpenJDK 8' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.node.set['java']['install_flavor'] = 'openjdk'
+      runner.node.set['java']['jdk_version'] = '8'
+      runner.converge(described_recipe)
+    end
+
+    it 'should error' do
+      expect{chef_run}.to raise_error
+    end
+  end
 end

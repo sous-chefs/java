@@ -28,15 +28,20 @@ def parse_app_dir_name url
   file_name = url.split('/')[-1]
   # funky logic to parse oracle's non-standard naming convention
   # for jdk1.6
-  if file_name =~ /^(jre|jdk).*$/
+  if file_name =~ /^(jre|jdk|server-jre).*$/
     major_num = file_name.scan(/\d/)[0]
-    update_num = file_name.scan(/\d+/)[1]
+    update_token = file_name.scan(/u(\d+)/)[0]
+    update_num = update_token ? update_token[0] : "0"
     # pad a single digit number with a zero
     if update_num.length < 2
       update_num = "0" + update_num
     end
-    package_name = file_name.scan(/[a-z]+/)[0]
-    app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
+    package_name = (file_name =~ /^server-jre.*$/) ? "jdk" : file_name.scan(/[a-z]+/)[0]
+    if update_num == "00"
+      app_dir_name = "#{package_name}1.#{major_num}.0"
+    else
+      app_dir_name = "#{package_name}1.#{major_num}.0_#{update_num}"
+    end
   else
     app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
     app_dir_name = app_dir_name.split("-bin")[0]
@@ -48,8 +53,8 @@ def oracle_downloaded?(download_path, new_resource)
   if ::File.exists? download_path
     require 'digest'
     if new_resource.checksum =~ /^[0-9a-f]{32}$/
-      downloaded_sha =  Digest::MD5.file(download_path).hexdigest
-      downloaded_sha == new_resource.md5 
+      downloaded_md5 =  Digest::MD5.file(download_path).hexdigest
+      downloaded_md5 == new_resource.checksum
     else
       downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
       downloaded_sha == new_resource.checksum
@@ -61,8 +66,7 @@ end
 
 def download_direct_from_oracle(tarball_name, new_resource)
   download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
-  jdk_id = new_resource.url.scan(/\/([6789]u[0-9][0-9]?-b[0-9][0-9])\//)[0][0]
-  cookie = "oraclelicensejdk-#{jdk_id}-oth-JPR=accept-securebackup-cookie;gpw_e24=http://edelivery.oracle.com"
+  cookie = "oraclelicense=accept-securebackup-cookie"
   if node['java']['oracle']['accept_oracle_download_terms']
     # install the curl package
     p = package "curl" do
@@ -74,7 +78,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     converge_by(description) do
        Chef::Log.debug "downloading oracle tarball straight from the source"
        cmd = shell_out!(
-                                  %Q[ curl --create-dirs -L --cookie "#{cookie}" #{new_resource.url} -o #{download_path} ]
+                                  %Q[ curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} ]
                                )
     end
   else
@@ -86,6 +90,11 @@ action :install do
   app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
+  if new_resource.group
+    app_group = new_resource.group
+  else
+    app_group = new_resource.owner
+  end
 
   unless new_resource.default
     Chef::Log.debug("processing alternate jdk")
@@ -100,10 +109,10 @@ action :install do
     require 'fileutils'
 
     unless ::File.exists?(app_root)
-      description = "create dir #{app_root} and change owner to #{new_resource.owner}"
+      description = "create dir #{app_root} and change owner to #{new_resource.owner}:#{app_group}"
       converge_by(description) do
           FileUtils.mkdir app_root, :mode => new_resource.app_home_mode
-          FileUtils.chown new_resource.owner, new_resource.owner, app_root
+          FileUtils.chown new_resource.owner, app_group, app_root
       end
     end
 
@@ -119,6 +128,8 @@ action :install do
       r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
+        retries new_resource.retries
+        retry_delay new_resource.retry_delay
         mode 0755
         action :nothing
       end
@@ -126,17 +137,13 @@ action :install do
       r.run_action(:create_if_missing)
     end
 
-    require 'tmpdir'
-
-    description = "create tmpdir, extract compressed data into tmpdir,
-                    move extracted data to #{app_dir} and delete tmpdir"
+    description = "extract compressed data into Chef file cache path and
+                    move extracted data to #{app_dir}"
     converge_by(description) do
-       tmpdir = Dir.mktmpdir
        case tarball_name
        when /^.*\.bin/
          cmd = shell_out(
-                                  %Q[ cd "#{tmpdir}";
-                                      cp "#{Chef::Config[:file_cache_path]}/#{tarball_name}" . ;
+                                  %Q[ cd "#{Chef::Config[:file_cache_path]}";
                                       bash ./#{tarball_name} -noregister
                                     ] )
          unless cmd.exitstatus == 0
@@ -144,14 +151,14 @@ action :install do
          end
        when /^.*\.zip/
          cmd = shell_out(
-                            %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmpdir}" ]
+                            %Q[ unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" ]
                                   )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
          end
        when /^.*\.(tar.gz|tgz)/
          cmd = shell_out(
-                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmpdir}" ]
+                            %Q[ tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner]
                                   )
          unless cmd.exitstatus == 0
            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -159,12 +166,14 @@ action :install do
        end
 
        cmd = shell_out(
-                          %Q[ mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" ]
+                          %Q[ mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" ]
                                 )
        unless cmd.exitstatus == 0
-           Chef::Application.fatal!(%Q[ Command \' mv "#{tmpdir}/#{app_dir_name}" "#{app_dir}" \' failed ])
+           Chef::Application.fatal!(%Q[ Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ])
          end
-       FileUtils.rm_r tmpdir
+
+       # change ownership of extracted files
+       FileUtils.chown_R new_resource.owner, app_group, app_root
      end
      new_resource.updated_by_last_action(true)
   end
@@ -177,7 +186,10 @@ action :install do
     converge_by(description) do
       Chef::Log.debug "Adding #{jinfo_file} for debian"
       template jinfo_file do
+        cookbook "java"
         source "oracle.jinfo.erb"
+        owner new_resource.owner
+        group app_group
         variables(
           :priority => new_resource.alternatives_priority,
           :bin_cmds => new_resource.bin_cmds,
@@ -199,6 +211,7 @@ action :install do
        Chef::Log.debug "Symlinking #{app_dir} to #{app_home}"
        FileUtils.rm_f app_home
        FileUtils.ln_sf app_dir, app_home
+       FileUtils.chown new_resource.owner, app_group, app_home
     end
   end
 

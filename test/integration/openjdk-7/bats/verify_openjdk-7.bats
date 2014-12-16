@@ -7,3 +7,8 @@
   run test -d $JAVA_HOME
   [ "$status" -eq 0 ]
 }
+
+@test "properly links jar" {
+  run test -L /usr/bin/jar
+  [ "$status" -eq 0 ]
+}

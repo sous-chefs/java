@@ -1,25 +1,41 @@
-This cookbook includes support for running tests via Test Kitchen (1.0). This has some requirements.
+Testing the java cookbook
+=====
 
-1. You must be using the Git repository, rather than the downloaded cookbook from the Chef Community Site.
-2. You must have Vagrant 1.1 installed.
-3. You must have a "sane" Ruby 1.9.3 environment.
+This cookbook includes both unit tests via [ChefSpec](https://github.com/sethvargo/chefspec) and integration tests via [Test Kitchen](https://github.com/test-kitchen/test-kitchen). Contributions to this cookbook will only be accepted if all tests pass successfully:
 
-Once the above requirements are met, install the additional requirements:
+```bash
+kitchen test
+chef exec rspec
+```
 
-Install the berkshelf plugin for vagrant, and berkshelf to your local Ruby environment.
+Setting up the test environment
+-----
 
-    vagrant plugin install vagrant-berkshelf
-    gem install berkshelf
+Install the latest version of [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (free) or [VMWare Fusion](http://www.vmware.com/products/fusion) (paid).
 
-Install Test Kitchen 1.0 (unreleased yet, use the alpha / prerelease version).
+The Chef tooling (chefspec/test kitchen/etc) is managed by the [Chef Development Kit](http://downloads.getchef.com/chef-dk/) - Version 0.3.4
 
-    gem install test-kitchen --pre
+Clone the latest version of the cookbook from the repository.
 
-Install the Vagrant driver for Test Kitchen.
+```bash
+git clone git@github.com:agileorbit-cookbooks/java.git
+cd java
+```
 
-    gem install kitchen-vagrant
+Running ChefSpec
+-----
 
-Once the above are installed, you should be able to run Test Kitchen:
+ChefSpec unit tests are located in `spec`. Each recipe has a `recipename_spec.rb` file that contains unit tests for that recipe. Your new functionality or bug fix should have corresponding test coverage - if it's a change, make sure it doesn't introduce a regression (existing tests should pass). If it's a change or introduction of new functionality, add new tests as appropriate.
 
-    kitchen list
-    kitchen test
+To run ChefSpec for the whole cookbook:
+
+`chef exec rspec`
+
+To run ChefSpec for a specific recipe:
+
+`chef exec rspec spec/set_java_home_spec.rb`
+
+Running Test Kitchen
+-----
+
+Test Kitchen test suites are defined in [.kitchen.yml](https://github.com/agileorbit-cookbooks/java/blob/master/.kitchen.yml). Running `kitchen test` will cause Test Kitchen to spin up each platform VM in turn, running the `java::default` recipe with differing parameters in order to test all possible combinations of platform, install_flavor, and JDK version. If the Chef run completes successfully, corresponding tests in `test/integration` are executed. These must also pass.

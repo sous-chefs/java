@@ -2,7 +2,7 @@ require 'chefspec'
 
 describe 'java::windows' do
   let(:chef_run) do
-    runner = ChefSpec::Runner.new(
+    runner = ChefSpec::ServerRunner.new(
       :platform => 'windows',
       :version => '2008R2'
     )
@@ -12,5 +12,6 @@ describe 'java::windows' do
   end
   it 'should do something' do
     pending 'Your recipe examples go here.'
+    this_should_not_get_executed
   end
 end

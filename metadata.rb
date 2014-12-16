@@ -1,12 +1,13 @@
 name              "java"
-maintainer        "Socrata, Inc."
-maintainer_email  "chefs@socrata.com"
+maintainer        "Agile Orbit"
+maintainer_email  "info@agileorbit.com"
 license           "Apache 2.0"
 description       "Installs Java runtime."
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "1.19.2"
+version           "1.29.0"
 
 recipe "java::default", "Installs Java runtime"
+recipe "java::default_java_symlink", "Updates /usr/lib/jvm/default-java"
 recipe "java::ibm", "Installs the JDK for IBM"
 recipe "java::ibm_tar", "Installs the JDK for IBM from a tarball"
 recipe "java::openjdk", "Installs the OpenJDK flavor of Java"
