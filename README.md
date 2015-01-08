@@ -112,6 +112,10 @@ the .tar.gz.
   the EULA for openjdk package installation.
 * `node['java']['set_default']` - Indicates whether or not you want the
   JDK installed to be default on the system.  Defaults to true.
+* `node['java']['oracle']['jce']['enabled']` - Indicates if the JCE Unlimited Strength Jurisdiction Policy Files should be installed for oracle JDKs
+* `node['java']['oracle']['jce']['home']` - Where the JCE policy files should be installed to
+* `node['java']['oracle']['jce'][java_version]['checksum']` - Checksum of the JCE policy zip. Can be sha256 or md5
+* `node['java']['oracle']['jce'][java_version]['url']` - URL which to download the JCE policy zip
 
 Recipes
 -----

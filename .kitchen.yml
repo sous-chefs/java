@@ -82,29 +82,38 @@ suites:
         jdk_version: "7"
   - name: oracle
     run_list:
+      - recipe[test_java::default]
       - recipe[java::default]
     attributes:
       java:
         oracle:
           accept_oracle_download_terms: true
+          jce:
+            enabled: true
         install_flavor: oracle
   - name: oracle-7
     run_list:
+      - recipe[test_java::default]
       - recipe[java::default]
     attributes:
       java:
         jdk_version: "7"
         oracle:
           accept_oracle_download_terms: true
+          jce:
+            enabled: true
         install_flavor: oracle
   - name: oracle-8
     run_list:
+      - recipe[test_java::default]
       - recipe[java::default]
     attributes:
       java:
         jdk_version: "8"
         oracle:
           accept_oracle_download_terms: true
+          jce:
+            enabled: true
         install_flavor: oracle
   - name: oracle-direct
     run_list:
