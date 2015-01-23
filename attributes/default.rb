@@ -124,12 +124,12 @@ default['java']['jdk']['8']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
 # Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u25checksum.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = 'e145c03a7edc845215092786bcfba77e'
+default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = '173e24bc2d5d5ca3469b8e34864a80da'
 
 # i586
-default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-i586.tar.gz'
-default['java']['jdk']['8']['i586']['checksum'] = 'b5b16247f66643727d9b6d4bc7c5efda'
+default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz'
+default['java']['jdk']['8']['i586']['checksum'] = '4e9aec24367672412c7d10105a2a2bbb'
 
 
 default['java']['oracle']['jce']['enabled'] = false
