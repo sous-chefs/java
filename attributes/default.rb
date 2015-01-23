@@ -128,7 +128,7 @@ default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-p
 default['java']['jdk']['8']['x86_64']['checksum'] = '173e24bc2d5d5ca3469b8e34864a80da'
 
 # i586
-default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz'
+default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-i586.tar.gz'
 default['java']['jdk']['8']['i586']['checksum'] = '4e9aec24367672412c7d10105a2a2bbb'
 
 
