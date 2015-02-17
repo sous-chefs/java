@@ -32,16 +32,13 @@ default['java']['ark_retries'] = 0
 default['java']['ark_retry_delay'] = 2
 default['java']['ark_timeout'] = 600
 
-case node['platform_family']
-when "windows"
-  default['java']['install_flavor'] = "windows"
+if platform_family?('windows')
   default['java']['windows']['url'] = nil
   default['java']['windows']['checksum'] = nil
   default['java']['windows']['package_name'] = "Java(TM) SE Development Kit 7 (64-bit)"
-else
-  default['java']['install_flavor'] = "openjdk"
 end
 
+# install_flavor on windows platform is explicitly set to 'windows' (see recipes/default.rb)
 case node['java']['install_flavor']
 when 'ibm', 'ibm_tar'
   default['java']['ibm']['url'] = nil
@@ -70,6 +67,8 @@ when 'oracle_rpm'
   # set the JAVA_HOME path, it may be overriden
   # when a package version is provided.
   default['java']['java_home'] = "/usr/java/latest"
+else
+  default['java']['install_flavor'] = "openjdk"
 end
 
 # if you change this to true, you can download directly from Oracle
