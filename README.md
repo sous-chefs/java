@@ -242,7 +242,7 @@ Resources/Providers
 
 This cookbook contains the `java_ark` LWRP. Generally speaking this
 LWRP is deprecated in favor of `ark` from the
-[ark cookbook](https://github.com/opscode-cookbooks/ark), but it is
+[ark cookbook](https://github.com/chef-cookbooks/ark), but it is
 still used in this cookbook for handling the Oracle JDK installation.
 
 By default, the extracted directory is extracted to
@@ -338,7 +338,7 @@ include_recipe 'java' if node['maven']['install_java']
 
 This would allow a users of the maven cookbook to choose if they want the maven cookbook to install java for them or leave that up to the consumer.
 
-Another good example is from the [Jenkins Cookbook Java recipe](https://github.com/opscode-cookbooks/jenkins/commit/ca2a69d982011dc1bec6a6d0ee4da5c1a1599864).
+Another good example is from the [Jenkins Cookbook Java recipe](https://github.com/chef-cookbooks/jenkins/commit/ca2a69d982011dc1bec6a6d0ee4da5c1a1599864).
 
 ### Pinning to major version of cookbook and Java
 This cookbook follows semver. It is recommended to pin at the major version of this cookbook when including it in other cookbooks, eg: `depends 'java', '~> 1.0'`
@@ -349,7 +349,7 @@ Development
 -----
 
 This cookbook uses
-[test-kitchen](https://github.com/opscode/test-kitchen) for
+[test-kitchen](https://github.com/chef/test-kitchen) for
 integration tests and
 [ChefSpec/RSpec](https://github.com/sethvargo/chefspec) for unit tests.
 See [TESTING.md](https://github.com/agileorbit-cookbooks/java/blob/master/TESTING.md) for testing instructions.
@@ -377,9 +377,9 @@ calculate the SHA256 checksum to use in the suite.
 License and Author
 -----
 
-* Author: Seth Chisamore (<schisamo@opscode.com>)
+* Author: Seth Chisamore (<schisamo@chef.io>)
 * Author: Bryan W. Berry (<bryan.berry@gmail.com>)
-* Author: Joshua Timberman (<joshua@opscode.com>)
+* Author: Joshua Timberman (<joshua@chef.io>)
 * Author: Eric Helgeson (<erichelgeson@gmail.com>)
 
 Copyright: 2014, Agile Orbit, LLC
