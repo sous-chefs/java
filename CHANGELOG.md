@@ -116,7 +116,7 @@ v1.19.2
 ### Improvement
 - **[#129](https://github.com/socrata-cookbooks/java/pull/129)** - Upgrade to ChefSpec 3
 - Rewrite unit tests for better coverage and to work with ChefSpec 3 (various commits)
-- List Socrata as the maintainer (Socrata took over from Chef Software in December 2013)
+- List Socrata as the maintainer (Socrata took over from Opscode in December 2013)
 
 ### Bug
 - **[#133](https://github.com/socrata-cookbooks/java/pull/133)** - Allow jdk_version to be a string or number
@@ -133,7 +133,7 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 - **[#127](https://github.com/socrata-cookbooks/java/pull/127)** - Add safety check if attributes are unset
 - **[Adds tests for directly using openjdk and oracle recipes](https://github.com/socrata-cookbooks/java/commit/794df596959d65a1a6d5f6c52688bffd8de6bff4)**
 - **[Adds recipes to README](https://github.com/socrata-cookbooks/java/commit/76d52114bb9df084174d43fed143123b1cdbae16)**
-- **[The Chef Software CCLA is no longer required](https://github.com/socrata-cookbooks/java/commit/ce4ac25caa8383f185c25c4e32cafef8c0453376)**
+- **[The Opscode CCLA is no longer required](https://github.com/socrata-cookbooks/java/commit/ce4ac25caa8383f185c25c4e32cafef8c0453376)**
 - **[Adds tests for openjdk-7 and oracle-7](https://github.com/socrata-cookbooks/java/commit/9c38af241f68b3198cde4ad6fe2b4cb752062009)**
 
 
@@ -150,7 +150,7 @@ v1.18.0
 v1.17.6
 -------
 ### Bug
-- Revert **[COOK-4165](https://tickets.chef.io/browse/COOK-4165)** - The headers option was only added to remote_file in Chef 11.6.0, meaning this change breaks older clients.
+- Revert **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** - The headers option was only added to remote_file in Chef 11.6.0, meaning this change breaks older clients.
 
 v1.17.4
 -------
@@ -158,19 +158,19 @@ v1.17.4
 - **[#111](https://github.com/socrata-cookbooks/java/pull/111)** - Fix alternatives for centos
 
 ### Improvement
-- **[COOK-4165](https://tickets.chef.io/browse/COOK-4165)** - Replace curl with remote_file with cookie header
+- **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** - Replace curl with remote_file with cookie header
 - **[#110](https://github.com/socrata-cookbooks/java/pull/110)** - Update openjdk to use the alternatives resource
 
 v1.17.2
 -------
 ### Bug
-- **[COOK-4136](https://tickets.chef.io/browse/COOK-4136)** - Add md5 parameter to java_ark resource
+- **[COOK-4136](https://tickets.opscode.com/browse/COOK-4136)** - Add md5 parameter to java_ark resource
 
 
 v1.17.0
 -------
-- **[COOK-4114](https://tickets.chef.io/browse/COOK-4114)** - Test Kitchen no longer works after merging Pull Request #95 for openjdk tests on Debian/Ubuntu
-- **[COOK-4124](https://tickets.chef.io/browse/COOK-4124)** - update-alternatives fails to run
+- **[COOK-4114](https://tickets.opscode.com/browse/COOK-4114)** - Test Kitchen no longer works after merging Pull Request #95 for openjdk tests on Debian/Ubuntu
+- **[COOK-4124](https://tickets.opscode.com/browse/COOK-4124)** - update-alternatives fails to run
 - **[#81](https://github.com/socrata/java/pull/81)** - Ensure local directory hierarchy
 - **[#97](https://github.com/socrata/java/pull/97)** - Expose LWRP state attributes
 - **[#99](https://github.com/socrata/java/pull/99)** - support for MD5 checksum
@@ -187,11 +187,11 @@ v1.16.4
 v1.16.2
 -------
 ### Improvement
-- **[COOK-3488](https://tickets.chef.io/browse/COOK-3488)** - set alternatives for ibm jdk
-- **[COOK-3764](https://tickets.chef.io/browse/COOK-3764)** - IBM Java installer needs 'rpm' package on Ubuntu
+- **[COOK-3488](https://tickets.opscode.com/browse/COOK-3488)** - set alternatives for ibm jdk
+- **[COOK-3764](https://tickets.opscode.com/browse/COOK-3764)** - IBM Java installer needs 'rpm' package on Ubuntu
 
 ### Bug
-- **[COOK-3857](https://tickets.chef.io/browse/COOK-3857)** - do not unescape the java windows url before parsing it
+- **[COOK-3857](https://tickets.opscode.com/browse/COOK-3857)** - do not unescape the java windows url before parsing it
 - **[#95](https://github.com/socrata/java/pull/95)** - fixes update-alternatives for openjdk installs
 - **[#100](https://github.com/socrata/java/pull/100)** - Use escaped quotes for Windows INSTALLDIR
 
@@ -199,7 +199,7 @@ v1.16.2
 v1.16.0
 -------
 ### Improvement
-- **[COOK-3823](https://tickets.chef.io/browse/COOK-3823)** - Upgrade to JDK 7u45-b18
+- **[COOK-3823](https://tickets.opscode.com/browse/COOK-3823)** - Upgrade to JDK 7u45-b18
 
 v1.15.4
 -------
@@ -226,28 +226,28 @@ v0.15.2
 v1.14.0
 -------
 ### Bug
-- **[COOK-3704](https://tickets.chef.io/browse/COOK-3704)** - Fix alternatives when the package is already installed
-- **[COOK-3668](https://tickets.chef.io/browse/COOK-3668)** - Fix a condition that would result in an error executing action `run` on resource 'bash[update-java-alternatives]'
-- **[COOK-3569](https://tickets.chef.io/browse/COOK-3569)** - Fix bad checksum length
-- **[COOK-3541](https://tickets.chef.io/browse/COOK-3541)** - Fix an issue where Java cookbook installs both JDK 6 and JDK 7 when JDK 7 is specified
-- **[COOK-3518](https://tickets.chef.io/browse/COOK-3518)** - Allow Windoes recipe to download from signed S3 url
-- **[COOK-2996](https://tickets.chef.io/browse/COOK-2996)** - Fix a failure on Centos 6.4 and Oracle JDK 7
+- **[COOK-3704](https://tickets.opscode.com/browse/COOK-3704)** - Fix alternatives when the package is already installed
+- **[COOK-3668](https://tickets.opscode.com/browse/COOK-3668)** - Fix a condition that would result in an error executing action `run` on resource 'bash[update-java-alternatives]'
+- **[COOK-3569](https://tickets.opscode.com/browse/COOK-3569)** - Fix bad checksum length
+- **[COOK-3541](https://tickets.opscode.com/browse/COOK-3541)** - Fix an issue where Java cookbook installs both JDK 6 and JDK 7 when JDK 7 is specified
+- **[COOK-3518](https://tickets.opscode.com/browse/COOK-3518)** - Allow Windoes recipe to download from signed S3 url
+- **[COOK-2996](https://tickets.opscode.com/browse/COOK-2996)** - Fix a failure on Centos 6.4 and Oracle JDK 7
 
 ### Improvement
-- **[COOK-2793](https://tickets.chef.io/browse/COOK-2793)** - Improve Windows support
+- **[COOK-2793](https://tickets.opscode.com/browse/COOK-2793)** - Improve Windows support
 
 
 v1.13.0
 -------
 ### Bug
-- **[COOK-3295](https://tickets.chef.io/browse/COOK-3295)** - Add default `platform_family` option in Java helper
-- **[COOK-3277](https://tickets.chef.io/browse/COOK-3277)** - Fix support for Fedora
+- **[COOK-3295](https://tickets.opscode.com/browse/COOK-3295)** - Add default `platform_family` option in Java helper
+- **[COOK-3277](https://tickets.opscode.com/browse/COOK-3277)** - Fix support for Fedora
 
 ### Improvement
-- **[COOK-3278](https://tickets.chef.io/browse/COOK-3278)** - Upgrade to Oracle Java 7u25
-- **[COOK-3029](https://tickets.chef.io/browse/COOK-3029)** - Add Oracle RPM support
-- **[COOK-2931](https://tickets.chef.io/browse/COOK-2931)** - Add support for the platform `xenserver`
-- **[COOK-2154](https://tickets.chef.io/browse/COOK-2154)** - Add SmartOS support
+- **[COOK-3278](https://tickets.opscode.com/browse/COOK-3278)** - Upgrade to Oracle Java 7u25
+- **[COOK-3029](https://tickets.opscode.com/browse/COOK-3029)** - Add Oracle RPM support
+- **[COOK-2931](https://tickets.opscode.com/browse/COOK-2931)** - Add support for the platform `xenserver`
+- **[COOK-2154](https://tickets.opscode.com/browse/COOK-2154)** - Add SmartOS support
 
 v1.12.0
 -------

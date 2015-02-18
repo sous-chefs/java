@@ -1,9 +1,9 @@
 #
-# Author:: Seth Chisamore (<schisamo@chef.io>)
+# Author:: Seth Chisamore (<schisamo@opscode.com>)
 # Cookbook Name:: java
 # Attributes:: default
 #
-# Copyright 2010, Chef Software, Inc.
+# Copyright 2010, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

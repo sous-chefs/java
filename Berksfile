@@ -1,4 +1,4 @@
-source "https://supermarket.chef.io"
+source "https://supermarket.getchef.com"
 metadata
 
 group :integration do

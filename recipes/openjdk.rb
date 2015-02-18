@@ -1,11 +1,11 @@
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
-# Author:: Seth Chisamore (<schisamo@chef.io>)
-# Author:: Joshua Timberman (<joshua@chef.io>)
+# Author:: Seth Chisamore (<schisamo@opscode.com>)
+# Author:: Joshua Timberman (<joshua@opscode.com>)
 #
 # Cookbook Name:: java
 # Recipe:: openjdk
 #
-# Copyright 2010-2013, Chef Software, Inc.
+# Copyright 2010-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ unless node.recipe?('java::default')
   end
 end
 
-jdk = Chef::OpenJDK.new(node)
+jdk = Opscode::OpenJDK.new(node)
 
 if platform_requires_license_acceptance?
   file "/opt/local/.dlj_license_accepted" do
