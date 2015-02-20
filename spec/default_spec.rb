@@ -23,8 +23,12 @@ describe 'java::default' do
        )
        allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).and_call_original
        allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).with('java::windows')
-       runner.node.set['java']['install_flavor'] = 'ignored'
+       runner.node.set['java']['install_flavor'] = 'not_windows'
        runner.converge(described_recipe)
+     end
+
+     it 'writes a log when install_flavor is set to windows' do
+       expect(chef_run).to write_log("Setting node['java']['install_flavor'] = 'windows'")
      end
 
      it 'should include the windows recipe' do
