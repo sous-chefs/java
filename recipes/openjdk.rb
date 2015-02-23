@@ -58,6 +58,8 @@ if platform_family?('debian', 'rhel', 'fedora')
       bin_cmds node['java']['jdk']['6']['bin_cmds']
     when "7"
       bin_cmds node['java']['jdk']['7']['bin_cmds']
+    when "8"
+      bin_cmds node['java']['jdk']['8']['bin_cmds']
     end
     action :set
   end
