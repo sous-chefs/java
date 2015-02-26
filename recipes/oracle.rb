@@ -60,6 +60,7 @@ java_ark "jdk" do
   retries node['java']['ark_retries']
   retry_delay node['java']['ark_retry_delay']
   connect_timeout node['java']['ark_timeout']
+  download_timeout node['java']['ark_download_timeout']
   action :install
 end
 
