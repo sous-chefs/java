@@ -15,23 +15,27 @@ describe 'java::default' do
     expect(chef_run).to include_recipe('java::set_attributes_from_version')
   end
 
-#  context 'windows' do
-#    let(:chef_run) do
-#      runner = ChefSpec::ServerRunner.new(
-#        :platform => 'windows',
-#        :version => '2008R2'
-#      )
-#      runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
-#      runner.node.set['java']['java_home'] = 'C:/java'
-#      runner.converge('windows::default',described_recipe)
-#    end
-#
-#    # Running the tests on non-Windows platforms will error in the Windows library,
-#    # but this means the recipe was included. There has to be a better way to handle this...
-#    it 'should error on windows recipe' do
-#      expect { chef_run }.to raise_error(TypeError)
-#    end
-#  end
+  context 'windows' do
+     let(:chef_run) do
+       runner = ChefSpec::ServerRunner.new(
+         :platform => 'windows',
+         :version => '2008R2'
+       )
+       allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).and_call_original
+       allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).with('java::windows')
+       runner.node.set['java']['install_flavor'] = 'not_windows'
+       runner.converge(described_recipe)
+     end
+
+     it 'writes a log when install_flavor is set to windows' do
+       expect(chef_run).to write_log("Setting node['java']['install_flavor'] = 'windows'")
+     end
+
+     it 'should include the windows recipe' do
+       expect_any_instance_of(Chef::Recipe).to receive(:include_recipe).with('java::windows')
+       chef_run
+     end
+  end
 
   context 'oracle' do
     let(:chef_run) do

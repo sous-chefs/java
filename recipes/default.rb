@@ -18,6 +18,13 @@
 # limitations under the License.
 #
 
+if platform_family?('windows') && node['java']['install_flavor'] != 'windows'
+  node.set['java']['install_flavor'] = 'windows'
+  log "Setting node['java']['install_flavor'] = 'windows'" do
+    level :info
+  end
+end
+
 if node['java']['install_flavor'] != 'windows'
   if node['java']['jdk_version'].to_i == 8 and node['java']['install_flavor'] != 'oracle'
     Chef::Application.fatal!("JDK 8 is currently only provided with the Oracle JDK")

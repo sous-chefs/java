@@ -11,6 +11,7 @@
 Berksfile.lock
 Gemfile.lock
 
+.idea/
 .bundle/
 .cache/
 .kitchen/
