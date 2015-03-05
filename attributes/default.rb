@@ -121,15 +121,15 @@ default['java']['jdk']['8']['bin_cmds'] = [ "appletviewer", "apt", "ControlPanel
                                             "unpack200", "wsgen", "wsimport", "xjc"]
 
 # Oracle doesn't seem to publish SHA256 checksums for Java releases, so we use MD5 instead.
-# Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u31checksum.html
+# Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u40checksum.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = '173e24bc2d5d5ca3469b8e34864a80da'
+default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u40-b25/jdk-8u40-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = '159a3186bb88b77b4eb9ff9971222736'
 
 # i586
-default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u31-b13/jdk-8u31-linux-i586.tar.gz'
-default['java']['jdk']['8']['i586']['checksum'] = '4e9aec24367672412c7d10105a2a2bbb'
+default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u40-b25/jdk-8u40-linux-i586.tar.gz'
+default['java']['jdk']['8']['i586']['checksum'] = '1c4b119e7f25da30fa1d0ba62deb66f9'
 
 
 default['java']['oracle']['jce']['enabled'] = false
