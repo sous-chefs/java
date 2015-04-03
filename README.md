@@ -275,6 +275,8 @@ By default, the extracted directory is extracted to
 - `group`: group of extracted directory, set to `:owner` by default
 - `default`: whether this the default installation of this package,
   boolean true or false
+- `reset_alternatives`: whether alternatives is reset
+  boolean true or false
 
 #### Examples
 ```ruby

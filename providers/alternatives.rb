@@ -38,7 +38,9 @@ action :set do
         description = "Add alternative for #{cmd}"
         converge_by(description) do
           Chef::Log.debug "Adding alternative for #{cmd}"
-          shell_out("rm /var/lib/alternatives/#{cmd}")
+          if new_resource.reset_alternatives
+            shell_out("rm /var/lib/alternatives/#{cmd}")
+          end
           install_cmd = shell_out("#{alternatives_cmd} --install #{bin_path} #{cmd} #{alt_path} #{priority}")
           unless install_cmd.exitstatus == 0
             Chef::Application.fatal!(%Q[ set alternative failed ])

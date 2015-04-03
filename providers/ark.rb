@@ -221,6 +221,7 @@ action :install do
     bin_cmds new_resource.bin_cmds
     priority new_resource.alternatives_priority
     default new_resource.default
+    reset_alternatives new_resource.reset_alternatives
     action :set
   end
 end
