@@ -26,6 +26,8 @@ default['java']['accept_license_agreement'] = false
 default['java']['set_default'] = true
 default['java']['alternatives_priority'] = 1062
 default['java']['set_etc_environment'] = false
+default['java']['use_alt_suffix'] = true
+default['java']['reset_alternatives'] = true
 
 # the following retry parameters apply when downloading oracle java
 default['java']['ark_retries'] = 0
