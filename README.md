@@ -277,6 +277,8 @@ By default, the extracted directory is extracted to
   boolean true or false
 - `reset_alternatives`: whether alternatives is reset
   boolean true or false
+- `use_alt_suffix`: whether '_alt' suffix is used for not default javas
+  boolean true or false
 
 #### Examples
 ```ruby

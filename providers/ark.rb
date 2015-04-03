@@ -96,7 +96,7 @@ action :install do
     app_group = new_resource.owner
   end
 
-  unless new_resource.default
+  if !new_resource.default and new_resource.use_alt_suffix
     Chef::Log.debug("processing alternate jdk")
     app_dir = app_dir  + "_alt"
     app_home = new_resource.app_home + "_alt"
