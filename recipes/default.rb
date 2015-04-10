@@ -19,8 +19,10 @@
 #
 
 if node['java']['install_flavor'] != 'windows'
-  if node['java']['jdk_version'].to_i == 8 and node['java']['install_flavor'] != 'oracle'
-    Chef::Application.fatal!("JDK 8 is currently only provided with the Oracle JDK")
+  if node['java']['jdk_version'].to_i == 8 
+    unless node['java']['install_flavor'] == 'oracle' or node['java']['install_flavor'] == 'oracle_rpm'
+      Chef::Application.fatal!("JDK 8 is currently only provided with the Oracle JDK")
+    end
   end
 end
 
