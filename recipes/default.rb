@@ -20,7 +20,9 @@
 
 if node['java']['install_flavor'] != 'windows'
   if node['java']['jdk_version'].to_i == 8 and node['java']['install_flavor'] != 'oracle'
-    Chef::Application.fatal!("JDK 8 is currently only provided with the Oracle JDK")
+    if node['platform'] != 'fedora' and node['platform_version'].to_i != 21 #Fedora 21 provides openjdk java-1.8.0
+      Chef::Application.fatal!("JDK 8 is currently only provided with the Oracle JDK")
+    end
   end
 end
 
