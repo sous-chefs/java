@@ -50,6 +50,8 @@ yum_package "glibc" do
   only_if { platform_family?( "rhel", "fedora" ) }
 end
 
+package "tar"
+
 java_ark "jdk-alt" do
   url tarball_url
   default node['java']['set_default']
