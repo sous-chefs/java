@@ -105,7 +105,7 @@ describe 'java::default' do
     end
 
     it 'should error' do
-      expect{chef_run}.to raise_error
+      expect{chef_run}.to_not raise_error
     end
   end
 end
