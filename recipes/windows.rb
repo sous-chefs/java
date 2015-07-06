@@ -52,10 +52,15 @@ end
 
 if node['java'].attribute?("java_home")
   java_home_win = win_friendly_path(node['java']['java_home'])
-  # The EXE installer expects escaped quotes, so we need to double escape
-  # them here. The final string looks like :
-  # /v"/qn INSTALLDIR=\"C:\Program Files\Java\""
-  additional_options = "/v\"/qn INSTALLDIR=\\\"#{java_home_win}\\\"\""
+  if node['java']['jdk_version'] == '8'
+    # Seems that the jdk 8 EXE installer does not need anymore the /v /qn flags
+    additional_options = "INSTALLDIR=\"#{java_home_win}\""
+  else
+    # The jdk 7 EXE installer expects escaped quotes, so we need to double escape
+    # them here. The final string looks like :
+    # /v"/qn INSTALLDIR=\"C:\Program Files\Java\""
+    additional_options = "/v\"/qn INSTALLDIR=\\\"#{java_home_win}\\\"\""
+  end
 
   env "JAVA_HOME" do
     value java_home_win
