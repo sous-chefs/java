@@ -12,8 +12,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+require 'pathname'
 
-link '/usr/lib/jvm/default-java' do
-  to node['java']['java_home']
-  not_if { node['java']['java_home'] == '/usr/lib/jvm/default-java' }
+default = '/usr/lib/jvm/default-java'
+
+home = node['java']['java_home']
+
+home_obj = Pathname.new(home) # compare path objects not strings
+
+target = Pathname.new(default).realpath
+# does not work, just returns the relative path in debian :
+#    target = File.readlink(default)
+
+Chef::Log.debug "Java Home #{default} resolves to #{target} wanted is #{home}"
+
+if target != home_obj
+  Chef::Log.debug "Check #{home} != #{target}"
+  link default do
+    to home
+  end
 end
