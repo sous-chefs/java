@@ -28,7 +28,7 @@ slave_cmds = case node['java']['oracle_rpm']['type']
                %W[ControlPanel java_vm javaws jcontrol keytool orbd pack200 policytool rmid rmiregistry servertool tnameserv unpack200]
 
              else
-               Chef::Application.fatal "Unsupported oracle RPM type (#{node['java']['oracle_rpm']['type']})"
+               Chef::Application.fatal!("Unsupported oracle RPM type (#{node['java']['oracle_rpm']['type']})")
              end
 
 if platform_family?('rhel', 'fedora') and node['java']['set_default']
