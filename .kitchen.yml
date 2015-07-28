@@ -63,24 +63,33 @@ platforms:
   - name: fedora-20
     driver:
       box: opscode-fedora-20
+  - name: macosx-10.10
+    driver:
+      box: macosx-10.10
+    run_list:
+    - recipe[homebrew]
 
 suites:
   - name: openjdk
     excludes:
       - fedora-19
       - fedora-20
+      - macosx-10.10
     run_list:
       - recipe[java::default]
   - name: openjdk-7
     excludes:
       - ubuntu-10.04
       - debian-6.0.8
+      - macosx-10.10
     run_list:
       - recipe[java::default]
     attributes:
       java:
         jdk_version: "7"
   - name: oracle
+    excludes:
+      - macosx-10.10
     run_list:
       - recipe[test_java::default]
       - recipe[java::default]
@@ -92,6 +101,8 @@ suites:
             enabled: true
         install_flavor: oracle
   - name: oracle-7
+    excludes:
+      - macosx-10.10
     run_list:
       - recipe[test_java::default]
       - recipe[java::default]
@@ -104,6 +115,8 @@ suites:
             enabled: true
         install_flavor: oracle
   - name: oracle-8
+    excludes:
+      - macosx-10.10
     run_list:
       - recipe[test_java::default]
       - recipe[java::default]
@@ -116,6 +129,8 @@ suites:
             enabled: true
         install_flavor: oracle
   - name: oracle-direct
+    excludes:
+      - macosx-10.10
     run_list:
       - recipe[java::oracle]
     attributes:
@@ -128,7 +143,10 @@ suites:
     excludes:
       - fedora-19
       - fedora-20
+      - macosx-10.10
   - name: oracle-rpm
+    excludes:
+      - macosx-10.10
     run_list:
       - recipe[java]
     attributes:
@@ -137,3 +155,24 @@ suites:
         jdk_version: 7
         oracle: 
           accept_oracle_download_terms: true
+  - name: homebrew
+    excludes:
+      - ubuntu-14.04
+      - ubuntu-13.10
+      - ubuntu-12.04
+      - ubuntu-10.04
+      - debian-6.0.8
+      - debian-7.6
+      - debian-7.4
+      - centos-7.0
+      - centos-6.5
+      - centos-5.10
+      - fedora-19
+      - fedora-20
+    run_list:
+      - recipe[test_java::default]
+      - recipe[java]
+    attributes:
+      java:
+        install_flavor: homebrew
+        jdk_version: 8
