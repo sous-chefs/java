@@ -6,7 +6,7 @@ describe 'java::ibm' do
   end
 
   let(:chef_run) do
-    runner = ChefSpec::Runner.new
+    runner = ChefSpec::ServerRunner.new
     runner.node.set['java']['install_flavor'] = 'ibm'
     runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
     runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
@@ -15,11 +15,11 @@ describe 'java::ibm' do
   end
 
   it 'creates an installer.properties file' do
-    expect(chef_run).to create_template('/var/chef/cache/installer.properties')
+    expect(chef_run).to create_template(Chef::Config[:file_cache_path] + '/installer.properties')
   end
 
   it 'downloads the remote jdk file' do
-    expect(chef_run).to create_remote_file('/var/chef/cache/ibm-java.bin')
+    expect(chef_run).to create_remote_file(Chef::Config[:file_cache_path] + '/ibm-java.bin')
   end
 
   it 'runs the installer' do
@@ -38,7 +38,7 @@ describe 'java::ibm' do
 
   context 'install on ubuntu' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new(:platform => 'ubuntu', :version => '12.04')
+      runner = ChefSpec::ServerRunner.new(:platform => 'ubuntu', :version => '12.04')
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
@@ -60,7 +60,7 @@ describe 'java::ibm' do
 
   context 'install on centos' do
     let(:chef_run) do
-      runner = ChefSpec::Runner.new(:platform => 'centos', :version => '5.8')
+      runner = ChefSpec::ServerRunner.new(:platform => 'centos', :version => '5.8')
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true

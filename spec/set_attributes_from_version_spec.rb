@@ -45,7 +45,7 @@ describe 'java::set_attributes_from_version' do
     os = parts[0]
     version = parts[1]
     context "On #{os} #{version}" do
-      let(:chef_run) { ChefSpec::Runner.new(:version => version, :platform => os).converge(described_recipe) }
+      let(:chef_run) { ChefSpec::ServerRunner.new(:version => version, :platform => os).converge(described_recipe) }
 
       it 'has the correct java_home' do
         expect(chef_run.node['java']['java_home']).to eq(params['java_home'])

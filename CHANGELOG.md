@@ -2,6 +2,93 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.30 - 2/3/2015
+-------
+- Update to latest JDKs for 7 and 8. JDK7 will be EOL April 2015
+- Fix up Travis support.
+- Add ability to install JCE policy files for oracle JDK #228
+- Change connect timeout to 30 seconds
+
+v1.29.0 - 11/14/2014
+-------
+### Bug
+- **[#216](https://github.com/agileorbit-cookbooks/java/pull/216)** - Ensure dirs, links, and jinfo files are owned correctly
+- **[#217](https://github.com/agileorbit-cookbooks/java/pull/217)** - Update to Oracle JDK 8u25
+- **[#214](https://github.com/agileorbit-cookbooks/java/pull/214)** - Update to Oracle JDK 7u71-b14
+
+### Improvement
+- Adding a connect_timeout option for downloading java.
+
+### Misc
+- Switched to chef-zero provisioner in test suites.
+- Adding ISSUES.md for guidance on creating new issues for the Java cookbook.
+- Fix IBM unit tests.
+
+v1.28.0 - 9/6/2014
+-------
+### Improvement
+- Allow setting of group to extracted java files.
+
+### Bug
+- Add -no-same-owner parameter to tar extract to avoid issues when the chef cache dir is on an NFS mounted drive.
+- In the ark provider, it doesn't compare the MD5 sum with the right value which causes Java cookbook always download tarball from oracle server
+
+v1.27.0 - 8/22/2014
+-------
+- Update Oracle JDK8 to version 8u20
+
+v1.26.0 - 8/16/2014
+-------
+- **[#201](https://github.com/agileorbit-cookbooks/java/pull/201)** - Allow pinning of package versions for openjdk
+- **[#198](https://github.com/agileorbit-cookbooks/java/pull/198)** - Update Oracle JDK7 to version 7u67
+- **[#189](https://github.com/agileorbit-cookbooks/java/pull/184)** - Support specific version and name for Oracle RPM
+
+v1.25.0 - 8/1/2014
+-------
+### Improvement
+- **[#189](https://github.com/agileorbit-cookbooks/java/pull/189)** - Resource ark -> attribute bin_cmds default value
+- **[#168](https://github.com/agileorbit-cookbooks/java/pull/168)** - Add option to put JAVA_HOME in /etc/environment
+- **[#172](https://github.com/agileorbit-cookbooks/java/pull/172)** - Allow ark to pull from http and files ending in .gz.
+
+### Documentation
+- Recommendations for inclusion in community cookbooks
+- Production Deployment with Oracle Java
+- Update testing instructions for chefdk
+- Various Readme formatting.
+
+### Misc
+- Use Supermarket endpoint in berksfile
+- rspec cleanup
+- Adding ubuntu-14.04 to test suite
+
+v1.24.0 - 7/25/2014
+-------
+New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
+
+### Improvement
+- **[#192](https://github.com/agileorbit-cookbooks/java/pull/192)** - Bump JDK7 URLs to 7u65
+- **[#191](https://github.com/agileorbit-cookbooks/java/pull/192)** - Upgrade Oracle's Java 8 to u11
+- **[#188](https://github.com/agileorbit-cookbooks/java/pull/188)** - Allow for alternatives priority to be set from attribute.
+- **[#176](https://github.com/agileorbit-cookbooks/java/pull/176)** - Change ownership of extracted files
+- **[#169](https://github.com/agileorbit-cookbooks/java/pull/169)** - Add retries and retry_delay parameters to java_ark LWRP
+- **[#167](https://github.com/agileorbit-cookbooks/java/pull/167)** - default: don't fail when using java 8 on windows
+- **[#165](https://github.com/agileorbit-cookbooks/java/pull/165)** - Support for Server JRE
+- **[#158](https://github.com/agileorbit-cookbooks/java/pull/158)** - Updated README for accepting oracle terms
+- **[#157](https://github.com/agileorbit-cookbooks/java/pull/157)** -Remove VirtualBox specific box_urls
+- List AgileOrbit as the maintainer (AgileOrbit took over from Socrata in July 2014)
+
+v1.23.0 - 7/25/2014
+-------
+- Tagged but never published to community cookbooks. All changes rolled into 1.24.0
+
+v1.22.0
+-------
+### Improvement
+- **[#148](https://github.com/socrata-cookbooks/java/pull/148)** - Add support for Oracle JDK 1.8.0
+- **[#150](https://github.com/socrata-cookbooks/java/pull/150)** - Make use of Chef's cache directory instead of /tmp
+- **[#151](https://github.com/socrata-cookbooks/java/pull/151)** - Update Test Kitchen suites
+- **[#154](https://github.com/socrata-cookbooks/java/pull/154)** - Add safety check for JDK 8 on non-Oracle
+
 v1.21.2
 -------
 ### Bug

@@ -43,7 +43,9 @@ if platform_requires_license_acceptance?
 end
 
 node['java']['openjdk_packages'].each do |pkg|
-  package pkg
+  package pkg do
+    version node['java']['openjdk_version'] if node['java']['openjdk_version']
+  end
 end
 
 if platform_family?('debian', 'rhel', 'fedora')
@@ -56,6 +58,8 @@ if platform_family?('debian', 'rhel', 'fedora')
       bin_cmds node['java']['jdk']['6']['bin_cmds']
     when "7"
       bin_cmds node['java']['jdk']['7']['bin_cmds']
+    when "8"
+      bin_cmds node['java']['jdk']['8']['bin_cmds']
     end
     action :set
   end
