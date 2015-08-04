@@ -2,7 +2,21 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
-v1.30 - 2/3/2015
+v1.35 - 8/4/2015
+-------
+- Use bento boxes and remove EOL distros from testing suite.
+- Update to latest JDKs. Note Oracle JDK7 is now EOL.
+- Alternatives improvements
+- Fixes #155 to allow install of OpenJDK 1.8
+- Fixes #257 Changed switches for the jdk 8 exe installer on windows
+- Make sure tar package installed for java_ark
+- Add support for Mac OS X "mac_os_x" via homebrew.
+- Update metadata.rb to contain source and issue information for supermarket and chef-repo convenience
+
+### Known Issues
+- Kitchen CI test with 12.04 fails due to hostname unable to be set.
+
+v1.31 - 2/3/2015
 -------
 - Update to latest JDKs for 7 and 8. JDK7 will be EOL April 2015
 - Fix up Travis support.

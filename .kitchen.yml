@@ -20,11 +20,11 @@ platforms:
       box: box-cutter/ubuntu1404
     run_list:
     - recipe[apt]
-  - name: ubuntu-12.04
-    driver:
-      box: box-cutter/ubuntu1204
-    run_list:
-    - recipe[apt]
+  #- name: ubuntu-12.04
+  #  driver:
+  #    box: box-cutter/ubuntu1204
+  #  run_list:
+  #  - recipe[apt]
   - name: debian-6.0.10
     driver:
       box: box-cutter/debian6010
