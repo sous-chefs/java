@@ -67,6 +67,15 @@ suites:
     attributes:
       java:
         jdk_version: "7"
+  - name: openjdk-8
+    excludes:
+      - debian-7.6
+      - debian-6.0.8
+    run_list:
+      - recipe[java::default]
+    attributes:
+      java:
+        jdk_version: "7"
   - name: oracle
     run_list:
       - recipe[test_java::default]
