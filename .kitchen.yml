@@ -16,40 +16,22 @@ platforms:
   - name: ubuntu-14.04
     run_list:
     - recipe[apt]
-    driver:
-      box: box-cutter/ubuntu1404
     run_list:
     - recipe[apt]
   #- name: ubuntu-12.04
-  #  driver:
-  #    box: box-cutter/ubuntu1204
   #  run_list:
   #  - recipe[apt]
   - name: debian-6.0.10
-    driver:
-      box: box-cutter/debian6010
     run_list:
     - recipe[apt]
   - name: debian-7.6
-    driver:
-      box: box-cutter/debian76
     run_list:
     - recipe[apt]
   - name: centos-7.1
-    driver:
-      box: box-cutter/centos71
   - name: centos-6.5
-    driver:
-      box: box-cutter/centos65
   - name: centos-5.11
-    driver:
-      box: box-cutter/centos511
   - name: fedora-19
-    driver:
-      box: box-cutter/fedora19
   - name: fedora-20
-    driver:
-      box: box-cutter/fedora20
 
 suites:
   - name: openjdk
