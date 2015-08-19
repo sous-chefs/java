@@ -33,6 +33,7 @@ default['java']['reset_alternatives'] = true
 default['java']['ark_retries'] = 0
 default['java']['ark_retry_delay'] = 2
 default['java']['ark_timeout'] = 600
+default['java']['ark_download_timeout'] = 600
 
 case node['platform_family']
 when "windows"
