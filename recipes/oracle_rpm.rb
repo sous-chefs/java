@@ -41,7 +41,7 @@ if platform_family?('rhel', 'fedora') and node['java']['set_default']
     end
 
     code <<-EOH.gsub(/^\s+/, '')
-      update-alternatives --install /usr/bin/java java #{java_location} 1061 \
+      update-alternatives --install /usr/bin/java java #{java_location} #{node['java']['alternatives_priority']} \
       #{slave_lines} && \
       update-alternatives --set java #{java_location}
     EOH
