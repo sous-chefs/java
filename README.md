@@ -209,6 +209,13 @@ repositories.
 It also uses the `alternatives` system on RHEL families to set
 the default Java.
 
+While public YUM repos for Oracle Java 7 and prior are available, 
+you need to download the RPMs manually for Java 8 and make 
+your own internal repository. This must be done to use this recipe to
+install Oracle Java 8 via RPM. You will also likely need to set
+`node['java']['oracle_rpm']['package_name']` to `jdk1.8.0_40`, 
+replacing `40` with the most current version in your local repo. 
+
 ### windows
 
 Because there is no easy way to pull the java msi off oracle's site,
