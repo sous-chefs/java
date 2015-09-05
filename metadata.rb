@@ -40,6 +40,7 @@ recipe "java::homebrew", "Installs the JDK on Mac OS X via Homebrew"
   supports os
 end
 
-suggests "homebrew"
+depends "homebrew"
+
 suggests "windows"
 suggests "aws"
