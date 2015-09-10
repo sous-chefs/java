@@ -3,7 +3,7 @@ if defined?(ChefSpec)
     ChefSpec::Matchers::ResourceMatcher.new(:java_alternatives, :set, resource_name)
   end
 
-   def unset_java_alternatives(resource_name)
+  def unset_java_alternatives(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:java_alternatives, :set, resource_name)
   end
 
