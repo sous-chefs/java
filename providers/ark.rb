@@ -253,4 +253,14 @@ action :remove do
     end
     new_resource.updated_by_last_action(true)
   end
+
+  # remove symlink at app_home
+  current_link = ::File.symlink?(app_home) ? ::File.readlink(app_home) : nil
+  if current_link == app_dir
+    description = "Removing symlink: #{app_home} -> #{app_dir}"
+    converge_by(description) do
+       Chef::Log.debug "Removing symlink: #{app_home} -> #{app_dir}"
+       FileUtils.rm_f app_home
+    end
+  end
 end
