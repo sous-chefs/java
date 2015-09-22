@@ -117,7 +117,7 @@ describe 'java::default' do
       runner.converge(described_recipe)
     end
 
-    it 'should error' do
+    it 'should not error' do
       expect{chef_run}.to_not raise_error
     end
   end
