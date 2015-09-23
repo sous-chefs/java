@@ -232,7 +232,7 @@ action :remove do
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
-  unless new_resource.default
+  if !new_resource.default and new_resource.use_alt_suffix
     Chef::Log.debug("processing alternate jdk")
     app_dir = app_dir + "_alt"
     app_home = new_resource.app_home + "_alt"
@@ -252,5 +252,15 @@ action :remove do
        FileUtils.rm_rf app_dir
     end
     new_resource.updated_by_last_action(true)
+  end
+
+  # remove symlink at app_home
+  current_link = ::File.symlink?(app_home) ? ::File.readlink(app_home) : nil
+  if current_link == app_dir
+    description = "Removing symlink: #{app_home} -> #{app_dir}"
+    converge_by(description) do
+       Chef::Log.debug "Removing symlink: #{app_home} -> #{app_dir}"
+       FileUtils.rm_f app_home
+    end
   end
 end
