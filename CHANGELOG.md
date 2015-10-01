@@ -2,6 +2,13 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.36 - 8/31/2015
+------
+- Oracle JDK 1.8.0_60
+- Added ChefSpec matchers #284
+- Fix compile error using Chef::Application.fatal #279
+- #222 Provide possibility to set ark download timeout
+
 v1.35 - 8/4/2015
 -------
 - Use bento boxes and remove EOL distros from testing suite.
