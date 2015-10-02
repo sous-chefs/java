@@ -31,17 +31,32 @@ action :set do
         Chef::Log.debug "Skipping setting alternative for #{cmd}. Command #{alt_path} does not exist."
         next
       end
-
-      # install the alternative if needed
+      
+      alternative_exists_same_prio = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path} | grep 'priority #{priority}$'").exitstatus == 0
       alternative_exists = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path}").exitstatus == 0
+      # remove alternative is prio is changed and install it with new prio 
+      if alternative_exists and !alternative_exists_same_prio
+        description = "Removing alternative for #{cmd} with old prio"
+        converge_by(description) do
+          Chef::Log.debug "Removing alternative for #{cmd} with old priority"
+          remove_cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
+          alternative_exists = false
+          unless remove_cmd.exitstatus == 0
+            Chef::Application.fatal!(%Q[ remove alternative failed ])
+          end
+        end
+      end
+      # install the alternative if needed
       unless alternative_exists
         description = "Add alternative for #{cmd}"
         converge_by(description) do
           Chef::Log.debug "Adding alternative for #{cmd}"
-          shell_out("rm /var/lib/alternatives/#{cmd}")
+          if new_resource.reset_alternatives
+            shell_out("rm /var/lib/alternatives/#{cmd}")
+          end
           install_cmd = shell_out("#{alternatives_cmd} --install #{bin_path} #{cmd} #{alt_path} #{priority}")
           unless install_cmd.exitstatus == 0
-            Chef::Application.fatal!(%Q[ set alternative failed ])
+            Chef::Application.fatal!(%Q[ install alternative failed ])
           end
         end
         new_resource.updated_by_last_action(true)

@@ -50,6 +50,8 @@ yum_package "glibc" do
   only_if { platform_family?( "rhel", "fedora" ) }
 end
 
+package "tar"
+
 java_ark "jdk-alt" do
   url tarball_url
   default node['java']['set_default']
@@ -58,6 +60,8 @@ java_ark "jdk-alt" do
   bin_cmds bin_cmds
   retries node['java']['ark_retries']
   retry_delay node['java']['ark_retries']
+  use_alt_suffix node['java']['use_alt_suffix']
+  reset_alternatives node['java']['reset_alternatives']
   action :install
   default false
 end
@@ -65,3 +69,5 @@ end
 if node['java']['set_default'] and platform_family?('debian')
   include_recipe 'java::default_java_symlink'
 end
+
+include_recipe 'java::oracle_jce' if node['java']['oracle']['jce']['enabled']
