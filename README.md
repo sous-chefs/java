@@ -98,6 +98,7 @@ the .tar.gz.
 * `node['java']['windows']['checksum']` - The checksum for the package to
   download on Windows machines (default is nil, which does not perform
   checksum validation)
+* `node['java']['windows']['use_iam_role']` - If set to true and `node['java']['windows']['url']` points to S3 bucket IAM role will be used to fetch the file.
 * `node['java']['ibm']['url']` - The URL which to download the IBM
   JDK/SDK. See the `ibm` recipe section below.
 * `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that

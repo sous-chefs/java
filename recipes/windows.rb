@@ -29,7 +29,7 @@ aws_secret_access_key = node['java']['windows']['aws_secret_access_key']
 uri = ::URI.parse(node['java']['windows']['url'])
 cache_file_path = File.join(Chef::Config[:file_cache_path], File.basename(::URI.unescape(uri.path)))
 
-if aws_access_key_id && aws_secret_access_key
+if aws_access_key_id && aws_secret_access_key || node['java']['windows']['use_iam_role']
   include_recipe 'aws::default'  # install right_aws gem for aws_s3_file
 
   aws_s3_file cache_file_path do
