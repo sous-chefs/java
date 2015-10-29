@@ -112,7 +112,7 @@ action :install do
     unless ::File.exists?(app_root)
       description = "create dir #{app_root} and change owner to #{new_resource.owner}:#{app_group}"
       converge_by(description) do
-          FileUtils.mkdir app_root, :mode => new_resource.app_home_mode
+          FileUtils.mkdir_p app_root, :mode => new_resource.app_home_mode
           FileUtils.chown new_resource.owner, app_group, app_root
       end
     end
