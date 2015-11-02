@@ -51,7 +51,7 @@ run_list(
 Requirements
 -----
 
-Chef 0.10.10+ and Ohai 6.10+ for `platform_family` use.
+Chef 11+
 
 ### Platform
 
