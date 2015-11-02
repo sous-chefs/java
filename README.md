@@ -103,11 +103,11 @@ the .tar.gz.
 * `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that
   you accept IBM's EULA (for `java::ibm`)
 * `node['java']['oracle_rpm']['type']` - Type of java RPM (`jre` or `jdk`), default `jdk`
-* `node['java']['oracle_rpm']['package_version']` - optional, can be set 
+* `node['java']['oracle_rpm']['package_version']` - optional, can be set
   to pin a version different from the up-to-date one available in the YUM repo,
-  it might be needed to also override the node['java']['java_home'] attribute 
+  it might be needed to also override the node['java']['java_home'] attribute
   to a value consistent with the defined version
-* `node['java']['oracle_rpm']['package_name']` - optional, can be set 
+* `node['java']['oracle_rpm']['package_name']` - optional, can be set
   to define a package name different from the RPM published by Oracle.
 * `node['java']['accept_license_agreement']` - Indicates that you accept
   the EULA for openjdk package installation.
@@ -209,12 +209,12 @@ repositories.
 It also uses the `alternatives` system on RHEL families to set
 the default Java.
 
-While public YUM repos for Oracle Java 7 and prior are available, 
-you need to download the RPMs manually for Java 8 and make 
+While public YUM repos for Oracle Java 7 and prior are available,
+you need to download the RPMs manually for Java 8 and make
 your own internal repository. This must be done to use this recipe to
 install Oracle Java 8 via RPM. You will also likely need to set
-`node['java']['oracle_rpm']['package_name']` to `jdk1.8.0_40`, 
-replacing `40` with the most current version in your local repo. 
+`node['java']['oracle_rpm']['package_name']` to `jdk1.8.0_40`,
+replacing `40` with the most current version in your local repo.
 
 ### windows
 
@@ -388,13 +388,9 @@ calculate the SHA256 checksum to use in the suite.
 
 License and Author
 -----
-
-* Author: Seth Chisamore (<schisamo@opscode.com>)
-* Author: Bryan W. Berry (<bryan.berry@gmail.com>)
-* Author: Joshua Timberman (<joshua@opscode.com>)
 * Author: Eric Helgeson (<erichelgeson@gmail.com>)
 
-Copyright: 2014, Agile Orbit, LLC
+Copyright: 2014-2015, Agile Orbit, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
