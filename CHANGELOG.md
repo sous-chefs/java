@@ -2,12 +2,17 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
-v1.36 - 8/31/2015
+v1.36 - 9/3/2015
 ------
-- Oracle JDK 1.8.0_60
+- Oracle JDK 1.8.0_65
+- Add Ubuntu ppa (allows OpenJDK 8)
 - Added ChefSpec matchers #284
 - Fix compile error using Chef::Application.fatal #279
 - #222 Provide possibility to set ark download timeout
+- Openjdk6 does not exist in deb 8.2
+- Change to create java home dir even if top level doesn't exist(Eg mkdir_p instead of mkdir)
+- Fix berks url and remove apt
+- Documentation and dependency updates
 
 v1.35 - 8/4/2015
 -------
