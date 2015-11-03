@@ -121,7 +121,7 @@ describe 'java::oracle_rpm' do
 
     describe 'for valid values' do
       shared_examples 'expected java packages are installed' do
-        it "installs package" do
+        it 'installs package' do
           expect(chef_run).to install_package(type)
         end
 
@@ -156,7 +156,7 @@ describe 'java::oracle_rpm' do
     context 'when jce is disabled' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new do |node|
-          node.automatic['java']['install_flavor'] = 'oracle_rpm' 
+          node.automatic['java']['install_flavor'] = 'oracle_rpm'
         end.converge(described_recipe)
       end
 
@@ -169,7 +169,7 @@ describe 'java::oracle_rpm' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new do |node|
           node.set['java']['oracle']['jce']['enabled'] = true
-          node.automatic['java']['install_flavor'] = 'oracle_rpm' 
+          node.automatic['java']['install_flavor'] = 'oracle_rpm'
         end.converge(described_recipe)
       end
 

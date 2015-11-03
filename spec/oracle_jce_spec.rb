@@ -36,5 +36,4 @@ describe 'java::oracle_jce' do
       expect(chef_run).to create_link('/usr/lib/jvm/java/jre/lib/security/US_export_policy.jar').with(to: '/opt/java_jce/6/US_export_policy.jar')
     end
   end
-
 end

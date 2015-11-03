@@ -11,7 +11,7 @@ describe 'java::oracle_i386' do
   end
 
   it 'should configure a java_ark[jdk] resource' do
-    pending "Testing LWRP use is not required at this time, this is tested post-converge."
+    pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
     this_should_not_get_executed
   end
 
@@ -19,10 +19,10 @@ describe 'java::oracle_i386' do
     context 'when java_home is set' do
       let(:chef_run) do
         runner = ChefSpec::ServerRunner.new(
-          :platform => 'ubuntu',
-          :version => '12.04'
+          platform: 'ubuntu',
+          version: '12.04'
         )
-        runner.node.set['java']['java_home'] = "/some/path"
+        runner.node.set['java']['java_home'] = '/some/path'
         runner.converge(described_recipe)
       end
 
@@ -34,8 +34,8 @@ describe 'java::oracle_i386' do
     context 'when java_home is not set' do
       let(:chef_run) do
         runner = ChefSpec::ServerRunner.new(
-          :platform => 'ubuntu',
-          :version => '12.04'
+          platform: 'ubuntu',
+          version: '12.04'
         )
         runner.converge(described_recipe)
       end
@@ -50,8 +50,8 @@ describe 'java::oracle_i386' do
     context 'ubuntu' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(
-          :platform => 'ubuntu',
-          :version => '12.04'
+          platform: 'ubuntu',
+          version: '12.04'
         ).converge(described_recipe)
       end
 
@@ -63,8 +63,8 @@ describe 'java::oracle_i386' do
     context 'centos' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(
-          :platform => 'centos',
-          :version => '6.4'
+          platform: 'centos',
+          version: '6.4'
         ).converge(described_recipe)
       end
 
@@ -72,7 +72,6 @@ describe 'java::oracle_i386' do
         expect(chef_run).to_not include_recipe('java::default_java_symlink')
       end
     end
-
   end
 
   describe 'JCE installation' do

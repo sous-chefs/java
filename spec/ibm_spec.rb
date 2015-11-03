@@ -24,8 +24,8 @@ describe 'java::ibm' do
 
   it 'runs the installer' do
     expect(chef_run).to run_execute('install-ibm-java').with(
-      :command => './ibm-java.bin -f ./installer.properties -i silent',
-      :creates => '/opt/ibm/java/jre/bin/java'
+      command: './ibm-java.bin -f ./installer.properties -i silent',
+      creates: '/opt/ibm/java/jre/bin/java'
     )
 
     install_command = chef_run.execute('install-ibm-java')
@@ -38,7 +38,7 @@ describe 'java::ibm' do
 
   context 'install on ubuntu' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(:platform => 'ubuntu', :version => '12.04')
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '12.04')
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
@@ -60,7 +60,7 @@ describe 'java::ibm' do
 
   context 'install on centos' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(:platform => 'centos', :version => '5.8')
+      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '5.8')
       runner.node.set['java']['install_flavor'] = 'ibm'
       runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
@@ -79,5 +79,4 @@ describe 'java::ibm' do
       expect(chef_run).not_to install_package('rpm')
     end
   end
-
 end

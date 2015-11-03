@@ -20,8 +20,8 @@ describe 'java::ibm_tar' do
 
   it 'untar the jdk file' do
     expect(chef_run).to run_execute('untar-ibm-java').with(
-      :command => 'tar xzf ./ibm-java.tar.gz -C /home/java --strip 1',
-      :creates => '/home/java/jre/bin/java'
+      command: 'tar xzf ./ibm-java.tar.gz -C /home/java --strip 1',
+      creates: '/home/java/jre/bin/java'
     )
 
     untar_command = chef_run.execute('untar-ibm-java')

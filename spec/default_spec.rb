@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'java::default' do
   let(:chef_run) do
     runner = ChefSpec::ServerRunner.new(
-      :platform => 'debian',
-      :version => '7.0'
+      platform: 'debian',
+      version: '7.0'
     )
     runner.converge(described_recipe)
   end
@@ -15,23 +15,23 @@ describe 'java::default' do
     expect(chef_run).to include_recipe('java::set_attributes_from_version')
   end
 
-#  context 'windows' do
-#    let(:chef_run) do
-#      runner = ChefSpec::ServerRunner.new(
-#        :platform => 'windows',
-#        :version => '2008R2'
-#      )
-#      runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
-#      runner.node.set['java']['java_home'] = 'C:/java'
-#      runner.converge('windows::default',described_recipe)
-#    end
-#
-#    # Running the tests on non-Windows platforms will error in the Windows library,
-#    # but this means the recipe was included. There has to be a better way to handle this...
-#    it 'should error on windows recipe' do
-#      expect { chef_run }.to raise_error(TypeError)
-#    end
-#  end
+  #  context 'windows' do
+  #    let(:chef_run) do
+  #      runner = ChefSpec::ServerRunner.new(
+  #        :platform => 'windows',
+  #        :version => '2008R2'
+  #      )
+  #      runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
+  #      runner.node.set['java']['java_home'] = 'C:/java'
+  #      runner.converge('windows::default',described_recipe)
+  #    end
+  #
+  #    # Running the tests on non-Windows platforms will error in the Windows library,
+  #    # but this means the recipe was included. There has to be a better way to handle this...
+  #    it 'should error on windows recipe' do
+  #      expect { chef_run }.to raise_error(TypeError)
+  #    end
+  #  end
 
   context 'oracle' do
     let(:chef_run) do
@@ -92,7 +92,7 @@ describe 'java::default' do
     end
 
     it 'should not error' do
-      expect{chef_run}.to_not raise_error
+      expect { chef_run }.to_not raise_error
     end
   end
 
@@ -105,7 +105,7 @@ describe 'java::default' do
     end
 
     it 'should not error' do
-      expect{chef_run}.to_not raise_error
+      expect { chef_run }.to_not raise_error
     end
   end
 
@@ -118,7 +118,7 @@ describe 'java::default' do
     end
 
     it 'should not error' do
-      expect{chef_run}.to_not raise_error
+      expect { chef_run }.to_not raise_error
     end
   end
 end

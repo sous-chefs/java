@@ -23,18 +23,18 @@ jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
 
 unless valid_ibm_jdk_uri?(source_url)
-  raise "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
+  fail "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
 end
 
 # "installable package" installer needs rpm on Ubuntu
 if platform_family?('debian') && jdk_filename !~ /archive/
-  package "rpm" do
+  package 'rpm' do
     action :install
   end
 end
 
 template "#{Chef::Config[:file_cache_path]}/installer.properties" do
-  source "ibm_jdk.installer.properties.erb"
+  source 'ibm_jdk.installer.properties.erb'
   only_if { node['java']['ibm']['accept_ibm_download_terms'] }
 end
 
@@ -47,30 +47,28 @@ remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   else
     action :create_if_missing
   end
-  notifies :run, "execute[install-ibm-java]", :immediately
+  notifies :run, 'execute[install-ibm-java]', :immediately
 end
 
 java_alternatives 'set-java-alternatives' do
   java_location node['java']['java_home']
   default node['java']['set_default']
   case node['java']['jdk_version'].to_s
-  when "6"
+  when '6'
     bin_cmds node['java']['ibm']['6']['bin_cmds']
-  when "7"
+  when '7'
     bin_cmds node['java']['ibm']['7']['bin_cmds']
   end
   action :nothing
 end
 
-execute "install-ibm-java" do
+execute 'install-ibm-java' do
   cwd Chef::Config[:file_cache_path]
-  environment({
-    "_JAVA_OPTIONS" => "-Dlax.debug.level=3 -Dlax.debug.all=true",
-    "LAX_DEBUG" => "1"
-  })
+  environment('_JAVA_OPTIONS' => '-Dlax.debug.level=3 -Dlax.debug.all=true',
+              'LAX_DEBUG' => '1')
   command "./#{jdk_filename} -f ./installer.properties -i silent"
   notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
   creates "#{node['java']['java_home']}/jre/bin/java"
 end
 
-include_recipe "java::set_java_home"
+include_recipe 'java::set_java_home'

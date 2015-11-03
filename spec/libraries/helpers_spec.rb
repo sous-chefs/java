@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-$:.unshift(File.join(File.dirname(__FILE__), '..'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
 require 'spec_helper'
 
 describe Opscode::OpenJDK do
