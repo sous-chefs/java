@@ -364,7 +364,7 @@ Development
 -----
 
 This cookbook uses
-[test-kitchen](https://github.com/opscode/test-kitchen) for
+[test-kitchen](https://github.com/test-kitchen/test-kitchen) for
 integration tests and
 [ChefSpec/RSpec](https://github.com/sethvargo/chefspec) for unit tests.
 See [TESTING.md](https://github.com/agileorbit-cookbooks/java/blob/master/TESTING.md) for testing instructions.
