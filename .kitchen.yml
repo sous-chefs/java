@@ -78,6 +78,7 @@ suites:
         jdk_version: "7"
   - name: openjdk-8
     includes:
+      - ubuntu-14.04
       - centos-6.7
       - centos-7.1
       - fedora-21
@@ -133,6 +134,11 @@ suites:
     run_list:
       - recipe[java::openjdk]
   - name: oracle-rpm
+    includes:
+      - centos-5.11
+      - centos-6.7
+      - centos-7.1
+      - fedora-21
     run_list:
       - recipe[java::default]
     attributes:
@@ -142,6 +148,11 @@ suites:
         oracle:
           accept_oracle_download_terms: true
   - name: oracle-rpm-8
+    includes:
+      - centos-5.11
+      - centos-6.7
+      - centos-7.1
+      - fedora-21
     run_list:
       - recipe[java::default]
     attributes:
