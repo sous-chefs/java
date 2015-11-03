@@ -11,8 +11,8 @@ describe 'java::set_attributes_from_version' do
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel']
     },
     'freebsd-9.1' => {
-      'java_home' => "/usr/local/openjdk6",
-      'packages' => ["openjdk6"]
+      'java_home' => '/usr/local/openjdk6',
+      'packages' => ['openjdk6']
     },
     'debian-7.0' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
@@ -45,7 +45,7 @@ describe 'java::set_attributes_from_version' do
     os = parts[0]
     version = parts[1]
     context "On #{os} #{version}" do
-      let(:chef_run) { ChefSpec::ServerRunner.new(:version => version, :platform => os).converge(described_recipe) }
+      let(:chef_run) { ChefSpec::ServerRunner.new(version: version, platform: os).converge(described_recipe) }
 
       it 'has the correct java_home' do
         expect(chef_run.node['java']['java_home']).to eq(params['java_home'])

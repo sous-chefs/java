@@ -20,23 +20,21 @@
 # limitations under the License.
 
 unless node.recipe?('java::default')
-  Chef::Log.warn("Using java::default instead is recommended.")
+  Chef::Log.warn('Using java::default instead is recommended.')
 
   # Even if this recipe is included by itself, a safety check is nice...
-  [ node['java']['openjdk_packages'], node['java']['java_home'] ].each do |v|
-    if v.nil? or v.empty?
-      include_recipe "java::set_attributes_from_version"
-    end
+  [node['java']['openjdk_packages'], node['java']['java_home']].each do |v|
+    include_recipe 'java::set_attributes_from_version' if v.nil? || v.empty?
   end
 end
 
 jdk = Opscode::OpenJDK.new(node)
 
 if platform_requires_license_acceptance?
-  file "/opt/local/.dlj_license_accepted" do
-    owner "root"
-    group "root"
-    mode "0400"
+  file '/opt/local/.dlj_license_accepted' do
+    owner 'root'
+    group 'root'
+    mode '0400'
     action :create
     only_if { node['java']['accept_license_agreement'] }
   end
@@ -62,18 +60,18 @@ if platform_family?('debian', 'rhel', 'fedora')
     default node['java']['set_default']
     priority jdk.alternatives_priority
     case node['java']['jdk_version'].to_s
-    when "6"
+    when '6'
       bin_cmds node['java']['jdk']['6']['bin_cmds']
-    when "7"
+    when '7'
       bin_cmds node['java']['jdk']['7']['bin_cmds']
-    when "8"
+    when '8'
       bin_cmds node['java']['jdk']['8']['bin_cmds']
     end
     action :set
   end
 end
 
-if node['java']['set_default'] and platform_family?('debian')
+if node['java']['set_default'] && platform_family?('debian')
   include_recipe 'java::default_java_symlink'
 end
 

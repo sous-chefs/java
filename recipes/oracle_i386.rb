@@ -18,41 +18,41 @@
 # limitations under the License.
 
 unless node.recipe?('java::default')
-  Chef::Log.warn("Using java::default instead is recommended.")
+  Chef::Log.warn('Using java::default instead is recommended.')
 
-# Even if this recipe is included by itself, a safety check is nice...
-  if node['java']['java_home'].nil? or node['java']['java_home'].empty?
-    include_recipe "java::set_attributes_from_version"
+  # Even if this recipe is included by itself, a safety check is nice...
+  if node['java']['java_home'].nil? || node['java']['java_home'].empty?
+    include_recipe 'java::set_attributes_from_version'
   end
 end
 
-java_home = node['java']["java_home"]
+java_home = node['java']['java_home']
 
 case node['java']['jdk_version'].to_s
-when "6"
+when '6'
   tarball_url = node['java']['jdk']['6']['i586']['url']
   tarball_checksum = node['java']['jdk']['6']['i586']['checksum']
   bin_cmds = node['java']['jdk']['6']['bin_cmds']
-when "7"
+when '7'
   tarball_url = node['java']['jdk']['7']['i586']['url']
   tarball_checksum = node['java']['jdk']['7']['i586']['checksum']
   bin_cmds = node['java']['jdk']['7']['bin_cmds']
-when "8"
+when '8'
   tarball_url = node['java']['jdk']['8']['i586']['url']
   tarball_checksum = node['java']['jdk']['8']['i586']['checksum']
   bin_cmds = node['java']['jdk']['8']['bin_cmds']
 end
 
-include_recipe "java::set_java_home"
+include_recipe 'java::set_java_home'
 
-yum_package "glibc" do
-  arch "i686"
-  only_if { platform_family?( "rhel", "fedora" ) }
+yum_package 'glibc' do
+  arch 'i686'
+  only_if { platform_family?('rhel', 'fedora') }
 end
 
-package "tar"
+package 'tar'
 
-java_ark "jdk-alt" do
+java_ark 'jdk-alt' do
   url tarball_url
   default node['java']['set_default']
   checksum tarball_checksum
@@ -66,7 +66,7 @@ java_ark "jdk-alt" do
   default false
 end
 
-if node['java']['set_default'] and platform_family?('debian')
+if node['java']['set_default'] && platform_family?('debian')
   include_recipe 'java::default_java_symlink'
 end
 
