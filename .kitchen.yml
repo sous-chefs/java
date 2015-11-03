@@ -58,7 +58,6 @@ suites:
       - centos-6.7
       - centos-7.1
       - debian-7.9
-      - debian-8.2
       - ubuntu-12.04
       - ubuntu-14.04
     run_list:
