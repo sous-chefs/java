@@ -86,7 +86,7 @@ suites:
       - recipe[java::default]
     attributes:
       java:
-        jdk_version: "7"
+        jdk_version: "8"
   - name: oracle
     run_list:
       - recipe[test_java::default]
