@@ -1,28 +1,33 @@
-# Use Travis's cointainer based infrastructure
 sudo: false
 addons:
   apt:
     sources:
-      - chef-current-precise
+    - chef-current-precise
     packages:
-      - chefdk
-
-# Don't `bundle install`
+    - chefdk
 install: echo "skip bundle install"
-
 branches:
   only:
-    - master
-
-# Ensure we make ChefDK's Ruby the default
+  - master
 before_script:
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  # We have to install chef-sugar for ChefSpec
-  - /opt/chefdk/embedded/bin/chef gem install chef-sugar
+- eval "$(/opt/chefdk/bin/chef shell-init bash)"
+- "/opt/chefdk/embedded/bin/chef gem install chef-sugar"
 script:
-  - /opt/chefdk/embedded/bin/chef --version
-  - /opt/chefdk/embedded/bin/rubocop --version
-  - /opt/chefdk/embedded/bin/rubocop
-  - /opt/chefdk/embedded/bin/foodcritic --version
-  - /opt/chefdk/embedded/bin/foodcritic . --exclude spec
-  - /opt/chefdk/embedded/bin/rspec spec
+- "/opt/chefdk/embedded/bin/chef --version"
+- "/opt/chefdk/embedded/bin/rubocop --version"
+- "/opt/chefdk/embedded/bin/rubocop"
+- "/opt/chefdk/embedded/bin/foodcritic --version"
+- "/opt/chefdk/embedded/bin/foodcritic . --exclude spec"
+- "/opt/chefdk/embedded/bin/rspec spec"
+before_install:
+- openssl aes-256-cbc -K $encrypted_5f302455a65c_key -iv $encrypted_5f302455a65c_iv
+  -in .travis/publish-key.pem.enc -out .travis/publish-key.pem -d
+deploy:
+  edge: true
+  provider: chef-supermarket
+  user_id: erichelgeson
+  client_key: ".travis/publish-key.pem"
+  cookbook_category: Other
+  skip_cleanup: true
+  on:
+    tags: true

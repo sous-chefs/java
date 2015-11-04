@@ -44,3 +44,4 @@ vendor/
 .vagrant/
 .vagrant.d/
 .kitchen/
+.travis/
