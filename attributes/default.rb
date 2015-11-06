@@ -41,6 +41,7 @@ when 'windows'
   default['java']['windows']['url'] = nil
   default['java']['windows']['checksum'] = nil
   default['java']['windows']['package_name'] = 'Java(TM) SE Development Kit 7 (64-bit)'
+  default['java']['windows']['public_jre_home'] = nil
 when 'mac_os_x'
   default['java']['install_flavor'] = 'homebrew'
 else
