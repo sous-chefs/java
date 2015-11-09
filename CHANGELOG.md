@@ -2,6 +2,10 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.37 - 11/9/2015
+------
+- (Win) Attirbute for specifying the install directory for the public jre #315
+
 v1.36 - 9/3/2015
 ------
 - Oracle JDK 1.8.0_65
