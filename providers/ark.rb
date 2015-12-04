@@ -144,26 +144,19 @@ action :install do
         case tarball_name
         when /^.*\.bin/
           cmd = shell_out(
-            %( cd "#{Chef::Config[:file_cache_path]}";
-                bash ./#{tarball_name} -noregister
-              ))
-          unless cmd.exitstatus == 0
-            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-          end
+            %( cd "#{Chef::Config[:file_cache_path]}"; bash ./#{tarball_name} -noregister )
+          )
         when /^.*\.zip/
           cmd = shell_out(
             %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmp_dir}" )
           )
-          unless cmd.exitstatus == 0
-            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-          end
         when /^.*\.(tar.gz|tgz)/
           cmd = shell_out(
-            %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmp_dir}" --no-same-owner)
+            %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmp_dir}" --no-same-owner )
           )
-          unless cmd.exitstatus == 0
-            Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-          end
+        end
+        unless cmd.exitstatus == 0
+          Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
 
         cmd = shell_out(
