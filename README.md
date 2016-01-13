@@ -1,4 +1,4 @@
-java
+java [![travis-badge](https://travis-ci.org/agileorbit-cookbooks/java.svg)](https://travis-ci.org/agileorbit-cookbooks/java)
 =====
 
 This cookbook installs a Java JDK/JRE. It defaults to installing
