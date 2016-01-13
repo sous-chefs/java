@@ -19,9 +19,8 @@ script:
 - "/opt/chefdk/embedded/bin/foodcritic --version"
 - "/opt/chefdk/embedded/bin/foodcritic . --exclude spec"
 - "/opt/chefdk/embedded/bin/rspec spec"
-before_install:
-- openssl aes-256-cbc -K $encrypted_5f302455a65c_key -iv $encrypted_5f302455a65c_iv
-  -in .travis/publish-key.pem.enc -out .travis/publish-key.pem -d
+before_deploy:
+- openssl enc -d -aes-256-cbc -k $CHEF_KEY -in .travis/publish-key.pem.enc -out .travis/publish-key.pem
 deploy:
   edge: true
   provider: chef-supermarket
@@ -31,3 +30,6 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+env:
+  global:
+    secure: B1nEA+NyDI7eL/h34ozPUVoKAxFxUkc72Lar3mO3SZ9lq5I0Ai1WyYSLmrspYnutq/HASpGLDmf8qidlEbyVXgD7ptm6ovPcT0AZq27xTUvEKqGpRZJ3bg+YKGyTKQDpuCRjddFO8zdc936udSMtwk/ughiTq8MhOqCtSPJBcsk=
