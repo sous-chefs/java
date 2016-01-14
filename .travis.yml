@@ -30,6 +30,7 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+    all_branches: true
 env:
   global:
     secure: B1nEA+NyDI7eL/h34ozPUVoKAxFxUkc72Lar3mO3SZ9lq5I0Ai1WyYSLmrspYnutq/HASpGLDmf8qidlEbyVXgD7ptm6ovPcT0AZq27xTUvEKqGpRZJ3bg+YKGyTKQDpuCRjddFO8zdc936udSMtwk/ughiTq8MhOqCtSPJBcsk=

@@ -2,7 +2,11 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
-v1.38 - 1/13/2015
+v1.39 - 1/14/2016
+-----
+- Travis debugging only, no code changes.
+
+v1.38 - 1/13/2016
 -----
 - (Win) Fix for Java install failing on Windows (introduced in #315)
 - Travis fixes/badge
