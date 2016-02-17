@@ -42,6 +42,18 @@ if aws_access_key_id && aws_secret_access_key
     action :create
   end
 else
+  ruby_block do
+    block do
+      # Chef::REST became Chef::HTTP in chef 11
+      cookie_jar = Chef::REST::CookieJar if defined?(Chef::REST::CookieJar)
+      cookie_jar = Chef::HTTP::CookieJar if defined?(Chef::HTTP::CookieJar)
+
+      cookie_jar.instance["#{uri.host}:#{uri.port}"] = "oraclelicense=accept-securebackup-cookie"
+    end
+
+    only_if { node['java']['oracle']['accept_oracle_download_terms'] }
+  end
+
   remote_file cache_file_path do
     checksum pkg_checksum if pkg_checksum
     source node['java']['windows']['url']
