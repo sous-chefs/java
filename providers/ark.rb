@@ -75,7 +75,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     description = 'download oracle tarball straight from the server'
     converge_by(description) do
       Chef::Log.debug 'downloading oracle tarball straight from the source'
-      cmd = shell_out!(
+      shell_out!(
         %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} ),
                                  timeout: new_resource.download_timeout
       )
@@ -115,7 +115,7 @@ action :install do
       end
     end
 
-    if new_resource.url =~ /^http:\/\/download.oracle.com.*$/
+    if new_resource.url =~ %r{^http://download.oracle.com.*$}
       download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
       if oracle_downloaded?(download_path, new_resource)
         Chef::Log.debug('oracle tarball already downloaded, not downloading again')
@@ -169,7 +169,7 @@ action :install do
       )
       unless cmd.exitstatus == 0
         Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
-        end
+      end
 
       # change ownership of extracted files
       FileUtils.chown_R new_resource.owner, app_group, app_root
@@ -226,16 +226,16 @@ action :install do
 end
 
 action :remove do
-  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
+  app_dir_name, _tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
-  unless new_resource.default
+  if new_resource.default
+    app_home = new_resource.app_home
+  else
     Chef::Log.debug('processing alternate jdk')
     app_dir += '_alt'
     app_home = new_resource.app_home + '_alt'
-  else
-    app_home = new_resource.app_home
   end
 
   if ::File.exist?(app_dir)
