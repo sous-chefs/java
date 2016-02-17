@@ -218,8 +218,10 @@ replacing `40` with the most current version in your local repo.
 
 ### windows
 
-Because there is no easy way to pull the java msi off oracle's site,
-this recipe requires you to host it internally on your own http repo.
+Because as of 26 March 2012 you can no longer directly download the 
+JDK msi from Oracle's website without using a special cookie. This recipe
+requires you to set `node['java']['oracle']['accept_oracle_download_terms']` 
+to true or host it internally on your own http repo or s3 bucket.
 
 **IMPORTANT NOTE**
 
