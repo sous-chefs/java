@@ -1,5 +1,7 @@
-java [![travis-badge](https://travis-ci.org/agileorbit-cookbooks/java.svg)](https://travis-ci.org/agileorbit-cookbooks/java)
+java cookbook
 =====
+[![travis-badge](https://travis-ci.org/agileorbit-cookbooks/java.svg)](https://travis-ci.org/agileorbit-cookbooks/java)
+[![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
 
 This cookbook installs a Java JDK/JRE. It defaults to installing
 OpenJDK, but it can also install Oracle and IBM JDKs.
@@ -363,7 +365,7 @@ Development
 -----
 
 This cookbook uses
-[test-kitchen](https://github.com/opscode/test-kitchen) for
+[test-kitchen](https://github.com/test-kitchen/test-kitchen) for
 integration tests and
 [ChefSpec/RSpec](https://github.com/sethvargo/chefspec) for unit tests.
 See [TESTING.md](https://github.com/agileorbit-cookbooks/java/blob/master/TESTING.md) for testing instructions.
