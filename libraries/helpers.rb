@@ -59,9 +59,9 @@ module Opscode
     def openjdk_path
       case @node['platform_family']
       when 'debian'
-        'java-%s-openjdk%s/jre' % [@jdk_version, arch_dir]
+        format('java-%s-openjdk%s/jre', @jdk_version, arch_dir)
       when 'rhel', 'fedora'
-        'jre-1.%s.0-openjdk%s' % [@jdk_version, arch_dir]
+        format('jre-1.%s.0-openjdk%s', @jdk_version, arch_dir)
       when 'smartos'
         'jre'
       else
