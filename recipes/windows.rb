@@ -48,7 +48,7 @@ else
       cookie_jar = Chef::REST::CookieJar if defined?(Chef::REST::CookieJar)
       cookie_jar = Chef::HTTP::CookieJar if defined?(Chef::HTTP::CookieJar)
 
-      cookie_jar.instance["#{uri.host}:#{uri.port}"] = "oraclelicense=accept-securebackup-cookie"
+      cookie_jar.instance["#{uri.host}:#{uri.port}"] = 'oraclelicense=accept-securebackup-cookie'
     end
 
     only_if { node['java']['oracle']['accept_oracle_download_terms'] }
@@ -84,7 +84,7 @@ if node['java'].attribute?('java_home')
   end
 end
 
-if node['java']['windows'].attribute?('public_jre_home') && node['java']['windows']['public_jre_home'] 
+if node['java']['windows'].attribute?('public_jre_home') && node['java']['windows']['public_jre_home']
   java_publicjre_home_win = win_friendly_path(node['java']['windows']['public_jre_home'])
   additional_options = "#{additional_options} /INSTALLDIRPUBJRE=\"#{java_publicjre_home_win}\""
 end
