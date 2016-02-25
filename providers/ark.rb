@@ -136,43 +136,39 @@ action :install do
       r.run_action(:create_if_missing)
     end
 
-    description = "extract compressed data into Chef file cache path and
+    description = "extract compressed data into a temp directory and
                     move extracted data to #{app_dir}"
     converge_by(description) do
-      case tarball_name
-      when /^.*\.bin/
-        cmd = shell_out(
-          %( cd "#{Chef::Config[:file_cache_path]}";
-              bash ./#{tarball_name} -noregister
-            ))
+      require 'tmpdir'
+      Dir.mktmpdir do |tmp_dir|
+        case tarball_name
+        when /^.*\.bin/
+          cmd = shell_out(
+            %( cd "#{Chef::Config[:file_cache_path]}"; bash ./#{tarball_name} -noregister )
+          )
+        when /^.*\.zip/
+          cmd = shell_out(
+            %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{tmp_dir}" )
+          )
+        when /^.*\.(tar.gz|tgz)/
+          cmd = shell_out(
+            %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{tmp_dir}" --no-same-owner )
+          )
+        end
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
-      when /^.*\.zip/
+
         cmd = shell_out(
-          %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
+          %( mv "#{tmp_dir}/#{app_dir_name}" "#{app_dir}" )
         )
         unless cmd.exitstatus == 0
-          Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
+          Chef::Application.fatal!(%( Command \' mv "#{tmp_dir}/#{app_dir_name}" "#{app_dir}" \' failed ))
         end
-      when /^.*\.(tar.gz|tgz)/
-        cmd = shell_out(
-          %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
-        )
-        unless cmd.exitstatus == 0
-          Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
-        end
+
+        # change ownership of extracted files
+        FileUtils.chown_R new_resource.owner, app_group, app_root
       end
-
-      cmd = shell_out(
-        %( mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
-      )
-      unless cmd.exitstatus == 0
-        Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
-        end
-
-      # change ownership of extracted files
-      FileUtils.chown_R new_resource.owner, app_group, app_root
     end
     new_resource.updated_by_last_action(true)
   end
