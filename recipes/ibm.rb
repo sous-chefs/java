@@ -23,7 +23,7 @@ jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
 
 unless valid_ibm_jdk_uri?(source_url)
-  fail "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
+  raise "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
 end
 
 # "installable package" installer needs rpm on Ubuntu

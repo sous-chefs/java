@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'java::set_java_home' do
-  context 'set_java_home'do
+  context 'set_java_home' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.set['java']['java_home'] = '/opt/java'
