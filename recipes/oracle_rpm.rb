@@ -30,23 +30,19 @@ slave_cmds = case node['java']['oracle_rpm']['type']
                Chef::Application.fatal!("Unsupported oracle RPM type (#{node['java']['oracle_rpm']['type']})")
              end
 
-if platform_family?('rhel', 'fedora') && node['java']['set_default']
-
-  bash 'update-java-alternatives' do
-    java_home = node['java']['java_home']
-    java_location = File.join(java_home, 'bin', 'java')
-    slave_lines = slave_cmds.inject('') do |slaves, cmd|
-      slaves << "--slave /usr/bin/#{cmd} #{cmd} #{File.join(java_home, 'bin', cmd)} \\\n"
-    end
-
-    code <<-EOH.gsub(/^\s+/, '')
-      update-alternatives --install /usr/bin/java java #{java_location} #{node['java']['alternatives_priority']} \
-      #{slave_lines} && \
-      update-alternatives --set java #{java_location}
-    EOH
-    action :nothing
+bash 'update-java-alternatives' do
+  java_home = node['java']['java_home']
+  java_location = File.join(java_home, 'bin', 'java')
+  slave_lines = slave_cmds.inject('') do |slaves, cmd|
+    slaves << "--slave /usr/bin/#{cmd} #{cmd} #{File.join(java_home, 'bin', cmd)} \\\n"
   end
 
+  code <<-EOH.gsub(/^\s+/, '')
+    update-alternatives --install /usr/bin/java java #{java_location} #{node['java']['alternatives_priority']} \
+    #{slave_lines} && \
+    update-alternatives --set java #{java_location}
+  EOH
+  action :nothing
 end
 
 package_name = node['java']['oracle_rpm']['package_name'] || node['java']['oracle_rpm']['type']

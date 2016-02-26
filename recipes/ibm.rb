@@ -27,10 +27,9 @@ unless valid_ibm_jdk_uri?(source_url)
 end
 
 # "installable package" installer needs rpm on Ubuntu
-if platform_family?('debian') && jdk_filename !~ /archive/
-  package 'rpm' do
-    action :install
-  end
+package 'rpm' do
+  action :install
+  only_if { platform_family?('debian') && jdk_filename !~ /archive/ }
 end
 
 template "#{Chef::Config[:file_cache_path]}/installer.properties" do
