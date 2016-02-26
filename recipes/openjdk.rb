@@ -54,21 +54,20 @@ node['java']['openjdk_packages'].each do |pkg|
   end
 end
 
-if platform_family?('debian', 'rhel', 'fedora')
-  java_alternatives 'set-java-alternatives' do
-    java_location jdk.java_home
-    default node['java']['set_default']
-    priority jdk.alternatives_priority
-    case node['java']['jdk_version'].to_s
-    when '6'
-      bin_cmds node['java']['jdk']['6']['bin_cmds']
-    when '7'
-      bin_cmds node['java']['jdk']['7']['bin_cmds']
-    when '8'
-      bin_cmds node['java']['jdk']['8']['bin_cmds']
-    end
-    action :set
+java_alternatives 'set-java-alternatives' do
+  java_location jdk.java_home
+  default node['java']['set_default']
+  priority jdk.alternatives_priority
+  case node['java']['jdk_version'].to_s
+  when '6'
+    bin_cmds node['java']['jdk']['6']['bin_cmds']
+  when '7'
+    bin_cmds node['java']['jdk']['7']['bin_cmds']
+  when '8'
+    bin_cmds node['java']['jdk']['8']['bin_cmds']
   end
+  action :set
+  only_if { platform_family?('debian', 'rhel', 'fedora') }
 end
 
 if node['java']['set_default'] && platform_family?('debian')

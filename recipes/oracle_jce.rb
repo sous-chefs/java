@@ -24,11 +24,11 @@ jce_url = node['java']['oracle']['jce'][jdk_version]['url']
 jce_checksum = node['java']['oracle']['jce'][jdk_version]['checksum']
 jce_cookie = node['java']['oracle']['accept_oracle_download_terms'] ? 'oraclelicense=accept-securebackup-cookie;gpw_e24=http://edelivery.oracle.com' : ''
 
-if jce_checksum =~ /^[0-9a-f]{32}$/
-  checksum_bin = 'md5sum'
-else
-  checksum_bin = 'sha256sum'
-end
+checksum_bin = if jce_checksum =~ /^[0-9a-f]{32}$/
+                 'md5sum'
+               else
+                 'sha256sum'
+               end
 
 package 'unzip'
 package 'curl'

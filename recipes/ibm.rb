@@ -23,14 +23,13 @@ jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
 
 unless valid_ibm_jdk_uri?(source_url)
-  fail "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
+  raise "You must set the attribute `node['java']['ibm']['url']` to a valid HTTP URI"
 end
 
 # "installable package" installer needs rpm on Ubuntu
-if platform_family?('debian') && jdk_filename !~ /archive/
-  package 'rpm' do
-    action :install
-  end
+package 'rpm' do
+  action :install
+  only_if { platform_family?('debian') && jdk_filename !~ /archive/ }
 end
 
 template "#{Chef::Config[:file_cache_path]}/installer.properties" do

@@ -113,7 +113,7 @@ class Chef
     end
 
     def platform_requires_license_acceptance?
-      %w(smartos).include?(node.platform)
+      %w(smartos).include?(node['platform'])
     end
   end
 end

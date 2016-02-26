@@ -1,9 +1,5 @@
----
 driver:
   name: vagrant
-  require_chef_omnibus: true
-  customize:
-    memory: 1024
 
 provisioner:
   name: chef_zero
@@ -47,7 +43,7 @@ platforms:
   - name: fedora-22
     driver:
       box: box-cutter/fedora22
-  - name: fedora-21
+  - name: fedora-23
     driver:
       box: box-cutter/fedora21
 
@@ -81,8 +77,8 @@ suites:
       - ubuntu-14.04
       - centos-6.7
       - centos-7.1
-      - fedora-21
       - fedora-22
+      - fedora-23
     run_list:
       - recipe[java::default]
     attributes:
@@ -138,7 +134,7 @@ suites:
       - centos-5.11
       - centos-6.7
       - centos-7.1
-      - fedora-21
+      - fedora-22
     run_list:
       - recipe[java::default]
     attributes:
@@ -152,7 +148,7 @@ suites:
       - centos-5.11
       - centos-6.7
       - centos-7.1
-      - fedora-21
+      - fedora-22
     run_list:
       - recipe[java::default]
     attributes:
