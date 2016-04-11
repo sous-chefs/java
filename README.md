@@ -216,7 +216,36 @@ you need to download the RPMs manually for Java 8 and make
 your own internal repository. This must be done to use this recipe to
 install Oracle Java 8 via RPM. You will also likely need to set
 `node['java']['oracle_rpm']['package_name']` to `jdk1.8.0_40`,
-replacing `40` with the most current version in your local repo.
+replacing `40` with the most current version in your local repo. There
+is a very simplistic example of this in the test_java fixture cookbook.
+To test out such a config with Test Kitchen, you could create a suite
+in your `.kitchen.local.yml` something like:
+```
+suites: 
+  - name: oracle-rpm-8
+    includes:
+      - centos-5.11
+      - centos-6.7
+      - centos-7.1
+      - fedora-22
+    run_list:
+      - recipe[test_java::rpm_repo]
+      - recipe[java::default]
+    attributes:
+      java:
+        install_flavor: oracle_rpm
+        jdk_version: 8
+        oracle:
+          accept_oracle_download_terms: true
+          jce:
+            enabled: true
+        oracle_rpm:
+          package_name: jdk1.8.0_66
+          type: jdk
+      test_java:
+        oracle_java:
+          baseurl: 'http://someplace.org/yum/oracle-java'
+```
 
 ### windows
 

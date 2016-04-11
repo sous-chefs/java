@@ -6,11 +6,15 @@ describe 'java::oracle_jce' do
     runner.converge(described_recipe)
   end
 
+  let(:file_cache_path) { Chef::Config[:file_cache_path] }
+
   it 'downloads the JCE zip' do
-    expect(chef_run).to run_execute('download jce')
+    expect(chef_run).to create_remote_file("#{file_cache_path}/jce.zip")
+    expect(chef_run.remote_file("#{file_cache_path}/jce.zip")).to notify("execute[verify jce]").to(:run).immediately
   end
-  it 'extracts JCE zip' do
-    expect(chef_run).to run_execute('extract jce')
+
+  it 'verifies JCE zip' do
+    expect(chef_run.execute('verify jce')).to do_nothing
   end
 
   it 'Installs dependencies' do
