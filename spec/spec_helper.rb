@@ -2,6 +2,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 require 'helpers'
 require 'chefspec'
 require 'chefspec/berkshelf'
+ChefSpec::Coverage.start!
 
 RSpec.configure do |config|
   config.color = true
