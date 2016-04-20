@@ -74,6 +74,7 @@ suites:
         jdk_version: "7"
   - name: openjdk-8
     includes:
+      - ubuntu-12.04
       - ubuntu-14.04
       - centos-6.7
       - centos-7.1
