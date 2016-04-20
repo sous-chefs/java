@@ -32,7 +32,7 @@ file '/etc/profile.d/jdk.sh' do
   mode 00755
 end
 
-if node['java']['set_etc_environment']
+if node['java']['set_etc_environment'] # ~FC023 -- Fails unit test to use guard
   ruby_block 'Set JAVA_HOME in /etc/environment' do
     block do
       file = Chef::Util::FileEdit.new('/etc/environment')
