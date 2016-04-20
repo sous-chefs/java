@@ -33,4 +33,4 @@ deploy:
     all_branches: true
 env:
   global:
-    secure: B1nEA+NyDI7eL/h34ozPUVoKAxFxUkc72Lar3mO3SZ9lq5I0Ai1WyYSLmrspYnutq/HASpGLDmf8qidlEbyVXgD7ptm6ovPcT0AZq27xTUvEKqGpRZJ3bg+YKGyTKQDpuCRjddFO8zdc936udSMtwk/ughiTq8MhOqCtSPJBcsk=
+  - secure: eqzeGNPsL/n/GtkhqnspcB04AQoTiguOWS3lVxk4qUCeR8zE8lBtnPDt26qIedFZPtpfCAU4LkED7VKkzY3coHMRMsOREMgD5pSOpmHlV9iTr8sv6FsNmqG3q+nRCTr9BnSil4M8OtOVuqNLIkFH3rJSHjl7yj4d5jYwUe92xvY=
