@@ -40,7 +40,7 @@ if platform_requires_license_acceptance?
   end
 end
 
-if node['platform'] == 'ubuntu'
+if node['platform'] == 'ubuntu' && node['platform_version'] < '15.10'
   include_recipe 'apt'
   apt_repository 'openjdk-r-ppa' do
     uri 'ppa:openjdk-r'
