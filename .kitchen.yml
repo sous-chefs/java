@@ -49,7 +49,11 @@ platforms:
   - name: fedora-23
     driver:
       box: box-cutter/fedora21
-
+  - name: freebsd-10.2
+    driver:
+      box: box-cutter/freebsd102
+    run_list:
+    - recipe[freebsd_bash]
 suites:
   - name: openjdk-6
     includes:
@@ -71,6 +75,7 @@ suites:
       - ubuntu-12.04
       - ubuntu-14.04
       - ubuntu-16.04
+      - freebsd-10.2
     run_list:
       - recipe[java::default]
     attributes:

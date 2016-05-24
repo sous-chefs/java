@@ -1,0 +1,5 @@
+name             'freebsd_bash'
+maintainer       'test cookbook'
+license          'All rights reserved'
+description      'A test cookbook to install bash on freebsd for bats testing'
+version          '0.1.0'

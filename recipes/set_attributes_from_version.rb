@@ -29,8 +29,11 @@ when 'rhel', 'fedora'
   end
   node.default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
 when 'freebsd'
+  jdk_version = node['java']['jdk_version']
+  # FIXME guessing java_home ain't right either
   node.default['java']['java_home'] = "/usr/local/openjdk#{node['java']['jdk_version']}"
-  node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
+  openjdk_package = jdk_version == '7' ? 'openjdk' : "openjdk#{node['java']['jdk_version']}"
+  node.default['java']['openjdk_packages'] = [openjdk_package]
 when 'arch'
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
   node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
