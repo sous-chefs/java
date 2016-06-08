@@ -131,7 +131,7 @@ default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extch
 
 # x86_64
 default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = 'cc48b4cacfeda1f699b43ea77ddfaa95'
+default['java']['jdk']['8']['x86_64']['checksum'] = '3f3d7d0cd70bfe0feab382ed4b0e45c0'
 
 # i586
 default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-i586.tar.gz'
