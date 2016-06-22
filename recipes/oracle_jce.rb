@@ -38,27 +38,36 @@ directory ::File.join(node['java']['oracle']['jce']['home'], jdk_version) do
   recursive true
 end
 
-execute 'download jce' do
-  command <<-EOF
-    rm -rf #{Chef::Config[:file_cache_path]}/java_jce
-    mkdir -p #{Chef::Config[:file_cache_path]}/java_jce
-    cd #{Chef::Config[:file_cache_path]}/java_jce
+remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
+  source jce_url
+  headers(
+    'Cookie' => jce_cookie
+  )
+  not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
+end
 
-    curl -L --cookie '#{jce_cookie}' -o jce.zip #{jce_url}
+execute 'verify jce' do
+  command <<-EOF
+    cd #{Chef::Config[:file_cache_path]}
     # fail the resource if the checksum does not match
     # this should only happen if oracle download terms are not accepted and downloading directly from oracle
     echo "#{jce_checksum}  jce.zip" | #{checksum_bin} -c >/dev/null
   EOF
+  action :nothing
+  subscribes :run, "remote_file[#{Chef::Config[:file_cache_path]}/jce.zip]", :immediately
   # if jar is already in the right location then don't need to download the JCE again
-  not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
+  # not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
 end
 
 execute 'extract jce' do
   command <<-EOF
-    unzip -o jce.zip
+    rm -rf java_jce
+    mkdir java_jce
+    cd java_jce
+    unzip -o ../jce.zip
     find -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{node['java']['oracle']['jce']['home']}/#{jdk_version}/
   EOF
-  cwd "#{Chef::Config[:file_cache_path]}/java_jce"
+  cwd "#{Chef::Config[:file_cache_path]}"
   creates ::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')
 end
 
