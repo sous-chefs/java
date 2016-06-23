@@ -33,7 +33,6 @@ checksum_bin = if jce_checksum =~ /^[0-9a-f]{32}$/
 directory ::File.join(node['java']['oracle']['jce']['home'], jdk_version) do
   mode '0755'
   recursive true
-  action :create
 end
 
 if node['os'] == 'windows'
