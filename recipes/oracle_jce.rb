@@ -52,7 +52,7 @@ if node['os'] == 'windows'
     source url
     checksum zip_checksum
     action :unzip
-    not_if {::File.exists? staging_local_policy}
+    not_if { ::File.exist? staging_local_policy }
     notifies :create, "file[#{final_local_policy}]"
     notifies :create, "file[#{final_export_policy}]"
   end
@@ -68,7 +68,6 @@ if node['os'] == 'windows'
     content lazy { ::File.read(staging_export_policy) }
     action :nothing
   end
-
 
 else
   package 'unzip'
