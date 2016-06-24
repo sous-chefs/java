@@ -19,14 +19,14 @@
 
 case node['platform_family']
 when 'rhel', 'fedora'
-  case node['java']['install_flavor']
-  when 'oracle'
-    node.default['java']['java_home'] = '/usr/lib/jvm/java'
-  when 'oracle_rpm'
-    node.default['java']['java_home'] = '/usr/java/latest'
-  else
-    node.default['java']['java_home'] = "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0"
-  end
+  node.default['java']['java_home'] = case node['java']['install_flavor']
+                                      when 'oracle'
+                                        '/usr/lib/jvm/java'
+                                      when 'oracle_rpm'
+                                        '/usr/java/latest'
+                                      else
+                                        "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0"
+                                      end
   node.default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
 when 'freebsd'
   node.default['java']['java_home'] = "/usr/local/openjdk#{node['java']['jdk_version']}"
