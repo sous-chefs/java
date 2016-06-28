@@ -30,6 +30,10 @@ end
 file '/etc/profile.d/jdk.sh' do
   content "export JAVA_HOME=#{node['java']['java_home']}"
   mode 00755
+  not_if "grep JAVA_HOME=#{node['java']['java_home']} /etc/profile.d/jdk.sh"
+  node['java']['services'].each do |service|
+    notifies :restart,"service[#{service}]",:delayed
+  end
 end
 
 if node['java']['set_etc_environment'] # ~FC023 -- Fails unit test to use guard
