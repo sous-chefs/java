@@ -2,6 +2,21 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.40 - 6/29/2016
+-----
+- Travis build green
+- Add Windows JCE support
+- Changes to prevent re-execution of resource creating file '/etc/profile.d/jdk.sh'
+- Fix JDK checksum
+- Update ibm_jdk.installer.properties.erb for IBM JDK 1.8
+- Install OpenJDK from distribution if Ubuntu version >= 15.10
+- Fixes #342 - Tar is included in macosx and homebrews package is gnutar which
+  causes this to fail
+- Add 12.04 to jdk8 test suite
+- Add source and issues urls to supermarket
+- Distinguishing the Java version for installing on the Mac OS X
+- Doc and cruft cleanup
+
 v1.39 - 1/14/2016
 -----
 - Travis debugging only, no code changes.
