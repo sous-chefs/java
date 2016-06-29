@@ -28,7 +28,7 @@ directory '/etc/profile.d' do
 end
 
 template '/etc/profile.d/jdk.sh' do
-  source "jdk.sh.erb"
+  source 'jdk.sh.erb'
 end
 
 if node['java']['set_etc_environment'] # ~FC023 -- Fails unit test to use guard
