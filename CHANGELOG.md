@@ -2,6 +2,10 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.40.1 - 7/8/2016
+-----
+- Fixed: JAVA_HOME not set on systems with restrictive umask #359
+
 v1.40 - 6/29/2016
 -----
 - Travis build green
