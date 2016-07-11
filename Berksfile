@@ -7,4 +7,5 @@ group :integration do
   cookbook 'windows'
   cookbook 'homebrew'
   cookbook 'test_java', path: 'test/fixtures/cookbooks/test_java'
+  cookbook 'freebsd_bash', path: 'test/fixtures/cookbooks/freebsd_bash'
 end
