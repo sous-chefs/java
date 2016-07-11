@@ -31,7 +31,7 @@ state_attrs :alternatives_priority,
             :group,
             :url
 
-attribute :url, regex: /^(file|http|https?):\/\/.*(gz|tar.gz|tgz|bin|zip)$/, default: nil
+attribute :url, kind_of: String, default: nil
 attribute :mirrorlist, kind_of: Array, default: nil
 attribute :checksum, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: nil
 attribute :md5, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: nil

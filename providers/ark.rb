@@ -17,6 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'uri'
 require 'chef/mixin/shell_out'
 include Chef::Mixin::ShellOut
 
@@ -25,7 +26,8 @@ def whyrun_supported?
 end
 
 def parse_app_dir_name(url)
-  file_name = url.split('/')[-1]
+  uri = URI.parse(url)
+  file_name = uri.path.split('/').last
   # funky logic to parse oracle's non-standard naming convention
   # for jdk1.6
   if file_name =~ /^(jre|jdk|server-jre).*$/
