@@ -2,6 +2,14 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.40.2 - 7/12/2016
+-----
+- Attempt to have travis publish this.
+- Mac depends on homebrew.
+- Fixed typo in platform family spelling for OS X
+- fix openjdk version logic for freebsd
+- Enable Ark provider to handle URI with get parameters
+
 v1.40.1 - 7/8/2016
 -----
 - Fixed: JAVA_HOME not set on systems with restrictive umask #359
