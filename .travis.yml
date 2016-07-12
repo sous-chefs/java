@@ -6,30 +6,10 @@ addons:
     packages:
     - chefdk
 install: echo "skip bundle install"
-branches:
-  only:
-  - master
 before_script:
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 - "/opt/chefdk/embedded/bin/chef gem install chef-sugar"
+- openssl aes-256-cbc -K $encrypted_f7982e51c0b5_key -iv $encrypted_f7982e51c0b5_iv
+  -in .travis/publish-key.pem.enc -out .travis/publish-key.pem -d
 script:
-- "/opt/chefdk/embedded/bin/chef --version"
-- "/opt/chefdk/embedded/bin/rubocop --version"
-- "/opt/chefdk/embedded/bin/rubocop"
-- "/opt/chefdk/embedded/bin/foodcritic --version"
-- "/opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any"
-- "/opt/chefdk/embedded/bin/rspec spec"
-before_deploy:
-- openssl enc -d -aes-256-cbc -k $CHEF_KEY -in .travis/publish-key.pem.enc -out .travis/publish-key.pem
-deploy:
-  edge: true
-  provider: chef-supermarket
-  user_id: erichelgeson
-  client_key: ".travis/publish-key.pem"
-  cookbook_category: Other
-  skip_cleanup: true
-  on:
-    tags: true
-env:
-  global:
-  - secure: eqzeGNPsL/n/GtkhqnspcB04AQoTiguOWS3lVxk4qUCeR8zE8lBtnPDt26qIedFZPtpfCAU4LkED7VKkzY3coHMRMsOREMgD5pSOpmHlV9iTr8sv6FsNmqG3q+nRCTr9BnSil4M8OtOVuqNLIkFH3rJSHjl7yj4d5jYwUe92xvY=
+- "./travis-build.sh"
