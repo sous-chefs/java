@@ -14,7 +14,7 @@ echo "TRAVIS_PWD: $PWD"
 /opt/chefdk/embedded/bin/rspec spec || exit 1
 
 if [[ -n $TRAVIS_TAG && $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  /opt/chefdk/embedded/bin/knife cookbook site share java "Other" -o . --config .travis/config.rb
+  /opt/chefdk/embedded/bin/knife cookbook site share java "Other" -o ../ --config .travis/config.rb
 else
   echo "Not a tagged commit, skipping deploy."
 fi
