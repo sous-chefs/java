@@ -2,6 +2,10 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.40.4 - 7/12/2016
+-----
+- Automated deploy, no cookbook changes.
+
 v1.40.3 - 7/12/2016
 -----
 - Attempt to have travis publish this.
