@@ -2,7 +2,7 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
-v1.40.2 - 7/12/2016
+v1.40.3 - 7/12/2016
 -----
 - Attempt to have travis publish this.
 - Mac depends on homebrew.
