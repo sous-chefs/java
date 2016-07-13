@@ -10,6 +10,16 @@ describe 'java::oracle' do
     expect(chef_run).to include_recipe('java::set_java_home')
   end
 
+  it 'should include the notify recipe' do
+    expect(chef_run).to include_recipe('java::notify')
+  end
+
+  it 'should notify of jdk-version-change' do
+    pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
+    expect(chef_run.java_ark('jdk')).to notify('log[jdk-version-changed]')
+    this_should_not_get_executed
+  end
+
   it 'should configure a java_ark[jdk] resource' do
     pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
     this_should_not_get_executed

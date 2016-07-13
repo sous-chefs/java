@@ -18,6 +18,7 @@
 # limitations under the License.
 
 include_recipe 'java::set_java_home'
+include_recipe 'java::notify'
 
 slave_cmds = case node['java']['oracle_rpm']['type']
              when 'jdk'
@@ -50,6 +51,7 @@ package package_name do
   action :install
   version node['java']['oracle_rpm']['package_version'] if node['java']['oracle_rpm']['package_version']
   notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('rhel', 'fedora') && node['java']['set_default']
+  notifies :write, 'log[jdk-version-changed]', :immediately
 end
 
 include_recipe 'java::oracle_jce' if node['java']['oracle']['jce']['enabled']

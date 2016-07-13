@@ -17,6 +17,8 @@
 
 require 'uri'
 
+include_recipe 'java::notify'
+
 source_url = node['java']['ibm']['url']
 jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
@@ -64,6 +66,7 @@ execute 'untar-ibm-java' do
   cwd Chef::Config[:file_cache_path]
   command "tar xzf ./#{jdk_filename} -C #{node['java']['java_home']} --strip 1"
   notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
+  notifies :write, 'log[jdk-version-changed]', :immediately
   creates "#{node['java']['java_home']}/jre/bin/java"
 end
 

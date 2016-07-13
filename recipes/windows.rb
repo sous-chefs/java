@@ -20,6 +20,8 @@
 
 require 'uri'
 
+include_recipe 'java::notify'
+
 Chef::Log.fatal('No download url set for java installer.') unless node['java'] && node['java']['windows'] && node['java']['windows']['url']
 
 pkg_checksum = node['java']['windows']['checksum']
@@ -95,4 +97,5 @@ windows_package node['java']['windows']['package_name'] do
   action :install
   installer_type :custom
   options "/s #{additional_options}"
+  notifies :write, 'log[jdk-version-changed]', :immediately
 end
