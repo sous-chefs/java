@@ -53,16 +53,14 @@ describe 'java::oracle_jce' do
       runner.converge(described_recipe)
     end
 
+    let(:file_cache_path) { Chef::Config[:file_cache_path] }
+
     it 'creates JCE home' do
       expect(chef_run).to create_directory('/opt/java_jce/6')
     end
 
     it 'downloads the JCE zip' do
-      expect(chef_run).to run_execute('download jce')
-    end
-
-    it 'extracts JCE zip' do
-      expect(chef_run).to run_execute('extract jce')
+      expect(chef_run).to create_remote_file("#{file_cache_path}/jce.zip")
     end
 
     it 'Installs dependencies' do
