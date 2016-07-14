@@ -247,6 +247,19 @@ to a valid https/http URL; the URL is checked for validity in the recipe.
 At this time the `java::ibm` recipe does not support multiple SDK
 installations.
 
+### notify
+
+The `java::notify` recipe contains a log resource that's `:write` action
+is called when a JDK version changes. This gives cookbook authors a way
+to subscribe to JDK changes and take actions (say restart a java service):
+
+```ruby
+service 'somejavaservice'
+  action :restart
+  subscribes :write, 'log[jdk-version-changed]', :delayed
+end
+```
+
 Resources/Providers
 -----
 

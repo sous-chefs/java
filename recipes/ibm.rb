@@ -18,6 +18,8 @@
 
 require 'uri'
 
+include_recipe 'java::notify'
+
 source_url = node['java']['ibm']['url']
 jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)
@@ -66,8 +68,10 @@ execute 'install-ibm-java' do
   environment('_JAVA_OPTIONS' => '-Dlax.debug.level=3 -Dlax.debug.all=true',
               'LAX_DEBUG' => '1')
   command "./#{jdk_filename} -f ./installer.properties -i silent"
-  notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
   creates "#{node['java']['java_home']}/jre/bin/java"
+
+  notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
+  notifies :write, 'log[jdk-version-changed]', :immediately
 end
 
 include_recipe 'java::set_java_home'

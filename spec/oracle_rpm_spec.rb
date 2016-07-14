@@ -11,6 +11,14 @@ describe 'java::oracle_rpm' do
     expect(chef_run).to include_recipe('java::set_java_home')
   end
 
+  it 'should include the notify recipe' do
+    expect(chef_run).to include_recipe('java::notify')
+  end
+
+  it 'should notify of jdk-version-change' do
+    expect(chef_run.package('jdk')).to notify('log[jdk-version-changed]')
+  end
+
   describe 'update-java-alternatives' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(platform: platform, version: version) do |node|

@@ -19,6 +19,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+include_recipe 'java::notify'
+
 unless node.recipe?('java::default')
   Chef::Log.warn('Using java::default instead is recommended.')
 
@@ -51,6 +53,7 @@ end
 node['java']['openjdk_packages'].each do |pkg|
   package pkg do
     version node['java']['openjdk_version'] if node['java']['openjdk_version']
+    notifies :write, 'log[jdk-version-changed]', :immediately
   end
 end
 

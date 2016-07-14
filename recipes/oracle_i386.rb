@@ -17,6 +17,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+include_recipe 'java::notify'
+
 unless node.recipe?('java::default')
   Chef::Log.warn('Using java::default instead is recommended.')
 
@@ -64,6 +66,7 @@ java_ark 'jdk-alt' do
   reset_alternatives node['java']['reset_alternatives']
   action :install
   default false
+  notifies :write, 'log[jdk-version-changed]', :immediately
 end
 
 if node['java']['set_default'] && platform_family?('debian')

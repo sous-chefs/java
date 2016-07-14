@@ -14,6 +14,14 @@ describe 'java::ibm' do
     runner.converge(described_recipe)
   end
 
+  it 'should include the notify recipe' do
+    expect(chef_run).to include_recipe('java::notify')
+  end
+
+  it 'should notify of jdk-version-change' do
+    expect(chef_run.execute('install-ibm-java')).to notify('log[jdk-version-changed]')
+  end
+
   it 'creates an installer.properties file' do
     expect(chef_run).to create_template(Chef::Config[:file_cache_path] + '/installer.properties')
   end

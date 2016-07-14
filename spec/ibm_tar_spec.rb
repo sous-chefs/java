@@ -10,6 +10,12 @@ describe 'java::ibm_tar' do
     runner.converge(described_recipe)
   end
 
+  let(:install_ibm_java) { chef_run.execute('install-ibm-java') }
+
+  it 'should include the notify recipe' do
+    expect(chef_run).to include_recipe('java::notify')
+  end
+
   it 'downloads the remote jdk file' do
     expect(chef_run).to create_remote_file(Chef::Config[:file_cache_path] + '/ibm-java.tar.gz')
   end
@@ -26,6 +32,10 @@ describe 'java::ibm_tar' do
 
     untar_command = chef_run.execute('untar-ibm-java')
     expect(untar_command).to notify('java_alternatives[set-java-alternatives]')
+  end
+
+  it 'should notify of jdk-version-change' do
+    expect(chef_run.execute('untar-ibm-java')).to notify('log[jdk-version-changed]')
   end
 
   it 'includes the set_java_home recipe' do

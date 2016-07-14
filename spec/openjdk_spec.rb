@@ -38,7 +38,12 @@ describe 'java::openjdk' do
       data['packages'].each do |pkg|
         it "installs package #{pkg}" do
           expect(chef_run).to install_package(pkg)
+          expect(chef_run.package(pkg)).to notify('log[jdk-version-changed]')
         end
+      end
+
+      it 'should include the notify recipe' do
+        expect(chef_run).to include_recipe('java::notify')
       end
 
       it 'sends notification to update-java-alternatives' do
