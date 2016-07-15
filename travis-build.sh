@@ -23,8 +23,6 @@ else
     SED=gsed
   fi
   $SED -i '1 s/^.*$/name \"java-snapshot\"/g' metadata.rb
-  # Just testing for now
-  cat metadata.rb
-  echo "/opt/chefdk/embedded/bin/knife cookbook site share java-snapshot "Other" -o ../ --config .travis/config.rb"
+  /opt/chefdk/embedded/bin/knife cookbook site share java-snapshot "Other" -o ../ --config .travis/config.rb
   git checkout metadata.rb
 fi
