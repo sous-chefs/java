@@ -14,7 +14,17 @@ echo "TRAVIS_PWD: $PWD"
 /opt/chefdk/embedded/bin/rspec spec || exit 1
 
 if [[ -n $TRAVIS_TAG && $TRAVIS_PULL_REQUEST == 'false' ]]; then
+  echo "Deploying java cookbook - release"
   /opt/chefdk/embedded/bin/knife cookbook site share java "Other" -o ../ --config .travis/config.rb
 else
-  echo "Not a tagged commit, skipping deploy."
+  echo "Deploying java-snapshot cookbook"
+  SED=sed
+  if [ "$(uname)" = "Darwin" ]; then
+    SED=gsed
+  fi
+  $SED -i '1 s/^.*$/name \"java-snapshot\"/g' metadata.rb
+  # Just testing for now
+  cat metadata.rb
+  echo "/opt/chefdk/embedded/bin/knife cookbook site share java-snapshot "Other" -o ../ --config .travis/config.rb"
+  git checkout metadata.rb
 fi
