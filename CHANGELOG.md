@@ -2,6 +2,13 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.41.0 - 7/15/2016
+-----
+- Feature: Add new resource for cookbooks to subscribe to, see README
+- Use a remote_file resource for JCE download instead of curl in an execute block.
+- Since v1.40.4 Travis deploys cookbook to supermarket - expect more frequent,
+  smaller releases.
+
 v1.40.4 - 7/12/2016
 -----
 - Automated deploy, no cookbook changes.
