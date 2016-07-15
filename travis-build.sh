@@ -20,7 +20,7 @@ if [[ -n $TRAVIS_TAG && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 elif [[ $TRAVIS && $TRAVIS_BRANCH = 'master' ]]; then
   echo "Deploying java-snapshot cookbook"
   sed -i '1 s/^.*$/name \"java-snapshot\"/g' metadata.rb
-  /opt/chefdk/embedded/bin/knife cookbook site share java-snapshot "Other" -o ../ --config .travis/config.rb
+  /opt/chefdk/embedded/bin/knife cookbook site share java-snapshot "Other" -o ../ --config .travis/config.rb --force
   git checkout metadata.rb
 else
   echo "Not in Travis, skipping deploy."
