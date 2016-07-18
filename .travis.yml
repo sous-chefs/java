@@ -9,7 +9,5 @@ install: echo "skip bundle install"
 before_script:
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 - "/opt/chefdk/embedded/bin/chef gem install chef-sugar"
-- openssl aes-256-cbc -K $encrypted_f7982e51c0b5_key -iv $encrypted_f7982e51c0b5_iv
-  -in .travis/publish-key.pem.enc -out .travis/publish-key.pem -d
 script:
 - "./travis-build.sh"

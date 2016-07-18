@@ -16,6 +16,7 @@ echo "TRAVIS: $TRAVIS"
 
 if [[ -n $TRAVIS_TAG && $TRAVIS_PULL_REQUEST == 'false' ]]; then
   echo "Deploying java cookbook - release"
+  openssl aes-256-cbc -K $encrypted_f7982e51c0b5_key -iv $encrypted_f7982e51c0b5_iv -in .travis/publish-key.pem.enc -out .travis/publish-key.pem -d
   /opt/chefdk/embedded/bin/knife cookbook site share java "Other" -o ../ --config .travis/config.rb
 else
   echo "Skipping deploy."
