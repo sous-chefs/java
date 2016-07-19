@@ -4,7 +4,7 @@ describe 'java::set_java_home' do
   context 'set_java_home' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new
-      runner.node.set['java']['java_home'] = '/opt/java'
+      runner.node.override['java']['java_home'] = '/opt/java'
       runner.converge(described_recipe)
     end
     it 'it should set the java home environment variable' do
@@ -24,8 +24,8 @@ describe 'java::set_java_home' do
   context 'set_java_home_environment' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new
-      runner.node.set['java']['java_home'] = '/opt/java'
-      runner.node.set['java']['set_etc_environment'] = true
+      runner.node.override['java']['java_home'] = '/opt/java'
+      runner.node.override['java']['set_etc_environment'] = true
       runner.converge(described_recipe)
     end
     it 'it should set the java home environment variable' do

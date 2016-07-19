@@ -6,9 +6,9 @@ describe 'java::windows' do
       platform: 'windows',
       version: '2008R2'
     )
-    runner.node.set['java']['windows']['url'] = 'http://example.com/windows-java.msi'
-    runner.node.set['java']['windows']['package_name'] = 'windows-java'
-    runner.node.set['java']['java_home'] = 'C:/java'
+    runner.node.override['java']['windows']['url'] = 'http://example.com/windows-java.msi'
+    runner.node.override['java']['windows']['package_name'] = 'windows-java'
+    runner.node.override['java']['java_home'] = 'C:/java'
     runner.converge('windows::default', described_recipe)
   end
 

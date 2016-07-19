@@ -32,7 +32,7 @@ describe 'java::oracle' do
           platform: 'ubuntu',
           version: '12.04'
         )
-        runner.node.set['java']['java_home'] = '/some/path'
+        runner.node.override['java']['java_home'] = '/some/path'
         runner.converge(described_recipe)
       end
 
@@ -97,7 +97,7 @@ describe 'java::oracle' do
     context 'when jce is enabled' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new do |node|
-          node.set['java']['oracle']['jce']['enabled'] = true
+          node.override['java']['oracle']['jce']['enabled'] = true
         end.converge(described_recipe)
       end
 
