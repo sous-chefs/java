@@ -2,6 +2,14 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.42.0 - 8/8/2016
+-----
+- Use openjdk ppa for all ubuntu versions to allow for older/newer jdks to be installed. Fixes #368
+- update oracle java 8u101 - Use sha256 hash (seems to help with downloading each converge)
+- Mac default converge fails since notify is not included by homebrew
+- Remove chef 14(!) depreciation warning in tests
+- Resolve chef-12 related warning
+
 v1.41.0 - 7/15/2016
 -----
 - Feature: Add new resource for cookbooks to subscribe to, see README
