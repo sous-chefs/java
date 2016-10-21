@@ -69,6 +69,7 @@ java_ark 'jdk' do
   use_alt_suffix node['java']['use_alt_suffix']
   reset_alternatives node['java']['reset_alternatives']
   download_timeout node['java']['ark_download_timeout']
+  proxy node['java']['ark_proxy']
   action :install
   notifies :write, 'log[jdk-version-changed]', :immediately
 end
