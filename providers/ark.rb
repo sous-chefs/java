@@ -175,7 +175,7 @@ action :install do
       end
 
       # change ownership of extracted files
-      FileUtils.chown_R new_resource.owner, app_group, app_root
+      FileUtils.chown_R new_resource.owner, app_group, app_dir
     end
     new_resource.updated_by_last_action(true)
   end
