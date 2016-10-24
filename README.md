@@ -220,9 +220,9 @@ replacing `40` with the most current version in your local repo.
 
 ### windows
 
-Because as of 26 March 2012 you can no longer directly download the 
+Because as of 26 March 2012 you can no longer directly download the
 JDK msi from Oracle's website without using a special cookie. This recipe
-requires you to set `node['java']['oracle']['accept_oracle_download_terms']` 
+requires you to set `node['java']['oracle']['accept_oracle_download_terms']`
 to true or host it internally on your own http repo or s3 bucket.
 
 **IMPORTANT NOTE**
@@ -303,6 +303,7 @@ By default, the extracted directory is extracted to
   boolean true or false
 - `use_alt_suffix`: whether '_alt' suffix is used for not default javas
   boolean true or false
+- `proxy`: optional address and port of proxy server, for example, `proxy.example.com:1234`
 
 #### Examples
 ```ruby
