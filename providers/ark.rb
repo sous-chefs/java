@@ -67,9 +67,7 @@ end
 def download_direct_from_oracle(tarball_name, new_resource)
   download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
   cookie = 'oraclelicense=accept-securebackup-cookie'
-  unless new_resource.proxy.nil?
-    proxy = "-x #{new_resource.proxy}"
-  end
+  proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
   if node['java']['oracle']['accept_oracle_download_terms']
     # install the curl package
     p = package 'curl' do
