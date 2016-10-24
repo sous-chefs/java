@@ -303,7 +303,7 @@ By default, the extracted directory is extracted to
   boolean true or false
 - `use_alt_suffix`: whether '_alt' suffix is used for not default javas
   boolean true or false
-- `proxy`: address and port of proxy server, for example, `proxy.example.com:1234`
+- `proxy`: optional address and port of proxy server, for example, `proxy.example.com:1234`
 
 #### Examples
 ```ruby
