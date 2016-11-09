@@ -12,3 +12,9 @@
   run test -L /usr/bin/jar
   [ "$status" -eq 0 ]
 }
+
+@test "install java certificate" {
+  source /etc/profile.d/jdk.sh
+  run $JAVA_HOME/bin/keytool -list -storepass changeit -keystore $JAVA_HOME/jre/lib/security/cacerts -alias java_certificate_test
+  [ "${lines[1]}" = "Certificate fingerprint (MD5): D4:5B:B9:3E:BB:B4:64:4D:E4:A1:78:15:C4:EE:A8:DF" ]
+}
