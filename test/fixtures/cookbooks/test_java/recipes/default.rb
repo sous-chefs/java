@@ -10,4 +10,3 @@
 cookbook_file '/tmp/UnlimitedSupportJCETest.jar' do
   source 'UnlimitedSupportJCETest.jar'
 end
-

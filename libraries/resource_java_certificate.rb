@@ -19,20 +19,18 @@
 # limitations under the License.
 
 class Chef::Resource::JavaCertificate < Chef::Resource::LWRPBase
-
   self.resource_name = 'java_certificate'
 
   actions :install, :remove
   default_action :install
 
-  attribute :java_home, :kind_of => String, :default => nil
+  attribute :java_home, kind_of: String, default: nil
 
-  attribute :keystore_path, :kind_of => String, :default => nil
-  attribute :keystore_passwd, :kind_of => String, :default => nil
+  attribute :keystore_path, kind_of: String, default: nil
+  attribute :keystore_passwd, kind_of: String, default: nil
 
-  attribute :cert_alias, :kind_of => String, :default => nil
-  attribute :cert_data, :kind_of => String, :default => nil
-  attribute :cert_file, :kind_of => String, :default => nil
-  attribute :ssl_endpoint, :kind_of => String, :default => nil
-
+  attribute :cert_alias, kind_of: String, default: nil
+  attribute :cert_data, kind_of: String, default: nil
+  attribute :cert_file, kind_of: String, default: nil
+  attribute :ssl_endpoint, kind_of: String, default: nil
 end
