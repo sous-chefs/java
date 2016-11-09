@@ -96,7 +96,7 @@ else
     # remove the jars already in the directory
     file jar_path do
       action :delete
-      #not_if { ::File.symlink? jar_path }
+      not_if { ::File.symlink? jar_path }
     end
     link jar_path do
       to ::File.join(node['java']['oracle']['jce']['home'], jdk_version, jar)
