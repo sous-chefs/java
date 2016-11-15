@@ -344,6 +344,48 @@ java_alternatives "set java alternatives" do
 end
 ```
 
+### java_certificate
+
+
+This cookbook contains the `java_certificate` LWRP which simplifies
+adding certificates to a java keystore. It can also populate the keystore
+with a certificate retrieved from a given SSL end-point. It defaults
+to the default keystore `<java_home>/jre/lib/security/cacerts` with the
+default password if a specific keystore is not provided.
+
+### Actions
+
+- `:install`: installs a certificate.
+- `:remove`: removes a certificate.
+
+### Attribute Parameters
+
+- `cert_alias`: The alias of the certificate in the keystore. This defaults
+  to the name of the resource.
+
+Optional parameters:
+
+- `java_home`: the java home directory. Defaults to `node['java']['java_home']`.
+
+- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts`.
+
+- `keystore_passwd`: the keystore password. Defaults to 'changeit' as specified by the Java Documentation.
+
+Only one of the following
+- `cert_data`: the certificate data to install
+- `cert_file`: path to a certificate file to install
+- `ssl_endpoint`: an SSL end-point from which to download the certificate
+
+### Examples
+
+    java_certificate "Install LDAP server certificate to Java CA keystore for Jenkins" do
+        cert_alias node['jenkins']['ldap']['url'][/\/\/(.*)/, 1]
+        ssl_endpoint node['jenkins']['ldap']['url']
+        action :install
+        notifies :restart, "runit_service[jenkins]", :delayed
+    end
+
+
 Production Deployment with Oracle Java
 -----
 Oracle has been known to change the behavior of its download site frequently. It is recommended you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
