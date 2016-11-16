@@ -91,6 +91,10 @@ if node['java']['windows'].attribute?('public_jre_home') && node['java']['window
   additional_options = "#{additional_options} /INSTALLDIRPUBJRE=\"#{java_publicjre_home_win}\""
 end
 
+if node['java']['windows'].attribute?('remove_obsolete') && node['java']['windows']['remove_obsolete']
+  additional_options = "#{additional_options} REMOVEOUTOFDATEJRES=1"
+end
+
 windows_package node['java']['windows']['package_name'] do
   source cache_file_path
   checksum node['java']['windows']['checksum']
