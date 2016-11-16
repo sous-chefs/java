@@ -100,6 +100,8 @@ the .tar.gz.
 * `node['java']['windows']['checksum']` - The checksum for the package to
   download on Windows machines (default is nil, which does not perform
   checksum validation)
+* `node['java']['windows']['remove_obsolete']` - Indicates whether to remove
+  previous versions of the JRE (default is `false`)
 * `node['java']['ibm']['url']` - The URL which to download the IBM
   JDK/SDK. See the `ibm` recipe section below.
 * `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that
