@@ -27,6 +27,7 @@ Chef::Log.fatal('No download url set for java installer.') unless node['java'] &
 pkg_checksum = node['java']['windows']['checksum']
 aws_access_key_id = node['java']['windows']['aws_access_key_id']
 aws_secret_access_key = node['java']['windows']['aws_secret_access_key']
+aws_session_token = node['java']['windows']['aws_session_token']
 
 s3_bucket = node['java']['windows']['bucket']
 s3_remote_path = node['java']['windows']['remote_path']
@@ -40,6 +41,7 @@ if s3_bucket && s3_remote_path
   aws_s3_file cache_file_path do
     aws_access_key_id aws_access_key_id
     aws_secret_access_key aws_secret_access_key
+    aws_session_token aws_session_token
     checksum pkg_checksum if pkg_checksum
     bucket s3_bucket
     remote_path s3_remote_path

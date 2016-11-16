@@ -102,6 +102,9 @@ the .tar.gz.
   checksum validation)
 * `node['java']['windows']['remove_obsolete']` - Indicates whether to remove
   previous versions of the JRE (default is `false`)
+* `node['java']['windows']['aws_access_key_id']` - AWS Acess Key ID to use with AWS API calls
+* `node['java']['windows']['aws_secret_access_key']` - AWS Secret Access Key to use with AWS API calls
+* `node['java']['windows']['aws_session_token']` - AWS Session Token to use with AWS API calls
 * `node['java']['ibm']['url']` - The URL which to download the IBM
   JDK/SDK. See the `ibm` recipe section below.
 * `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that
