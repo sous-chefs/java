@@ -28,18 +28,21 @@ pkg_checksum = node['java']['windows']['checksum']
 aws_access_key_id = node['java']['windows']['aws_access_key_id']
 aws_secret_access_key = node['java']['windows']['aws_secret_access_key']
 
+s3_bucket = node['java']['windows']['bucket']
+s3_remote_path = node['java']['windows']['remote_path']
+
 uri = ::URI.parse(node['java']['windows']['url'])
 cache_file_path = File.join(Chef::Config[:file_cache_path], File.basename(::URI.unescape(uri.path)))
 
-if aws_access_key_id && aws_secret_access_key
+if s3_bucket && s3_remote_path
   include_recipe 'aws::default' # install right_aws gem for aws_s3_file
 
   aws_s3_file cache_file_path do
     aws_access_key_id aws_access_key_id
     aws_secret_access_key aws_secret_access_key
     checksum pkg_checksum if pkg_checksum
-    bucket node['java']['windows']['bucket']
-    remote_path node['java']['windows']['remote_path']
+    bucket s3_bucket
+    remote_path s3_remote_path
     backup false
     action :create
   end
