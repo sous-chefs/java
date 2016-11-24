@@ -29,11 +29,18 @@ directory ::File.join(node['java']['oracle']['jce']['home'], jdk_version) do
   recursive true
 end
 
+r = remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
+  source jce_url
+  checksum jce_checksum
+  headers(
+    'Cookie' => jce_cookie
+  )
+  not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
+end
+
 if node['os'] == 'windows'
   include_recipe 'windows'
 
-  url = node['java']['oracle']['jce'][jdk_version]['url']
-  zip_checksum = node['java']['oracle']['jce'][jdk_version]['checksum']
   staging_path = ::File.join(node['java']['oracle']['jce']['home'], jdk_version)
   staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
   staging_export_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'US_export_policy.jar')
@@ -42,38 +49,25 @@ if node['os'] == 'windows'
   final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
 
   windows_zipfile staging_path do
-    source url
-    checksum zip_checksum
+    source r.path
+    checksum jce_checksum
     action :unzip
     not_if { ::File.exist? staging_local_policy }
-    notifies :create, "file[#{final_local_policy}]"
-    notifies :create, "file[#{final_export_policy}]"
   end
 
-  file final_local_policy do
+  remote_file final_local_policy do
     rights :full_control, node['java']['windows']['owner']
-    content lazy { ::File.read(staging_local_policy) }
-    action :nothing
+    source "file://#{staging_local_policy}"
   end
 
-  file final_export_policy do
+  remote_file final_export_policy do
     rights :full_control, node['java']['windows']['owner']
-    content lazy { ::File.read(staging_export_policy) }
-    action :nothing
+    source "file://#{staging_export_policy}"
   end
 
 else
   package 'unzip'
   package 'curl'
-
-  remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
-    source jce_url
-    checksum jce_checksum
-    headers(
-      'Cookie' => jce_cookie
-    )
-    not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
-  end
 
   execute 'extract jce' do
     command <<-EOF
