@@ -1,0 +1,27 @@
+{
+  "version": "2",
+  "job_dispatch": {
+    "version": "v2"
+  },
+  "build_cookbook": {
+    "git": "http://stash.standardbank.co.za:7990/scm/ccd/delivery-truck.git",
+    "name": "delivery-truck",
+    "branch": "master"
+  },
+  "delivery-truck": {
+    "publish": {
+      "chef_server": true,
+      "supermarket": "https://pchfsup1v.standardbank.co.za"
+    },
+    "lint": {
+      "foodcritic": {
+        "ignore_rules": ["FC001","FC002","FC013","FC019","FC027","FC047"]
+      }
+    }
+  },
+  "skip_phases": [
+    "smoke",
+    "security",
+    "quality"
+  ]
+}
