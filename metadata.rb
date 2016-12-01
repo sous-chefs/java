@@ -37,6 +37,7 @@ recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryp
   xenserver
   smartos
   mac_os_x
+  zlinux
 ).each do |os|
   supports os
 end
