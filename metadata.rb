@@ -4,7 +4,7 @@ maintainer_email  'info@agileorbit.com'
 license           'Apache 2.0'
 description       'Installs Java runtime.'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '1.42.0'
+version           '1.43.0'
 
 recipe 'java::default', 'Installs Java runtime'
 recipe 'java::default_java_symlink', 'Updates /usr/lib/jvm/default-java'
@@ -37,6 +37,7 @@ recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryp
   xenserver
   smartos
   mac_os_x
+  zlinux
 ).each do |os|
   supports os
 end

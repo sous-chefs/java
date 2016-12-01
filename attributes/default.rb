@@ -50,6 +50,11 @@ else
   default['java']['install_flavor'] = 'openjdk'
 end
 
+#S390(X) - IBM zSeries Architecture - only IBM jre / jdk can be used
+if node['kernel']['machine'].starts_with?('s390')
+  default['java']['install_flavor'] = 'ibm'
+end
+
 case node['java']['install_flavor']
 when 'ibm', 'ibm_tar'
   default['java']['ibm']['url'] = nil
@@ -63,6 +68,7 @@ when 'ibm', 'ibm_tar'
                                                schemagen serialver tnameserv wsgen wsimport xjc)
 
   default['java']['ibm']['7']['bin_cmds'] = node['java']['ibm']['6']['bin_cmds'] + %w(pack200 unpack200)
+  default['java']['ibm']['8']['bin_cmds'] = node['java']['ibm']['7']['bin_cmds']
 when 'oracle_rpm'
   # type of java RPM : jdk or jre
   default['java']['oracle_rpm']['type'] = 'jdk'
