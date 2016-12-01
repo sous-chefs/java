@@ -15,11 +15,13 @@
     },
     "lint": {
       "foodcritic": {
-        "ignore_rules": ["FC001","FC002","FC013","FC019","FC027","FC047"]
+        "ignore_rules": []
       }
     }
   },
   "skip_phases": [
+    "unit",
+    "lint",
     "smoke",
     "security",
     "quality"
