@@ -24,6 +24,7 @@
     "lint",
     "smoke",
     "security",
-    "quality"
+    "quality",
+    "syntax"
   ]
 }
