@@ -50,8 +50,8 @@ else
   default['java']['install_flavor'] = 'openjdk'
 end
 
-#S390(X) - IBM zSeries Architecture - only IBM jre / jdk can be used
-if node['kernel']['machine'].starts_with?('s390')
+#S390(X) - IBM zSeries Architecture - only IBM jre / jdk can be used. Download from https://developer.ibm.com/javasdk/downloads/
+if node['kernel']['machine'].start_with?('s390')
   default['java']['install_flavor'] = 'ibm'
 end
 
