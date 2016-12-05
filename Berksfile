@@ -1,4 +1,4 @@
-source "https://pchfsup1v.standardbank.co.za"
+source 'https://supermarket.chef.io'
 
 metadata
 
