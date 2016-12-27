@@ -31,3 +31,7 @@ PerceivedComplexity:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+Style/NumericLiteralPrefix:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false

@@ -36,7 +36,7 @@ def parse_app_dir_name(url)
     update_num = update_token ? update_token[0] : '0'
     # pad a single digit number with a zero
     update_num = '0' + update_num if update_num.length < 2
-    package_name = (file_name =~ /^server-jre.*$/) ? 'jdk' : file_name.scan(/[a-z]+/)[0]
+    package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
     app_dir_name = if update_num == '00'
                      "#{package_name}1.#{major_num}.0"
                    else
@@ -60,7 +60,7 @@ def oracle_downloaded?(download_path, new_resource)
       downloaded_sha == new_resource.checksum
     end
   else
-    return false
+    false
   end
 end
 
@@ -147,22 +147,23 @@ action :install do
         cmd = shell_out(
           %( cd "#{Chef::Config[:file_cache_path]}";
               bash ./#{tarball_name} -noregister
-            ))
-        unless cmd.exitstatus == 0
+            )
+        )
+        unless cmd.exitstatus.zero?
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.zip/
         cmd = shell_out(
           %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
         )
-        unless cmd.exitstatus == 0
+        unless cmd.exitstatus.zerio?
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
         cmd = shell_out(
           %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
-        unless cmd.exitstatus == 0
+        unless cmd.exitstatus.zero?
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       end
@@ -170,7 +171,7 @@ action :install do
       cmd = shell_out(
         %( mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
       )
-      unless cmd.exitstatus == 0
+      unless cmd.exitstatus.zero?
         Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
       end
 
