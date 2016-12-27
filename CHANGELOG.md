@@ -1,6 +1,11 @@
 Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
+
+v1.44.0 - 12/27/2016
+-----
+- Added zlinux defaults
+
 v1.43.0 - 12/6/2016
 -----
 - Switch recursive chown from executing on the jdk parent directory to executing on the jdk directory itself.
