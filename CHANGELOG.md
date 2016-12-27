@@ -1,6 +1,14 @@
 Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
+v1.43.0 - 12/6/2016
+-----
+- Switch recursive chown from executing on the jdk parent directory to executing on the jdk directory itself.
+- Added proxy support to curl
+- add java_certificate LWRP from java-libraries cookbook - java-libraries now depricated.
+- (Windows) support removal of obsolete JREs via optional attribute
+- (Windows) Can download from s3 only using an IAM profile
+- (Windows) aws session token for windows java download
 
 v1.42.0 - 8/8/2016
 -----
