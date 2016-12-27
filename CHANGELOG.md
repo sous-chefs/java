@@ -2,8 +2,13 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.45.0 - 12/27/2016
+-----
+- Update to resolve latest rubocop rules
+
 v1.44.0 - 12/27/2016
 -----
+- Unpublished due to newer rubocop rules in travis
 - Added zlinux defaults
 
 v1.43.0 - 12/6/2016
