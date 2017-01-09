@@ -28,20 +28,12 @@ describe 'java::oracle_jce' do
       expect(chef_run).to unzip_windows_zipfile_to('c:/temp/jce/8')
     end
 
-    it 'zip exctraction notifies creation of local_policy.jar' do
-      expect(zipfile).to notify('file[c:/jdk1.8/jre/lib/security/local_policy.jar]')
-    end
-
-    it 'zip exctraction notifies creation of US_export_policy.jar' do
-      expect(zipfile).to notify('file[c:/jdk1.8/jre/lib/security/US_export_policy.jar]')
-    end
-
     it 'creates local_policy.jar file resource' do
-      expect(chef_run.file('c:/jdk1.8/jre/lib/security/local_policy.jar')).to do_nothing
+      expect(chef_run).to create_remote_file('c:/jdk1.8/jre/lib/security/local_policy.jar')
     end
 
     it 'creates US_export_policy.jar file resource' do
-      expect(chef_run.file('c:/jdk1.8/jre/lib/security/US_export_policy.jar')).to do_nothing
+      expect(chef_run).to create_remote_file('c:/jdk1.8/jre/lib/security/US_export_policy.jar')
     end
   end
 
