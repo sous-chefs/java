@@ -456,7 +456,7 @@ License and Author
 -----
 * Author: Eric Helgeson (<erichelgeson@gmail.com>)
 
-Copyright: 2014-2015, Agile Orbit, LLC
+Copyright: 2014-2017, Agile Orbit, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
