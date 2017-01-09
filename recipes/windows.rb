@@ -108,3 +108,5 @@ windows_package node['java']['windows']['package_name'] do
   options "/s #{additional_options}"
   notifies :write, 'log[jdk-version-changed]', :immediately
 end
+
+include_recipe 'java::oracle_jce' if node['java']['oracle']['jce']['enabled']
