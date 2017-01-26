@@ -259,7 +259,7 @@ is called when a JDK version changes. This gives cookbook authors a way
 to subscribe to JDK changes and take actions (say restart a java service):
 
 ```ruby
-service 'somejavaservice'
+service 'somejavaservice' do
   action :restart
   subscribes :write, 'log[jdk-version-changed]', :delayed
 end
