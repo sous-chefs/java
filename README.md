@@ -261,7 +261,7 @@ to subscribe to JDK changes and take actions (say restart a java service):
 ```ruby
 service 'somejavaservice' do
   action :restart
-  subscribes :write, 'log[jdk-version-changed]', :delayed
+  subscribes :restart, 'log[jdk-version-changed]', :delayed
 end
 ```
 
