@@ -156,7 +156,7 @@ action :install do
         cmd = shell_out(
           %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
         )
-        unless cmd.exitstatus.zerio?
+        unless cmd.exitstatus.zero?
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
