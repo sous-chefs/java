@@ -17,12 +17,12 @@
 # limitations under the License.
 
 directory '/etc/profile.d' do
-  mode 00755
+  mode '0755'
 end
 
 template '/etc/profile.d/jdk.sh' do
   source 'jdk.sh.erb'
-  mode 00755
+  mode '0755'
 end
 
 if node['java']['set_etc_environment'] # ~FC023 -- Fails unit test to use guard

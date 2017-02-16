@@ -4,28 +4,28 @@ describe 'java::openjdk' do
   platforms = {
     'ubuntu-10.04' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
+      'update_alts' => true,
     },
     'ubuntu-12.04' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
+      'update_alts' => true,
     },
     'debian-6.0.5' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
+      'update_alts' => true,
     },
     'debian-7.0' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
+      'update_alts' => true,
     },
     'centos-6.4' => {
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
-      'update_alts' => true
+      'update_alts' => true,
     },
     'smartos-joyent_20130111T180733Z' => {
       'packages' => ['sun-jdk6', 'sun-jre6'],
-      'update_alts' => false
-    }
+      'update_alts' => false,
+    },
   }
 
   platforms.each do |platform, data|

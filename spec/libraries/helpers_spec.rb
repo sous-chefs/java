@@ -23,14 +23,14 @@ describe Opscode::OpenJDK do
     {
       'java' => {
         'java_home' => '/usr/lib/jvm/default-java',
-        'jdk_version' => '6'
+        'jdk_version' => '6',
       },
       'kernel' => {
-        'machine' => 'x86_64'
+        'machine' => 'x86_64',
       },
       'platform_family' => 'debian',
       'platform' => 'ubuntu',
-      'platform_version' => '12.04'
+      'platform_version' => '12.04',
     }
   end
 

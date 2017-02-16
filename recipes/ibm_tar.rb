@@ -33,7 +33,7 @@ end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   source source_url
-  mode 00755
+  mode '0755'
   if node['java']['ibm']['checksum']
     checksum node['java']['ibm']['checksum']
     action :create
@@ -46,7 +46,7 @@ end
 
 directory 'create-java-home' do
   path node['java']['java_home']
-  mode 00755
+  mode '0755'
   recursive true
 end
 
