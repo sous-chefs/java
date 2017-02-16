@@ -36,8 +36,6 @@ uri = ::URI.parse(node['java']['windows']['url'])
 cache_file_path = File.join(Chef::Config[:file_cache_path], File.basename(::URI.unescape(uri.path)))
 
 if s3_bucket && s3_remote_path
-  include_recipe 'aws::default' # install right_aws gem for aws_s3_file
-
   aws_s3_file cache_file_path do
     aws_access_key_id aws_access_key_id
     aws_secret_access_key aws_secret_access_key
