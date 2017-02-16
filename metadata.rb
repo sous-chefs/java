@@ -34,6 +34,8 @@ recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryp
   freebsd
   windows
   suse
+  opensuse
+  opensuseleap
   xenserver
   smartos
   mac_os_x
