@@ -2,10 +2,10 @@
 # Author:: Seth Chisamore (<schisamo@chef.io>)
 # Author:: Joshua Timberman (<joshua@chef.io>)
 #
-# Cookbook Name:: java
+# Cookbook:: java
 # Recipe:: openjdk
 #
-# Copyright 2010-2015, Chef Software, Inc.
+# Copyright:: 2010-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

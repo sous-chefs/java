@@ -1,9 +1,9 @@
 #
 # Author:: Kyle McGovern (<spion06@gmail.com>)
-# Cookbook Name:: java
+# Cookbook:: java
 # Recipe:: oracle_jce
 #
-# Copyright 2014, Kyle McGovern
+# Copyright:: 2014, Kyle McGovern
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

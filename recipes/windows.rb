@@ -1,9 +1,9 @@
 #
 # Author:: Kendrick Martin (<kendrick.martin@webtrends.com>)
-# Cookbook Name:: java
+# Cookbook:: java
 # Recipe:: windows
 #
-# Copyright 2008-2012 Webtrends, Inc.
+# Copyright:: 2008-2012 Webtrends, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
