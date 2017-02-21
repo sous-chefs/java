@@ -76,6 +76,7 @@ else
       cd java_jce
       unzip -o ../jce.zip
       find -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{node['java']['oracle']['jce']['home']}/#{jdk_version}/
+      chmod -R 0644 #{node['java']['oracle']['jce']['home']}/#{jdk_version}/*.jar
     EOF
     cwd Chef::Config[:file_cache_path]
     creates ::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')
