@@ -48,5 +48,6 @@ depends 'apt'
 depends 'windows'
 depends 'homebrew'
 
-source_url 'https://github.com/agileorbit-cookbooks/java' if respond_to?(:source_url)
-issues_url 'https://github.com/agileorbit-cookbooks/java/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/agileorbit-cookbooks/java'
+issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
+chef_version '>= 12.1'
