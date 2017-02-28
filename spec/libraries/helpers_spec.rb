@@ -61,34 +61,6 @@ describe Opscode::OpenJDK do
     end
   end
 
-  context 'ubuntu 10.04 32 bit' do
-    before do
-      node['platform'] = 'ubuntu'
-      node['platform_version'] = '10.04'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'i386'
-    end
-
-    it 'sets the java location for JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
-  context 'ubuntu 10.04 64 bit' do
-    before do
-      node['platform'] = 'ubuntu'
-      node['platform_version'] = '10.04'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'x86_64'
-    end
-
-    it 'sets the java location for 64 bit and JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
   context 'ubuntu 12.04 32 bit' do
     before do
       node['platform'] = 'ubuntu'
@@ -125,34 +97,6 @@ describe Opscode::OpenJDK do
     it 'sets the java location for JDK 7' do
       node['java']['jdk_version'] = '7'
       expected_path = '/usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
-  context 'debian 6 32 bit' do
-    before do
-      node['platform'] = 'debian'
-      node['platform_version'] = '6.0.7'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'i386'
-    end
-
-    it 'sets the java location for JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
-  context 'debian 6 64 bit' do
-    before do
-      node['platform'] = 'debian'
-      node['platform_version'] = '6.0.7'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'x86_64'
-    end
-
-    it 'sets the java location for 64 bit and JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
       expect(subject.java_location).to eq(expected_path)
     end
   end

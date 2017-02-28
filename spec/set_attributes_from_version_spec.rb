@@ -14,20 +14,12 @@ describe 'java::set_attributes_from_version' do
       'java_home' => '/usr/local/openjdk6',
       'packages' => ['openjdk6'],
     },
-    'debian-7.0' => {
+    'debian-7.11' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
     },
     'ubuntu-12.04' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-    },
-    'debian-6.0.5' => {
-      'java_home' => '/usr/lib/jvm/java-6-openjdk',
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-    },
-    'ubuntu-10.04' => {
-      'java_home' => '/usr/lib/jvm/java-6-openjdk',
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
     },
     'smartos-joyent_20130111T180733Z' => {
