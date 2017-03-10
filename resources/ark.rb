@@ -18,6 +18,7 @@
 # limitations under the License.
 
 actions :install, :remove
+default_action :install
 
 state_attrs :alternatives_priority,
             :app_home,
@@ -55,6 +56,5 @@ attribute :proxy, kind_of: String, default: nil
 # in initializer since it is a 'reserved' attribute name
 def initialize(*args)
   super
-  @action = :install
   @supports = { report: true, exception: true }
 end
