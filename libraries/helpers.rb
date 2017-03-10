@@ -85,7 +85,7 @@ module Opscode
     def thirty_two
       case @node['platform_family']
       when 'debian'
-        old_version? ? '' : '-i386'
+        '-i386'
       else
         ''
       end
