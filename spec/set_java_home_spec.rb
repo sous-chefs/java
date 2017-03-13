@@ -12,6 +12,10 @@ describe 'java::set_java_home' do
       expect(chef_run).to create_directory('/etc/profile.d')
     end
 
+    it do
+      stub_command("grep JAVA_HOME=/opt/java /etc/profile.d/jdk.sh").and_return(true)
+    end
+
     it 'should create jdk.sh with the java home environment variable' do
       expect(chef_run).to render_file('/etc/profile.d/jdk.sh').with_content('export JAVA_HOME=/opt/java')
     end
