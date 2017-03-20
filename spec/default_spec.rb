@@ -4,7 +4,7 @@ describe 'java::default' do
   let(:chef_run) do
     runner = ChefSpec::ServerRunner.new(
       platform: 'debian',
-      version: '7.0'
+      version: '7.11'
     )
     runner.converge(described_recipe)
   end
@@ -19,7 +19,7 @@ describe 'java::default' do
   #    let(:chef_run) do
   #      runner = ChefSpec::ServerRunner.new(
   #        :platform => 'windows',
-  #        :version => '2008R2'
+  #        :version => '2012R2'
   #      )
   #      runner.node.override['java']['windows']['url'] = 'http://example.com/windows-java.msi'
   #      runner.node.override['java']['java_home'] = 'C:/java'

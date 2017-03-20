@@ -4,7 +4,7 @@ describe 'java::windows' do
   let(:chef_run) do
     runner = ChefSpec::ServerRunner.new(
       platform: 'windows',
-      version: '2008R2'
+      version: '2012R2'
     )
     runner.node.override['java']['windows']['url'] = 'http://example.com/windows-java.msi'
     runner.node.override['java']['windows']['package_name'] = 'windows-java'

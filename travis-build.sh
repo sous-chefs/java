@@ -8,8 +8,8 @@ echo "TRAVIS_PWD: $PWD"
 echo "TRAVIS: $TRAVIS"
 
 /opt/chefdk/embedded/bin/chef --version || exit 1
-/opt/chefdk/embedded/bin/rubocop --version || exit 1
-/opt/chefdk/embedded/bin/rubocop || exit 1
+/opt/chefdk/embedded/bin/cookstyle --version || exit 1
+/opt/chefdk/embedded/bin/cookstyle || exit 1
 /opt/chefdk/embedded/bin/foodcritic --version || exit 1
 /opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any || exit 1
 /opt/chefdk/embedded/bin/rspec spec || exit 1

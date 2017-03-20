@@ -1,9 +1,9 @@
 # Author:: Christophe Arguel (<christophe.arguel@free.fr>)
 #
-# Cookbook Name:: java
+# Cookbook:: java
 # Recipe:: oracle_rpm
 #
-# Copyright 2013, Christophe Arguel <christophe.arguel@free.fr>
+# Copyright:: 2013, Christophe Arguel <christophe.arguel@free.fr>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

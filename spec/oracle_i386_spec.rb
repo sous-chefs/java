@@ -74,7 +74,7 @@ describe 'java::oracle_i386' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(
           platform: 'centos',
-          version: '6.4'
+          version: '6.7'
         ).converge(described_recipe)
       end
 

@@ -12,54 +12,32 @@ platforms:
   - name: ubuntu-16.04
     run_list:
     - recipe[apt]
-    driver:
-      box: boxcutter/ubuntu1604
   - name: ubuntu-14.04
     run_list:
     - recipe[apt]
-    driver:
-      box: box-cutter/ubuntu1404
   - name: ubuntu-12.04
-    driver:
-      box: box-cutter/ubuntu1204
     run_list:
     - recipe[apt]
-  - name: debian-8.2
-    driver:
-      box: box-cutter/debian82
+  - name: debian-8.6
     run_list:
     - recipe[apt]
-  - name: debian-7.9
-    driver:
-      box: box-cutter/debian79
+  - name: debian-7.11
     run_list:
     - recipe[apt]
-  - name: centos-7.1
-    driver:
-      box: box-cutter/centos71
-  - name: centos-6.7
-    driver:
-      box: box-cutter/centos67
+  - name: centos-7.3
+  - name: centos-6.8
   - name: centos-5.11
-    driver:
-      box: box-cutter/centos511
-  - name: fedora-22
-    driver:
-      box: box-cutter/fedora22
-  - name: fedora-23
-    driver:
-      box: box-cutter/fedora21
-  - name: freebsd-10.2
-    driver:
-      box: box-cutter/freebsd102
+  - name: fedora-25
+  - name: fedora-24
+  - name: freebsd-10.3
     run_list:
     - recipe[freebsd_bash]
 suites:
   - name: openjdk-6
     includes:
       - centos-5.11
-      - centos-6.7
-      - centos-7.1
+      - centos-6.8
+      - centos-7.3
       - debian-7.9
       - ubuntu-12.04
       - ubuntu-14.04
@@ -69,14 +47,14 @@ suites:
   - name: openjdk-7
     includes:
       - centos-5.11
-      - centos-6.7
-      - centos-7.1
+      - centos-6.8
+      - centos-7.3
       - debian-7.9
       - debian-8.2
       - ubuntu-12.04
       - ubuntu-14.04
       - ubuntu-16.04
-      - freebsd-10.2
+      - freebsd-10.3
     run_list:
       - recipe[java::default]
       - recipe[test_java::java_cert]
@@ -88,10 +66,10 @@ suites:
       - ubuntu-12.04
       - ubuntu-14.04
       - ubuntu-16.04
-      - centos-6.7
-      - centos-7.1
-      - fedora-22
-      - fedora-23
+      - centos-6.8
+      - centos-7.3
+      - fedora-24
+      - fedora-25
     run_list:
       - recipe[java::default]
       - recipe[test_java::java_cert]
@@ -149,9 +127,9 @@ suites:
   - name: oracle-rpm
     includes:
       - centos-5.11
-      - centos-6.7
-      - centos-7.1
-      - fedora-22
+      - centos-6.8
+      - centos-7.3
+      - fedora-24
     run_list:
       - recipe[java::default]
     attributes:
@@ -163,9 +141,9 @@ suites:
   - name: oracle-rpm-8
     includes:
       - centos-5.11
-      - centos-6.7
-      - centos-7.1
-      - fedora-22
+      - centos-6.8
+      - centos-7.3
+      - fedora-24
     run_list:
       - recipe[java::default]
     attributes:

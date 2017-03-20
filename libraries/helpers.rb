@@ -62,8 +62,6 @@ module Opscode
         'java-%s-openjdk%s/jre' % [@jdk_version, arch_dir]
       when 'rhel', 'fedora'
         'jre-1.%s.0-openjdk%s' % [@jdk_version, arch_dir]
-      when 'smartos'
-        'jre'
       else
         'jre'
       end
@@ -76,7 +74,7 @@ module Opscode
     def sixty_four
       case @node['platform_family']
       when 'debian'
-        old_version? ? '' : '-amd64'
+        '-amd64'
       when 'rhel', 'fedora'
         '.x86_64'
       else
@@ -87,20 +85,9 @@ module Opscode
     def thirty_two
       case @node['platform_family']
       when 'debian'
-        old_version? ? '' : '-i386'
+        '-i386'
       else
         ''
-      end
-    end
-
-    # This method is used above (#sixty_four, #thirty_two) so we know
-    # whether to specify the architecture as part of the path name.
-    def old_version?
-      case @node['platform']
-      when 'ubuntu'
-        Chef::VersionConstraint.new('< 11.0').include?(@node['platform_version'])
-      when 'debian'
-        Chef::VersionConstraint.new('< 7.0').include?(@node['platform_version'])
       end
     end
   end

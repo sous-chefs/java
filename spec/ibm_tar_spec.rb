@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::ibm_tar' do
   let(:chef_run) do
-    runner = ChefSpec::ServerRunner.new
+    runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
     runner.node.override['java']['java_home'] = '/home/java'
     runner.node.override['java']['install_flavor'] = 'ibm'
     runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.tar.gz'

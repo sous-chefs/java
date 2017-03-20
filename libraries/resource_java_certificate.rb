@@ -1,10 +1,10 @@
 #
 # Author:: Mevan Samaratunga (<mevansam@gmail.com>)
 # Author:: Michael Goetz (<mpgoetz@gmail.com>)
-# Cookbook Name:: java-libraries
+# Cookbook:: java-libraries
 # Resource:: certificate
 #
-# Copyright 2013, Mevan Samaratunga
+# Copyright:: 2013, Mevan Samaratunga
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

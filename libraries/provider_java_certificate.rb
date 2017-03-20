@@ -1,10 +1,10 @@
 #
 # Author:: Mevan Samaratunga (<mevansam@gmail.com>)
 # Author:: Michael Goetz (<mpgoetz@gmail.com>)
-# Cookbook Name:: java-libraries
+# Cookbook:: java-libraries
 # Provider:: certificate
 #
-# Copyright 2013, Mevan Samaratunga
+# Copyright:: 2013, Mevan Samaratunga
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
         cmd.run_command
         Chef::Log.debug(cmd.format_for_exception)
 
-        Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus.zero?
+        Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
         certout = cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
         if certout.size > 2 && !certout[1].empty?
@@ -91,7 +91,7 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
       cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
-      Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus.zero?
+      Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
       has_key = !cmd.stdout[/Alias name: #{certalias}/].nil?
 
@@ -100,7 +100,7 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
         cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
         cmd.run_command
         Chef::Log.debug(cmd.format_for_exception)
-        unless cmd.exitstatus.zero?
+        unless cmd.exitstatus == 0
           Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
               "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
         end
@@ -112,7 +112,7 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 
-      unless cmd.exitstatus.zero?
+      unless cmd.exitstatus == 0
 
         FileUtils.rm_f(certfile)
         Chef::Application.fatal!("Error importing certificate into keystore: #{cmd.exitstatus}", cmd.exitstatus)
@@ -138,13 +138,13 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
     cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep \"#{certalias}\"")
     cmd.run_command
     has_key = !cmd.stdout[/Alias name: #{certalias}/].nil?
-    Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus.zero?
+    Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
     if has_key
 
       cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
       cmd.run_command
-      unless cmd.exitstatus.zero?
+      unless cmd.exitstatus == 0
         Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
             "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
       end

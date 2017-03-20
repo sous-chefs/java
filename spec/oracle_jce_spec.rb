@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'java::oracle_jce' do
   context 'Jar installation on Windows systems' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2008R2') do |node|
+      runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2012R2') do |node|
         node.override['java']['java_home'] = 'c:/jdk1.8'
         node.override['java']['jdk_version'] = '8'
         node.override['java']['oracle']['jce']['home'] = 'c:/temp/jce'

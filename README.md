@@ -53,7 +53,7 @@ run_list(
 Requirements
 -----
 
-Chef 11+
+Chef 12+
 
 ### Platform
 

@@ -2,12 +2,11 @@ sudo: false
 addons:
   apt:
     sources:
-    - chef-current-precise
+    - chef-stable-precise
     packages:
     - chefdk
 install: echo "skip bundle install"
 before_script:
 - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-- "/opt/chefdk/embedded/bin/chef gem install chef-sugar"
 script:
 - "./travis-build.sh"

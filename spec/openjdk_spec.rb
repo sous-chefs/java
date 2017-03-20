@@ -2,30 +2,22 @@ require 'spec_helper'
 
 describe 'java::openjdk' do
   platforms = {
-    'ubuntu-10.04' => {
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
-    },
     'ubuntu-12.04' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
+      'update_alts' => true,
     },
-    'debian-6.0.5' => {
+    'debian-7.11' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
+      'update_alts' => true,
     },
-    'debian-7.0' => {
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true
-    },
-    'centos-6.4' => {
+    'centos-6.7' => {
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
-      'update_alts' => true
+      'update_alts' => true,
     },
     'smartos-joyent_20130111T180733Z' => {
       'packages' => ['sun-jdk6', 'sun-jre6'],
-      'update_alts' => false
-    }
+      'update_alts' => false,
+    },
   }
 
   platforms.each do |platform, data|
@@ -89,7 +81,7 @@ describe 'java::openjdk' do
   end
 
   describe 'license acceptance file' do
-    { 'centos' => '6.3', 'ubuntu' => '12.04' }.each_pair do |platform, version|
+    { 'centos' => '6.7', 'ubuntu' => '12.04' }.each_pair do |platform, version|
       context platform do
         let(:chef_run) do
           ChefSpec::ServerRunner.new(platform: platform, version: version).converge('java::openjdk')
@@ -140,7 +132,7 @@ describe 'java::openjdk' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(
           platform: 'centos',
-          version: '6.4'
+          version: '6.7'
         ).converge(described_recipe)
       end
 

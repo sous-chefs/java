@@ -1,9 +1,9 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
-# Cookbook Name:: java
+# Cookbook:: java
 # Provider:: ark
 #
-# Copyright 2011, Bryan w. Berry
+# Copyright:: 2011, Bryan w. Berry
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
     description = 'download oracle tarball straight from the server'
     converge_by(description) do
       Chef::Log.debug 'downloading oracle tarball straight from the source'
-      cmd = shell_out!(
+      shell_out!(
         %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
                                  timeout: new_resource.download_timeout
       )
@@ -132,7 +132,7 @@ action :install do
         checksum new_resource.checksum
         retries new_resource.retries
         retry_delay new_resource.retry_delay
-        mode 0755
+        mode '0755'
         action :nothing
       end
       # no converge by on run_action remote_file takes care of it.
@@ -149,21 +149,21 @@ action :install do
               bash ./#{tarball_name} -noregister
             )
         )
-        unless cmd.exitstatus.zero?
+        unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.zip/
         cmd = shell_out(
           %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
         )
-        unless cmd.exitstatus.zero?
+        unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
         cmd = shell_out(
           %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
-        unless cmd.exitstatus.zero?
+        unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       end
@@ -171,7 +171,7 @@ action :install do
       cmd = shell_out(
         %( mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
       )
-      unless cmd.exitstatus.zero?
+      unless cmd.exitstatus == 0
         Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
       end
 
@@ -234,12 +234,12 @@ action :remove do
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
-  unless new_resource.default
+  if new_resource.default
+    app_home = new_resource.app_home
+  else
     Chef::Log.debug('processing alternate jdk')
     app_dir += '_alt'
     app_home = new_resource.app_home + '_alt'
-  else
-    app_home = new_resource.app_home
   end
 
   if ::File.exist?(app_dir)

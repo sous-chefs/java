@@ -1,9 +1,9 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
-# Cookbook Name:: java
+# Cookbook:: java
 # Recipe:: oracle
 #
-# Copyright 2011, Bryan w. Berry
+# Copyright:: 2011, Bryan w. Berry
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

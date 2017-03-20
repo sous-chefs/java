@@ -1,9 +1,9 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
-# Cookbook Name:: java
+# Cookbook:: java
 # Resource:: ark
 #
-# Copyright 2011, Bryan w. Berry
+# Copyright:: 2011, Bryan w. Berry
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 # limitations under the License.
 
 actions :install, :remove
+default_action :install
 
 state_attrs :alternatives_priority,
             :app_home,
@@ -53,6 +54,5 @@ attribute :proxy, kind_of: String, default: nil
 # in initializer since it is a 'reserved' attribute name
 def initialize(*args)
   super
-  @action = :install
   @supports = { report: true, exception: true }
 end

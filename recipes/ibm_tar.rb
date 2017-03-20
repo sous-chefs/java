@@ -1,7 +1,7 @@
-# Cookbook Name:: java
+# Cookbook:: java
 # Recipe:: ibm_tar
 #
-# Copyright 2013-2015, Chef Software, Inc.
+# Copyright:: 2013-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
   source source_url
-  mode 00755
+  mode '0755'
   if node['java']['ibm']['checksum']
     checksum node['java']['ibm']['checksum']
     action :create
@@ -46,7 +46,7 @@ end
 
 directory 'create-java-home' do
   path node['java']['java_home']
-  mode 00755
+  mode '0755'
   recursive true
 end
 

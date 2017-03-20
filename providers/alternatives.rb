@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: java
+# Cookbook:: java
 # Provider:: alternatives
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,8 +31,8 @@ action :set do
         next
       end
 
-      alternative_exists_same_prio = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path} | grep 'priority #{priority}$'").exitstatus.zero?
-      alternative_exists = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path}").exitstatus.zero?
+      alternative_exists_same_prio = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path} | grep 'priority #{priority}$'").exitstatus == 0
+      alternative_exists = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path}").exitstatus == 0
       # remove alternative is prio is changed and install it with new prio
       if alternative_exists && !alternative_exists_same_prio
         description = "Removing alternative for #{cmd} with old prio"
@@ -40,7 +40,7 @@ action :set do
           Chef::Log.debug "Removing alternative for #{cmd} with old priority"
           remove_cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
           alternative_exists = false
-          unless remove_cmd.exitstatus.zero?
+          unless remove_cmd.exitstatus == 0
             Chef::Application.fatal!(%( remove alternative failed ))
           end
         end
@@ -54,7 +54,7 @@ action :set do
             shell_out("rm /var/lib/alternatives/#{cmd}")
           end
           install_cmd = shell_out("#{alternatives_cmd} --install #{bin_path} #{cmd} #{alt_path} #{priority}")
-          unless install_cmd.exitstatus.zero?
+          unless install_cmd.exitstatus == 0
             Chef::Application.fatal!(%( install alternative failed ))
           end
         end
@@ -63,13 +63,13 @@ action :set do
 
       # set the alternative if default
       next unless new_resource.default
-      alternative_is_set = shell_out("#{alternatives_cmd} --display #{cmd} | grep \"link currently points to #{alt_path}\"").exitstatus.zero?
+      alternative_is_set = shell_out("#{alternatives_cmd} --display #{cmd} | grep \"link currently points to #{alt_path}\"").exitstatus == 0
       next if alternative_is_set
       description = "Set alternative for #{cmd}"
       converge_by(description) do
         Chef::Log.debug "Setting alternative for #{cmd}"
         set_cmd = shell_out("#{alternatives_cmd} --set #{cmd} #{alt_path}")
-        unless set_cmd.exitstatus.zero?
+        unless set_cmd.exitstatus == 0
           Chef::Application.fatal!(%( set alternative failed ))
         end
       end
@@ -84,6 +84,6 @@ action :unset do
   new_resource.bin_cmds.each do |cmd|
     alt_path = "#{new_resource.java_location}/bin/#{cmd}"
     cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
-    new_resource.updated_by_last_action(true) if cmd.exitstatus.zero?
+    new_resource.updated_by_last_action(true) if cmd.exitstatus == 0
   end
 end

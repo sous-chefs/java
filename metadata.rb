@@ -34,6 +34,8 @@ recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryp
   freebsd
   windows
   suse
+  opensuse
+  opensuseleap
   xenserver
   smartos
   mac_os_x
@@ -46,7 +48,6 @@ depends 'apt'
 depends 'windows'
 depends 'homebrew'
 
-source_url 'https://github.com/agileorbit-cookbooks/java' if respond_to?(:source_url)
-issues_url 'https://github.com/agileorbit-cookbooks/java/issues' if respond_to?(:issues_url)
-
-suggests 'aws'
+source_url 'https://github.com/agileorbit-cookbooks/java'
+issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
+chef_version '>= 12.1'
