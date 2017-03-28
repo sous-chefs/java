@@ -15,9 +15,6 @@ platforms:
   - name: ubuntu-14.04
     run_list:
     - recipe[apt]
-  - name: ubuntu-12.04
-    run_list:
-    - recipe[apt]
   - name: debian-8.6
     run_list:
     - recipe[apt]
@@ -26,35 +23,33 @@ platforms:
     - recipe[apt]
   - name: centos-7.3
   - name: centos-6.8
-  - name: centos-5.11
   - name: fedora-25
-  - name: fedora-24
+  - name: freebsd-11.0
+    run_list:
+    - recipe[freebsd_bash]
   - name: freebsd-10.3
     run_list:
     - recipe[freebsd_bash]
 suites:
   - name: openjdk-6
     includes:
-      - centos-5.11
       - centos-6.8
       - centos-7.3
-      - debian-7.9
-      - ubuntu-12.04
+      - debian-7.11
       - ubuntu-14.04
     run_list:
       - recipe[java::default]
       - recipe[test_java::java_cert]
   - name: openjdk-7
     includes:
-      - centos-5.11
       - centos-6.8
       - centos-7.3
-      - debian-7.9
-      - debian-8.2
-      - ubuntu-12.04
+      - debian-7.11
+      - debian-8.6
       - ubuntu-14.04
       - ubuntu-16.04
       - freebsd-10.3
+      - freebsd-11.0
     run_list:
       - recipe[java::default]
       - recipe[test_java::java_cert]
@@ -63,12 +58,10 @@ suites:
         jdk_version: "7"
   - name: openjdk-8
     includes:
-      - ubuntu-12.04
       - ubuntu-14.04
       - ubuntu-16.04
       - centos-6.8
       - centos-7.3
-      - fedora-24
       - fedora-25
     run_list:
       - recipe[java::default]
@@ -126,10 +119,9 @@ suites:
       - recipe[java::openjdk]
   - name: oracle-rpm
     includes:
-      - centos-5.11
       - centos-6.8
       - centos-7.3
-      - fedora-24
+      - fedora-25
     run_list:
       - recipe[java::default]
     attributes:
@@ -140,10 +132,9 @@ suites:
           accept_oracle_download_terms: true
   - name: oracle-rpm-8
     includes:
-      - centos-5.11
       - centos-6.8
       - centos-7.3
-      - fedora-24
+      - fedora-25
     run_list:
       - recipe[java::default]
     attributes:

@@ -104,7 +104,7 @@ describe Opscode::OpenJDK do
   context 'debian 7 32 bit' do
     before do
       node['platform'] = 'debian'
-      node['platform_version'] = '7.0.0'
+      node['platform_version'] = '7.11'
       node['platform_family'] = 'debian'
       node['kernel']['machine'] = 'i386'
     end
@@ -124,7 +124,7 @@ describe Opscode::OpenJDK do
   context 'debian 7 64 bit' do
     before do
       node['platform'] = 'debian'
-      node['platform_version'] = '7.0.0'
+      node['platform_version'] = '7.11'
       node['platform_family'] = 'debian'
       node['kernel']['machine'] = 'x86_64'
     end
@@ -184,7 +184,7 @@ describe Opscode::OpenJDK do
   context 'centos 6 32 bit' do
     before do
       node['platform'] = 'centos'
-      node['platform_version'] = '6.4'
+      node['platform_version'] = '6.8'
       node['platform_family'] = 'rhel'
       node['kernel']['machine'] = 'i386'
     end
@@ -204,7 +204,7 @@ describe Opscode::OpenJDK do
   context 'centos 6 64 bit' do
     before do
       node['platform'] = 'centos'
-      node['platform_version'] = '6.4'
+      node['platform_version'] = '6.8'
       node['platform_family'] = 'rhel'
       node['kernel']['machine'] = 'x86_64'
     end

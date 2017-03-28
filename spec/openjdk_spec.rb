@@ -10,7 +10,7 @@ describe 'java::openjdk' do
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
       'update_alts' => true,
     },
-    'centos-6.7' => {
+    'centos-6.8' => {
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
       'update_alts' => true,
     },
@@ -81,7 +81,7 @@ describe 'java::openjdk' do
   end
 
   describe 'license acceptance file' do
-    { 'centos' => '6.7', 'ubuntu' => '12.04' }.each_pair do |platform, version|
+    { 'centos' => '6.8', 'ubuntu' => '12.04' }.each_pair do |platform, version|
       context platform do
         let(:chef_run) do
           ChefSpec::ServerRunner.new(platform: platform, version: version).converge('java::openjdk')
@@ -132,7 +132,7 @@ describe 'java::openjdk' do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(
           platform: 'centos',
-          version: '6.7'
+          version: '6.8'
         ).converge(described_recipe)
       end
 

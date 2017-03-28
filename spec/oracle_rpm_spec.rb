@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::oracle_rpm' do
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'centos', version: '6.7') do |node|
+    ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8') do |node|
       node.automatic['java']['install_flavor'] = 'oracle_rpm'
     end.converge(described_recipe)
   end
