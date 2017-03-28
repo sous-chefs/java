@@ -24,7 +24,6 @@ platforms:
   - name: centos-7.3
   - name: centos-6.8
   - name: fedora-25
-  - name: fedora-24
   - name: freebsd-11.0
     run_list:
     - recipe[freebsd_bash]
@@ -63,7 +62,6 @@ suites:
       - ubuntu-16.04
       - centos-6.8
       - centos-7.3
-      - fedora-24
       - fedora-25
     run_list:
       - recipe[java::default]
@@ -123,7 +121,6 @@ suites:
     includes:
       - centos-6.8
       - centos-7.3
-      - fedora-24
       - fedora-25
     run_list:
       - recipe[java::default]
@@ -137,7 +134,6 @@ suites:
     includes:
       - centos-6.8
       - centos-7.3
-      - fedora-24
       - fedora-25
     run_list:
       - recipe[java::default]
