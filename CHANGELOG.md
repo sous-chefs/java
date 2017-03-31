@@ -2,6 +2,15 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.48.0 - 03/31/2017
+----
+- Update Oracle Java links from 101 to 121
+- Remove convergence report
+- Remove Fedora 24 testing
+- Fix test cookbook license
+- Update platforms in the specs
+- Remove testing on EOL platforms
+
 v1.47.0 - 01/30/2017
 -----
 - Fix typo in method name (#397)
