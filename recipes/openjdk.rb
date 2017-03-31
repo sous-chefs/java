@@ -43,7 +43,6 @@ if platform_requires_license_acceptance?
 end
 
 if node['platform'] == 'ubuntu'
-  include_recipe 'apt'
   apt_repository 'openjdk-r-ppa' do
     uri 'ppa:openjdk-r'
     distribution node['lsb']['codename']
