@@ -50,4 +50,4 @@ depends 'homebrew'
 
 source_url 'https://github.com/agileorbit-cookbooks/java'
 issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
-chef_version '>= 12.1'
+chef_version '>= 12.5'
