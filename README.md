@@ -72,7 +72,8 @@ See `attributes/default.rb` for default values.
 
 * `node['java']['install_flavor']` - Flavor of JVM you would like
 installed (`oracle`, `oracle_rpm`, `openjdk`, `ibm`, `windows`), default `openjdk`
-on Linux/Unix platforms, `windows` on Windows platforms.
+on Linux/Unix platforms, `nil` on Windows platforms. Windows platforms will need
+to specify `windows` or `chocolatey`. `chocolatey` will only support JDK 7 & 8
 * `node['java']['jdk_version']` - JDK version to install, defaults to
   `'6'`.
 * `node['java']['java_home']` - Default location of the
@@ -228,7 +229,8 @@ replacing `40` with the most current version in your local repo.
 Because as of 26 March 2012 you can no longer directly download the
 JDK msi from Oracle's website without using a special cookie. This recipe
 requires you to set `node['java']['oracle']['accept_oracle_download_terms']`
-to true or host it internally on your own http repo or s3 bucket.
+to true or host it internally on your own http repo or s3 bucket. An alternative
+to this is using the `chocolatey` installation option for Windows
 
 **IMPORTANT NOTE**
 
