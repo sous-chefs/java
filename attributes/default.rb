@@ -37,7 +37,7 @@ default['java']['ark_download_timeout'] = 600
 
 case node['platform_family']
 when 'windows'
-  default['java']['install_flavor'] = 'windows'
+  default['java']['install_flavor'] = nil
   default['java']['windows']['url'] = nil
   default['java']['windows']['checksum'] = nil
   default['java']['windows']['package_name'] = 'Java(TM) SE Development Kit 7 (64-bit)'
