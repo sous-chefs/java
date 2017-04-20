@@ -10,7 +10,7 @@ describe 'java::set_attributes_from_version' do
       'java_home' => '/usr/lib/jvm/java-1.6.0',
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
     },
-    'freebsd-9.1' => {
+    'freebsd-9.3' => {
       'java_home' => '/usr/local/openjdk6',
       'packages' => ['openjdk6'],
     },
