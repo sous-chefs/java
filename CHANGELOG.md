@@ -2,6 +2,13 @@ Java Cookbook CHANGELOG
 =======================
 This file is used to list changes made in each version of the Java cookbook.
 
+v1.49.0 - 04/21/2017
+----
+- potential 'curl' resource cloning #415
+- Oracle 8u131
+- Add chefspec matchers for java_certificate resource
+- Remove unnecessary apt update
+
 v1.48.0 - 03/31/2017
 ----
 - Update Oracle Java links from 101 to 121
