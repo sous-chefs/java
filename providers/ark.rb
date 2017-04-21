@@ -70,7 +70,8 @@ def download_direct_from_oracle(tarball_name, new_resource)
   proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
   if node['java']['oracle']['accept_oracle_download_terms']
     # install the curl package
-    p = package 'curl' do
+    p = package 'curl for download_direct_from_oracle' do
+      package_name 'curl'
       action :nothing
     end
     # no converge_by block since the package provider will take care of this run_action
