@@ -4,7 +4,7 @@ maintainer_email  'info@agileorbit.com'
 license           'Apache 2.0'
 description       'Installs Java runtime.'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '1.50.0'
+version           '1.50.1'
 
 recipe 'java::default', 'Installs Java runtime'
 recipe 'java::default_java_symlink', 'Updates /usr/lib/jvm/default-java'
@@ -48,6 +48,6 @@ depends 'apt'
 depends 'windows'
 depends 'homebrew'
 
-source_url 'https://github.com/agileorbit-cookbooks/java'
-issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
-chef_version '>= 12.1'
+#source_url 'https://github.com/agileorbit-cookbooks/java'
+#issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
+#chef_version '>= 12.1'
