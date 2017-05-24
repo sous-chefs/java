@@ -54,7 +54,6 @@ attribute :proxy, kind_of: String, default: nil
 attribute :oracle_username, kind_of: String, default: nil
 attribute :oracle_password, kind_of: String, default: nil
 
-
 # we have to set default for the supports attribute
 # in initializer since it is a 'reserved' attribute name
 def initialize(*args)

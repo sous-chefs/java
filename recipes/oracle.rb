@@ -61,10 +61,9 @@ end
 username = nil
 password = nil
 
-if
-  node['java']['oracle_user_databag_item'] &&
-  node['java']['oracle_user_databag'] &&
-  node['java']['oracle_user_databag_secret']
+if node['java']['oracle_user_databag_item'] &&
+   node['java']['oracle_user_databag'] &&
+   node['java']['oracle_user_databag_secret']
 
   secret = Chef::EncryptedDataBagItem.load_secret(node['java']['oracle_user_databag_secret'])
   oracle_keys = Chef::EncryptedDataBagItem.load(node['java']['oracle_user_databag'], node['java']['oracle_user_databag_item'], secret)
