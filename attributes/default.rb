@@ -138,18 +138,18 @@ default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extch
 # Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u60checksum.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz'
 default['java']['jdk']['8']['x86_64']['checksum'] = '62b215bdfb48bace523723cdbb2157c665e6a25429c73828a32f00e587301236'
 
 # i586
-default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-i586.tar.gz'
+default['java']['jdk']['8']['i586']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-i586.tar.gz'
 default['java']['jdk']['8']['i586']['checksum'] = '2012d1c82f74bf830a80dfb5462f555b22271f74e4fc4a5779c7f459dcd0cabf'
 
 default['java']['oracle']['jce']['enabled'] = false
-default['java']['oracle']['jce']['8']['url'] = 'http://download.oracle.com/otn/java/jce/8/jce_policy-8.zip'
+default['java']['oracle']['jce']['8']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
 default['java']['oracle']['jce']['8']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
-default['java']['oracle']['jce']['7']['url'] = 'http://download.oracle.com/otn/java/jce/7/UnlimitedJCEPolicyJDK7.zip'
+default['java']['oracle']['jce']['7']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip'
 default['java']['oracle']['jce']['7']['checksum'] = '7a8d790e7bd9c2f82a83baddfae765797a4a56ea603c9150c87b7cdb7800194d'
-default['java']['oracle']['jce']['6']['url'] = 'http://download.oracle.com/otn/java/jce_policy/6/jce_policy-6.zip'
+default['java']['oracle']['jce']['6']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce_policy/6/jce_policy-6.zip'
 default['java']['oracle']['jce']['6']['checksum'] = 'd0c2258c3364120b4dbf7dd1655c967eee7057ac6ae6334b5ea8ceb8bafb9262'
 default['java']['oracle']['jce']['home'] = '/opt/java_jce'
