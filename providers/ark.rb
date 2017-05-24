@@ -78,21 +78,18 @@ def download_direct_from_oracle(tarball_name, new_resource)
     p.run_action(:install)
     description = 'download oracle tarball straight from the server'
     converge_by(description) do
-      Chef::Log.debug "downloading oracle tarball straight from the source"
-      if new_resource.oracle_username and new_resource.oracle_password
-        Chef::Log.debug "Using auth info from databag"
+      Chef::Log.debug 'downloading oracle tarball straight from the source'
+      if new_resource.oracle_username && new_resource.oracle_password
+        Chef::Log.debug 'Using auth info from databag'
         username = new_resource.oracle_username
         password = new_resource.oracle_password
-        cmd = shell_out!( <<-EOH
+        cmd = shell_out!(<<-EOH
           SIGNINURL=$(curl -c /tmp/cookies.txt -o /dev/null -v http://www.oracle.com/webapps/redirect/signon?nexturl=#{new_resource.url} #{proxy} 2>&1 | grep "< Location: " | awk '{print $3}' | tr -d '\r' );
-  
           AUTHPAIR="#{username}:#{password}";
-  
           curl -c /tmp/cookies.txt -u ${AUTHPAIR} --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" ${SIGNINURL} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy};
-  
           rm /tmp/cookies.txt;
         EOH
-        )
+                        )
       else
         shell_out!(
           %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
