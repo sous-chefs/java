@@ -84,7 +84,7 @@ def download_direct_from_oracle(tarball_name, new_resource)
         username = new_resource.oracle_username
         password = new_resource.oracle_password
         cmd = shell_out!(<<-EOH
-          SIGNINURL=$(curl -c /tmp/cookies.txt -o /dev/null -v http://www.oracle.com/webapps/redirect/signon?nexturl=#{new_resource.url} #{proxy} 2>&1 | grep "< Location: " | awk '{print $3}' | tr -d '\r' );
+          SIGNINURL=$(curl --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --connect-timeout #{new_resource.connect_timeout} -c /tmp/cookies.txt -o /dev/null -v http://www.oracle.com/webapps/redirect/signon?nexturl=#{new_resource.url} #{proxy} 2>&1 | grep "< Location: " | awk '{print $3}' | tr -d '\r' );
           AUTHPAIR="#{username}:#{password}";
           curl -c /tmp/cookies.txt -u ${AUTHPAIR} --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" ${SIGNINURL} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy};
           rm /tmp/cookies.txt;
