@@ -19,6 +19,10 @@ require 'uri'
 
 include_recipe 'java::notify'
 
+# If you need to override this in an attribute file you must use
+# force_default or higher precedence.
+node.default['java']['java_home'] = '/opt/ibm/java'
+
 source_url = node['java']['ibm']['url']
 jdk_uri = ::URI.parse(source_url)
 jdk_filename = ::File.basename(jdk_uri.path)

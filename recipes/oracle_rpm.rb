@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# If you need to override this in an attribute file you must use
+# force_default or higher precedence.
+node.default['java']['java_home'] = '/usr/java/latest'
+
 include_recipe 'java::set_java_home'
 include_recipe 'java::notify'
 

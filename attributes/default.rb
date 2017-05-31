@@ -55,36 +55,28 @@ if node['kernel']['machine'].start_with?('s390')
   default['java']['install_flavor'] = 'ibm'
 end
 
-case node['java']['install_flavor']
-when 'ibm', 'ibm_tar'
-  default['java']['ibm']['url'] = nil
-  default['java']['ibm']['checksum'] = nil
-  default['java']['ibm']['accept_ibm_download_terms'] = false
-  default['java']['java_home'] = '/opt/ibm/java'
+default['java']['ibm']['url'] = nil
+default['java']['ibm']['checksum'] = nil
+default['java']['ibm']['accept_ibm_download_terms'] = false
 
-  default['java']['ibm']['6']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck HtmlConverter idlj jar jarsigner
-                                               java javac javadoc javah javap javaws jconsole jcontrol jdb jdmpview
-                                               jrunscript keytool native2ascii policytool rmic rmid rmiregistry
-                                               schemagen serialver tnameserv wsgen wsimport xjc)
+default['java']['ibm']['6']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck HtmlConverter idlj jar jarsigner
+                                             java javac javadoc javah javap javaws jconsole jcontrol jdb jdmpview
+                                             jrunscript keytool native2ascii policytool rmic rmid rmiregistry
+                                             schemagen serialver tnameserv wsgen wsimport xjc)
 
-  default['java']['ibm']['7']['bin_cmds'] = node['java']['ibm']['6']['bin_cmds'] + %w(pack200 unpack200)
-  default['java']['ibm']['8']['bin_cmds'] = node['java']['ibm']['7']['bin_cmds']
-when 'oracle_rpm'
-  # type of java RPM : jdk or jre
-  default['java']['oracle_rpm']['type'] = 'jdk'
+default['java']['ibm']['7']['bin_cmds'] = node['java']['ibm']['6']['bin_cmds'] + %w(pack200 unpack200)
+default['java']['ibm']['8']['bin_cmds'] = node['java']['ibm']['7']['bin_cmds']
 
-  # optional, can be overriden to pin to a version different
-  # from the up-to-date.
-  default['java']['oracle_rpm']['package_version'] = nil
+# type of java RPM : jdk or jre
+default['java']['oracle_rpm']['type'] = 'jdk'
 
-  # optional, some distros re-package the official Oracle's RPM
-  # with a different name
-  default['java']['oracle_rpm']['package_name'] = nil
+# optional, can be overriden to pin to a version different
+# from the up-to-date.
+default['java']['oracle_rpm']['package_version'] = nil
 
-  # set the JAVA_HOME path, it may be overriden
-  # when a package version is provided.
-  default['java']['java_home'] = '/usr/java/latest'
-end
+# optional, some distros re-package the official Oracle's RPM
+# with a different name
+default['java']['oracle_rpm']['package_name'] = nil
 
 # if you change this to true, you can download directly from Oracle
 default['java']['oracle']['accept_oracle_download_terms'] = false
