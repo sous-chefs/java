@@ -44,13 +44,15 @@ end
 
 if node['platform'] == 'ubuntu'
   apt_repository 'openjdk-r-ppa' do
-    uri 'ppa:openjdk-r'
+    uri 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu/'
     distribution node['lsb']['codename']
+    components ["main"]
   end
 end
 
 node['java']['openjdk_packages'].each do |pkg|
   package pkg do
+    options '--force-yes'
     version node['java']['openjdk_version'] if node['java']['openjdk_version']
     notifies :write, 'log[jdk-version-changed]', :immediately
   end
