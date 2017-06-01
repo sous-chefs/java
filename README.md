@@ -91,7 +91,9 @@ on Linux/Unix platforms, `windows` on Windows platforms.
 * `node['java']['jdk_version']` - JDK version to install, defaults to
   `'6'`.
 * `node['java']['java_home']` - Default location of the
-  "`$JAVA_HOME`".
+  "`$JAVA_HOME`". To configure this attribute for `ibm`, `ibm_tar`, and
+  `oracle_rpm` install flavors, you must use an attribute precedence of
+  `force_default` or higher in your attribute file.
 * `node['java']['set_etc_environment']` - Optionally sets
   JAVA_HOME in `/etc/environment` for  Default `false`.
 * `node['java']['openjdk_packages']` - Array of OpenJDK package names
