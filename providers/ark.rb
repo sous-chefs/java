@@ -79,10 +79,23 @@ def download_direct_from_oracle(tarball_name, new_resource)
     description = 'download oracle tarball straight from the server'
     converge_by(description) do
       Chef::Log.debug 'downloading oracle tarball straight from the source'
-      shell_out!(
-        %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
-                                 timeout: new_resource.download_timeout
-      )
+      if new_resource.oracle_username && new_resource.oracle_password
+        Chef::Log.debug 'Using auth info from databag'
+        username = new_resource.oracle_username
+        password = new_resource.oracle_password
+        cmd = shell_out!(<<-EOH
+          SIGNINURL=$(curl --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --connect-timeout #{new_resource.connect_timeout} -c /tmp/cookies.txt -o /dev/null -v http://www.oracle.com/webapps/redirect/signon?nexturl=#{new_resource.url} #{proxy} 2>&1 | grep "< Location: " | awk '{print $3}' | tr -d '\r' );
+          AUTHPAIR="#{username}:#{password}";
+          curl -c /tmp/cookies.txt -u ${AUTHPAIR} --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" ${SIGNINURL} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy};
+          rm /tmp/cookies.txt;
+        EOH
+                        )
+      else
+        shell_out!(
+          %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
+                                   timeout: new_resource.download_timeout
+        )
+      end
     end
   else
     Chef::Application.fatal!("You must set the attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")

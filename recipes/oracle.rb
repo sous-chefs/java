@@ -58,6 +58,20 @@ package 'tar' do
   not_if { platform_family?('mac_os_x') }
 end
 
+username = nil
+password = nil
+
+if node['java']['oracle_user_databag_item'] &&
+   node['java']['oracle_user_databag'] &&
+   node['java']['oracle_user_databag_secret']
+
+  secret = Chef::EncryptedDataBagItem.load_secret(node['java']['oracle_user_databag_secret'])
+  oracle_keys = Chef::EncryptedDataBagItem.load(node['java']['oracle_user_databag'], node['java']['oracle_user_databag_item'], secret)
+
+  username = oracle_keys['username']
+  password = oracle_keys['password']
+end
+
 java_ark 'jdk' do
   url tarball_url
   default node['java']['set_default']
@@ -72,6 +86,8 @@ java_ark 'jdk' do
   reset_alternatives node['java']['reset_alternatives']
   download_timeout node['java']['ark_download_timeout']
   proxy node['java']['ark_proxy']
+  oracle_username username
+  oracle_password password
   action :install
   notifies :write, 'log[jdk-version-changed]', :immediately
 end

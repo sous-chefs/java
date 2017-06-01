@@ -30,7 +30,9 @@ state_attrs :alternatives_priority,
             :mirrorlist,
             :owner,
             :group,
-            :url
+            :url,
+            :oracle_username,
+            :oracle_password
 
 attribute :url, kind_of: String, default: nil
 attribute :mirrorlist, kind_of: Array, default: nil
@@ -49,6 +51,8 @@ attribute :reset_alternatives, equal_to: [true, false], default: true
 attribute :use_alt_suffix, equal_to: [true, false], default: true
 attribute :download_timeout, kind_of: Integer, default: 600 # => 600 seconds
 attribute :proxy, kind_of: String, default: nil
+attribute :oracle_username, kind_of: String, default: nil
+attribute :oracle_password, kind_of: String, default: nil
 
 # we have to set default for the supports attribute
 # in initializer since it is a 'reserved' attribute name
