@@ -119,25 +119,21 @@ end
 
 action_class do
   def fetch_certdata
-    certendpoint = new_resource.ssl_endpoint
+    return IO.read(new_resource.cert_file) unless new_resource.cert_file.nil?
 
-    if !new_resource.cert_file.nil?
-      return IO.read(new_resource.cert_file)
-    elsif !certendpoint.nil?
+    certendpoint = new_resource.ssl_endpoint
+    unless certendpoint.nil?
       cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint}")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 
       Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-      return cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
-      if certout.size > 2 && !certout[1].empty?
-        return "-----BEGIN CERTIFICATE-----#{certout[1]}-----END CERTIFICATE-----"
-      else
-        Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
-      end
-    else
-      Chef::Application.fatal!('At least one of cert_data, cert_file or ssl_endpoint attributes must be provided.', 999)
+      certout cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
+      return "-----BEGIN CERTIFICATE-----#{certout[1]}-----END CERTIFICATE-----" if certout.size > 2 && !certout[1].empty?
+      Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
     end
+
+    Chef::Application.fatal!('At least one of cert_data, cert_file or ssl_endpoint attributes must be provided.', 999)
   end
 end
