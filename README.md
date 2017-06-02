@@ -171,10 +171,6 @@ for details.
 
 Updates /usr/lib/jvm/default-java to point to JAVA_HOME.
 
-### purge_packages
-
-Purges deprecated Sun Java packages.
-
 ### openjdk
 
 This recipe installs the `openjdk` flavor of Java. It also uses the
