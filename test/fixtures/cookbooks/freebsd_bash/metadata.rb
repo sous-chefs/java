@@ -1,5 +1,0 @@
-name             'freebsd_bash'
-maintainer       'test cookbook'
-license          'Apache-2.0'
-description      'A test cookbook to install bash on freebsd for bats testing'
-version          '0.1.0'
