@@ -50,13 +50,9 @@ action :install do
   certendpoint = new_resource.ssl_endpoint
 
   if certdata.nil?
-
     if !certdatafile.nil?
-
       certdata = IO.read(certdatafile)
-
     elsif !certendpoint.nil?
-
       cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint}")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
