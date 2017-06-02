@@ -42,9 +42,7 @@ action :install do
   truststore = "#{node['java']['java_home']}/jre/lib/security/cacerts" if truststore.nil?
   truststore_passwd = 'changeit' if truststore_passwd.nil?
 
-  certalias = new_resource.cert_alias
-  certalias = new_resource.name if certalias.nil?
-
+  certalias = new_resource.cert_alias ? new_resource.cert_alias : new_resource.name
   certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
 
   hash = Digest::SHA512.hexdigest(certdata)
@@ -62,7 +60,6 @@ action :install do
   if keystore_cert_digest == certfile_digest
     Chef::Log.debug("Certificate \"#{certalias}\" in keystore \"#{truststore}\" is up-to-date.")
   else
-
     cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v")
     cmd.run_command
     Chef::Log.debug(cmd.format_for_exception)
