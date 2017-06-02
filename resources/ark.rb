@@ -107,6 +107,8 @@ action :install do
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
+        package 'tar' unless platform_family?('mac_os_x', 'windows')
+        
         cmd = shell_out(
           %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
