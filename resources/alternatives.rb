@@ -87,6 +87,6 @@ end
 
 action_class do
   def alternatives_cmd
-    node['platform_family'] == 'rhel' ? 'alternatives' : 'update-alternatives'
+    platform_family?('rhel', 'fedora', 'amazon') ? 'alternatives' : 'update-alternatives'
   end
 end
