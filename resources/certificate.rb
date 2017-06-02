@@ -66,27 +66,29 @@ action :install do
     has_key = !cmd.stdout[/Alias name: #{certalias}/].nil?
 
     if has_key
-      cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
-      cmd.run_command
-      Chef::Log.debug(cmd.format_for_exception)
-      unless cmd.exitstatus == 0
-        Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
-            "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
+      converge_by("delete existing certificate #{certalias} from #{truststore}") do
+        cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
+        cmd.run_command
+        Chef::Log.debug(cmd.format_for_exception)
+        unless cmd.exitstatus == 0
+          Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
+              "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
+        end
       end
     end
 
     ::File.open(certfile, 'w', 0o644) { |f| f.write(certdata) }
 
-    cmd = Mixlib::ShellOut.new("#{keytool} -import -trustcacerts -alias \"#{certalias}\" -file #{certfile} -keystore #{truststore} -storepass #{truststore_passwd} -noprompt")
-    cmd.run_command
-    Chef::Log.debug(cmd.format_for_exception)
+    converge_by("add certificate #{certalias} to keystore #{truststore}") do
+      cmd = Mixlib::ShellOut.new("#{keytool} -import -trustcacerts -alias \"#{certalias}\" -file #{certfile} -keystore #{truststore} -storepass #{truststore_passwd} -noprompt")
+      cmd.run_command
+      Chef::Log.debug(cmd.format_for_exception)
 
-    unless cmd.exitstatus == 0
-      FileUtils.rm_f(certfile)
-      Chef::Application.fatal!("Error importing certificate into keystore: #{cmd.exitstatus}", cmd.exitstatus)
+      unless cmd.exitstatus == 0
+        FileUtils.rm_f(certfile)
+        Chef::Application.fatal!("Error importing certificate into keystore: #{cmd.exitstatus}", cmd.exitstatus)
+      end
     end
-
-    Chef::Log.debug("Sucessfully imported certificate \"#{certalias}\" to keystore \"#{truststore}\".")
   end
 end
 
@@ -106,11 +108,13 @@ action :remove do
   Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
   if has_key
-    cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
-    cmd.run_command
-    unless cmd.exitstatus == 0
-      Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
-          "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
+    converge_by("remove certificate #{certalias} from #{truststore}") do
+      cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
+      cmd.run_command
+      unless cmd.exitstatus == 0
+        Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
+            "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
+      end
     end
   end
 
