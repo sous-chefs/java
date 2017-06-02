@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## v1.51.0 - 06/02/2017
 
-- Converted alternatives LWRP to a custom resource.
+- Converted alternatives, ark, and certificate LWRP/HWRPs to custom resources.
 - Replaced apt cookbook with compat_resource. If you're running Chef >= 12.16 this will be a no-op during your chef run and you will instead use the built in apt resources instead of loading the apt cookbook.
 - Updated the metadata to resolve failures to parse chef_version on older chef-client releases
 - Updated the metadata license string to an SPDX compliant string to resolve Foodcritic warnings
