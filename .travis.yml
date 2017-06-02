@@ -1,8 +1,9 @@
 sudo: false
+dist: trusty
 addons:
   apt:
     sources:
-    - chef-stable-precise
+    - chef-stable-trusty
     packages:
     - chefdk
 install: echo "skip bundle install"
