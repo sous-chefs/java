@@ -1,14 +1,11 @@
-java cookbook
-=====
-[![travis-badge](https://travis-ci.org/agileorbit-cookbooks/java.svg)](https://travis-ci.org/agileorbit-cookbooks/java)
-[![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
+# java cookbook
 
-This cookbook installs a Java JDK/JRE. It defaults to installing
-OpenJDK, but it can also install Oracle and IBM JDKs.
+[![travis-badge](https://travis-ci.org/agileorbit-cookbooks/java.svg)](https://travis-ci.org/agileorbit-cookbooks/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
 
+This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle and IBM JDKs.
 
-Production Deployment with Oracle Java
------
+## Production Deployment with Oracle Java
+
 Oracle has been known to change the behavior of its download site frequently. It is recommended you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
 
 ```ruby
@@ -21,14 +18,14 @@ default['java']['oracle']['accept_oracle_download_terms'] = true
 
 NOTE: Oracle JDK 6 & 7 are unable to be automatically downloaded at this time.
 
-Usage
------
+## Usage
 
 Simply include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 for Oracle only).
 
 ### Examples
 
 To install Oracle Java 7 (note that when installing Oracle JDK, `accept_oracle_download_terms` attribute must be set -- see below role for an example):
+
 ```ruby
 name "java"
 description "Install Oracle Java"
@@ -47,6 +44,7 @@ run_list(
 ```
 
 Example role to install IBM flavored Java:
+
 ```ruby
 name "java"
 description "Install IBM Java on Ubuntu"
@@ -65,23 +63,27 @@ run_list(
 )
 ```
 
-Requirements
------
+## Requirements
 
-Chef 12+
+Chef 12.1+
 
-### Platform
+### Platforms
 
-* Debian, Ubuntu
-* CentOS, Red Hat, Fedora, Scientific, Amazon, XenServer
-* ArchLinux
-* FreeBSD
-* SmartOS
-* Windows
-* Mac OS X
+- Debian, Ubuntu
+- CentOS, RedHat, Fedora, Scientific, Amazon, XenServer
+- ArchLinux
+- FreeBSD
+- SmartOS
+- Windows
+- Mac OS X
 
-Attributes
------
+### Cookbooks
+
+- compat_resource
+- homebrew
+- windows
+
+## Attributes
 
 See `attributes/default.rb` for default values.
 
