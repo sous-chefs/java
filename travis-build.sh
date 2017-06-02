@@ -11,7 +11,7 @@ echo "TRAVIS: $TRAVIS"
 /opt/chefdk/embedded/bin/cookstyle --version || exit 1
 /opt/chefdk/embedded/bin/cookstyle || exit 1
 /opt/chefdk/embedded/bin/foodcritic --version || exit 1
-/opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any || exit 1
+/opt/chefdk/embedded/bin/foodcritic . || exit 1
 /opt/chefdk/embedded/bin/rspec spec || exit 1
 
 if [[ -n $TRAVIS_TAG && $TRAVIS_PULL_REQUEST == 'false' ]]; then
