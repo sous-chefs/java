@@ -47,12 +47,6 @@ suites:
       - fedora-25
     run_list:
       - recipe[test_java::openjdk8]
-  - name: oracle
-    run_list:
-      - recipe[test_java::oracle]
-  - name: oracle-7
-    run_list:
-      - recipe[test_java::oracle7]
   - name: oracle-8
     run_list:
       - recipe[test_java::oracle8]
@@ -62,13 +56,6 @@ suites:
   - name: openjdk-direct
     run_list:
       - recipe[test_java::openjdk_direct]
-  - name: oracle-rpm
-    includes:
-      - centos-6.9
-      - centos-7.3
-      - fedora-25
-    run_list:
-      - recipe[test_java::oracle_rpm7]
   - name: oracle-rpm-8
     includes:
       - centos-6.9
