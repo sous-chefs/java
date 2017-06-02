@@ -22,7 +22,7 @@ property :mirrorlist, Array, default: []
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :app_home, String
-property :app_home_mode, [Integer, String], default: '0755'
+property :app_home_mode, Integer, default: 0755
 property :bin_cmds, Array, default: []
 property :owner, String, default: 'root'
 # Will default to :owner if :group is not passed
@@ -107,7 +107,7 @@ action :install do
         end
       when /^.*\.(tar.gz|tgz)/
         package 'tar' unless platform_family?('mac_os_x', 'windows')
-        
+
         cmd = shell_out(
           %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
