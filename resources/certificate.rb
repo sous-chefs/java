@@ -45,30 +45,7 @@ action :install do
   certalias = new_resource.cert_alias
   certalias = new_resource.name if certalias.nil?
 
-  certdata = new_resource.cert_data
-  certdatafile = new_resource.cert_file
-  certendpoint = new_resource.ssl_endpoint
-
-  if certdata.nil?
-    if !certdatafile.nil?
-      certdata = IO.read(certdatafile)
-    elsif !certendpoint.nil?
-      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint}")
-      cmd.run_command
-      Chef::Log.debug(cmd.format_for_exception)
-
-      Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
-
-      certout = cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
-      if certout.size > 2 && !certout[1].empty?
-        certdata = "-----BEGIN CERTIFICATE-----#{certout[1]}-----END CERTIFICATE-----"
-      else
-        Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
-      end
-    else
-      Chef::Application.fatal!('At least one of cert_data, cert_file or ssl_endpoint attributes must be provided.', 999)
-    end
-  end
+  certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
 
   hash = Digest::SHA512.hexdigest(certdata)
   certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
@@ -145,4 +122,29 @@ action :remove do
   end
 
   FileUtils.rm_f("#{Chef::Config[:file_cache_path]}/#{certalias}.cert.*")
+end
+
+action_class do
+  def fetch_certdata
+    certendpoint = new_resource.ssl_endpoint
+
+    if !new_resource.cert_file.nil?
+      return IO.read(new_resource.cert_file)
+    elsif !certendpoint.nil?
+      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint}")
+      cmd.run_command
+      Chef::Log.debug(cmd.format_for_exception)
+
+      Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
+
+      return cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
+      if certout.size > 2 && !certout[1].empty?
+        return "-----BEGIN CERTIFICATE-----#{certout[1]}-----END CERTIFICATE-----"
+      else
+        Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
+      end
+    else
+      Chef::Application.fatal!('At least one of cert_data, cert_file or ssl_endpoint attributes must be provided.', 999)
+    end
+  end
 end
