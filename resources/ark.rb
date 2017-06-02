@@ -86,8 +86,7 @@ action :install do
       r.run_action(:create_if_missing)
     end
 
-    description = "extract compressed data into Chef file cache path and
-                    move extracted data to #{app_dir}"
+    description = "extract compressed data into Chef file cache path and move extracted data to #{app_dir}"
     converge_by(description) do
       case tarball_name
       when /^.*\.bin/
