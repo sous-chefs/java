@@ -4,7 +4,7 @@ if defined?(ChefSpec)
   end
 
   def unset_java_alternatives(resource_name)
-    ChefSpec::Matchers::ResourceMatcher.new(:java_alternatives, :set, resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:java_alternatives, :unset, resource_name)
   end
 
   def install_java_ark(resource_name)
