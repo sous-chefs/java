@@ -30,8 +30,6 @@ action :install do
   require 'digest/sha2'
   require 'openssl'
 
-  directory(Chef::Config[:file_cache_path]).to_s
-
   java_home = new_resource.java_home
   java_home = node['java']['java_home'] if java_home.nil?
   keytool = "#{java_home}/bin/keytool"
@@ -93,8 +91,6 @@ action :install do
 end
 
 action :remove do
-  directory(Chef::Config[:file_cache_path]).to_s
-
   certalias = new_resource.name
   truststore = new_resource.keystore_path
   truststore_passwd = new_resource.keystore_passwd
