@@ -20,3 +20,6 @@ Style/FormatString:
 Style/RegexpLiteral:
   Exclude:
     - 'providers/ark.rb'
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
