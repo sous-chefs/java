@@ -58,8 +58,7 @@ action :install do
     require 'fileutils'
 
     unless ::File.exist?(app_root)
-      description = "create dir #{app_root} and change owner to #{new_resource.owner}:#{app_group}"
-      converge_by(description) do
+      converge_by("create dir #{app_root} and change owner to #{new_resource.owner}:#{app_group}") do
         FileUtils.mkdir_p app_root, mode: new_resource.app_home_mode
         FileUtils.chown new_resource.owner, app_group, app_root
       end
@@ -74,20 +73,17 @@ action :install do
       end
     else
       Chef::Log.debug('downloading tarball from an unofficial repository')
-      r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+      remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
         retries new_resource.retries
         retry_delay new_resource.retry_delay
         mode '0755'
-        action :nothing
+        action :create_if_missing
       end
-      # no converge by on run_action remote_file takes care of it.
-      r.run_action(:create_if_missing)
     end
 
-    description = "extract compressed data into Chef file cache path and move extracted data to #{app_dir}"
-    converge_by(description) do
+    converge_by("extract compressed data into Chef file cache path and move extracted data to #{app_dir}") do
       case tarball_name
       when /^.*\.bin/
         cmd = shell_out(
@@ -126,16 +122,13 @@ action :install do
       # change ownership of extracted files
       FileUtils.chown_R new_resource.owner, app_group, app_dir
     end
-    new_resource.updated_by_last_action(true)
   end
 
   # set up .jinfo file for update-java-alternatives
   java_name =  app_home.split('/')[-1]
   jinfo_file = "#{app_root}/.#{java_name}.jinfo"
   if platform_family?('debian') && !::File.exist?(jinfo_file)
-    description = "Add #{jinfo_file} for debian"
-    converge_by(description) do
-      Chef::Log.debug "Adding #{jinfo_file} for debian"
+    converge_by("Add #{jinfo_file} for debian") do
       template jinfo_file do
         cookbook 'java'
         source 'oracle.jinfo.erb'
@@ -150,7 +143,6 @@ action :install do
         action :create
       end
     end
-    new_resource.updated_by_last_action(true)
   end
 
   # link app_home to app_dir
@@ -250,14 +242,9 @@ action_class do
     proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
     if node['java']['oracle']['accept_oracle_download_terms']
       # install the curl package
-      p = package 'curl for download_direct_from_oracle' do
-        package_name 'curl'
-        action :nothing
-      end
-      # no converge_by block since the package provider will take care of this run_action
-      p.run_action(:install)
-      description = 'download oracle tarball straight from the server'
-      converge_by(description) do
+      package 'curl'
+
+      converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
           %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
