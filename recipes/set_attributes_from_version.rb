@@ -18,7 +18,7 @@
 # force_default or higher precedence.
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   node.default['java']['java_home'] = case node['java']['install_flavor']
                                       when 'oracle'
                                         '/usr/lib/jvm/java'
