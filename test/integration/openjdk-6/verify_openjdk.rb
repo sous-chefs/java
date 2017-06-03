@@ -1,6 +1,6 @@
 # the right version of java is installed
 describe command('java -version') do
-  its('stdout') { should include '1.6.0' }
+  its('stderr') { should include '1.6.0' }
 end
 
 # env is properly setup
@@ -15,7 +15,7 @@ end
 
 # jce is setup properly
 describe command('java -jar /tmp/UnlimitedSupportJCETest.jar') do
-  its('stdout') { should eq 'isUnlimitedSupported=TRUE, strength: 2147483647' }
+  its('stdout') { should include 'isUnlimitedSupported=TRUE, strength: 2147483647' }
 end
 
 # the cert was installed into the keystore
