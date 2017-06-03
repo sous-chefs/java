@@ -1,6 +1,6 @@
 Lint/UselessAssignment:
   Exclude:
-    - 'resources/ark.rb'
+    - 'resources/oracle_install.rb'
 
 Style/AccessorMethodName:
   Exclude:

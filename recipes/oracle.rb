@@ -54,7 +54,7 @@ end
 
 include_recipe 'java::set_java_home'
 
-java_ark 'jdk' do
+java_oracle_install 'jdk' do
   url tarball_url
   default node['java']['set_default']
   checksum tarball_checksum

@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# backwards compatibility with the old name
+provides :java_oracle_install
+provides :java_ark
+
 property :url, String
 property :mirrorlist, Array, default: []
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/

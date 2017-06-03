@@ -52,7 +52,7 @@ yum_package 'glibc' do
   only_if { platform_family?('rhel', 'fedora') }
 end
 
-java_ark 'jdk-alt' do
+java_oracle_install 'jdk-alt' do
   url tarball_url
   default node['java']['set_default']
   checksum tarball_checksum

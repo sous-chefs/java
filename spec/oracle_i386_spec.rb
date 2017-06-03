@@ -20,7 +20,7 @@ describe 'java::oracle_i386' do
     this_should_not_get_executed
   end
 
-  it 'should configure a java_ark[jdk] resource' do
+  it 'should configure a java_oracle_install[jdk] resource' do
     pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
     this_should_not_get_executed
   end

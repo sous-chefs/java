@@ -15,6 +15,14 @@ if defined?(ChefSpec)
     ChefSpec::Matchers::ResourceMatcher.new(:java_ark, :remove, resource_name)
   end
 
+  def install_java_oracle_install(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:java_oracle_install, :install, resource_name)
+  end
+
+  def remove_java_oracle_install(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:java_oracle_install, :remove, resource_name)
+  end
+
   def install_java_certificate(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:java_certificate, :install, resource_name)
   end

@@ -16,11 +16,11 @@ describe 'java::oracle' do
 
   it 'should notify of jdk-version-change' do
     pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
-    expect(chef_run.java_ark('jdk')).to notify('log[jdk-version-changed]')
+    expect(chef_run.java_oracle_install('jdk')).to notify('log[jdk-version-changed]')
     this_should_not_get_executed
   end
 
-  it 'should configure a java_ark[jdk] resource' do
+  it 'should configure a java_oracle_install[jdk] resource' do
     pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
     this_should_not_get_executed
   end
