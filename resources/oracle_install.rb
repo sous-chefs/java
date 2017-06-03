@@ -73,6 +73,7 @@ action :install do
       if oracle_downloaded?(download_path, new_resource)
         Chef::Log.debug('oracle tarball already downloaded, not downloading again')
       else
+        Chef::Log.warn('Downloading directly from Oracle is unreliable as artifacts have been removed in the past. Change download url.')
         download_direct_from_oracle tarball_name, new_resource
       end
     else

@@ -46,12 +46,6 @@ when '8'
   bin_cmds = node['java']['jdk']['8']['bin_cmds']
 end
 
-if tarball_url =~ /oracle.com/
-  log 'WARNING - Downloading directly from Oracle is unreliable. Change download url.' do
-    level :warn
-  end
-end
-
 include_recipe 'java::set_java_home'
 
 java_oracle_install 'jdk' do
