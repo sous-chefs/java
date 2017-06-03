@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::set_attributes_from_version' do
   platforms = {
-    'centos-6.4' => {
+    'centos-6.8' => {
       'java_home' => '/usr/lib/jvm/java-1.6.0',
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
     },
@@ -18,7 +18,7 @@ describe 'java::set_attributes_from_version' do
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
     },
-    'ubuntu-12.04' => {
+    'ubuntu-14.04' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
     },
@@ -37,7 +37,7 @@ describe 'java::set_attributes_from_version' do
     os = parts[0]
     version = parts[1]
     context "On #{os} #{version}" do
-      let(:chef_run) { ChefSpec::ServerRunner.new(version: version, platform: os).converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(version: version, platform: os).converge(described_recipe) }
 
       it 'has the correct java_home' do
         expect(chef_run.node['java']['java_home']).to eq(params['java_home'])

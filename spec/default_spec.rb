@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::default' do
   let(:chef_run) do
-    runner = ChefSpec::ServerRunner.new(
+    runner = ChefSpec::SoloRunner.new(
       platform: 'debian',
       version: '7.11'
     )
@@ -17,7 +17,7 @@ describe 'java::default' do
 
   #  context 'windows' do
   #    let(:chef_run) do
-  #      runner = ChefSpec::ServerRunner.new(
+  #      runner = ChefSpec::SoloRunner.new(
   #        :platform => 'windows',
   #        :version => '2012R2'
   #      )
@@ -35,7 +35,7 @@ describe 'java::default' do
 
   context 'oracle' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle'
       runner.converge(described_recipe)
     end
@@ -47,7 +47,7 @@ describe 'java::default' do
 
   context 'oracle_i386' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle_i386'
       runner.converge(described_recipe)
     end
@@ -59,7 +59,7 @@ describe 'java::default' do
 
   context 'ibm' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'ibm'
       runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
       runner.converge(described_recipe)
@@ -72,7 +72,7 @@ describe 'java::default' do
 
   context 'ibm_tar' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'ibm_tar'
       runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.tar.gz'
       runner.converge(described_recipe)
@@ -85,7 +85,7 @@ describe 'java::default' do
 
   context 'Oracle JDK 8' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle'
       runner.node.override['java']['jdk_version'] = '8'
       runner.converge(described_recipe)
@@ -98,7 +98,7 @@ describe 'java::default' do
 
   context 'Oracle JDK 8 RPM' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle_rpm'
       runner.node.override['java']['jdk_version'] = '8'
       runner.converge(described_recipe)
@@ -111,7 +111,7 @@ describe 'java::default' do
 
   context 'OpenJDK 8' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::SoloRunner.new
       runner.node.override['java']['install_flavor'] = 'openjdk'
       runner.node.override['java']['jdk_version'] = '8'
       runner.converge(described_recipe)

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe 'java::openjdk' do
   platforms = {
-    'ubuntu-12.04' => {
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
-      'update_alts' => true,
-    },
     'debian-7.11' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
       'update_alts' => true,
@@ -25,7 +21,7 @@ describe 'java::openjdk' do
     os = parts[0]
     version = parts[1]
     context "On #{os} #{version}" do
-      let(:chef_run) { ChefSpec::ServerRunner.new(platform: os, version: version).converge(described_recipe) }
+      let(:chef_run) { ChefSpec::SoloRunner.new(platform: os, version: version).converge(described_recipe) }
 
       data['packages'].each do |pkg|
         it "installs package #{pkg}" do
@@ -51,7 +47,7 @@ describe 'java::openjdk' do
   describe 'conditionally includes set attributes' do
     context 'when java_home and openjdk_packages are set' do
       let(:chef_run) do
-        runner = ChefSpec::ServerRunner.new(
+        runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
           version: '12.04'
         )
@@ -67,9 +63,9 @@ describe 'java::openjdk' do
 
     context 'when java_home and openjdk_packages are not set' do
       let(:chef_run) do
-        runner = ChefSpec::ServerRunner.new(
+        runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
-          version: '12.04'
+          version: '16.04'
         )
         runner.converge(described_recipe)
       end
@@ -81,10 +77,10 @@ describe 'java::openjdk' do
   end
 
   describe 'license acceptance file' do
-    { 'centos' => '6.8', 'ubuntu' => '12.04' }.each_pair do |platform, version|
+    { 'centos' => '6.8', 'ubuntu' => '16.04' }.each_pair do |platform, version|
       context platform do
         let(:chef_run) do
-          ChefSpec::ServerRunner.new(platform: platform, version: version).converge('java::openjdk')
+          ChefSpec::SoloRunner.new(platform: platform, version: version).converge('java::openjdk')
         end
 
         it 'does not write out license file' do
@@ -95,7 +91,7 @@ describe 'java::openjdk' do
 
     context 'smartos' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(platform: 'smartos', version: 'joyent_20130111T180733Z', evaluate_guards: true)
+        ChefSpec::SoloRunner.new(platform: 'smartos', version: 'joyent_20130111T180733Z', evaluate_guards: true)
       end
 
       context 'when auto_accept_license is true' do
@@ -117,7 +113,7 @@ describe 'java::openjdk' do
   describe 'default-java' do
     context 'ubuntu' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(
+        ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
           version: '12.04'
         ).converge(described_recipe)
@@ -130,7 +126,7 @@ describe 'java::openjdk' do
 
     context 'centos' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(
+        ChefSpec::SoloRunner.new(
           platform: 'centos',
           version: '6.8'
         ).converge(described_recipe)

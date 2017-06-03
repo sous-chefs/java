@@ -2,7 +2,7 @@ require 'chefspec'
 
 describe 'java::windows' do
   let(:chef_run) do
-    runner = ChefSpec::ServerRunner.new(
+    runner = ChefSpec::SoloRunner.new(
       platform: 'windows',
       version: '2012R2'
     )

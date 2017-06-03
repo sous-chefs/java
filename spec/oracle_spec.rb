@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::oracle' do
   let(:chef_run) do
-    runner = ChefSpec::ServerRunner.new
+    runner = ChefSpec::SoloRunner.new
     runner.converge(described_recipe)
   end
 
@@ -28,7 +28,7 @@ describe 'java::oracle' do
   describe 'conditionally includes set attributes' do
     context 'when java_home is set' do
       let(:chef_run) do
-        runner = ChefSpec::ServerRunner.new(
+        runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
           version: '12.04'
         )
@@ -43,7 +43,7 @@ describe 'java::oracle' do
 
     context 'when java_home is not set' do
       let(:chef_run) do
-        runner = ChefSpec::ServerRunner.new(
+        runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
           version: '12.04'
         )
@@ -59,7 +59,7 @@ describe 'java::oracle' do
   describe 'default-java' do
     context 'ubuntu' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(
+        ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
           version: '12.04'
         ).converge(described_recipe)
@@ -72,7 +72,7 @@ describe 'java::oracle' do
 
     context 'centos' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(
+        ChefSpec::SoloRunner.new(
           platform: 'centos',
           version: '6.8'
         ).converge(described_recipe)
@@ -86,7 +86,7 @@ describe 'java::oracle' do
   describe 'JCE installation' do
     context 'when jce is disabled' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new.converge(described_recipe)
+        ChefSpec::SoloRunner.new.converge(described_recipe)
       end
 
       it 'does not include jce recipe' do
@@ -96,7 +96,7 @@ describe 'java::oracle' do
 
     context 'when jce is enabled' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.override['java']['oracle']['jce']['enabled'] = true
         end.converge(described_recipe)
       end
