@@ -11,7 +11,7 @@ chef exec rspec
 
 Install the latest version of [Vagrant](https://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (free) or [VMWare Fusion](http://www.vmware.com/products/fusion.html) (paid).
 
-The Chef tooling (chefspec/test kitchen/etc) is managed by the [Chef Development Kit](https://downloads.chef.io/chefdk) - Version 0.3.4
+The Chef tooling (chefspec/test kitchen/etc) is managed by the [Chef Development Kit](https://downloads.chef.io/chefdk)
 
 Clone the latest version of the cookbook from the repository.
 
