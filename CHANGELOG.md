@@ -4,16 +4,24 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## v1.51.0 - 06/02/2017
 
-- Converted alternatives, ark, and certificate LWRP/HWRPs to custom resources.
+- Converted alternatives, ark, and certificate LWRP/HWRPs to custom resources with improved logging and convergence notification.
 - Replaced apt cookbook with compat_resource. If you're running Chef >= 12.16 this will be a no-op during your chef run and you will instead use the built in apt resources instead of loading the apt cookbook.
-- Updated the metadata to resolve failures to parse chef_version on older chef-client releases
-- Updated the metadata license string to an SPDX compliant string to resolve Foodcritic warnings
-- Removed Chef 10 compatibility code in the Windows recipe that resulted in Foodcritic warnings
+- Updated the metadata to resolve failures to parse chef_version on older chef-client releases.
+- Fixed Amazon Linux support on Chef 13+.
+- Added openSUSE leap support.
+- Updated the metadata license string to an SPDX compliant string to resolve Foodcritic warnings.
+- Added installation of tar directly to the ark resource when uncompression .tar.gz files. This prevents installation in the recipe that occurred even if tar wasn't needed.
+- Removed Chef 10 compatibility code in the Windows recipe that resulted in Foodcritic warnings.
+- Removed logic to support paths on Debian < 7 and Ubuntu < 12.04 as these are both EOL.
+- Deprecated the java::purge recipe which purged old Sun Java packages which were distributed in distro repos before the Oracle acquisition of Sun. Migration away from these packages occurred many years ago and this recipe will be removed in the next major release of this cookbook.
+- Removed duplicate logging in the resources.
+- Fixed the alternatives command on Amazon Linux on Chef 13 and Fedora systems.
+- Converted integration tests from bats to InSpec.
 - Moved template files out of the default directory as
-- Corrected deprecation warnings in the ChefSpecs
+- Corrected deprecation warnings in the ChefSpecs.
 - Moved all Kitchen testing logic to the test_java cookbook and eliminated the need for the apt & free_bsd bash cookbooks in testing
-- Disabled certificate integration tests since we're not currently running the certificate resource in Test Kitchen
-- Removed testing of Oracle JDK 6/7 since Oracle no longer allows directly downloading these releases
+- Disabled certificate integration tests since we're not currently running the certificate resource in Test Kitchen.
+- Removed testing of Oracle JDK 6/7 since Oracle no longer allows directly downloading these releases.
 
 ## v1.50.0 - 05/24/2017
 
