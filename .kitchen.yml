@@ -4,6 +4,9 @@ driver:
 provisioner:
   name: chef_zero
 
+verifier:
+  name: inspec
+
 platforms:
   - name: amazon-linux
     driver_config:
@@ -59,6 +62,9 @@ suites:
   - name: oracle-direct
     run_list:
       - recipe[test_java::oracle_direct]
+    verifier:
+      inspec_tests:
+        - test/integration/oracle-8
   - name: openjdk-direct
     run_list:
       - recipe[test_java::openjdk_direct]
@@ -69,3 +75,6 @@ suites:
       - fedora-25
     run_list:
       - recipe[test_java::oracle_rpm8]
+    verifier:
+      inspec_tests:
+        - test/integration/oracle-8
