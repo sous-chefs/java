@@ -34,7 +34,7 @@ describe 'java::default' do
   #  end
 
   context 'oracle' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle'
       runner.converge(described_recipe)
@@ -46,7 +46,7 @@ describe 'java::default' do
   end
 
   context 'oracle_i386' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle_i386'
       runner.converge(described_recipe)
@@ -58,7 +58,7 @@ describe 'java::default' do
   end
 
   context 'ibm' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'ibm'
       runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
@@ -71,7 +71,7 @@ describe 'java::default' do
   end
 
   context 'ibm_tar' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'ibm_tar'
       runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.tar.gz'
@@ -84,7 +84,7 @@ describe 'java::default' do
   end
 
   context 'Oracle JDK 8' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle'
       runner.node.override['java']['jdk_version'] = '8'
@@ -97,7 +97,7 @@ describe 'java::default' do
   end
 
   context 'Oracle JDK 8 RPM' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'oracle_rpm'
       runner.node.override['java']['jdk_version'] = '8'
@@ -110,7 +110,7 @@ describe 'java::default' do
   end
 
   context 'OpenJDK 8' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new
       runner.node.override['java']['install_flavor'] = 'openjdk'
       runner.node.override['java']['jdk_version'] = '8'
