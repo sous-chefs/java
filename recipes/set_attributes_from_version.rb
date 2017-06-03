@@ -28,6 +28,16 @@ when 'rhel', 'fedora'
                                         "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0"
                                       end
   node.default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
+when 'suse'
+  node.default['java']['java_home'] = case node['java']['install_flavor']
+                                      when 'oracle'
+                                        '/usr/lib/jvm/java'
+                                      when 'oracle_rpm'
+                                        '/usr/java/latest'
+                                      else
+                                        "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{node['java']['jdk_version']}.0"
+                                      end
+  node.default['java']['openjdk_packages'] = ["java-1_#{node['java']['jdk_version']}_0-openjdk", "java-1_#{node['java']['jdk_version']}_0-openjdk-devel"]
 when 'freebsd'
   node.default['java']['java_home'] = "/usr/local/openjdk#{node['java']['jdk_version']}"
   jdk_version = node['java']['jdk_version']
