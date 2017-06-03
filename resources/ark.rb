@@ -194,12 +194,11 @@ action :remove do
       bin_cmds new_resource.bin_cmds
       action :unset
     end
-    description = "remove #{new_resource.name} at #{app_dir}"
-    converge_by(description) do
+
+    converge_by("remove #{new_resource.name} at #{app_dir}") do
       Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
       FileUtils.rm_rf app_dir
     end
-    new_resource.updated_by_last_action(true)
   end
 end
 
