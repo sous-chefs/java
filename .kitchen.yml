@@ -25,6 +25,7 @@ suites:
       - centos-7.3
       - debian-7.11
       - ubuntu-14.04
+      - amazon-linux
     run_list:
       - recipe[test_java::openjdk6]
   - name: openjdk-7
@@ -38,6 +39,7 @@ suites:
       - freebsd-10.3
       - freebsd-11.0
       - opensuse-leap-42.2
+      - amazon-linux
     run_list:
       - recipe[test_java::openjdk7]
   - name: openjdk-8
@@ -48,6 +50,7 @@ suites:
       - centos-7.3
       - fedora-25
       - opensuse-leap-42.2
+      - amazon-linux
     run_list:
       - recipe[test_java::openjdk8]
   - name: oracle-8
