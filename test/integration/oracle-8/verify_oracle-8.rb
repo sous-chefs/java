@@ -1,6 +1,6 @@
 # the right version of java is installed
 describe command('java -version') do
-  its('stdout') { should match (/1\.8/) }
+  its('stdout') { should match /1\.8/ }
 end
 
 # env is properly setup
