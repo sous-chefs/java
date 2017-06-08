@@ -106,7 +106,7 @@ action :install do
         end
       when /^.*\.(tar.gz|tgz)/
         package 'tar' do
-          not_if {platform_family?('mac_os_x', 'windows')}
+          not_if { platform_family?('mac_os_x', 'windows') }
           action :nothing
         end.run_action(:install)
 
