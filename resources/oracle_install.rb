@@ -57,17 +57,15 @@ action :install do
     app_home = new_resource.app_home
   end
 
+  directory app_root do
+    owner new_resource.owner
+    group app_group
+    mode app_home_mode
+    recursive true
+    action :nothing
+  end.run_action(:create)
+
   unless ::File.exist?(app_dir)
-    Chef::Log.info "Adding #{new_resource.name} to #{app_dir}"
-    require 'fileutils'
-
-    unless ::File.exist?(app_root)
-      converge_by("create dir #{app_root} and change owner to #{new_resource.owner}:#{app_group}") do
-        FileUtils.mkdir_p app_root, mode: new_resource.app_home_mode
-        FileUtils.chown new_resource.owner, app_group, app_root
-      end
-    end
-
     if new_resource.url =~ /oracle\.com.*$/
       download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
       if oracle_downloaded?(download_path, new_resource)
