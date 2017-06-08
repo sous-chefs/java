@@ -84,8 +84,8 @@ action :install do
         retries new_resource.retries
         retry_delay new_resource.retry_delay
         mode '0755'
-        action :create_if_missing
-      end
+        action :nothing
+      end.run_action(:create_if_missing)
     end
 
     converge_by("extract compressed data into Chef file cache path and move extracted data to #{app_dir}") do
@@ -107,7 +107,10 @@ action :install do
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
-        package 'tar' unless platform_family?('mac_os_x', 'windows')
+        package 'tar' do
+          not_if {platform_family?('mac_os_x', 'windows')}
+          action :nothing
+        end.run_action(:install)
 
         cmd = shell_out(
           %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
@@ -145,8 +148,8 @@ action :install do
           name: java_name,
           app_dir: app_home
         )
-        action :create
-      end
+        action :nothing
+      end.run_action(:create)
     end
   end
 
@@ -247,7 +250,9 @@ action_class do
     proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
     if node['java']['oracle']['accept_oracle_download_terms']
       # install the curl package
-      package 'curl'
+      package 'curl' do
+        action :nothing
+      end.run_action(:install)
 
       converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
