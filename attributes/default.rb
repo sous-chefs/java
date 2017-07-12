@@ -35,25 +35,7 @@ default['java']['ark_retry_delay'] = 2
 default['java']['ark_timeout'] = 600
 default['java']['ark_download_timeout'] = 600
 
-case node['platform_family']
-when 'windows'
-  default['java']['install_flavor'] = 'windows'
-  default['java']['windows']['url'] = nil
-  default['java']['windows']['checksum'] = nil
-  default['java']['windows']['package_name'] = 'Java(TM) SE Development Kit 7 (64-bit)'
-  default['java']['windows']['public_jre_home'] = nil
-  default['java']['windows']['owner'] = 'administrator'
-  default['java']['windows']['remove_obsolete'] = false
-when 'mac_os_x'
-  default['java']['install_flavor'] = 'homebrew'
-else
-  default['java']['install_flavor'] = 'openjdk'
-end
-
-# S390(X) - IBM zSeries Architecture - only IBM jre / jdk can be used. Download from https://developer.ibm.com/javasdk/downloads/
-if node['kernel']['machine'].start_with?('s390')
-  default['java']['install_flavor'] = 'ibm'
-end
+default['java']['install_flavor'] = 'oracle'
 
 default['java']['ibm']['url'] = nil
 default['java']['ibm']['checksum'] = nil

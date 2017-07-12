@@ -29,7 +29,7 @@ directory ::File.join(node['java']['oracle']['jce']['home'], jdk_version) do
   recursive true
 end
 
-r = remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
+remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
   source jce_url
   checksum jce_checksum
   headers(
@@ -38,59 +38,30 @@ r = remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
   not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
 end
 
-if node['os'] == 'windows'
-  include_recipe 'windows'
+package 'unzip'
+package 'curl'
 
-  staging_path = ::File.join(node['java']['oracle']['jce']['home'], jdk_version)
-  staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
-  staging_export_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'US_export_policy.jar')
-  jre_final_path = ::File.join(node['java']['java_home'], 'jre', 'lib', 'security')
-  final_local_policy = ::File.join(jre_final_path, 'local_policy.jar')
-  final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
+execute 'extract jce' do
+  command <<-EOF
+    rm -rf java_jce
+    mkdir java_jce
+    cd java_jce
+    unzip -o ../jce.zip
+    find -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{node['java']['oracle']['jce']['home']}/#{jdk_version}/
+    chmod -R 0644 #{node['java']['oracle']['jce']['home']}/#{jdk_version}/*.jar
+  EOF
+  cwd Chef::Config[:file_cache_path]
+  creates ::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')
+end
 
-  windows_zipfile staging_path do
-    source r.path
-    checksum jce_checksum
-    action :unzip
-    not_if { ::File.exist? staging_local_policy }
+%w(local_policy.jar US_export_policy.jar).each do |jar|
+  jar_path = ::File.join(node['java']['java_home'], 'jre', 'lib', 'security', jar)
+  # remove the jars already in the directory
+  file jar_path do
+    action :delete
+    not_if { ::File.symlink? jar_path }
   end
-
-  remote_file final_local_policy do
-    rights :full_control, node['java']['windows']['owner']
-    source "file://#{staging_local_policy}"
-  end
-
-  remote_file final_export_policy do
-    rights :full_control, node['java']['windows']['owner']
-    source "file://#{staging_export_policy}"
-  end
-
-else
-  package 'unzip'
-  package 'curl'
-
-  execute 'extract jce' do
-    command <<-EOF
-      rm -rf java_jce
-      mkdir java_jce
-      cd java_jce
-      unzip -o ../jce.zip
-      find -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{node['java']['oracle']['jce']['home']}/#{jdk_version}/
-      chmod -R 0644 #{node['java']['oracle']['jce']['home']}/#{jdk_version}/*.jar
-    EOF
-    cwd Chef::Config[:file_cache_path]
-    creates ::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')
-  end
-
-  %w(local_policy.jar US_export_policy.jar).each do |jar|
-    jar_path = ::File.join(node['java']['java_home'], 'jre', 'lib', 'security', jar)
-    # remove the jars already in the directory
-    file jar_path do
-      action :delete
-      not_if { ::File.symlink? jar_path }
-    end
-    link jar_path do
-      to ::File.join(node['java']['oracle']['jce']['home'], jdk_version, jar)
-    end
+  link jar_path do
+    to ::File.join(node['java']['oracle']['jce']['home'], jdk_version, jar)
   end
 end
