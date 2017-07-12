@@ -5,11 +5,11 @@ include_recipe 'java::notify'
 homebrew_tap 'caskroom/versions'
 
 cask_default_java_version = '8'
-if node['java']['jdk_version'].to_s == cask_default_java_version
-  pkg_name = 'java'
-else
-  pkg_name = "java#{node['java']['jdk_version']}"
-end
+pkg_name = if node['java']['jdk_version'].to_s == cask_default_java_version
+             'java'
+           else
+             "java#{node['java']['jdk_version']}"
+           end
 
 if node['java']['jdk_version'].to_s == '7'
   log 'java-7-cask-removed' do
