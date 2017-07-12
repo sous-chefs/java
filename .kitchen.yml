@@ -1,9 +1,5 @@
----
 driver:
   name: vagrant
-  require_chef_omnibus: true
-  customize:
-    memory: 1024
 
 provisioner:
   name: chef_zero
@@ -13,73 +9,71 @@ provisioner:
       ark_retry_delay: 10
 
 platforms:
+  - name: ubuntu-16.04
+    run_list:
+    - recipe[apt]
   - name: ubuntu-14.04
     run_list:
     - recipe[apt]
-    driver:
-      box: box-cutter/ubuntu1404
+  - name: debian-8.6
     run_list:
     - recipe[apt]
-  #- name: ubuntu-12.04
-  #  driver:
-  #    box: box-cutter/ubuntu1204
-  #  run_list:
-  #  - recipe[apt]
-  - name: debian-6.0.10
-    driver:
-      box: box-cutter/debian6010
+  - name: debian-7.11
     run_list:
     - recipe[apt]
-  - name: debian-7.6
-    driver:
-      box: box-cutter/debian76
+  - name: centos-7.3
+  - name: centos-6.8
+  - name: fedora-25
+  - name: freebsd-11.0
     run_list:
-    - recipe[apt]
-  - name: centos-7.1
-    driver:
-      box: box-cutter/centos71
-  - name: centos-6.5
-    driver:
-      box: box-cutter/centos65
-  - name: centos-5.11
-    driver:
-      box: box-cutter/centos511
-  - name: fedora-19
-    driver:
-      box: box-cutter/fedora19
-  - name: fedora-20
-    driver:
-      box: box-cutter/fedora20
-
+    - recipe[freebsd_bash]
+  - name: freebsd-10.3
+    run_list:
+    - recipe[freebsd_bash]
 suites:
-  - name: openjdk
-    excludes:
-      - fedora-19
-      - fedora-20
+  - name: openjdk-6
+    includes:
+      - centos-6.8
+      - centos-7.3
+      - debian-7.11
+      - ubuntu-14.04
     run_list:
       - recipe[java::default]
+      # - recipe[test_java::java_cert]
   - name: openjdk-7
-    excludes:
-      - ubuntu-10.04
-      - debian-6.0.8
+    includes:
+      - centos-6.8
+      - centos-7.3
+      - debian-7.11
+      - debian-8.6
+      - ubuntu-14.04
+      - ubuntu-16.04
+      - freebsd-10.3
+      - freebsd-11.0
     run_list:
       - recipe[java::default]
+      # - recipe[test_java::java_cert]
     attributes:
       java:
         jdk_version: "7"
   - name: openjdk-8
-    excludes:
-      - debian-7.6
-      - debian-6.0.8
+    includes:
+      - ubuntu-14.04
+      - ubuntu-16.04
+      - centos-6.8
+      - centos-7.3
+      - fedora-25
     run_list:
       - recipe[java::default]
+      # - recipe[test_java::java_cert]
     attributes:
       java:
-        jdk_version: "7"
+        jdk_version: "8"
   - name: oracle
     run_list:
       - recipe[test_java::default]
       - recipe[java::default]
+      # - recipe[test_java::java_cert]
     attributes:
       java:
         oracle:
@@ -91,6 +85,7 @@ suites:
     run_list:
       - recipe[test_java::default]
       - recipe[java::default]
+      # - recipe[test_java::java_cert]
     attributes:
       java:
         jdk_version: "7"
@@ -103,6 +98,7 @@ suites:
     run_list:
       - recipe[test_java::default]
       - recipe[java::default]
+      # - recipe[test_java::java_cert]
     attributes:
       java:
         jdk_version: "8"
@@ -121,12 +117,13 @@ suites:
   - name: openjdk-direct
     run_list:
       - recipe[java::openjdk]
-    excludes:
-      - fedora-19
-      - fedora-20
   - name: oracle-rpm
+    includes:
+      - centos-6.8
+      - centos-7.3
+      - fedora-25
     run_list:
-      - recipe[java]
+      - recipe[java::default]
     attributes:
       java:
         install_flavor: oracle_rpm
@@ -134,11 +131,15 @@ suites:
         oracle:
           accept_oracle_download_terms: true
   - name: oracle-rpm-8
+    includes:
+      - centos-6.8
+      - centos-7.3
+      - fedora-25
     run_list:
-      - recipe[java]
+      - recipe[java::default]
     attributes:
       java:
         install_flavor: oracle_rpm
         jdk_version: 8
-        oracle: 
+        oracle:
           accept_oracle_download_terms: true

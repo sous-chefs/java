@@ -1,6 +1,12 @@
-language: ruby
-bundler_args: --without integration
-rvm:
-    - 2.1.4
-script: 
-    - bundle exec rake travis
+sudo: false
+addons:
+  apt:
+    sources:
+    - chef-stable-precise
+    packages:
+    - chefdk
+install: echo "skip bundle install"
+before_script:
+- eval "$(/opt/chefdk/bin/chef shell-init bash)"
+script:
+- "./travis-build.sh"

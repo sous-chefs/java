@@ -6,12 +6,20 @@ describe 'java::ibm' do
   end
 
   let(:chef_run) do
-    runner = ChefSpec::ServerRunner.new
-    runner.node.set['java']['install_flavor'] = 'ibm'
-    runner.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
-    runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
-    runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
+    runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
+    runner.node.override['java']['install_flavor'] = 'ibm'
+    runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
+    runner.node.override['java']['ibm']['checksum'] = 'deadbeef'
+    runner.node.override['java']['ibm']['accept_ibm_download_terms'] = true
     runner.converge(described_recipe)
+  end
+
+  it 'should include the notify recipe' do
+    expect(chef_run).to include_recipe('java::notify')
+  end
+
+  it 'should notify of jdk-version-change' do
+    expect(chef_run.execute('install-ibm-java')).to notify('log[jdk-version-changed]')
   end
 
   it 'creates an installer.properties file' do
@@ -24,8 +32,8 @@ describe 'java::ibm' do
 
   it 'runs the installer' do
     expect(chef_run).to run_execute('install-ibm-java').with(
-      :command => './ibm-java.bin -f ./installer.properties -i silent',
-      :creates => '/opt/ibm/java/jre/bin/java'
+      command: './ibm-java.bin -f ./installer.properties -i silent',
+      creates: '/opt/ibm/java/jre/bin/java'
     )
 
     install_command = chef_run.execute('install-ibm-java')
@@ -38,21 +46,21 @@ describe 'java::ibm' do
 
   context 'install on ubuntu' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(:platform => 'ubuntu', :version => '12.04')
-      runner.node.set['java']['install_flavor'] = 'ibm'
-      runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
-      runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
+      runner.node.override['java']['install_flavor'] = 'ibm'
+      runner.node.override['java']['ibm']['checksum'] = 'deadbeef'
+      runner.node.override['java']['ibm']['accept_ibm_download_terms'] = true
       runner
     end
 
     it 'install rpm for installable package' do
-      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
+      chef_run.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
       chef_run.converge('java::ibm')
       expect(chef_run).to install_package('rpm')
     end
 
     it 'no need to install rpm for tgz package' do
-      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java-archive.bin'
+      chef_run.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java-archive.bin'
       chef_run.converge('java::ibm')
       expect(chef_run).not_to install_package('rpm')
     end
@@ -60,24 +68,23 @@ describe 'java::ibm' do
 
   context 'install on centos' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(:platform => 'centos', :version => '5.8')
-      runner.node.set['java']['install_flavor'] = 'ibm'
-      runner.node.set['java']['ibm']['checksum'] = 'deadbeef'
-      runner.node.set['java']['ibm']['accept_ibm_download_terms'] = true
+      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8')
+      runner.node.override['java']['install_flavor'] = 'ibm'
+      runner.node.override['java']['ibm']['checksum'] = 'deadbeef'
+      runner.node.override['java']['ibm']['accept_ibm_download_terms'] = true
       runner
     end
 
     it 'no need to install rpm for installable package' do
-      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
+      chef_run.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
       chef_run.converge('java::ibm')
       expect(chef_run).not_to install_package('rpm')
     end
 
     it 'no need to install rpm for tgz package' do
-      chef_run.node.set['java']['ibm']['url'] = 'http://example.com/ibm-java-archive.bin'
+      chef_run.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java-archive.bin'
       chef_run.converge('java::ibm')
       expect(chef_run).not_to install_package('rpm')
     end
   end
-
 end

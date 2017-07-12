@@ -1,6 +1,6 @@
 #
-# Author:: Joshua Timberman <joshua@opscode.com>
-# Copyright:: Copyright (c) 2013, Opscode, Inc. <legal@opscode.com>
+# Author:: Joshua Timberman <joshua@chef.io>
+# Copyright:: Copyright (c) 2013-2015, Chef Software, Inc. <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-$:.unshift(File.join(File.dirname(__FILE__), '..'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
 require 'spec_helper'
 
 describe Opscode::OpenJDK do
@@ -23,14 +23,14 @@ describe Opscode::OpenJDK do
     {
       'java' => {
         'java_home' => '/usr/lib/jvm/default-java',
-        'jdk_version' => '6'
+        'jdk_version' => '6',
       },
       'kernel' => {
-        'machine' => 'x86_64'
+        'machine' => 'x86_64',
       },
       'platform_family' => 'debian',
       'platform' => 'ubuntu',
-      'platform_version' => '12.04'
+      'platform_version' => '12.04',
     }
   end
 
@@ -57,34 +57,6 @@ describe Opscode::OpenJDK do
 
     it 'sets the java location' do
       expected_path = '/usr/lib/jvm/foo/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
-  context 'ubuntu 10.04 32 bit' do
-    before do
-      node['platform'] = 'ubuntu'
-      node['platform_version'] = '10.04'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'i386'
-    end
-
-    it 'sets the java location for JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
-  context 'ubuntu 10.04 64 bit' do
-    before do
-      node['platform'] = 'ubuntu'
-      node['platform_version'] = '10.04'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'x86_64'
-    end
-
-    it 'sets the java location for 64 bit and JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
       expect(subject.java_location).to eq(expected_path)
     end
   end
@@ -129,38 +101,10 @@ describe Opscode::OpenJDK do
     end
   end
 
-  context 'debian 6 32 bit' do
-    before do
-      node['platform'] = 'debian'
-      node['platform_version'] = '6.0.7'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'i386'
-    end
-
-    it 'sets the java location for JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
-  context 'debian 6 64 bit' do
-    before do
-      node['platform'] = 'debian'
-      node['platform_version'] = '6.0.7'
-      node['platform_family'] = 'debian'
-      node['kernel']['machine'] = 'x86_64'
-    end
-
-    it 'sets the java location for 64 bit and JDK 6' do
-      expected_path = '/usr/lib/jvm/java-6-openjdk/jre/bin/java'
-      expect(subject.java_location).to eq(expected_path)
-    end
-  end
-
   context 'debian 7 32 bit' do
     before do
       node['platform'] = 'debian'
-      node['platform_version'] = '7.0.0'
+      node['platform_version'] = '7.11'
       node['platform_family'] = 'debian'
       node['kernel']['machine'] = 'i386'
     end
@@ -180,7 +124,7 @@ describe Opscode::OpenJDK do
   context 'debian 7 64 bit' do
     before do
       node['platform'] = 'debian'
-      node['platform_version'] = '7.0.0'
+      node['platform_version'] = '7.11'
       node['platform_family'] = 'debian'
       node['kernel']['machine'] = 'x86_64'
     end
@@ -240,7 +184,7 @@ describe Opscode::OpenJDK do
   context 'centos 6 32 bit' do
     before do
       node['platform'] = 'centos'
-      node['platform_version'] = '6.4'
+      node['platform_version'] = '6.8'
       node['platform_family'] = 'rhel'
       node['kernel']['machine'] = 'i386'
     end
@@ -260,7 +204,7 @@ describe Opscode::OpenJDK do
   context 'centos 6 64 bit' do
     before do
       node['platform'] = 'centos'
-      node['platform_version'] = '6.4'
+      node['platform_version'] = '6.8'
       node['platform_family'] = 'rhel'
       node['kernel']['machine'] = 'x86_64'
     end
