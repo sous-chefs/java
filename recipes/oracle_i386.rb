@@ -49,7 +49,7 @@ include_recipe 'java::set_java_home'
 
 yum_package 'glibc' do
   arch 'i686'
-  only_if { platform_family?('rhel', 'fedora') }
+  only_if { platform_family?('rhel', 'fedora', 'amazon') }
 end
 
 package 'tar'
