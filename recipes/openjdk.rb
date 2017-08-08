@@ -69,7 +69,7 @@ java_alternatives 'set-java-alternatives' do
     bin_cmds node['java']['jdk']['8']['bin_cmds']
   end
   action :set
-  only_if { platform_family?('debian', 'rhel', 'fedora') }
+  only_if { platform_family?('debian', 'rhel', 'fedora', 'amazon') }
 end
 
 if node['java']['set_default'] && platform_family?('debian')

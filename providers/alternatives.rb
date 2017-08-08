@@ -20,7 +20,7 @@ include Chef::Mixin::ShellOut
 action :set do
   if new_resource.bin_cmds
     # I couldn't find a way to cleanly avoid repeating this variable declaration in both :set and :unset
-    alternatives_cmd = node['platform_family'] == 'rhel' ? 'alternatives' : 'update-alternatives'
+    alternatives_cmd = node['platform_family'] == 'rhel' || node['platform_family'] == 'amazon' ? 'alternatives' : 'update-alternatives'
     new_resource.bin_cmds.each do |cmd|
       bin_path = "/usr/bin/#{cmd}"
       alt_path = "#{new_resource.java_location}/bin/#{cmd}"
@@ -80,7 +80,7 @@ end
 
 action :unset do
   # I couldn't find a way to cleanly avoid repeating this variable declaration in both :set and :unset
-  alternatives_cmd = node['platform_family'] == 'rhel' ? 'alternatives' : 'update-alternatives'
+  alternatives_cmd = node['platform_family'] == 'rhel' || node['platform_family'] == 'amazon' ? 'alternatives' : 'update-alternatives'
   new_resource.bin_cmds.each do |cmd|
     alt_path = "#{new_resource.java_location}/bin/#{cmd}"
     cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
