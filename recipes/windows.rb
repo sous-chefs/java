@@ -100,6 +100,7 @@ windows_package node['java']['windows']['package_name'] do
   source cache_file_path
   checksum node['java']['windows']['checksum']
   action :install
+  returns node['java']['windows']['returns']
   installer_type :custom
   options "/s #{additional_options}"
   notifies :write, 'log[jdk-version-changed]', :immediately
