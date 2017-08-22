@@ -1,13 +1,39 @@
-sudo: false
+sudo: required
 dist: trusty
+
 addons:
   apt:
     sources:
-    - chef-stable-trusty
+      - chef-current-trusty
     packages:
-    - chefdk
+      - chefdk
+
+# Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  matrix:
+  - INSTANCE=openjdk-6-ubuntu-1404
+  - INSTANCE=openjdk-6-amazonlinux 
+  - INSTANCE=openjdk-6-debian-7
+  - INSTANCE=openjdk-6-centos-6
+  - INSTANCE=openjdk-6-centos-7
+  - INSTANCE=openjdk-6-ubuntu-1404
+
 before_script:
-- eval "$(/opt/chefdk/bin/chef shell-init bash)"
-script:
-- "./travis-build.sh"
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+
+script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+      - "./travis-build.sh"
+      env: UNIT_LINT_AND_DEPLOY=1
