@@ -3,6 +3,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
 
 verifier:
   name: inspec
@@ -11,16 +12,18 @@ platforms:
   - name: amazon-linux
     driver_config:
       box: mvbcoding/awslinux
-  - name: ubuntu-16.04
-  - name: ubuntu-14.04
-  - name: debian-8.6
-  - name: debian-7.11
-  - name: centos-7.3
   - name: centos-6.9
-  - name: fedora-25
-  - name: freebsd-11.0
+  - name: centos-7.3
+  - name: debian-7.11
+  - name: debian-8.9
+  - name: debian-9.1
   - name: freebsd-10.3
-  - name: opensuse-leap-42.2
+  - name: freebsd-11.0
+  - name: fedora-26
+  - name: opensuse-leap-42.3
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+
 suites:
   - name: openjdk-6
     includes:
@@ -36,12 +39,12 @@ suites:
       - centos-6.9
       - centos-7.3
       - debian-7.11
-      - debian-8.6
+      - debian-8.9
       - ubuntu-14.04
       - ubuntu-16.04
       - freebsd-10.3
       - freebsd-11.0
-      - opensuse-leap-42.2
+      - opensuse-leap-42.3
       - amazon-linux
     run_list:
       - recipe[test_java::openjdk7]
@@ -52,7 +55,7 @@ suites:
       - centos-6.9
       - centos-7.3
       - fedora-25
-      - opensuse-leap-42.2
+      - opensuse-leap-42.3
       - amazon-linux
     run_list:
       - recipe[test_java::openjdk8]
@@ -72,7 +75,7 @@ suites:
     includes:
       - centos-6.9
       - centos-7.3
-      - fedora-25
+      - fedora-26
     run_list:
       - recipe[test_java::oracle_rpm8]
     verifier:
