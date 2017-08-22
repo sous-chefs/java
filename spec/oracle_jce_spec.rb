@@ -15,9 +15,9 @@ describe 'java::oracle_jce' do
     before do
       allow(::File).to receive(:read).and_call_original
       allow(::File).to receive(:read).with('c:/temp/jce/8/UnlimitedJCEPolicy8/local_policy.jar')
-        .and_return('local_policy.jar contents')
+                                     .and_return('local_policy.jar contents')
       allow(::File).to receive(:read).with('c:/temp/jce/8/UnlimitedJCEPolicy8/US_export_policy.jar')
-        .and_return('US_export_policy.jar contents')
+                                     .and_return('US_export_policy.jar contents')
     end
 
     it 'creates JCE zip file staging path' do
