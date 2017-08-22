@@ -18,9 +18,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :java_home, String
-property :keystore_path, String
-property :keystore_passwd, String
+property :java_home, String, default: lazy { node['java']['java_home'] }
+property :keystore_path, String, default: lazy { "#{node['java']['java_home']}/jre/lib/security/cacerts" }
+property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String
 property :cert_data, String
 property :cert_file, String
@@ -31,14 +31,9 @@ action :install do
   require 'openssl'
 
   java_home = new_resource.java_home
-  java_home = node['java']['java_home'] if java_home.nil?
   keytool = "#{java_home}/bin/keytool"
-
   truststore = new_resource.keystore_path
   truststore_passwd = new_resource.keystore_passwd
-
-  truststore = "#{node['java']['java_home']}/jre/lib/security/cacerts" if truststore.nil?
-  truststore_passwd = 'changeit' if truststore_passwd.nil?
 
   certalias = new_resource.cert_alias ? new_resource.cert_alias : new_resource.name
   certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
@@ -96,10 +91,6 @@ action :remove do
   certalias = new_resource.name
   truststore = new_resource.keystore_path
   truststore_passwd = new_resource.keystore_passwd
-
-  truststore = "#{node['java']['java_home']}/jre/lib/security/cacerts" if truststore.nil?
-  truststore_passwd = 'changeit' if truststore_passwd.nil?
-
   keytool = "#{node['java']['java_home']}/bin/keytool"
 
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep \"#{certalias}\"")
