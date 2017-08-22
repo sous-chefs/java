@@ -29,8 +29,7 @@ property :app_home, String
 property :app_home_mode, Integer, default: 0755
 property :bin_cmds, Array, default: []
 property :owner, String, default: 'root'
-# Will default to :owner if :group is not passed
-property :group, [String, nil], default: nil
+property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
 property :alternatives_priority, Integer, default: 1
 property :connect_timeout, Integer, default: 30 # => 30 seconds
@@ -43,11 +42,7 @@ action :install do
   app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
-  app_group = if new_resource.group
-                new_resource.group
-              else
-                new_resource.owner
-              end
+  app_group = new_resource.group
 
   if !new_resource.default && new_resource.use_alt_suffix
     Chef::Log.debug('processing alternate jdk')
