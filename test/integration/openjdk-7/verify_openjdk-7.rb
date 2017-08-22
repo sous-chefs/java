@@ -8,9 +8,11 @@ describe os_env('JAVA_HOME') do
   its('content') { should include 'java-1.7.0' }
 end
 
-# alternatives were properly set
-describe command('alternatives --display jar') do
-  its('stdout') { should include 'java-1.7.0' }
+unless os.bsd?
+  # alternatives were properly set
+  describe command('alternatives --display jar') do
+    its('stdout') { should include 'java-1.7.0' }
+  end
 end
 
 # the cert was installed into the keystore
