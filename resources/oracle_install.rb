@@ -55,7 +55,7 @@ action :install do
   directory app_root do
     owner new_resource.owner
     group app_group
-    mode app_home_mode
+    mode new_resource.app_home_mode
     recursive true
     action :nothing
   end.run_action(:create)
