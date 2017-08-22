@@ -1,6 +1,6 @@
 # the right version of java is installed
-describe command('java -version') do
-  its('stderr') { should include '1.6.0' }
+describe command('java -version 2>&1') do
+  its('stdout') { should include '1.6.0' }
 end
 
 # env is properly setup
