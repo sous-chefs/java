@@ -52,6 +52,7 @@ end
 node['java']['openjdk_packages'].each do |pkg|
   package pkg do
     version node['java']['openjdk_version'] if node['java']['openjdk_version']
+    options node['java']['openjdk_options'] if node['java']['openjdk_options']
     notifies :write, 'log[jdk-version-changed]', :immediately
   end
 end
