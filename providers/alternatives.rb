@@ -58,7 +58,6 @@ action :set do
             Chef::Application.fatal!(%( install alternative failed ))
           end
         end
-        new_resource.updated_by_last_action(true)
       end
 
       # set the alternative if default
@@ -73,7 +72,6 @@ action :set do
           Chef::Application.fatal!(%( set alternative failed ))
         end
       end
-      new_resource.updated_by_last_action(true)
     end
   end
 end
@@ -84,6 +82,6 @@ action :unset do
   new_resource.bin_cmds.each do |cmd|
     alt_path = "#{new_resource.java_location}/bin/#{cmd}"
     cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
-    new_resource.updated_by_last_action(true) if cmd.exitstatus == 0
+    converge_by("unset alternative for #{alternatives_cmd}") if cmd.exitstatus == 0
   end
 end
