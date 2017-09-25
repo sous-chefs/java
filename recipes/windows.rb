@@ -50,7 +50,7 @@ else
   ruby_block 'Enable Accessing cookies' do
     block do
       # Chef::REST became Chef::HTTP in chef 11
-      cookie_jar = Chef::REST::CookieJar if defined?(Chef::REST::CookieJar)
+      cookie_jar = Chef::REST::CookieJar if defined?(Chef::REST::CookieJar) # ~FC084
       cookie_jar = Chef::HTTP::CookieJar if defined?(Chef::HTTP::CookieJar)
 
       cookie_jar.instance["#{uri.host}:#{uri.port}"] = 'oraclelicense=accept-securebackup-cookie'

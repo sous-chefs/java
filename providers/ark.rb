@@ -179,7 +179,6 @@ action :install do
       # change ownership of extracted files
       FileUtils.chown_R new_resource.owner, app_group, app_dir
     end
-    new_resource.updated_by_last_action(true)
   end
 
   # set up .jinfo file for update-java-alternatives
@@ -203,7 +202,6 @@ action :install do
         action :create
       end
     end
-    new_resource.updated_by_last_action(true)
   end
 
   # link app_home to app_dir
@@ -254,6 +252,5 @@ action :remove do
       Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
       FileUtils.rm_rf app_dir
     end
-    new_resource.updated_by_last_action(true)
   end
 end
