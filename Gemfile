@@ -21,4 +21,3 @@ end
 group :kitchen_vagrant do
   gem 'kitchen-vagrant', '~> 1.2'
 end
-
