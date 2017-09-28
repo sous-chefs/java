@@ -26,6 +26,10 @@ describe 'java::set_attributes_from_version' do
       'java_home' => '/opt/local/java/sun6',
       'packages' => ['sun-jdk6', 'sun-jre6'],
     },
+    'opensuse-42.3' => {
+      'java_home' => '/usr/lib64/jvm/jre-1.6.0-openjdk',
+      'packages' => ['java-1_6_0-openjdk', 'java-1_6_0-openjdk-headless'],
+    },
     'windows-2008R2' => {
       'java_home' => nil,
       'packages' => [],
@@ -33,9 +37,7 @@ describe 'java::set_attributes_from_version' do
   }
 
   platforms.each do |platform, params|
-    parts = platform.split('-')
-    os = parts[0]
-    version = parts[1]
+    os, version = platform.split('-')
     context "On #{os} #{version}" do
       let(:chef_run) { ChefSpec::ServerRunner.new(version: version, platform: os).converge(described_recipe) }
 
