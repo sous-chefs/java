@@ -47,6 +47,9 @@ when 'debian'
 when 'smartos'
   node.default['java']['java_home'] = '/opt/local/java/sun6'
   node.default['java']['openjdk_packages'] = ["sun-jdk#{node['java']['jdk_version']}", "sun-jre#{node['java']['jdk_version']}"]
+when 'suse'
+  node.default['java']['java_home'] = "/usr/lib64/jvm/jre-1.#{node['java']['jdk_version']}.0-openjdk"
+  node.default['java']['openjdk_packages'] = ["java-1_#{node['java']['jdk_version']}_0-openjdk", "java-1_#{node['java']['jdk_version']}_0-openjdk-headless"]
 when 'windows'
   node.default['java']['java_home'] = nil
 else

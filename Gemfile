@@ -1,23 +1,23 @@
 source 'https://rubygems.org'
 
 group :rake do
-  gem 'rake'
+  gem 'rake', '~> 12.1'
 end
 
 group :lint do
-  gem 'foodcritic', '~> 9.0'
-  gem 'cookstyle', '~> 1.3'
+  gem 'foodcritic', '~> 11.4'
+  gem 'cookstyle', '~> 2.1'
 end
 
 group :unit do
-  gem 'berkshelf', '~> 5.6'
-  gem 'chefspec', '~> 5.4'
+  gem 'berkshelf', '~> 6.3'
+  gem 'chefspec', '~> 7.1'
 end
 
 group :kitchen_common do
-  gem 'test-kitchen', '~> 1.15'
+  gem 'test-kitchen', '~> 1.17'
 end
 
 group :kitchen_vagrant do
-  gem 'kitchen-vagrant', '~> 1.0'
+  gem 'kitchen-vagrant', '~> 1.2'
 end
