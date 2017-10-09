@@ -161,8 +161,9 @@ action :install do
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
+        FileUtils.mkdir_p "#{Chef::Config[:file_cache_path]}/#{app_dir_name}"
         cmd = shell_out(
-          %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
+          %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" --no-same-owner --strip-components=1)
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
