@@ -67,7 +67,7 @@ else
   end
 end
 
-if node['java'].attribute?('java_home')
+if node['java'].attribute?('java_home') && !node['java']['java_home'].nil?
   java_home_win = win_friendly_path(node['java']['java_home'])
   additional_options = if node['java']['jdk_version'] == '8'
                          # Seems that the jdk 8 EXE installer does not need anymore the /v /qn flags
