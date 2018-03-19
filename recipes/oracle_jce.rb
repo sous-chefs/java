@@ -19,8 +19,6 @@
 
 include_recipe 'java::set_attributes_from_version'
 
-arch = node['java']['arch']
-
 jdk_version = node['java']['jdk_version'].to_s
 jce_url = node['java']['oracle']['jce'][jdk_version]['url']
 jce_checksum = node['java']['oracle']['jce'][jdk_version]['checksum']
