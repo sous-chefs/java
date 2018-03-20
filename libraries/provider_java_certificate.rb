@@ -23,6 +23,8 @@ require 'openssl'
 require 'fileutils'
 
 class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
+  provides :java_certificate if defined?(provides)
+
   include Chef::Mixin::ShellOut
 
   use_inline_resources
