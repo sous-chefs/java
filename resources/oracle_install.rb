@@ -1,9 +1,10 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 # Cookbook:: java
-# Resource:: ark
+# Resource:: oracle_install
 #
 # Copyright:: 2011, Bryan w. Berry
+# Copyright:: 2017-2018, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,6 +38,7 @@ property :reset_alternatives, [true, false], default: true
 property :use_alt_suffix, [true, false], default: true
 property :download_timeout, Integer, default: 600 # => 600 seconds
 property :proxy, String
+property :accept_oracle_download_terms, [true, false], default: lazy { node['java']['oracle']['accept_oracle_download_terms'] }
 
 action :install do
   app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
@@ -241,7 +243,7 @@ action_class do
     download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
     cookie = 'oraclelicense=accept-securebackup-cookie'
     proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
-    if node['java']['oracle']['accept_oracle_download_terms']
+    if new_resource.accept_oracle_download_terms
       # install the curl package
       package 'curl' do
         action :nothing
@@ -255,7 +257,7 @@ action_class do
         )
       end
     else
-      Chef::Application.fatal!("You must set the attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
+      Chef::Application.fatal!("You must set the resource property 'accept_oracle_download_terms' or set the node attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
     end
   end
 end
