@@ -43,10 +43,9 @@ recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryp
   supports os
 end
 
-depends 'compat_resource'
 depends 'windows'
 depends 'homebrew'
 
 source_url 'https://github.com/agileorbit-cookbooks/java'
 issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+chef_version '>= 12.7' if respond_to?(:chef_version)

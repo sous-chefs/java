@@ -198,7 +198,7 @@ service 'somejavaservice' do
 end
 ```
 
-## Resources/Providers
+## Resources
 
 ### java_oracle_install
 
