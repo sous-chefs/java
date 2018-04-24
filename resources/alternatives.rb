@@ -32,12 +32,11 @@ action :set do
         next
       end
 
-      alternative_exists_same_prio = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path} | grep 'priority #{priority}$'").exitstatus == 0
+      alternative_exists_same_priority = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path} | grep 'priority #{priority}$'").exitstatus == 0
       alternative_exists = shell_out("#{alternatives_cmd} --display #{cmd} | grep #{alt_path}").exitstatus == 0
-      # remove alternative is prio is changed and install it with new prio
-      if alternative_exists && !alternative_exists_same_prio
-        description = "Removing alternative for #{cmd} with old prio"
-        converge_by(description) do
+      # remove alternative if priority is changed and install it with new priority
+      if alternative_exists && !alternative_exists_same_priority
+        converge_by("Removing alternative for #{cmd} with old priority") do
           Chef::Log.debug "Removing alternative for #{cmd} with old priority"
           remove_cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
           alternative_exists = false
@@ -48,8 +47,7 @@ action :set do
       end
       # install the alternative if needed
       unless alternative_exists
-        description = "Add alternative for #{cmd}"
-        converge_by(description) do
+        converge_by("Add alternative for #{cmd}") do
           Chef::Log.debug "Adding alternative for #{cmd}"
           if new_resource.reset_alternatives
             shell_out("rm /var/lib/alternatives/#{cmd}")
@@ -65,8 +63,7 @@ action :set do
       next unless new_resource.default
       alternative_is_set = shell_out("#{alternatives_cmd} --display #{cmd} | grep \"link currently points to #{alt_path}\"").exitstatus == 0
       next if alternative_is_set
-      description = "Set alternative for #{cmd}"
-      converge_by(description) do
+      converge_by("Set alternative for #{cmd}") do
         Chef::Log.debug "Setting alternative for #{cmd}"
         set_cmd = shell_out("#{alternatives_cmd} --set #{cmd} #{alt_path}")
         unless set_cmd.exitstatus == 0
