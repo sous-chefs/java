@@ -12,39 +12,38 @@ platforms:
   - name: amazon-linux
     driver_config:
       box: mvbcoding/awslinux
-  - name: centos-6.9
-  - name: centos-7.3
-  - name: debian-7.11
-  - name: debian-8.9
-  - name: debian-9.1
-  - name: freebsd-10.3
-  - name: freebsd-11.0
-  - name: fedora-26
-  - name: opensuse-leap-42.3
+  - name: centos-6
+  - name: centos-7
+  - name: debian-8
+  - name: debian-9
+  - name: freebsd-10
+  - name: freebsd-11
+  - name: fedora-27
+  - name: opensuse-leap-42
   - name: ubuntu-14.04
   - name: ubuntu-16.04
+  - name: ubuntu-18.04
 
 suites:
   - name: openjdk-6
     includes:
-      - centos-6.9
-      - centos-7.3
-      - debian-7.11
+      - centos-6
+      - centos-7
       - ubuntu-14.04
       - amazon-linux
     run_list:
       - recipe[test_java::openjdk6]
   - name: openjdk-7
     includes:
-      - centos-6.9
-      - centos-7.3
-      - debian-7.11
-      - debian-8.9
+      - centos-6
+      - centos-7
+      - debian-8
       - ubuntu-14.04
       - ubuntu-16.04
-      - freebsd-10.3
-      - freebsd-11.0
-      - opensuse-leap-42.3
+      - ubuntu-18.04
+      - freebsd-10
+      - freebsd-11
+      - opensuse-leap-42
       - amazon-linux
     run_list:
       - recipe[test_java::openjdk7]
@@ -52,10 +51,11 @@ suites:
     includes:
       - ubuntu-14.04
       - ubuntu-16.04
-      - centos-6.9
-      - centos-7.3
-      - fedora-25
-      - opensuse-leap-42.3
+      - ubuntu-18.04
+      - centos-6
+      - centos-7
+      - fedora-27
+      - opensuse-leap-42
       - amazon-linux
     run_list:
       - recipe[test_java::openjdk8]
@@ -73,9 +73,9 @@ suites:
       - recipe[test_java::openjdk_direct]
   - name: oracle-rpm-8
     includes:
-      - centos-6.9
-      - centos-7.3
-      - fedora-26
+      - centos-6
+      - centos-7
+      - fedora-27
     run_list:
       - recipe[test_java::oracle_rpm8]
     verifier:
