@@ -171,7 +171,7 @@ action :install do
 end
 
 action :remove do
-  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
+  app_dir_name, _tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
