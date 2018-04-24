@@ -1,11 +1,11 @@
 # the right version of java is installed
 describe command('java -version') do
-  its('stdout') { should include '1.8.0' }
+  its('stdout') { should match (/1\.8\.0/) }
 end
 
 # enables JAVA_HOME to be properly set with the java_home util
 describe command("/usr/libexec/java_home -v '1.8*'") do
-  its('stdout') { should include '1.8.0_' }
+  its('stdout') { should match (/1\.8\.0_/) }
 end
 
 # does not installs JCE
