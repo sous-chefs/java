@@ -29,7 +29,7 @@ describe 'java::oracle_rpm' do
 
     describe 'for RHEL' do
       let(:platform) { 'redhat' }
-      let(:version) { '6.5' }
+      let(:version) { '6.9' }
 
       it 'does not run bash command' do
         expect(chef_run).not_to run_bash('update-java-alternatives')

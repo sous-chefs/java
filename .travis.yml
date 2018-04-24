@@ -19,7 +19,7 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=openjdk-6-amazonlinux
+  - INSTANCE=openjdk-6-amazon-linux
   - INSTANCE=openjdk-6-centos-6
   - INSTANCE=openjdk-6-centos-7
   - INSTANCE=openjdk-6-ubuntu-1404

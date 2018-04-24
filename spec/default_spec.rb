@@ -23,7 +23,6 @@ describe 'java::default' do
   #      )
   #      runner.node.override['java']['windows']['url'] = 'http://example.com/windows-java.msi'
   #      runner.node.override['java']['java_home'] = 'C:/java'
-  #      runner.converge('windows::default',described_recipe)
   #    end
   #
   #    # Running the tests on non-Windows platforms will error in the Windows library,

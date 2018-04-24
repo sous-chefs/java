@@ -30,7 +30,7 @@ describe 'java::oracle' do
       let(:chef_run) do
         runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
-          version: '12.04'
+          version: '16.04'
         )
         runner.node.override['java']['java_home'] = '/some/path'
         runner.converge(described_recipe)
@@ -45,7 +45,7 @@ describe 'java::oracle' do
       let(:chef_run) do
         runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
-          version: '12.04'
+          version: '16.04'
         )
         runner.converge(described_recipe)
       end
@@ -61,7 +61,7 @@ describe 'java::oracle' do
       let(:chef_run) do
         ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
-          version: '12.04'
+          version: '16.04'
         ).converge(described_recipe)
       end
 
