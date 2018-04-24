@@ -43,11 +43,7 @@ action :install do
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
 
-  keystore_cert_digest = if keystore_cert.empty?
-                           nil
-                         else
-                           Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
-                         end
+  keystore_cert_digest = keystore_cert.empty? ? nil : Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
   certfile_digest = Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
   if keystore_cert_digest == certfile_digest
     Chef::Log.debug("Certificate \"#{certalias}\" in keystore \"#{truststore}\" is up-to-date.")
