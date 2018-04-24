@@ -2,26 +2,32 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## v1.51.0 - 06/02/2017
+## v2.0.0 - UNRELEASED
 
 - Converted alternatives, ark, and certificate LWRP/HWRPs to custom resources with improved logging and convergence notification.
-- Replaced apt cookbook with compat_resource. If you're running Chef >= 12.16 this will be a no-op during your chef run and you will instead use the built in apt resources instead of loading the apt cookbook.
-- Updated the metadata to resolve failures to parse chef_version on older chef-client releases.
+- Renamed the java_ark resource to java_oracle_install, which better represents what it does. The existing name will continue to function
+- Removed the need for the apt cookbook and instead require Chef 12.9+
 - Fixed Amazon Linux support on Chef 13+.
-- Added openSUSE leap support.
-- Updated the metadata license string to an SPDX compliant string to resolve Foodcritic warnings.
+- Fixed the alternatives commands on Fedora systems.
+- Added initial openSUSE leap support.
+- Updated code to use multi-package installs to speed up runs
+- Made the 'cert_alias' property in the certificate resource the name_property to allow users to avoid resource cloning and to be able to use friendly resource names
+- Moved the warning code for downloading directly from Oracle into the resource to prevent another resource showing as converged
+- Updated the metadata to resolve failures to parse chef_version on older chef-client releases.
 - Added installation of tar directly to the ark resource when uncompression .tar.gz files. This prevents installation in the recipe that occurred even if tar wasn't needed.
+- Deprecated the java::purge recipe which purged old Sun Java packages which were distributed in distro repos before the Oracle acquisition of Sun. Migration away from these packages occurred many years ago and this recipe will be removed in the next major release of this cookbook.
+- Updated the metadata license string to an SPDX compliant string to resolve Foodcritic warnings.
 - Removed Chef 10 compatibility code in the Windows recipe that resulted in Foodcritic warnings.
 - Removed logic to support paths on Debian < 7 and Ubuntu < 12.04 as these are both EOL.
-- Deprecated the java::purge recipe which purged old Sun Java packages which were distributed in distro repos before the Oracle acquisition of Sun. Migration away from these packages occurred many years ago and this recipe will be removed in the next major release of this cookbook.
 - Removed duplicate logging in the resources.
-- Fixed the alternatives command on Amazon Linux on Chef 13 and Fedora systems.
 - Converted integration tests from bats to InSpec.
 - Moved template files out of the default directory as
 - Corrected deprecation warnings in the ChefSpecs.
 - Moved all Kitchen testing logic to the test_java cookbook and eliminated the need for the apt & free_bsd bash cookbooks in testing
+- Don't try to create Chef's cache directory in the certificate resource.
 - Disabled certificate integration tests since we're not currently running the certificate resource in Test Kitchen.
 - Removed testing of Oracle JDK 6/7 since Oracle no longer allows directly downloading these releases.
+- Added kitchen-dokken based testing
 
 ## v1.50.0 - 05/24/2017
 
