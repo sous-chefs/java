@@ -21,7 +21,7 @@
 property :java_home, String, default: lazy { node['java']['java_home'] }
 property :keystore_path, String, default: lazy { "#{node['java']['java_home']}/jre/lib/security/cacerts" }
 property :keystore_passwd, String, default: 'changeit'
-property :cert_alias, String
+property :cert_alias, String, name_property: true
 property :cert_data, String
 property :cert_file, String
 property :ssl_endpoint, String
@@ -34,8 +34,7 @@ action :install do
   keytool = "#{java_home}/bin/keytool"
   truststore = new_resource.keystore_path
   truststore_passwd = new_resource.keystore_passwd
-
-  certalias = new_resource.cert_alias ? new_resource.cert_alias : new_resource.name
+  certalias = new_resource.cert_alias
   certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
 
   hash = Digest::SHA512.hexdigest(certdata)
