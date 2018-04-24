@@ -58,14 +58,7 @@ java_alternatives 'set-java-alternatives' do
   java_location jdk.java_home
   default node['java']['set_default']
   priority jdk.alternatives_priority
-  case node['java']['jdk_version'].to_s
-  when '6'
-    bin_cmds node['java']['jdk']['6']['bin_cmds']
-  when '7'
-    bin_cmds node['java']['jdk']['7']['bin_cmds']
-  when '8'
-    bin_cmds node['java']['jdk']['8']['bin_cmds']
-  end
+  bin_cmds node['java']['jdk']["#{node['java']['jdk_version']}"]['bin_cmds']
   action :set
   only_if { platform_family?('debian', 'rhel', 'fedora', 'amazon') }
 end
