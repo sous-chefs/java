@@ -3,11 +3,6 @@ describe command('java -version 2>&1') do
   its('stdout') { should match /1\.8/ }
 end
 
-# env is properly setup
-describe os_env('JAVA_HOME') do
-  its('content') { should match /java-1\.8\.0/ }
-end
-
 # alternatives were properly set
 describe command('alternatives --display jar') do
   its('stdout') { should match /java-1\.8\.0/ }

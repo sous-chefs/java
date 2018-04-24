@@ -19,12 +19,10 @@ platforms:
     image: dokken/amazonlinux
     pid_one_command: /sbin/init
 
-- name: debian-7
+- name: amazonlinux-2
   driver:
-    image: dokken/debian-7
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
+    image: dokken/amazonlinux-2
+    pid_one_command: /usr/lib/systemd/systemd
 
 - name: debian-8
   driver:
@@ -69,64 +67,14 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
 
+- name: ubuntu-18.04
+  driver:
+    image: dokken/ubuntu-18.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
 - name: opensuse-leap
   driver:
     image: dokken/opensuse-leap
     pid_one_command: /bin/systemd
-    
-
-suites:
-  - name: openjdk-6
-    includes:
-      - centos-6
-      - centos-7
-      - debian-7
-      - ubuntu-14.04
-      - amazonlinux
-    run_list:
-      - recipe[test_java::openjdk6]
-  - name: openjdk-7
-    includes:
-      - centos-6
-      - centos-7
-      - debian-7
-      - debian-8
-      - ubuntu-14.04
-      - ubuntu-16.04
-      - opensuse-leap
-      - amazonlinux
-    run_list:
-      - recipe[test_java::openjdk7]
-  - name: openjdk-8
-    includes:
-      - ubuntu-14.04
-      - ubuntu-16.04
-      - centos-6
-      - centos-7
-      - fedora-latest
-      - opensuse-leap
-      - amazon-linux
-    run_list:
-      - recipe[test_java::openjdk8]
-  - name: oracle-8
-    run_list:
-      - recipe[test_java::oracle8]
-  - name: oracle-direct
-    run_list:
-      - recipe[test_java::oracle_direct]
-    verifier:
-      inspec_tests:
-        - test/integration/oracle-8
-  - name: openjdk-direct
-    run_list:
-      - recipe[test_java::openjdk_direct]
-  - name: oracle-rpm-8
-    includes:
-      - centos-6
-      - centos-7
-      - fedora-latest
-    run_list:
-      - recipe[test_java::oracle_rpm8]
-    verifier:
-      inspec_tests:
-        - test/integration/oracle-8
