@@ -49,11 +49,9 @@ if node['platform'] == 'ubuntu'
   end
 end
 
-node['java']['openjdk_packages'].each do |pkg|
-  package pkg do
-    version node['java']['openjdk_version'] if node['java']['openjdk_version']
-    notifies :write, 'log[jdk-version-changed]', :immediately
-  end
+package node['java']['openjdk_packages'] do
+  version node['java']['openjdk_version'] if node['java']['openjdk_version']
+  notifies :write, 'log[jdk-version-changed]', :immediately
 end
 
 java_alternatives 'set-java-alternatives' do
