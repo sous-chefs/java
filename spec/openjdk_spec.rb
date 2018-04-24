@@ -2,17 +2,21 @@ require 'spec_helper'
 
 describe 'java::openjdk' do
   platforms = {
-    'debian-7.11' => {
+    'debian-8.10' => {
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
       'update_alts' => true,
     },
-    'centos-6.8' => {
+    'debian-9.1' => {
+      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'update_alts' => true,
+    },
+    'centos-6.9' => {
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
       'update_alts' => true,
     },
-    'smartos-joyent_20130111T180733Z' => {
-      'packages' => ['sun-jdk6', 'sun-jre6'],
-      'update_alts' => false,
+    'centos-7.4.1708' => {
+      'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
+      'update_alts' => true,
     },
   }
 
@@ -23,11 +27,9 @@ describe 'java::openjdk' do
     context "On #{os} #{version}" do
       let(:chef_run) { ChefSpec::SoloRunner.new(platform: os, version: version).converge(described_recipe) }
 
-      data['packages'].each do |pkg|
-        it "installs package #{pkg}" do
-          expect(chef_run).to install_package(pkg)
-          expect(chef_run.package(pkg)).to notify('log[jdk-version-changed]')
-        end
+      it "installs packages #{data['packages']}" do
+        expect(chef_run).to install_package(data['packages'])
+        expect(chef_run.package(data['packages'])).to notify('log[jdk-version-changed]')
       end
 
       it 'should include the notify recipe' do
@@ -49,7 +51,7 @@ describe 'java::openjdk' do
       let(:chef_run) do
         runner = ChefSpec::SoloRunner.new(
           platform: 'ubuntu',
-          version: '12.04'
+          version: '16.04'
         )
         runner.node.override['java']['java_home'] = '/some/path'
         runner.node.override['java']['openjdk_packages'] = %w(dummy stump)
@@ -89,51 +91,31 @@ describe 'java::openjdk' do
       end
     end
 
-    context 'smartos' do
-      let(:chef_run) do
-        ChefSpec::SoloRunner.new(platform: 'smartos', version: 'joyent_20130111T180733Z', evaluate_guards: true)
-      end
+    describe 'default-java' do
+      context 'ubuntu' do
+        let(:chef_run) do
+          ChefSpec::SoloRunner.new(
+            platform: 'ubuntu',
+            version: '16.04'
+          ).converge(described_recipe)
+        end
 
-      context 'when auto_accept_license is true' do
-        it 'writes out a license acceptance file' do
-          chef_run.node.override['java']['accept_license_agreement'] = true
-          expect(chef_run.converge(described_recipe)).to create_file('/opt/local/.dlj_license_accepted')
+        it 'includes default_java_symlink' do
+          expect(chef_run).to include_recipe('java::default_java_symlink')
         end
       end
 
-      context 'when auto_accept_license is false' do
-        it 'does not write license file' do
-          chef_run.node.override['java']['accept_license_agreement'] = false
-          expect(chef_run.converge(described_recipe)).not_to create_file('/opt/local/.dlj_license_accepted')
+      context 'centos' do
+        let(:chef_run) do
+          ChefSpec::SoloRunner.new(
+            platform: 'centos',
+            version: '6.8'
+          ).converge(described_recipe)
         end
-      end
-    end
-  end
 
-  describe 'default-java' do
-    context 'ubuntu' do
-      let(:chef_run) do
-        ChefSpec::SoloRunner.new(
-          platform: 'ubuntu',
-          version: '12.04'
-        ).converge(described_recipe)
-      end
-
-      it 'includes default_java_symlink' do
-        expect(chef_run).to include_recipe('java::default_java_symlink')
-      end
-    end
-
-    context 'centos' do
-      let(:chef_run) do
-        ChefSpec::SoloRunner.new(
-          platform: 'centos',
-          version: '6.8'
-        ).converge(described_recipe)
-      end
-
-      it 'does not include default_java_symlink' do
-        expect(chef_run).to_not include_recipe('java::default_java_symlink')
+        it 'does not include default_java_symlink' do
+          expect(chef_run).to_not include_recipe('java::default_java_symlink')
+        end
       end
     end
   end

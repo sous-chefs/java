@@ -5,7 +5,7 @@ end
 
 unless os.bsd?
   # alternatives were properly set
-  describe command('alternatives --display jar') do
-    its('stdout') { should match /java-1\.8\.0/ }
+  describe command('update-alternatives --display jar') do
+    its('stdout') { should match /\/usr\/lib\/jvm\/java-[1.]*8/ } # http://rubular.com/r/IhaUzfbHoC
   end
 end
