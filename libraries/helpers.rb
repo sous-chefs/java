@@ -19,7 +19,7 @@ require 'chef/version_constraint'
 require 'uri'
 require 'pathname'
 
-module Opscode
+module ChefCookbook
   class OpenJDK
     attr_accessor :java_home, :jdk_version
 

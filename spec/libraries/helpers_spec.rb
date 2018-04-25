@@ -18,7 +18,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
 require 'spec_helper'
 
-describe Opscode::OpenJDK do
+describe ChefCookbook::OpenJDK do
   let(:node) do
     {
       'java' => {
