@@ -5,7 +5,7 @@ end
 
 # alternatives were properly set
 describe command('alternatives --display jar') do
-  its('stdout') { should match /java-1\.8\.0/ }
+  its('stdout') { should match /\/usr\/lib\/jvm\/java\/bin\/jar/ }
 end
 
 # jce is setup properly
