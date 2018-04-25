@@ -4,7 +4,7 @@ describe command('java -version 2>&1') do
 end
 
 # alternatives were properly set
-describe command('alternatives --display jar') do
+describe command('update-alternatives --display jar') do
   its('stdout') { should match /\/usr\/lib\/jvm\/java\/bin\/jar/ }
 end
 
