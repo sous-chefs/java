@@ -36,6 +36,11 @@ env:
   # - INSTANCE=openjdk-8-ubuntu-1404 # error querying keystore for existing certificate
   - INSTANCE=openjdk-8-ubuntu-1604
   - INSTANCE=openjdk-8-ubuntu-1804
+  - INSTANCE=oracle-8-centos-6
+  - INSTANCE=oracle-8-centos-7
+  - INSTANCE=oracle-8-ubuntu-1404
+  - INSTANCE=oracle-8-ubuntu-1604
+  - INSTANCE=oracle-8-ubuntu-1804
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
