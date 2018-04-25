@@ -26,34 +26,36 @@ platforms:
 suites:
   - name: openjdk-6
     includes:
+      - amazon-linux
       - centos-6
       - centos-7
       - ubuntu-14.04
-      - amazon-linux
     run_list:
       - recipe[test_java::openjdk6]
   - name: openjdk-7
     includes:
+      - amazon-linux
       - centos-6
       - centos-7
       - debian-8
-      - ubuntu-14.04
-      - ubuntu-16.04
       - freebsd-11
       - opensuse-leap-42
-      - amazon-linux
+      - ubuntu-14.04
+      - ubuntu-16.04
     run_list:
       - recipe[test_java::openjdk7]
   - name: openjdk-8
     includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-9
+      - fedora-27
+      - freebsd-11
+      - opensuse-leap-42
       - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
-      - centos-6
-      - centos-7
-      - fedora-27
-      - opensuse-leap-42
-      - amazon-linux
     run_list:
       - recipe[test_java::openjdk8]
   - name: oracle-8

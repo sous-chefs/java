@@ -19,16 +19,23 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=openjdk-6-amazon-linux
+  #- INSTANCE=openjdk-6-amazon-linux
   - INSTANCE=openjdk-6-centos-6
   - INSTANCE=openjdk-6-centos-7
   - INSTANCE=openjdk-6-ubuntu-1404
-  - INSTANCE=openjdk-7-amazon-linux
-  - INSTANCE=openjdk-7-debian-8
+  #- INSTANCE=openjdk-7-amazon-linux
   - INSTANCE=openjdk-7-centos-6
   - INSTANCE=openjdk-7-centos-7
+  - INSTANCE=openjdk-7-debian-8
   - INSTANCE=openjdk-7-ubuntu-1404
   - INSTANCE=openjdk-7-ubuntu-1604
+  # - INSTANCE=openjdk-8-amazon-linux
+  - INSTANCE=openjdk-8-centos-6
+  - INSTANCE=openjdk-8-centos-7
+  - INSTANCE=openjdk-8-fedora-27
+  # - INSTANCE=openjdk-8-ubuntu-1404 # error querying keystore for existing certificate
+  - INSTANCE=openjdk-8-ubuntu-1604
+  - INSTANCE=openjdk-8-ubuntu-1804
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
