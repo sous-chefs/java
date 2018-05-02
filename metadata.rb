@@ -1,8 +1,8 @@
 name              'java'
-maintainer        'Agile Orbit'
-maintainer_email  'info@agileorbit.com'
+maintainer        'Sous Chefs'
+maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
-description       'Installs Java runtime.'
+description       'Recipes and resources for installing Java and managing certificates'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           '2.0.0'
 
@@ -46,6 +46,6 @@ end
 depends 'windows'
 depends 'homebrew'
 
-source_url 'https://github.com/agileorbit-cookbooks/java'
-issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
+source_url 'https://github.com/sous-chefs/java'
+issues_url 'https://github.com/sous-chefs/java/issues'
 chef_version '>= 12.9' if respond_to?(:chef_version)

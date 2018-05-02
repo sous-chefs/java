@@ -1,7 +1,7 @@
 #
 # Author:: Mevan Samaratunga (<mevansam@gmail.com>)
 # Author:: Michael Goetz (<mpgoetz@gmail.com>)
-# Cookbook:: java-libraries
+# Cookbook:: java
 # Resource:: certificate
 #
 # Copyright:: 2013, Mevan Samaratunga

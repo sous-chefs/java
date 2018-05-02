@@ -79,7 +79,6 @@ Chef 12.9+
 
 ### Cookbooks
 
-- compat_resource
 - homebrew
 - windows
 
@@ -351,12 +350,19 @@ Log into the IBM DeveloperWorks site to download a copy of the IBM Java SDK you 
 - Author: Eric Helgeson ([erichelgeson@gmail.com](mailto:erichelgeson@gmail.com))
 - Author: Tim Smith ([tsmith@chef.io](mailto:tsmith@chef.io))
 
-```text
 Copyright: 2014-2017, Agile Orbit, LLC
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 ```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+

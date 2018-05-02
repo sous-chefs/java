@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## v2.0.0 - UNRELEASED
+## v2.0.0 - (2018-05-02)
 
 - Converted alternatives, ark, and certificate LWRP/HWRPs to custom resources with improved logging and convergence notification.
 - Renamed the java_ark resource to java_oracle_install, which better represents what it does. The existing name will continue to function
