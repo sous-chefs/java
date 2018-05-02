@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## v2.0.1 - (2018-05-02)
+
+- Fix java_certificate and java_oracle_install to work on FIPS enabled systems
+
 ## v2.0.0 - (2018-05-02)
 
 - Converted alternatives, ark, and certificate LWRP/HWRPs to custom resources with improved logging and convergence notification.
