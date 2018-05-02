@@ -1,6 +1,6 @@
 # java cookbook
 
-[![travis-badge](https://travis-ci.org/agileorbit-cookbooks/java.svg)](https://travis-ci.org/agileorbit-cookbooks/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
+[![Build Status](https://travis-ci.org/sous-chefs/java.svg?branch=master)](https://travis-ci.org/sous-chefs/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
 
 This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle and IBM JDKs.
 
@@ -365,4 +365,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
