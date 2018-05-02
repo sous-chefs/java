@@ -1,9 +1,10 @@
 #
 # Author:: Bryan W. Berry (<bryan.berry@gmail.com>)
 # Cookbook:: java
-# Provider:: ark
+# Resource:: oracle_install
 #
 # Copyright:: 2011, Bryan w. Berry
+# Copyright:: 2017-2018, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,87 +18,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'uri'
-require 'chef/mixin/shell_out'
-include Chef::Mixin::ShellOut
+# backwards compatibility with the old name
+provides :java_oracle_install
+provides :java_ark
 
-def whyrun_supported?
-  true
-end
-
-def parse_app_dir_name(url)
-  uri = URI.parse(url)
-  file_name = uri.path.split('/').last
-  # funky logic to parse oracle's non-standard naming convention
-  # for jdk1.6
-  if file_name =~ /^(jre|jdk|server-jre).*$/
-    major_num = file_name.scan(/\d/)[0]
-    update_token = file_name.scan(/u(\d+)/)[0]
-    update_num = update_token ? update_token[0] : '0'
-    # pad a single digit number with a zero
-    update_num = '0' + update_num if update_num.length < 2
-    package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
-    app_dir_name = if update_num == '00'
-                     "#{package_name}1.#{major_num}.0"
-                   else
-                     "#{package_name}1.#{major_num}.0_#{update_num}"
-                   end
-  else
-    app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
-    app_dir_name = app_dir_name.split('-bin')[0]
-  end
-  [app_dir_name, file_name]
-end
-
-def oracle_downloaded?(download_path, new_resource)
-  if ::File.exist? download_path
-    require 'digest'
-    if new_resource.checksum =~ /^[0-9a-f]{32}$/
-      downloaded_md5 =  Digest::MD5.file(download_path).hexdigest
-      downloaded_md5 == new_resource.checksum
-    else
-      downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
-      downloaded_sha == new_resource.checksum
-    end
-  else
-    false
-  end
-end
-
-def download_direct_from_oracle(tarball_name, new_resource)
-  download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
-  cookie = 'oraclelicense=accept-securebackup-cookie'
-  proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
-  if node['java']['oracle']['accept_oracle_download_terms']
-    # install the curl package
-    p = package 'curl for download_direct_from_oracle' do
-      package_name 'curl'
-      action :nothing
-    end
-    # no converge_by block since the package provider will take care of this run_action
-    p.run_action(:install)
-    description = 'download oracle tarball straight from the server'
-    converge_by(description) do
-      Chef::Log.debug 'downloading oracle tarball straight from the source'
-      shell_out!(
-        %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
-                                 timeout: new_resource.download_timeout
-      )
-    end
-  else
-    Chef::Application.fatal!("You must set the attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
-  end
-end
+property :url, String
+property :mirrorlist, Array, default: []
+property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
+property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
+property :app_home, String
+property :app_home_mode, Integer, default: 0755
+property :bin_cmds, Array, default: []
+property :owner, String, default: 'root'
+property :group, String, default: lazy { node['root_group'] }
+property :default, [true, false], default: true
+property :alternatives_priority, Integer, default: 1
+property :connect_timeout, Integer, default: 30 # => 30 seconds
+property :reset_alternatives, [true, false], default: true
+property :use_alt_suffix, [true, false], default: true
+property :download_timeout, Integer, default: 600 # => 600 seconds
+property :proxy, String
+property :accept_oracle_download_terms, [true, false], default: lazy { node['java']['oracle']['accept_oracle_download_terms'] }
 
 action :install do
   app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
-  app_group = if new_resource.group
-                new_resource.group
-              else
-                new_resource.owner
-              end
+  app_group = new_resource.group
 
   if !new_resource.default && new_resource.use_alt_suffix
     Chef::Log.debug('processing alternate jdk')
@@ -107,42 +54,36 @@ action :install do
     app_home = new_resource.app_home
   end
 
+  directory app_root do
+    owner new_resource.owner
+    group app_group
+    mode new_resource.app_home_mode
+    recursive true
+    action :nothing
+  end.run_action(:create)
+
   unless ::File.exist?(app_dir)
-    Chef::Log.info "Adding #{new_resource.name} to #{app_dir}"
-    require 'fileutils'
-
-    unless ::File.exist?(app_root)
-      description = "create dir #{app_root} and change owner to #{new_resource.owner}:#{app_group}"
-      converge_by(description) do
-        FileUtils.mkdir_p app_root, mode: new_resource.app_home_mode
-        FileUtils.chown new_resource.owner, app_group, app_root
-      end
-    end
-
     if new_resource.url =~ /oracle\.com.*$/
       download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
       if oracle_downloaded?(download_path, new_resource)
         Chef::Log.debug('oracle tarball already downloaded, not downloading again')
       else
+        Chef::Log.warn('Downloading directly from Oracle is unreliable as artifacts have been removed in the past. Change download url.')
         download_direct_from_oracle tarball_name, new_resource
       end
     else
       Chef::Log.debug('downloading tarball from an unofficial repository')
-      r = remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+      remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
         retries new_resource.retries
         retry_delay new_resource.retry_delay
         mode '0755'
         action :nothing
-      end
-      # no converge by on run_action remote_file takes care of it.
-      r.run_action(:create_if_missing)
+      end.run_action(:create_if_missing)
     end
 
-    description = "extract compressed data into Chef file cache path and
-                    move extracted data to #{app_dir}"
-    converge_by(description) do
+    converge_by("extract compressed data into Chef file cache path and move extracted data to #{app_dir}") do
       case tarball_name
       when /^.*\.bin/
         cmd = shell_out(
@@ -161,6 +102,11 @@ action :install do
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
         end
       when /^.*\.(tar.gz|tgz)/
+        package 'tar' do
+          not_if { platform_family?('mac_os_x', 'windows') }
+          action :nothing
+        end.run_action(:install)
+
         cmd = shell_out(
           %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
@@ -179,16 +125,13 @@ action :install do
       # change ownership of extracted files
       FileUtils.chown_R new_resource.owner, app_group, app_dir
     end
-    new_resource.updated_by_last_action(true)
   end
 
   # set up .jinfo file for update-java-alternatives
   java_name =  app_home.split('/')[-1]
   jinfo_file = "#{app_root}/.#{java_name}.jinfo"
   if platform_family?('debian') && !::File.exist?(jinfo_file)
-    description = "Add #{jinfo_file} for debian"
-    converge_by(description) do
-      Chef::Log.debug "Adding #{jinfo_file} for debian"
+    converge_by("Add #{jinfo_file} for debian") do
       template jinfo_file do
         cookbook 'java'
         source 'oracle.jinfo.erb'
@@ -200,19 +143,16 @@ action :install do
           name: java_name,
           app_dir: app_home
         )
-        action :create
-      end
+        action :nothing
+      end.run_action(:create)
     end
-    new_resource.updated_by_last_action(true)
   end
 
   # link app_home to app_dir
   Chef::Log.debug "app_home is #{app_home} and app_dir is #{app_dir}"
   current_link = ::File.symlink?(app_home) ? ::File.readlink(app_home) : nil
   if current_link != app_dir
-    description = "Symlink #{app_dir} to #{app_home}"
-    converge_by(description) do
-      Chef::Log.debug "Symlinking #{app_dir} to #{app_home}"
+    converge_by("symlink #{app_dir} to #{app_home}") do
       FileUtils.rm_f app_home
       FileUtils.ln_sf app_dir, app_home
       FileUtils.chown new_resource.owner, app_group, app_home
@@ -231,7 +171,7 @@ action :install do
 end
 
 action :remove do
-  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
+  app_dir_name, _tarball_name = parse_app_dir_name(new_resource.url)
   app_root = new_resource.app_home.split('/')[0..-2].join('/')
   app_dir = app_root + '/' + app_dir_name
 
@@ -249,11 +189,75 @@ action :remove do
       bin_cmds new_resource.bin_cmds
       action :unset
     end
-    description = "remove #{new_resource.name} at #{app_dir}"
-    converge_by(description) do
+
+    converge_by("remove #{new_resource.name} at #{app_dir}") do
       Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
       FileUtils.rm_rf app_dir
     end
-    new_resource.updated_by_last_action(true)
+  end
+end
+
+action_class do
+  require 'uri'
+
+  def parse_app_dir_name(url)
+    uri = URI.parse(url)
+    file_name = uri.path.split('/').last
+    # funky logic to parse oracle's non-standard naming convention
+    # for jdk1.6
+    if file_name =~ /^(jre|jdk|server-jre).*$/
+      major_num = file_name.scan(/\d/)[0]
+      update_token = file_name.scan(/u(\d+)/)[0]
+      update_num = update_token ? update_token[0] : '0'
+      # pad a single digit number with a zero
+      update_num = '0' + update_num if update_num.length < 2
+      package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
+      app_dir_name = if update_num == '00'
+                       "#{package_name}1.#{major_num}.0"
+                     else
+                       "#{package_name}1.#{major_num}.0_#{update_num}"
+                     end
+    else
+      app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
+      app_dir_name = app_dir_name.split('-bin')[0]
+    end
+    [app_dir_name, file_name]
+  end
+
+  def oracle_downloaded?(download_path, new_resource)
+    if ::File.exist? download_path
+      require 'digest'
+      if new_resource.checksum =~ /^[0-9a-f]{32}$/
+        downloaded_md5 =  Digest::MD5.file(download_path).hexdigest
+        downloaded_md5 == new_resource.checksum
+      else
+        downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
+        downloaded_sha == new_resource.checksum
+      end
+    else
+      false
+    end
+  end
+
+  def download_direct_from_oracle(tarball_name, new_resource)
+    download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+    cookie = 'oraclelicense=accept-securebackup-cookie'
+    proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
+    if new_resource.accept_oracle_download_terms
+      # install the curl package
+      package 'curl' do
+        action :nothing
+      end.run_action(:install)
+
+      converge_by('download oracle tarball straight from the server') do
+        Chef::Log.debug 'downloading oracle tarball straight from the source'
+        shell_out!(
+          %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
+                                   timeout: new_resource.download_timeout
+        )
+      end
+    else
+      Chef::Application.fatal!("You must set the resource property 'accept_oracle_download_terms' or set the node attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
+    end
   end
 end
