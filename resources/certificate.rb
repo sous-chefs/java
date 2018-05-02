@@ -27,7 +27,6 @@ property :cert_file, String
 property :ssl_endpoint, String
 
 action :install do
-  require 'digest/sha2'
   require 'openssl'
 
   java_home = new_resource.java_home
@@ -37,14 +36,14 @@ action :install do
   certalias = new_resource.cert_alias
   certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
 
-  hash = Digest::SHA512.hexdigest(certdata)
+  hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
   certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -rfc -alias \"#{certalias}\"")
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
 
-  keystore_cert_digest = keystore_cert.empty? ? nil : Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
-  certfile_digest = Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
+  keystore_cert_digest = keystore_cert.empty? ? nil : OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
+  certfile_digest = OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
   if keystore_cert_digest == certfile_digest
     Chef::Log.debug("Certificate \"#{certalias}\" in keystore \"#{truststore}\" is up-to-date.")
   else

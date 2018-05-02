@@ -226,12 +226,12 @@ action_class do
 
   def oracle_downloaded?(download_path, new_resource)
     if ::File.exist? download_path
-      require 'digest'
+      require 'openssl'
       if new_resource.checksum =~ /^[0-9a-f]{32}$/
-        downloaded_md5 =  Digest::MD5.file(download_path).hexdigest
+        downloaded_md5 =  OpenSSL::Digest::MD5.file(download_path).hexdigest
         downloaded_md5 == new_resource.checksum
       else
-        downloaded_sha =  Digest::SHA256.file(download_path).hexdigest
+        downloaded_sha =  OpenSSL::Digest::SHA256.file(download_path).hexdigest
         downloaded_sha == new_resource.checksum
       end
     else
