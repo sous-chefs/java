@@ -23,7 +23,6 @@ property :jce_cookie, String, default: lazy { node['java']['oracle']['accept_ora
 property :principal, String, default: lazy { platform_family?('windows') ? node['java']['windows']['owner'] : 'administrator' }
 
 action :install do
-
   jdk_version = new_resource.jdk_version
   jce_url = new_resource.jce_url
   jce_checksum = new_resource.jce_checksum
@@ -102,5 +101,4 @@ action :install do
       end
     end
   end
-
 end
