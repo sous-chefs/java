@@ -302,6 +302,49 @@ java_certificate "Install LDAP server certificate to Java CA keystore for Jenkin
 end
 ```
 
+### java_jce
+
+This cookbook contains the `java_jce` resource, which installs the Java Cryptography Extension (JCE) policy files for a given Java installation.  It defaults to installing the JCE files into the Java location defined by cookbook attributes, but it can be customized to install to arbitrary Java locations.  Please note that if `node['java']['oracle']['jce']['enabled']` is set to true, this custom resource will be run automatically.
+
+### Actions
+
+- `:install`: Installs the JCE policy files.
+
+### Attribute Parameters
+
+No attributes are required by this resource.
+
+Optional parameters:
+
+- `jdk_version`: The Java version to install into. Defaults to `node['java']['jdk_version']`.
+- `jce_url`: The URL for the JCE distribution. Defaults to `node['java']['oracle']['jce'][jdk_version]['url']`.
+- `jce_checksum`: The checksum of the JCE distribution. Defaults to `node['java']['oracle']['jce'][jdk_version]['checksum']`.
+- `jce_cookie`: Indicates that you accept Oracle's EULA. Defaults to the value of `node['java']['oracle']['accept_oracle_download_terms']`.
+- `jce_home`: The location where JCE files will be decompressed for installation.  Defaults to `node['java']['oracle']['jce']['home']`.
+- `java_home`: The location of the Java installation.. Defaults to `node['java']['java_home']`.
+- `principal`: For Windows installations only, this determines the owner of the JCE files. Defaults to `node['java']['windows']['owner']`.
+
+### Examples
+
+``` ruby
+# Install the JCE for the default Java installation:
+java_jce  "Install the JCE files" do
+end
+
+# Install the JCE for a Java installation in /opt/tools/jdk8:
+java_jce "Install the JCE files" do
+  java_home "/opt/tools/jdk8"
+end
+
+# Install the JCE for a Java 8 installation in /opt/tools/java using a custom download location:
+java_jce "Install the JCE files" do
+  java_home "/opt/tools/java"
+  jdk_version "8"
+  jce_url "https://artifacts/path/to/jce/policy.zip"
+  jce_checksum "deadbeefcafe..."
+end
+```
+
 ## Recommendations for inclusion in community cookbooks
 
 This cookbook is a dependency for many other cookbooks in the Java/Chef sphere. Here are some guidelines for including it into other cookbooks:
@@ -365,3 +408,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
