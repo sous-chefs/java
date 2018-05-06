@@ -1,12 +1,21 @@
-Contributing
-============
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. [**Add tests!**](https://github.com/agileorbit-cookbooks/java/blob/master/TESTING.md)
-5. Push to the branch (`git push origin my-new-feature`)
-6. Create new Pull Request
+# Contributing
 
-As this cookbook is no longer maintained by Chef, you **do not** need to sign any sort of contributor agreement. Simply make your change and open a pull request.
+## Branches
 
-Contributions will only be accepted if they are fully tested as specified in [TESTING.md](https://github.com/agileorbit-cookbooks/java/blob/master/TESTING.md)
+### `master` branch
+
+The master branch is the current committed changes. These changes may not yet be released although we try to release often.
+
+## Tags
+
+All releases are tagged in git. To see the releases available to you see the changelog or the tags directly.
+
+## Pull requests
+
+- <https://github.com/sous-chefs/java/pulls>
+
+## Issues
+
+Need to report an issue? Use the github issues:
+
+- <https://github.com/sous-chefs/java/issues>

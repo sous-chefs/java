@@ -19,7 +19,7 @@ require 'chef/version_constraint'
 require 'uri'
 require 'pathname'
 
-module Opscode
+module ChefCookbook
   class OpenJDK
     attr_accessor :java_home, :jdk_version
 
@@ -59,9 +59,9 @@ module Opscode
     def openjdk_path
       case @node['platform_family']
       when 'debian'
-        'java-%s-openjdk%s/jre' % [@jdk_version, arch_dir]
-      when 'rhel', 'fedora'
-        'jre-1.%s.0-openjdk%s' % [@jdk_version, arch_dir]
+        format('java-%s-openjdk%s/jre', @jdk_version, arch_dir)
+      when 'rhel', 'fedora', 'amazon'
+        format('jre-1.%s.0-openjdk%s', @jdk_version, arch_dir)
       else
         'jre'
       end
@@ -75,7 +75,7 @@ module Opscode
       case @node['platform_family']
       when 'debian'
         '-amd64'
-      when 'rhel', 'fedora'
+      when 'rhel', 'fedora', 'amazon'
         '.x86_64'
       else
         '-x86_64'

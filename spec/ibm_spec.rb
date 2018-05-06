@@ -6,7 +6,7 @@ describe 'java::ibm' do
   end
 
   let(:chef_run) do
-    runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
+    runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
     runner.node.override['java']['install_flavor'] = 'ibm'
     runner.node.override['java']['ibm']['url'] = 'http://example.com/ibm-java.bin'
     runner.node.override['java']['ibm']['checksum'] = 'deadbeef'
@@ -46,7 +46,7 @@ describe 'java::ibm' do
 
   context 'install on ubuntu' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
+      runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
       runner.node.override['java']['install_flavor'] = 'ibm'
       runner.node.override['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.override['java']['ibm']['accept_ibm_download_terms'] = true
@@ -68,7 +68,7 @@ describe 'java::ibm' do
 
   context 'install on centos' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8')
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8')
       runner.node.override['java']['install_flavor'] = 'ibm'
       runner.node.override['java']['ibm']['checksum'] = 'deadbeef'
       runner.node.override['java']['ibm']['accept_ibm_download_terms'] = true

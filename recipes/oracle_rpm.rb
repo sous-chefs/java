@@ -54,7 +54,7 @@ package_name = node['java']['oracle_rpm']['package_name'] || node['java']['oracl
 package package_name do
   action :install
   version node['java']['oracle_rpm']['package_version'] if node['java']['oracle_rpm']['package_version']
-  notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('rhel', 'fedora') && node['java']['set_default']
+  notifies :run, 'bash[update-java-alternatives]', :immediately if platform_family?('rhel', 'fedora', 'amazon') && node['java']['set_default']
   notifies :write, 'log[jdk-version-changed]', :immediately
 end
 
