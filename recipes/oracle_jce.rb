@@ -83,7 +83,9 @@ else
   end
 
   %w(local_policy.jar US_export_policy.jar).each do |jar|
-    jar_path = ::File.join(node['java']['java_home'], 'jre', 'lib', 'security', jar)
+    # fixes path issues as the jre folder is not present for jre zip installation
+    jre = node['java']['install_type'] == 'jdk' ? 'jre' : ''
+    jar_path = ::File.join(node['java']['java_home'], jre, 'lib', 'security', jar)
     # remove the jars already in the directory
     file jar_path do
       action :delete
