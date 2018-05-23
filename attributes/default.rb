@@ -129,22 +129,21 @@ default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extch
                                              rmic rmid rmiregistry schemagen serialver servertool tnameserv
                                              unpack200 wsgen wsimport xjc)
 
-# Oracle just started publishing SHA256 checksums for Java releases with 8u51, so we use MD5 instead.
-# Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u60checksum.html
+# Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u172checksum.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = '62b215bdfb48bace523723cdbb2157c665e6a25429c73828a32f00e587301236'
+default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = '28a00b9400b6913563553e09e8024c286b506d8523334c93ddec6c9ec7e9d346'
 
 # i586
-default['java']['jdk']['8']['i586']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-i586.tar.gz'
-default['java']['jdk']['8']['i586']['checksum'] = '2012d1c82f74bf830a80dfb5462f555b22271f74e4fc4a5779c7f459dcd0cabf'
+default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-i586.tar.gz'
+default['java']['jdk']['8']['i586']['checksum'] = '0a4310d31246924d5c3cd161b9da7f446acef373e6484452c80de8d8519f5a33'
 
 default['java']['oracle']['jce']['enabled'] = false
 default['java']['oracle']['jce']['8']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
 default['java']['oracle']['jce']['8']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
-default['java']['oracle']['jce']['7']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip'
-default['java']['oracle']['jce']['7']['checksum'] = '7a8d790e7bd9c2f82a83baddfae765797a4a56ea603c9150c87b7cdb7800194d'
-default['java']['oracle']['jce']['6']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce_policy/6/jce_policy-6.zip'
-default['java']['oracle']['jce']['6']['checksum'] = 'd0c2258c3364120b4dbf7dd1655c967eee7057ac6ae6334b5ea8ceb8bafb9262'
+default['java']['oracle']['jce']['7']['url'] = 'http://ORACLE_HAS_REMOVED_THESE_FILES.SELF_HOST_THEM_INSTEAD'
+default['java']['oracle']['jce']['7']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FILE'
+default['java']['oracle']['jce']['6']['url'] = 'http://ORACLE_HAS_REMOVED_THESE_FILES.SELF_HOST_THEM_INSTEAD'
+default['java']['oracle']['jce']['6']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FILE'
 default['java']['oracle']['jce']['home'] = '/opt/java_jce'
