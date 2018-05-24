@@ -151,6 +151,8 @@ default['java']['jdk']['10']['bin_cmds'] = %w(appletviewer jar javac javapackage
                                               wsimport)
 
 default['java']['oracle']['jce']['enabled'] = false
+default['java']['oracle']['jce']['10']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
+default['java']['oracle']['jce']['10']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
 default['java']['oracle']['jce']['8']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
 default['java']['oracle']['jce']['8']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
 default['java']['oracle']['jce']['7']['url'] = 'http://ORACLE_HAS_REMOVED_THESE_FILES.SELF_HOST_THEM_INSTEAD'
