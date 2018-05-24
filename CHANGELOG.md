@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## [UNRELEASED]
+### Updated
+- Update oracle recipe to not perform a switch on java major version and instead
+use the version provided in attributes. This allows end users to include new Java
+versions without the cookbook requiring an update each time a major version gets
+released
+- Updated the oracle_install resource to pick up semantic versioning that Oracle
+has started using for Java 10+
+- Updated the default attributes file to include x86_64 endpoint and checksum for
+Oracle Java 10. The i586 version is not (yet) available. 
+
 ## v2.0.1 - (2018-05-02)
 
 - Fix java_certificate and java_oracle_install to work on FIPS enabled systems

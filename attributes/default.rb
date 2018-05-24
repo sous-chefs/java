@@ -136,6 +136,20 @@ default['java']['jdk']['8']['x86_64']['checksum'] = '28a00b9400b6913563553e09e80
 default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/jdk-8u172-linux-i586.tar.gz'
 default['java']['jdk']['8']['i586']['checksum'] = '0a4310d31246924d5c3cd161b9da7f446acef373e6484452c80de8d8519f5a33'
 
+# x86_64
+default['java']['jdk']['10']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/10.0.1+10/fb4372174a714e6b8c52526dc134031e/jdk-10.0.1_linux-x64_bin.tar.gz'
+default['java']['jdk']['10']['x86_64']['checksum'] = 'ae8ed645e6af38432a56a847597ac61d4283b7536688dbab44ab536199d1e5a4'
+
+# i586
+default['java']['jdk']['10']['i586']['url'] = 'NOT YET AVAILABLE'
+default['java']['jdk']['10']['i586']['checksum'] = 'NOT YET AVAILABLE'
+
+default['java']['jdk']['10']['bin_cmds'] = %w(appletviewer jar javac javapackager jconsole jdeprscan jimage jlink jmod
+                                              jshell jstatd orbd rmid serialver unpack200 xjc idlj jarsigner javadoc javaws
+                                              jcontrol jdeps jinfo jmap jps jstack jweblauncher pack200 rmiregistry servertool wsgen
+                                              jaotc java javap jcmd jdb jhsdb jjs jmc jrunscript  jstat keytool rmic schemagen tnameserv
+                                              wsimport)
+
 default['java']['oracle']['jce']['enabled'] = false
 default['java']['oracle']['jce']['8']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
 default['java']['oracle']['jce']['8']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
