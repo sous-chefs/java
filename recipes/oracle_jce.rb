@@ -38,13 +38,18 @@ r = remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
   not_if { ::File.exist?(::File.join(node['java']['oracle']['jce']['home'], jdk_version, 'US_export_policy.jar')) }
 end
 
+# fixes path issues as the jre folder is not present for jre installation
+jre = node['java']['install_type'] == 'jdk' ? 'jre' : ''
+
 if node['os'] == 'windows'
   include_recipe 'windows'
 
   staging_path = ::File.join(node['java']['oracle']['jce']['home'], jdk_version)
-  staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
-  staging_export_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'US_export_policy.jar')
-  jre_final_path = ::File.join(node['java']['java_home'], 'jre', 'lib', 'security')
+  # JCE policy for Java version less than 8 does not have the JDK#{jdk_version} name
+  policy_path = jdk_version.to_i >= 8 ? "UnlimitedJCEPolicyJDK#{jdk_version}" : 'UnlimitedJCEPolicy'
+  staging_local_policy = ::File.join(staging_path, policy_path, 'local_policy.jar')
+  staging_export_policy = ::File.join(staging_path, policy_path, 'US_export_policy.jar')
+  jre_final_path = ::File.join(node['java']['java_home'], jre, 'lib', 'security')
   final_local_policy = ::File.join(jre_final_path, 'local_policy.jar')
   final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
 
@@ -83,8 +88,6 @@ else
   end
 
   %w(local_policy.jar US_export_policy.jar).each do |jar|
-    # fixes path issues as the jre folder is not present for jre zip installation
-    jre = node['java']['install_type'] == 'jdk' ? 'jre' : ''
     jar_path = ::File.join(node['java']['java_home'], jre, 'lib', 'security', jar)
     # remove the jars already in the directory
     file jar_path do

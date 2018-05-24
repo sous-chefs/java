@@ -49,12 +49,10 @@ include_recipe 'java::set_java_home'
 
 yum_package 'glibc' do
   arch 'i686'
-  only_if { platform_family?('rhel', 'fedora') }
+  only_if { platform_family?('rhel', 'fedora', 'amazon') }
 end
 
-package 'tar'
-
-java_ark 'jdk-alt' do
+java_oracle_install 'jdk-alt' do
   url tarball_url
   default node['java']['set_default']
   checksum tarball_checksum
