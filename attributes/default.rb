@@ -147,7 +147,7 @@ default['java']['jdk']['10']['i586']['checksum'] = 'NOT YET AVAILABLE'
 default['java']['jdk']['10']['bin_cmds'] = %w(appletviewer jar javac javapackager jconsole jdeprscan jimage jlink jmod
                                               jshell jstatd orbd rmid serialver unpack200 xjc idlj jarsigner javadoc javaws
                                               jcontrol jdeps jinfo jmap jps jstack jweblauncher pack200 rmiregistry servertool wsgen
-                                              jaotc java javap jcmd jdb jhsdb jjs jmc jrunscript  jstat keytool rmic schemagen tnameserv
+                                              jaotc java javap jcmd jdb jhsdb jjs jmc jrunscript jstat keytool rmic schemagen tnameserv
                                               wsimport)
 
 default['java']['oracle']['jce']['enabled'] = false
