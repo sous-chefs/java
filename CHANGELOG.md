@@ -2,17 +2,14 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## [UNRELEASED]
-### Updated
+## 2.1.0 - (2018-05-25)
+
 - Added Java 10 JCE attributes to default attrs
-- Update oracle recipe to not perform a switch on java major version and instead
-use the version provided in attributes. This allows end users to include new Java
-versions without the cookbook requiring an update each time a major version gets
-released
-- Updated the oracle_install resource to pick up semantic versioning that Oracle
-has started using for Java 10+
-- Updated the default attributes file to include x86_64 endpoint and checksum for
-Oracle Java 10. The i586 version is not (yet) available.
+- Update oracle recipeM to not perform a switch on java major version and instead use the version provided in attributes. This allows end users to include new Java versions without the cookbook requiring an update each time a major version gets released
+- Updated the oracle_install resource to pick up semantic versioning that Oracle has started using for Java 10+
+- Updated the default attributes file to include x86_64 endpoint and checksum for Oracle Java 10\. The i586 version is not (yet) available.
+- Fix JCE installation on Windows
+- Avoid EmptyWindowsCommand error on Windows
 
 ## v2.0.1 - (2018-05-02)
 
