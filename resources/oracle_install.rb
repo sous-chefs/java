@@ -206,17 +206,26 @@ action_class do
     # funky logic to parse oracle's non-standard naming convention
     # for jdk1.6
     if file_name =~ /^(jre|jdk|server-jre).*$/
-      major_num = file_name.scan(/\d/)[0]
-      update_token = file_name.scan(/u(\d+)/)[0]
-      update_num = update_token ? update_token[0] : '0'
-      # pad a single digit number with a zero
-      update_num = '0' + update_num if update_num.length < 2
+      major_num = file_name.scan(/\d{1,}/)[0]
       package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
-      app_dir_name = if update_num == '00'
-                       "#{package_name}1.#{major_num}.0"
-                     else
-                       "#{package_name}1.#{major_num}.0_#{update_num}"
-                     end
+      if major_num.to_i >= 10
+        # Versions 10 and above incorporate semantic versioning
+        version_result = file_name.scan(/.*-(\d+)\.(\d+)\.(\d+)_.*/)[0]
+        major_num = version_result[0]
+        minor_num = version_result[1]
+        patch_num = version_result[2]
+        app_dir_name = "#{package_name}-#{major_num}.#{minor_num}.#{patch_num}"
+      else
+        update_token = file_name.scan(/u(\d+)/)[0]
+        update_num = update_token ? update_token[0] : '0'
+        # pad a single digit number with a zero
+        update_num = '0' + update_num if update_num.length < 2
+        app_dir_name = if update_num == '00'
+                         "#{package_name}1.#{major_num}.0"
+                       else
+                         "#{package_name}1.#{major_num}.0_#{update_num}"
+                       end
+      end
     else
       app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
       app_dir_name = app_dir_name.split('-bin')[0]
