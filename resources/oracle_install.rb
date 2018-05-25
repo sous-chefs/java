@@ -87,7 +87,7 @@ action :install do
       case tarball_name
       when /^.*\.bin/
         cmd = shell_out(
-          %( cd "#{Chef::Config[:file_cache_path]}";
+          %(cd "#{Chef::Config[:file_cache_path]}";
               bash ./#{tarball_name} -noregister
             )
         )
@@ -96,7 +96,7 @@ action :install do
         end
       when /^.*\.zip/
         cmd = shell_out(
-          %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
+          %(unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -108,7 +108,7 @@ action :install do
         end.run_action(:install)
 
         cmd = shell_out(
-          %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
+          %(tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -116,7 +116,7 @@ action :install do
       end
 
       cmd = shell_out(
-        %( mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
+        %(mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
       )
       unless cmd.exitstatus == 0
         Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
@@ -261,7 +261,7 @@ action_class do
       converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
-          %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
+          %(curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
                                    timeout: new_resource.download_timeout
         )
       end
