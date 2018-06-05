@@ -87,7 +87,7 @@ action :install do
       case tarball_name
       when /^.*\.bin/
         cmd = shell_out(
-          %( cd "#{Chef::Config[:file_cache_path]}";
+          %(cd "#{Chef::Config[:file_cache_path]}";
               bash ./#{tarball_name} -noregister
             )
         )
@@ -96,7 +96,7 @@ action :install do
         end
       when /^.*\.zip/
         cmd = shell_out(
-          %( unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
+          %(unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -108,7 +108,7 @@ action :install do
         end.run_action(:install)
 
         cmd = shell_out(
-          %( tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
+          %(tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -116,7 +116,7 @@ action :install do
       end
 
       cmd = shell_out(
-        %( mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
+        %(mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
       )
       unless cmd.exitstatus == 0
         Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
@@ -206,17 +206,26 @@ action_class do
     # funky logic to parse oracle's non-standard naming convention
     # for jdk1.6
     if file_name =~ /^(jre|jdk|server-jre).*$/
-      major_num = file_name.scan(/\d/)[0]
-      update_token = file_name.scan(/u(\d+)/)[0]
-      update_num = update_token ? update_token[0] : '0'
-      # pad a single digit number with a zero
-      update_num = '0' + update_num if update_num.length < 2
+      major_num = file_name.scan(/\d{1,}/)[0]
       package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
-      app_dir_name = if update_num == '00'
-                       "#{package_name}1.#{major_num}.0"
-                     else
-                       "#{package_name}1.#{major_num}.0_#{update_num}"
-                     end
+      if major_num.to_i >= 10
+        # Versions 10 and above incorporate semantic versioning
+        version_result = file_name.scan(/.*-(\d+)\.(\d+)\.(\d+)_.*/)[0]
+        major_num = version_result[0]
+        minor_num = version_result[1]
+        patch_num = version_result[2]
+        app_dir_name = "#{package_name}-#{major_num}.#{minor_num}.#{patch_num}"
+      else
+        update_token = file_name.scan(/u(\d+)/)[0]
+        update_num = update_token ? update_token[0] : '0'
+        # pad a single digit number with a zero
+        update_num = '0' + update_num if update_num.length < 2
+        app_dir_name = if update_num == '00'
+                         "#{package_name}1.#{major_num}.0"
+                       else
+                         "#{package_name}1.#{major_num}.0_#{update_num}"
+                       end
+      end
     else
       app_dir_name = file_name.split(/(.tgz|.tar.gz|.zip)/)[0]
       app_dir_name = app_dir_name.split('-bin')[0]
@@ -252,7 +261,7 @@ action_class do
       converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
-          %( curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
+          %(curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
                                    timeout: new_resource.download_timeout
         )
       end

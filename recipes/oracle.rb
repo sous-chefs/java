@@ -30,21 +30,10 @@ end
 
 java_home = node['java']['java_home']
 arch = node['java']['arch']
-
-case node['java']['jdk_version'].to_s
-when '6'
-  tarball_url = node['java']['jdk']['6'][arch]['url']
-  tarball_checksum = node['java']['jdk']['6'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['6']['bin_cmds']
-when '7'
-  tarball_url = node['java']['jdk']['7'][arch]['url']
-  tarball_checksum = node['java']['jdk']['7'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['7']['bin_cmds']
-when '8'
-  tarball_url = node['java']['jdk']['8'][arch]['url']
-  tarball_checksum = node['java']['jdk']['8'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['8']['bin_cmds']
-end
+version = node['java']['jdk_version'].to_s
+tarball_url = node['java']['jdk'][version][arch]['url']
+tarball_checksum = node['java']['jdk'][version][arch]['checksum']
+bin_cmds = node['java']['jdk'][version]['bin_cmds']
 
 include_recipe 'java::set_java_home'
 
