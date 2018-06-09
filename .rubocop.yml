@@ -1,3 +1,0 @@
-Style/RegexpLiteral:
-  Exclude:
-    - 'test/**/*'
