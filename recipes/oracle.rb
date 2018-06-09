@@ -30,35 +30,14 @@ end
 
 java_home = node['java']['java_home']
 arch = node['java']['arch']
-
-case node['java']['jdk_version'].to_s
-when '6'
-  tarball_url = node['java']['jdk']['6'][arch]['url']
-  tarball_checksum = node['java']['jdk']['6'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['6']['bin_cmds']
-when '7'
-  tarball_url = node['java']['jdk']['7'][arch]['url']
-  tarball_checksum = node['java']['jdk']['7'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['7']['bin_cmds']
-when '8'
-  tarball_url = node['java']['jdk']['8'][arch]['url']
-  tarball_checksum = node['java']['jdk']['8'][arch]['checksum']
-  bin_cmds = node['java']['jdk']['8']['bin_cmds']
-end
-
-if tarball_url =~ /oracle.com/
-  log 'WARNING - Downloading directly from Oracle is unreliable. Change download url.' do
-    level :warn
-  end
-end
+version = node['java']['jdk_version'].to_s
+tarball_url = node['java']['jdk'][version][arch]['url']
+tarball_checksum = node['java']['jdk'][version][arch]['checksum']
+bin_cmds = node['java']['jdk'][version]['bin_cmds']
 
 include_recipe 'java::set_java_home'
 
-package 'tar' do
-  not_if { platform_family?('mac_os_x') }
-end
-
-java_ark 'jdk' do
+java_oracle_install 'jdk' do
   url tarball_url
   default node['java']['set_default']
   checksum tarball_checksum

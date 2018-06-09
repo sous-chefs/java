@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'java::oracle_rpm' do
   let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'centos', version: '6.8') do |node|
+    ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8') do |node|
       node.automatic['java']['install_flavor'] = 'oracle_rpm'
     end.converge(described_recipe)
   end
@@ -21,7 +21,7 @@ describe 'java::oracle_rpm' do
 
   describe 'update-java-alternatives' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: platform, version: version) do |node|
+      ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
         node.automatic['java']['install_flavor'] = 'oracle_rpm'
         node.override['java']['set_default'] = true
       end.converge(described_recipe)
@@ -29,7 +29,7 @@ describe 'java::oracle_rpm' do
 
     describe 'for RHEL' do
       let(:platform) { 'redhat' }
-      let(:version) { '6.5' }
+      let(:version) { '6.9' }
 
       it 'does not run bash command' do
         expect(chef_run).not_to run_bash('update-java-alternatives')
@@ -40,7 +40,7 @@ describe 'java::oracle_rpm' do
   describe 'package_name attribute' do
     describe 'using default value' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
         end.converge(described_recipe)
       end
@@ -52,7 +52,7 @@ describe 'java::oracle_rpm' do
 
     context 'when package_name is set' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
           node.override['java']['oracle_rpm']['package_name'] = 'prime-caffeine'
         end.converge(described_recipe)
@@ -65,7 +65,7 @@ describe 'java::oracle_rpm' do
 
     context 'when package_name and package_version is set' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
           node.override['java']['oracle_rpm']['package_name'] = 'prime-caffeine'
           node.override['java']['oracle_rpm']['package_version'] = '8.7.6-goldmaster'
@@ -81,7 +81,7 @@ describe 'java::oracle_rpm' do
 
     context 'when type is set' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
           node.override['java']['oracle_rpm']['type'] = 'jdk'
         end.converge(described_recipe)
@@ -94,7 +94,7 @@ describe 'java::oracle_rpm' do
 
     context 'when package_name and type are set' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
           node.override['java']['oracle_rpm']['package_name'] = 'top-shelf-beans'
           node.override['java']['oracle_rpm']['type'] = 'jdk'
@@ -109,7 +109,7 @@ describe 'java::oracle_rpm' do
 
   describe 'type attribute' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new do |node|
+      ChefSpec::SoloRunner.new do |node|
         node.automatic['java']['install_flavor'] = 'oracle_rpm'
         node.override['java']['oracle_rpm']['type'] = type
       end.converge(described_recipe)
@@ -117,7 +117,7 @@ describe 'java::oracle_rpm' do
 
     describe 'using default value' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
         end.converge(described_recipe)
       end
@@ -163,7 +163,7 @@ describe 'java::oracle_rpm' do
   describe 'JCE installation' do
     context 'when jce is disabled' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
         end.converge(described_recipe)
       end
@@ -175,7 +175,7 @@ describe 'java::oracle_rpm' do
 
     context 'when jce is enabled' do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new do |node|
+        ChefSpec::SoloRunner.new do |node|
           node.override['java']['oracle']['jce']['enabled'] = true
           node.automatic['java']['install_flavor'] = 'oracle_rpm'
         end.converge(described_recipe)

@@ -49,9 +49,7 @@ if s3_bucket && s3_remote_path
 else
   ruby_block 'Enable Accessing cookies' do
     block do
-      # Chef::REST became Chef::HTTP in chef 11
-      cookie_jar = Chef::REST::CookieJar if defined?(Chef::REST::CookieJar)
-      cookie_jar = Chef::HTTP::CookieJar if defined?(Chef::HTTP::CookieJar)
+      cookie_jar = Chef::HTTP::CookieJar
 
       cookie_jar.instance["#{uri.host}:#{uri.port}"] = 'oraclelicense=accept-securebackup-cookie'
     end
@@ -69,7 +67,7 @@ end
 
 if node['java'].attribute?('java_home') && !node['java']['java_home'].nil?
   java_home_win = win_friendly_path(node['java']['java_home'])
-  additional_options = if node['java']['jdk_version'] == '8'
+  additional_options = if node['java']['jdk_version'].to_s == '8'
                          # Seems that the jdk 8 EXE installer does not need anymore the /v /qn flags
                          "INSTALLDIR=\"#{java_home_win}\""
                        else

@@ -18,7 +18,7 @@
 # force_default or higher precedence.
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   node.default['java']['java_home'] = case node['java']['install_flavor']
                                       when 'oracle'
                                         '/usr/lib/jvm/java'
@@ -28,6 +28,16 @@ when 'rhel', 'fedora'
                                         "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0"
                                       end
   node.default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
+when 'suse'
+  node.default['java']['java_home'] = case node['java']['install_flavor']
+                                      when 'oracle'
+                                        '/usr/lib/jvm/java'
+                                      when 'oracle_rpm'
+                                        '/usr/java/latest'
+                                      else
+                                        "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{node['java']['jdk_version']}.0"
+                                      end
+  node.default['java']['openjdk_packages'] = ["java-1_#{node['java']['jdk_version']}_0-openjdk", "java-1_#{node['java']['jdk_version']}_0-openjdk-devel"]
 when 'freebsd'
   node.default['java']['java_home'] = "/usr/local/openjdk#{node['java']['jdk_version']}"
   jdk_version = node['java']['jdk_version']
@@ -37,12 +47,7 @@ when 'arch'
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
   node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when 'debian'
-  node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}"
-  # Newer Debian & Ubuntu adds the architecture to the path
-  if node['platform'] == 'debian' && Chef::VersionConstraint.new('>= 7.0').include?(node['platform_version']) ||
-     node['platform'] == 'ubuntu' && Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
-    node.default['java']['java_home'] = "#{node['java']['java_home']}-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}"
-  end
+  node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}"
   node.default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk", "openjdk-#{node['java']['jdk_version']}-jre-headless"]
 when 'smartos'
   node.default['java']['java_home'] = '/opt/local/java/sun6'
