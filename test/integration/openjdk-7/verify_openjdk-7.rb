@@ -6,6 +6,6 @@ end
 unless os.bsd?
   # alternatives were properly set
   describe command('update-alternatives --display jar') do
-    its('stdout') { should match /\/usr\/lib\/jvm\/java-[1.]*7/ } # http://rubular.com/r/IhaUzfbHoC
+    its('stdout') { should match %r{\/usr\/lib\/jvm\/java-[1.]*7} } # http://rubular.com/r/IhaUzfbHoC
   end
 end

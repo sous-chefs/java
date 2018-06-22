@@ -6,46 +6,28 @@ description       'Recipes and resources for installing Java and managing certif
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           '2.1.0'
 
-recipe 'java::default', 'Installs Java runtime'
-recipe 'java::default_java_symlink', 'Updates /usr/lib/jvm/default-java'
-recipe 'java::ibm', 'Installs the JDK for IBM'
-recipe 'java::ibm_tar', 'Installs the JDK for IBM from a tarball'
-recipe 'java::openjdk', 'Installs the OpenJDK flavor of Java'
-recipe 'java::oracle', 'Installs the Oracle flavor of Java'
-recipe 'java::oracle_i386', 'Installs the 32-bit jvm without setting it as the default'
-recipe 'java::oracle_rpm', 'Installs the Oracle RPM flavor of Java'
-recipe 'java::set_attributes_from_version', 'Sets various attributes that depend on jdk_version'
-recipe 'java::set_java_home', 'Sets the JAVA_HOME environment variable'
-recipe 'java::windows', 'Installs the JDK on Windows'
-recipe 'java::homebrew', 'Installs the JDK on Mac OS X via Homebrew'
-recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryption'
-
-%w(
-  debian
-  ubuntu
-  centos
-  redhat
-  scientific
-  fedora
-  amazon
-  arch
-  oracle
-  freebsd
-  windows
-  suse
-  opensuse
-  opensuseleap
-  xenserver
-  smartos
-  mac_os_x
-  zlinux
-).each do |os|
-  supports os
-end
+supports 'debian'
+supports 'ubuntu'
+supports 'centos'
+supports 'redhat'
+supports 'scientific'
+supports 'fedora'
+supports 'amazon'
+supports 'arch'
+supports 'oracle'
+supports 'freebsd'
+supports 'windows'
+supports 'suse'
+supports 'opensuse'
+supports 'opensuseleap'
+supports 'xenserver'
+supports 'smartos'
+supports 'mac_os_x'
+supports 'zlinux'
 
 depends 'windows'
 depends 'homebrew'
 
 source_url 'https://github.com/sous-chefs/java'
 issues_url 'https://github.com/sous-chefs/java/issues'
-chef_version '>= 12.9' if respond_to?(:chef_version)
+chef_version '>= 12.9'
