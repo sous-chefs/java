@@ -118,7 +118,7 @@ action_class do
 
       Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-      certout cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
+      certout = cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
       return "-----BEGIN CERTIFICATE-----#{certout[1]}-----END CERTIFICATE-----" if certout.size > 2 && !certout[1].empty?
       Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
     end
