@@ -112,14 +112,14 @@ action_class do
 
     certendpoint = new_resource.ssl_endpoint
     unless certendpoint.nil?
-      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint}")
+      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint} 2> /dev/null | openssl x509")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 
       Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-      certout cmd.stdout.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
-      return "-----BEGIN CERTIFICATE-----#{certout[1]}-----END CERTIFICATE-----" if certout.size > 2 && !certout[1].empty?
+      certout = cmd.stdout
+      return certout unless certout.empty?
       Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
     end
 
