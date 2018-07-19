@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 2.2.0 - (2018-07-19)
+
+- Updated Oracle Java links to 8u181
+- Fixed incorrect kitchen setup runlists that preventing local testing
+- Resolve undefined certout errors
+
 ## 2.1.0 - (2018-05-25)
 
 - Added Java 10 JCE attributes to default attrs
