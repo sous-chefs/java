@@ -1,5 +1,5 @@
-name             'test'
-maintainer       'test cookbook'
+name             'test_java'
+maintainer       'test_java cookbook'
 license          'Apache-2.0'
 description      'A test cookbook for the java cookbook'
 version          '0.1.0'
