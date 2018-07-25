@@ -265,8 +265,8 @@ action_class do
                                    timeout: new_resource.download_timeout
         )
       end
-      #Can't verify anything with HTTP return codes from Oracle. For example, they return 200 for auth failure.
-      #Do a generic verification of the download
+      # Can't verify anything with HTTP return codes from Oracle. For example, they return 200 for auth failure.
+      # Do a generic verification of the download
       unless oracle_downloaded?(download_path, new_resource)
         Chef::Application.fatal!("Checksum verification failure. Possible wrong checksum or download from Oracle failed.\nVerify artifact checksum and/or verify #{download_path} is an archive and not an HTML response from Oracle")
       end
