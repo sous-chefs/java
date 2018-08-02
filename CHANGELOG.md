@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 3.0.0 - (2018-08-02)
+
+- Removed deprecated cookbook dependencies
+- Changed required Chef version to 14+
+
 ## 2.2.0 - (2018-07-19)
 
 - Updated Oracle Java links to 8u181
