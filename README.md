@@ -65,7 +65,7 @@ run_list(
 
 ## Requirements
 
-Chef 12.9+
+Chef 14+
 
 ### Platforms
 
