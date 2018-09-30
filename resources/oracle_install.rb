@@ -204,17 +204,14 @@ action_class do
     uri = URI.parse(url)
     file_name = uri.path.split('/').last
     # funky logic to parse oracle's non-standard naming convention
-    # for jdk1.6
+    # for jdk1.6 -> 1.9, 10.0.0->10.0.2, 11
     if file_name =~ /^(jre|jdk|server-jre).*$/
       major_num = file_name.scan(/\d{1,}/)[0]
       package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
       if major_num.to_i >= 10
-        # Versions 10 and above incorporate semantic versioning
-        version_result = file_name.scan(/.*-(\d+)\.(\d+)\.(\d+)_.*/)[0]
-        major_num = version_result[0]
-        minor_num = version_result[1]
-        patch_num = version_result[2]
-        app_dir_name = "#{package_name}-#{major_num}.#{minor_num}.#{patch_num}"
+        # Versions 10 and above incorporate semantic versioning and/or single version numbers
+        version_result = file_name.scan(/.*-([\d\.]+)_.*/)[0][0]
+        app_dir_name = "#{package_name}-#{version_result}"
       else
         update_token = file_name.scan(/u(\d+)/)[0]
         update_num = update_token ? update_token[0] : '0'
