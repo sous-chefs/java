@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'java::oracle_jce' do
-  context 'Jar installation on Windows systems' do
+  context 'Jar installation on Windows systems with JDK' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(step_into: ['java_jce'], platform: 'windows', version: '2012R2') do |node|
         node.override['java']['java_home'] = 'c:/jdk1.8'
@@ -34,6 +34,43 @@ describe 'java::oracle_jce' do
 
     it 'creates US_export_policy.jar file resource' do
       expect(chef_run).to create_remote_file('c:/jdk1.8/jre/lib/security/US_export_policy.jar')
+    end
+  end
+
+  context 'Jar installation on Windows systems with JRE' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new(step_into: ['java_jce'], platform: 'windows', version: '2012R2') do |node|
+        node.override['java']['java_home'] = 'c:/jdk1.8'
+        node.override['java']['jdk_version'] = '8'
+        node.override['java']['install_type'] = 'jre'
+        node.override['java']['oracle']['jce']['home'] = 'c:/temp/jce'
+      end
+      runner.converge(described_recipe)
+    end
+    let(:zipfile) { chef_run.windows_zipfile('c:/temp/jce/8') }
+
+    before do
+      allow(::File).to receive(:read).and_call_original
+      allow(::File).to receive(:read).with('c:/temp/jce/8/UnlimitedJCEPolicy8/local_policy.jar')
+                                     .and_return('local_policy.jar contents')
+      allow(::File).to receive(:read).with('c:/temp/jce/8/UnlimitedJCEPolicy8/US_export_policy.jar')
+                                     .and_return('US_export_policy.jar contents')
+    end
+
+    it 'creates JCE zip file staging path' do
+      expect(chef_run).to create_directory('c:/temp/jce/8')
+    end
+
+    it 'extracts JCE zip to staging path' do
+      expect(chef_run).to unzip_windows_zipfile('c:/temp/jce/8')
+    end
+
+    it 'creates local_policy.jar file resource' do
+      expect(chef_run).to create_remote_file('c:/jdk1.8/lib/security/local_policy.jar')
+    end
+
+    it 'creates US_export_policy.jar file resource' do
+      expect(chef_run).to create_remote_file('c:/jdk1.8/lib/security/US_export_policy.jar')
     end
   end
 

@@ -204,17 +204,14 @@ action_class do
     uri = URI.parse(url)
     file_name = uri.path.split('/').last
     # funky logic to parse oracle's non-standard naming convention
-    # for jdk1.6
+    # for jdk1.6 -> 1.9, 10.0.0->10.0.2, 11
     if file_name =~ /^(jre|jdk|server-jre).*$/
       major_num = file_name.scan(/\d{1,}/)[0]
       package_name = file_name =~ /^server-jre.*$/ ? 'jdk' : file_name.scan(/[a-z]+/)[0]
       if major_num.to_i >= 10
-        # Versions 10 and above incorporate semantic versioning
-        version_result = file_name.scan(/.*-(\d+)\.(\d+)\.(\d+)_.*/)[0]
-        major_num = version_result[0]
-        minor_num = version_result[1]
-        patch_num = version_result[2]
-        app_dir_name = "#{package_name}-#{major_num}.#{minor_num}.#{patch_num}"
+        # Versions 10 and above incorporate semantic versioning and/or single version numbers
+        version_result = file_name.scan(/.*-([\d\.]+)_.*/)[0][0]
+        app_dir_name = "#{package_name}-#{version_result}"
       else
         update_token = file_name.scan(/u(\d+)/)[0]
         update_num = update_token ? update_token[0] : '0'
@@ -261,9 +258,14 @@ action_class do
       converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
-          %(curl --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
+          %(curl --fail --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
                                    timeout: new_resource.download_timeout
         )
+      end
+      # Can't verify anything with HTTP return codes from Oracle. For example, they return 200 for auth failure.
+      # Do a generic verification of the download
+      unless oracle_downloaded?(download_path, new_resource)
+        Chef::Application.fatal!("Checksum verification failure. Possible wrong checksum or download from Oracle failed.\nVerify artifact checksum and/or verify #{download_path} is an archive and not an HTML response from Oracle")
       end
     else
       Chef::Application.fatal!("You must set the resource property 'accept_oracle_download_terms' or set the node attribute node['java']['oracle']['accept_oracle_download_terms'] to true if you want to download directly from the oracle site!")
