@@ -114,7 +114,7 @@ See `attributes/default.rb` for default values.
 - `node['java']['oracle']['jce']['home']` - Where the JCE policy files should be installed to
 - `node['java']['oracle']['jce'][java_version]['checksum']` - Checksum of the JCE policy zip. Can be sha256 or md5
 - `node['java']['oracle']['jce'][java_version]['url']` - URL which to download the JCE policy zip
-- `node['java']['adoptopenjdk']['openj9']` - Install the Eclipse Openj9 (default) or Hotspot version of AdoptOpenJDK
+- `node['java']['adoptopenjdk']['openj9']` - Install the Eclipse Openj9 (default), Eclipse OpenJ9 Large Heap or Hotspot version of AdoptOpenJDK
 
 ## Recipes
 
@@ -258,7 +258,7 @@ By default, the extracted directory is extracted to `app_root/extracted_dir_name
 
 - `url`: path to tarball, .tar.gz is currently supported
 - `checksum`: SHA256 checksum, not used for security but avoid redownloading the archive on each chef-client run
-- `app_home`: the default for installations of this type of application, for example, `/usr/lib/tomcat/default`. If your application is not set to the default, it will be placed at the same level in the directory hierarchy but the directory name will be `app_root/extracted_directory_name + "_alt"`
+- `app_home`: the default for installations of this type of application, for example, `/usr/lib/tomcat/default`.
 - `app_home_mode`: file mode for app_home, is an integer
 - `bin_cmds`: array of binary commands that should be symlinked to `/usr/bin`, examples are mvn, java, javac, etc. These cmds must be in the `bin` subdirectory of the extracted folder. Will be ignored if this `java_oracle_install` is not the default
 - `owner`: owner of extracted directory, set to "root" by default
