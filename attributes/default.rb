@@ -172,3 +172,36 @@ default['java']['oracle']['jce']['7']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FI
 default['java']['oracle']['jce']['6']['url'] = 'http://ORACLE_HAS_REMOVED_THESE_FILES.SELF_HOST_THEM_INSTEAD'
 default['java']['oracle']['jce']['6']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FILE'
 default['java']['oracle']['jce']['home'] = '/opt/java_jce'
+
+# AdoptOpenJDK
+default['java']['adoptopenjdk']['variant'] = 'openj9'
+# AdoptOpenJDK 8
+default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-releases/releases/download/jdk8u172-b11/OpenJDK8_x64_Linux_jdk8u172-b11.tar.gz'
+default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['checksum'] = '228d85bef36f5893885b52cb571101418c4f8b87c689996ace55d85b720b2a12'
+default['java']['adoptopenjdk']['8']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-openj9-releases/releases/download/jdk8u181-b13_openj9-0.9.0/OpenJDK8-OPENJ9_x64_Linux_jdk8u181-b13_openj9-0.9.0.tar.gz'
+default['java']['adoptopenjdk']['8']['bin_cmds']['default'] = %w(appletviewer extcheck idlj jar jarsigner java javac javadoc javah javap jconsole jdb jdeps jdmpview jextract jjs jrunscript jsadebugd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv traceformat unpack200 wsgen wsimport xjc)
+# AdoptOpenJDK 10
+default['java']['adoptopenjdk']['10']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk10-releases/releases/download/jdk-10.0.2%2B13/OpenJDK10_x64_Linux_jdk-10.0.2.13.tar.gz'
+default['java']['adoptopenjdk']['10']['x86_64']['hotspot']['checksum'] = 'f8caa2e8c28370e3b8e455686e1ddeb74656f068848f8c355d9d8d1c225528f4'
+default['java']['adoptopenjdk']['10']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk10-openj9-releases/releases/download/jdk-10.0.2%2B13_openj9-0.9.0/OpenJDK10-OPENJ9_x64_Linux_jdk-10.0.2.13_openj9-0.9.0.tar.gz'
+default['java']['adoptopenjdk']['10']['x86_64']['openj9']['checksum'] = '1ef0dab3853b2f3666091854ef8149fcb85970254558d5d62cfa9446831779d1'
+default['java']['adoptopenjdk']['10']['bin_cmds']['default'] = %w(appletviewer idlj jar jarsigner java javac javadoc javap jconsole jdb jdeprscan jdeps jdmpview jextract jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv traceformat unpack200 wsgen wsimport xjc)
+default['java']['adoptopenjdk']['10']['bin_cmds']['hotspot'] = %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+# AdoptOpenJDK 11
+default['java']['adoptopenjdk']['11']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11%2B28/OpenJDK11-jdk_x64_linux_hotspot_11_28.tar.gz'
+default['java']['adoptopenjdk']['11']['x86_64']['hotspot']['checksum'] = 'e1e18fc9ce2917473da3e0acb5a771bc651f600c0195a3cb40ef6f22f21660af'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11%2B28/OpenJDK11-jdk_x64_linux_openj9_11_28.tar.gz'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9']['checksum'] = 'fd77f22eb74078bcf974415abd888296284d2ceb81dbaca6ff32f59416ebc57f'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9-large-heap']['url'] = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11%2B28/OpenJDK11-jdk_x64_linux_openj9_linuxXL_11_28.tar.gz'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9-large-heap']['checksum'] = 'c693342ffddb3e6107ac5e388a6d6d18e6da2c710d9c67224afdfa43813d0e05'
+default['java']['adoptopenjdk']['11']['bin_cmds']['default'] = %w(jar jarsigner java javac javadoc javap jconsole jdb jdeprscan jdeps jdmpview jextract jimage jjs jlink jrunscript jshell keytool pack200 rmic rmid rmiregistry serialver traceformat unpack200)
+default['java']['adoptopenjdk']['11']['bin_cmds']['hotspot'] = %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+# Placeholders for AdoptOpenJDK 12 when it gets released
+default['java']['adoptopenjdk']['12']['x86_64']['hotspot']['url'] = 'NOT YET AVAILABLE'
+default['java']['adoptopenjdk']['12']['x86_64']['hotspot']['checksum'] = 'NOT YET AVAILABLE'
+default['java']['adoptopenjdk']['12']['x86_64']['openj9']['url'] = 'NOT YET AVAILABLE'
+default['java']['adoptopenjdk']['12']['x86_64']['openj9']['checksum'] = 'NOT YET AVAILABLE'
+default['java']['adoptopenjdk']['12']['x86_64']['openj9-large-heap']['url'] = 'NOT YET AVAILABLE'
+default['java']['adoptopenjdk']['12']['x86_64']['openj9-large-heap']['checksum'] = 'NOT YET AVAILABLE'
+# TODO: Update list when released
+default['java']['adoptopenjdk']['12']['bin_cmds'] = %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)

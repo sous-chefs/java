@@ -120,4 +120,21 @@ describe 'java::default' do
       expect { chef_run }.to_not raise_error
     end
   end
+
+  context 'AdoptOpenJDK 11' do
+    cached(:chef_run) do
+      runner = ChefSpec::SoloRunner.new
+      runner.node.override['java']['install_flavor'] = 'adoptopenjdk'
+      runner.node.override['java']['jdk_version'] = '11'
+      runner.converge(described_recipe)
+    end
+
+    it 'should include the adoptopenjdk recipe' do
+      expect(chef_run).to include_recipe('java::adoptopenjdk')
+    end
+
+    it 'should not error' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
 end

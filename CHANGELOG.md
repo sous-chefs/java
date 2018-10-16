@@ -2,7 +2,12 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## 3.1.0 - (2018-10-18)
+## Unreleased
+
+- Added new install flavor "adoptopenjdk" for AdoptOpenJDK's distribution of Java
+- Modified certificate resource to use the Ruby OpenSSL class instead of the openssl command since it is not installed on the Fedora bento images
+
+	## 3.1.0 - (2018-10-18)
 
 - Add support for JDK 11
 
