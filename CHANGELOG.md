@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Added new install flavor "adoptopenjdk" for AdoptOpenJDK's distribution of Java
 - Modified certificate resource to use the Ruby OpenSSL class instead of the openssl command since it is not installed on the Fedora bento images
+- Updated JDK 8 to 8u191
 
 ## 2.2.1 - (2018-09-29)
 
