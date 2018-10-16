@@ -114,7 +114,7 @@ See `attributes/default.rb` for default values.
 - `node['java']['oracle']['jce']['home']` - Where the JCE policy files should be installed to
 - `node['java']['oracle']['jce'][java_version]['checksum']` - Checksum of the JCE policy zip. Can be sha256 or md5
 - `node['java']['oracle']['jce'][java_version]['url']` - URL which to download the JCE policy zip
-- `node['java']['adoptopenjdk']['openj9']` - Install the Eclipse Openj9 (default), Eclipse OpenJ9 Large Heap or Hotspot version of AdoptOpenJDK
+- `node['java']['adoptopenjdk']['variant']` - Install the Eclipse Openj9 (default), Eclipse OpenJ9 Large Heap or Hotspot version of AdoptOpenJDK
 
 ## Recipes
 
