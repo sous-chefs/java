@@ -19,7 +19,7 @@
 # limitations under the License.
 
 property :java_home, String, default: lazy { node['java']['java_home'] }
-property :keystore_path, String, default: lazy { "#{node['java']['java_home']}/jre/lib/security/cacerts" }
+property :keystore_path, String, default: ''
 property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String, name_property: true
 property :cert_data, String
@@ -31,7 +31,15 @@ action :install do
 
   java_home = new_resource.java_home
   keytool = "#{java_home}/bin/keytool"
-  truststore = new_resource.keystore_path
+  truststore = if new_resource.keystore_path.empty?
+                 if ::File.exist?("#{java_home}/lib/security/cacerts")
+                   "#{java_home}/lib/security/cacerts"
+                 else
+                   "#{java_home}/jre/lib/security/cacerts"
+                 end
+               else
+                 new_resource.keystore_path
+               end
   truststore_passwd = new_resource.keystore_passwd
   certalias = new_resource.cert_alias
   certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
@@ -83,7 +91,15 @@ end
 
 action :remove do
   certalias = new_resource.name
-  truststore = new_resource.keystore_path
+  truststore = if new_resource.keystore_path.nil?
+                 if ::File.exist?("#{java_home}/jre/lib/security/cacerts")
+                   "#{java_home}/jre/lib/security/cacerts"
+                 else
+                   "#{java_home}/lib/security/cacerts"
+                 end
+               else
+                 new_resource.keystore_path
+               end
   truststore_passwd = new_resource.keystore_passwd
   keytool = "#{node['java']['java_home']}/bin/keytool"
 
@@ -107,19 +123,21 @@ action :remove do
 end
 
 action_class do
+  require 'openssl'
+
   def fetch_certdata
     return IO.read(new_resource.cert_file) unless new_resource.cert_file.nil?
 
     certendpoint = new_resource.ssl_endpoint
     unless certendpoint.nil?
-      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint} 2> /dev/null | openssl x509")
-      cmd.run_command
-      Chef::Log.debug(cmd.format_for_exception)
-
-      Chef::Application.fatal!("Error returned when attempting to retrieve certificate from remote endpoint #{certendpoint}: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
-
-      certout = cmd.stdout
-      return certout unless certout.empty?
+      ctx = OpenSSL::SSL::SSLContext.new
+      dest = certendpoint.split(/:/)
+      sock = TCPSocket.new(dest[0], dest.length >= 2 ? dest[1] : 443)
+      ssl = OpenSSL::SSL::SSLSocket.new(sock, ctx)
+      # ssl.hostname = dest[0] # for SNI
+      ssl.connect
+      cert = ssl.peer_cert
+      return cert.to_pem unless cert.nil?
       Chef::Application.fatal!("Unable to parse certificate from openssl query of #{certendpoint}.", 999)
     end
 
