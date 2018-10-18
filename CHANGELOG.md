@@ -2,13 +2,14 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## 3.0.0 - (2018-10-07)
+## 3.0.0 - (2018-10-18)
 
 - Fix broken JCE with JRE installations
 - make cert alias matching case insensitive as `keytool` always returns results downcases
 - BREAKING CHANGE: fixed greedy matching by adding a word boundry when checking cert alias this prevents matching `foo_123` as `foo`
 - verify artifact after downloading from oracle
 - fixed `recipes/openjdk` when `node['java']['jdk_version']` by casting it to a string
+- Updated Oracle Java links to 8u191
 
 ## 2.2.1 - (2018-09-29)
 
