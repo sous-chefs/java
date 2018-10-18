@@ -25,7 +25,7 @@ supports 'smartos'
 supports 'mac_os_x'
 supports 'zlinux'
 
-depends 'windows'
+depends  'windows'
 depends 'homebrew'
 
 source_url 'https://github.com/sous-chefs/java'
