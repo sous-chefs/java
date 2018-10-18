@@ -4,7 +4,7 @@ maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
 description       'Recipes and resources for installing Java and managing certificates'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '3.0.0'
+version           '3.1.0'
 
 supports 'debian'
 supports 'ubuntu'

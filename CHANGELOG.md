@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 3.1.0 - (2018-10-18)
+
+- Add support for JDK 11
+
 ## 3.0.0 - (2018-10-18)
 
 - Fix broken JCE with JRE installations
