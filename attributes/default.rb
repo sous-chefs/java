@@ -153,6 +153,15 @@ default['java']['jdk']['10']['bin_cmds'] = %w(appletviewer jar javac javapackage
                                               jaotc java javap jcmd jdb jhsdb jjs jmc jrunscript jstat keytool rmic schemagen tnameserv
                                               wsimport)
 
+# x86_64
+default['java']['jdk']['11']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/11.0.1+13/90cf5d8f270a4347a95050320eef3fb7/jdk-11.0.1_linux-x64_bin.tar.gz'
+default['java']['jdk']['11']['x86_64']['checksum'] = 'e7fd856bacad04b6dbf3606094b6a81fa9930d6dbb044bbd787be7ea93abc885'
+
+default['java']['jdk']['11']['bin_cmds'] = %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan
+                                              jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack
+                                              jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200
+                                              )
+
 default['java']['oracle']['jce']['enabled'] = false
 default['java']['oracle']['jce']['10']['url'] = 'https://edelivery.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
 default['java']['oracle']['jce']['10']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
