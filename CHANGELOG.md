@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 2.2.2 - (2018-10-17)
+
+- Updated Oracle Java links to 8u191
+
 ## 2.2.1 - (2018-09-29)
 
 - Allows for additional Oracle (post 9) jdk download file naming, including '10.0.2'. '18.9', '11'
