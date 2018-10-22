@@ -1,6 +1,0 @@
-name             'test_java'
-maintainer       'test cookbook'
-license          'Apache-2.0'
-description      'A test cookbook to land testing jar for java cookbook'
-version          '0.1.0'
-depends          'java'
