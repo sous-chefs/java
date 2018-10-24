@@ -309,7 +309,7 @@ end
 
 ### java_certificate
 
-This cookbook contains the `java_certificate` resource which simplifies adding certificates to a java keystore. It can also populate the keystore with a certificate retrieved from a given SSL end-point. It defaults to the default keystore `<java_home>/jre/lib/security/cacerts` with the default password if a specific keystore is not provided.
+This cookbook contains the `java_certificate` resource which simplifies adding certificates to a java keystore. It can also populate the keystore with a certificate retrieved from a given SSL end-point. It defaults to the default keystore `<java_home>/jre/lib/security/cacerts` for Java 8 or below and `<java_home>/lib/security/cacerts` for Java 9+ with the default password if a specific keystore is not provided.
 
 ### Actions
 
@@ -324,7 +324,7 @@ Optional parameters:
 
 - `java_home`: the java home directory. Defaults to `node['java']['java_home']`.
 
-- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts`.
+- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts` for Java 8 or below and `node['java']['java_home']/lib/security/cacerts` for Java 9+.
 
 - `keystore_passwd`: the keystore password. Defaults to 'changeit' as specified by the Java Documentation.
 

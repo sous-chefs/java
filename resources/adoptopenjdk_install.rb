@@ -23,9 +23,11 @@ property :reset_alternatives, [true, false], default: true
 property :variant, ['hotspot', 'openj9', 'openj9-large-heap'], default: 'openj9'
 
 action :install do
-  app_dir_name, tarball_name = parse_app_dir_name(new_resource.url)
-  app_root = new_resource.app_home.split('/')[0..-2].join('/')
-  app_dir = app_root + '/' + app_dir_name + '-' + new_resource.variant
+  raise 'No URL provided to download AdoptOpenJDK\'s tar file!' if new_resource.url.nil? || new_resource.url.empty?
+  app_dir_name, tarball_name, app_root, app_dir =
+    parse_dir_names(new_resource.url,
+                    new_resource.app_home,
+                    new_resource.variant)
   app_group = new_resource.group
   app_home = new_resource.app_home
   Chef::Log.debug("processing #{new_resource.variant} variant")
@@ -49,7 +51,7 @@ action :install do
         checksum new_resource.checksum
         retries new_resource.retries
         retry_delay new_resource.retry_delay
-        mode '0755'
+        mode 0o644
         action :nothing
       end.run_action(:create_if_missing)
     end
@@ -79,8 +81,7 @@ action :install do
   end
 
   # set up .jinfo file for update-java-alternatives
-  java_name = app_home.split('/')[-1]
-  jinfo_file = "#{app_root}/.#{java_name}.jinfo"
+  java_name, jinfo_file = alternatives_config_file(app_root, app_home)
   if platform_family?('debian') && !::File.exist?(jinfo_file)
     converge_by("Add #{jinfo_file} for debian") do
       template jinfo_file do
@@ -122,9 +123,11 @@ action :install do
 end
 
 action :remove do
-  app_dir_name, _tarball_name = parse_app_dir_name(new_resource.url)
-  app_root = new_resource.app_home.split('/')[0..-2].join('/')
-  app_dir = app_root + '/' + app_dir_name + '-' + new_resource.variant
+  raise 'No URL provided for AdoptOpenJDK\'s tar file!' if new_resource.url.nil? || new_resource.url.empty?
+  _app_dir_name, _tarball_name, _app_root, app_dir =
+    parse_dir_names(new_resource.url,
+                    new_resource.app_home,
+                    new_resource.variant)
   app_home = new_resource.app_home
   Chef::Log.debug("processing #{new_resource.variant} variant")
 
@@ -135,10 +138,15 @@ action :remove do
       action :unset
     end
 
-    converge_by("remove #{new_resource.name} at #{app_dir}") do
-      Chef::Log.info "Removing #{new_resource.name} at #{app_dir}"
-      FileUtils.rm_rf app_dir
-      FileUtils.rm_f app_home
+    directory "AdoptOpenJDK removal of #{app_home}" do
+      path app_home
+      recursive true
+      action :delete
+    end
+    directory "AdoptOpenJDK removal of #{app_dir}" do
+      path app_dir
+      recursive true
+      action :delete
     end
   end
 end
@@ -149,16 +157,32 @@ action_class do
   def parse_app_dir_name(url)
     uri = URI.parse(url)
     file_name = uri.path.split('/').last
-    if file_name =~ /jdk\d+u\d+-b\d+/ # JDK8
+    if file_name =~ /jdk\d+u\d+-b\d+/ # OpenJDK8
       dir_name_results = file_name.scan(/_(jdk\d+u\d+-b\d+)(?:_openj[-.\d]+)?\.tar\.gz$/)
       app_dir_name = dir_name_results[0][0] unless dir_name_results.empty?
+    elsif file_name =~ /_\d+u\d+b\d+\.tar\.gz$/ # OpenJDK8U
+      dir_name_results = file_name.scan(/_(\d+u\d+)(b\d+)\.tar\.gz$/)
+      app_dir_name = "jdk#{dir_name_results[0][0]}-#{dir_name_results[0][1]}" unless dir_name_results.empty?
     else
       dir_name_results = file_name.scan(/[-_]([.\d]+)[._]([\d]+)(?:_openj[-.\d]+)?\.tar\.gz$/)
-      app_dir_name = "jdk-#{dir_name_results[0][0]}+#{dir_name_results[0][1]}"
+      app_dir_name = "jdk-#{dir_name_results[0][0]}+#{dir_name_results[0][1]}" unless dir_name_results.empty?
     end
     Chef::Application.fatal!("Failed to parse #{file_name} for application directory name!") if dir_name_results.empty?
 
     [app_dir_name, file_name]
+  end
+
+  def parse_dir_names(url, app_home, variant)
+    app_dir_name, tarball_name = parse_app_dir_name(url)
+    app_root = app_home.split('/')[0..-2].join('/')
+    app_dir = "#{app_root}/#{app_dir_name}-#{variant}"
+    [app_dir_name, tarball_name, app_root, app_dir]
+  end
+
+  def alternatives_config_file(app_root, app_home)
+    java_name = app_home.split('/')[-1]
+    config_file = "#{app_root}/.#{java_name}.jinfo"
+    [java_name, config_file]
   end
 
   def adoptopendjk_downloaded?(download_path, new_resource)
