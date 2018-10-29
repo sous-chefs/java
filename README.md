@@ -1,3 +1,5 @@
+This read me teaches you how to use java cook book
+
 # java cookbook
 
 [![Build Status](https://travis-ci.org/sous-chefs/java.svg?branch=master)](https://travis-ci.org/sous-chefs/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
