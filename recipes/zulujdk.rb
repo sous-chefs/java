@@ -1,8 +1,8 @@
-jdk_version=node[:java][:jdk_version]
+jdk_version=node['java']['jdk_version']
 if platform?('windows')
 
    windows_package 'zulu-Jdk' do
-        node.override[:java][:java_home]="C:\\Program Files\\Zulu\\zulu-#{jdk_version}\\bin"
+        node.override['java']['java_home']="C:\\Program Files\\Zulu\\zulu-#{jdk_version}\\bin"
         case jdk_version
         when '11'
           url=node['zulu']['java']['windows']['11']['x86_64']['url']
@@ -25,6 +25,14 @@ if platform?('windows')
         installer_type :msi
         action :install
         only_if {node['zulu']['cck']['windows'][jdk_version]['x86_64']['url'] != nil }
+   end
+   env 'JAVA_HOME' do
+     value node['java']['java_home']
+   end
+
+  # update path
+   windows_path node['java']['java_home'] do
+    action :add
    end
 
 elsif platform_family?('rhel','oracle')
