@@ -172,3 +172,20 @@ default['java']['oracle']['jce']['7']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FI
 default['java']['oracle']['jce']['6']['url'] = 'http://ORACLE_HAS_REMOVED_THESE_FILES.SELF_HOST_THEM_INSTEAD'
 default['java']['oracle']['jce']['6']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FILE'
 default['java']['oracle']['jce']['home'] = '/opt/java_jce'
+
+#Azul's zulu jdk installation default attributes
+default['zulu']['java']['windows']['11']['x86_64']['url']='https://cdn.azul.com/zulu/bin/zulu11.2.3-jdk11.0.1-win_x64.msi'
+default['zulu']['java']['windows']['10']['x86_64']['url']='https://cdn.azul.com/zulu/bin/zulu10.3+5-jdk10.0.2-win_x64.msi'
+default['zulu']['java']['windows']['9']['x86_64']['url']='https://cdn.azul.com/zulu/bin/zulu9.0.7.1-jdk9.0.7-win_x64.msi'
+default['zulu']['java']['windows']['8']['x86_64']['url']='https://cdn.azul.com/zulu/bin/zulu8.31.0.1-jdk8.0.181-win_x64.msi'
+
+#Zulu CCK for jdk 11,10 and 9 is not available currently in the official site of zulu once it is available respective url will be updated.
+default['zulu']['cck']['windows']['11']['x86_64']['url']=nil
+default['zulu']['cck']['windows']['10']['x86_64']['url']=nil
+default['zulu']['cck']['windows']['9']['x86_64']['url']=nil
+default['zulu']['cck']['windows']['8']['x86_64']['url']='http://cdn.azul.com/zcck/bin/zcck8.0.0.4-win_x64.msi'
+
+default['zulu']['cck']['linux']['11']['x86_64']['url']=nil
+default['zulu']['cck']['linux']['10']['x86_64']['url']=nil
+default['zulu']['cck']['linux']['9']['x86_64']['url']=nil
+default['zulu']['cck']['linux']['8']['x86_64']['url']='http://cdn.azul.com/zcck/bin/zcck8.0.0.4-linux.x86_64.rpm'
