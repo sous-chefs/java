@@ -49,8 +49,6 @@ action :install do
   jre_path = node['java']['install_type'] == 'jdk' ? 'jre' : ''
 
   if node['os'] == 'windows'
-    include_recipe 'windows'
-
     staging_path = ::File.join(jce_home, jdk_version)
     staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
     staging_export_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'US_export_policy.jar')
