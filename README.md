@@ -65,7 +65,7 @@ run_list(
 
 ## Requirements
 
-Chef 12.9+
+Chef 13.4+
 
 ### Platforms
 
@@ -80,7 +80,6 @@ Chef 12.9+
 ### Cookbooks
 
 - homebrew
-- windows
 
 ## Attributes
 
