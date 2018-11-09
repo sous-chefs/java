@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 3.1.1 - (2018-11-09)
+
+- Fix jce installation linux
+- Allow overwrite `returns` property of windows_packages
+
 ## 3.1.0 - (2018-10-18)
 
 - Add support for JDK 11
