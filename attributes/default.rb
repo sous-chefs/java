@@ -44,6 +44,7 @@ when 'windows'
   default['java']['windows']['public_jre_home'] = nil
   default['java']['windows']['owner'] = 'administrator'
   default['java']['windows']['remove_obsolete'] = false
+  default['java']['windows']['returns'] = 0
 when 'mac_os_x'
   default['java']['install_flavor'] = 'homebrew'
 else

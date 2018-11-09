@@ -103,6 +103,8 @@ See `attributes/default.rb` for default values.
 - `node['java']['windows']['aws_access_key_id']` - AWS Acess Key ID to use with AWS API calls
 - `node['java']['windows']['aws_secret_access_key']` - AWS Secret Access Key to use with AWS API calls
 - `node['java']['windows']['aws_session_token']` - AWS Session Token to use with AWS API calls
+- `node['java']['windows']['returns']` - The allowed return codes for the package to
+  be installed on Windows machines (default is 0, you can define an array of valid values.)
 - `node['java']['ibm']['url']` - The URL which to download the IBM JDK/SDK. See the `ibm` recipe section below.
 - `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that you accept IBM's EULA (for `java::ibm`)
 - `node['java']['oracle_rpm']['type']` - Type of java RPM (`jre` or `jdk`), default `jdk`
