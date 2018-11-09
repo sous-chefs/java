@@ -45,14 +45,15 @@ action :install do
     not_if { ::File.exist?(::File.join(jce_home, jdk_version, 'US_export_policy.jar')) }
   end
 
+  # JRE installation does not have a jre folder
+  jre_path = node['java']['install_type'] == 'jdk' ? 'jre' : ''
+
   if node['os'] == 'windows'
     include_recipe 'windows'
 
     staging_path = ::File.join(jce_home, jdk_version)
     staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
     staging_export_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'US_export_policy.jar')
-    # JRE installation does not have a jre folder
-    jre_path = node['java']['install_type'] == 'jdk' ? 'jre' : ''
     jre_final_path = ::File.join(java_home, jre_path, 'lib', 'security')
     final_local_policy = ::File.join(jre_final_path, 'local_policy.jar')
     final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
@@ -92,7 +93,7 @@ action :install do
     end
 
     %w(local_policy.jar US_export_policy.jar).each do |jar|
-      jar_path = ::File.join(java_home, 'jre', 'lib', 'security', jar)
+      jar_path = ::File.join(java_home, jre_path, 'lib', 'security', jar)
       # remove the jars already in the directory
       file jar_path do
         action :delete
