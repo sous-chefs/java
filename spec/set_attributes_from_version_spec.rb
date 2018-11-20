@@ -33,12 +33,12 @@ describe 'java::set_attributes_from_version' do
       'packages' => [],
     },
     'mac_os_x-10.14-jdk6' => {
-      'java_home' => '/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home',
+      'java_home' => '$(/usr/libexec/java_home -v 1.6)',
       'jdk_version' => '6',
       'packages' => [],
     },
     'mac_os_x-10.14-jdk11' => {
-      'java_home' => '/Library/Java/JavaVirtualMachines/openjdk-11.0.1.jdk/Contents/Home',
+      'java_home' => '$(/usr/libexec/java_home -v 11)',
       'jdk_version' => '11',
       'packages' => [],
     },

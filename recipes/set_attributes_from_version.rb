@@ -56,9 +56,9 @@ when 'windows'
   node.default['java']['java_home'] = nil
 when 'mac_os_x'
   java_home = if node['java']['jdk_version'].to_i >= 10
-                Mixlib::ShellOut.new("/usr/libexec/java_home -v #{node['java']['jdk_version']}").run_command.stdout.strip
+                "$(/usr/libexec/java_home -v #{node['java']['jdk_version']})"
               else
-                Mixlib::ShellOut.new("/usr/libexec/java_home -v 1.#{node['java']['jdk_version']}").run_command.stdout.strip
+                "$(/usr/libexec/java_home -v 1.#{node['java']['jdk_version']})"
               end
   node.default['java']['java_home'] = java_home
 else
