@@ -85,7 +85,7 @@ action :install do
         mkdir java_jce
         cd java_jce
         unzip -o ../jce.zip
-        find -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{jce_home}/#{jdk_version}/
+        find ./ -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{jce_home}/#{jdk_version}/
         chmod -R 0644 #{jce_home}/#{jdk_version}/*.jar
       EOF
       cwd Chef::Config[:file_cache_path]
