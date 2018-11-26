@@ -2,42 +2,42 @@ require 'spec_helper'
 
 describe 'java::set_attributes_from_version' do
   platforms = {
-    'centos-6.9-jdk6' => {
+    'centos-6.9' => {
       'java_home' => '/usr/lib/jvm/java-1.6.0',
       'jdk_version' => '6',
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
     },
-    'redhat-6.9-jdk6' => {
+    'redhat-6.9' => {
       'java_home' => '/usr/lib/jvm/java-1.6.0',
       'jdk_version' => '6',
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
     },
-    'freebsd-10.3-jdk6' => {
+    'freebsd-10.3' => {
       'java_home' => '/usr/local/openjdk6',
       'jdk_version' => '6',
       'packages' => ['openjdk6'],
     },
-    'debian-7.11-jdk6' => {
+    'debian-7.11' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
       'jdk_version' => '6',
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
     },
-    'ubuntu-14.04-jdk6' => {
+    'ubuntu-14.04' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
       'jdk_version' => '6',
       'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
     },
-    'windows-2008R2-jdk6' => {
+    'windows-2008R2' => {
       'java_home' => nil,
       'jdk_version' => '6',
       'packages' => [],
     },
-    'mac_os_x-10.14-jdk6' => {
+    'mac_os_x-10.12' => {
       'java_home' => '$(/usr/libexec/java_home -v 1.6)',
       'jdk_version' => '6',
       'packages' => [],
     },
-    'mac_os_x-10.14-jdk11' => {
+    'mac_os_x-10.14' => {
       'java_home' => '$(/usr/libexec/java_home -v 11)',
       'jdk_version' => '11',
       'packages' => [],
@@ -48,7 +48,7 @@ describe 'java::set_attributes_from_version' do
     parts = platform.split('-')
     os = parts[0]
     os_version = parts[1]
-    jdk_version = parts[2].to_s[3..-1] # trim jdk from str
+    jdk_version = params['jdk_version']
     context "On #{os} #{os_version} with jdk version #{jdk_version}" do
       let(:chef_run) { ChefSpec::SoloRunner.new(version: os_version, platform: os) }
 
