@@ -30,7 +30,7 @@ unless node.recipe?('java::default')
   end
 end
 
-jdk = Opscode::OpenJDK.new(node)
+jdk = ChefCookbook::OpenJDK.new(node)
 
 if platform_requires_license_acceptance?
   file '/opt/local/.dlj_license_accepted' do
@@ -49,28 +49,19 @@ if node['platform'] == 'ubuntu'
   end
 end
 
-node['java']['openjdk_packages'].each do |pkg|
-  package pkg do
-    version node['java']['openjdk_version'] if node['java']['openjdk_version']
-    options node['java']['openjdk_options'] if node['java']['openjdk_options']
-    notifies :write, 'log[jdk-version-changed]', :immediately
-  end
+package node['java']['openjdk_packages'] do
+  version node['java']['openjdk_version'] if node['java']['openjdk_version']
+  options node['java']['openjdk_options'] if node['java']['openjdk_options']
+  notifies :write, 'log[jdk-version-changed]', :immediately
 end
 
 java_alternatives 'set-java-alternatives' do
   java_location jdk.java_home
   default node['java']['set_default']
   priority jdk.alternatives_priority
-  case node['java']['jdk_version'].to_s
-  when '6'
-    bin_cmds node['java']['jdk']['6']['bin_cmds']
-  when '7'
-    bin_cmds node['java']['jdk']['7']['bin_cmds']
-  when '8'
-    bin_cmds node['java']['jdk']['8']['bin_cmds']
-  end
+  bin_cmds node['java']['jdk'][node['java']['jdk_version'].to_s]['bin_cmds']
   action :set
-  only_if { platform_family?('debian', 'rhel', 'fedora') }
+  only_if { platform_family?('debian', 'rhel', 'fedora', 'amazon') }
 end
 
 if node['java']['set_default'] && platform_family?('debian')

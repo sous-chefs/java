@@ -3,143 +3,80 @@ driver:
 
 provisioner:
   name: chef_zero
-  attributes:
-    java:
-      ark_retries: 2
-      ark_retry_delay: 10
+  deprecations_as_errors: false
+
+verifier:
+  name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-    run_list:
-    - recipe[apt]
+  - name: amazon-linux
+    driver_config:
+      box: mvbcoding/awslinux
+  - name: centos-6
+  - name: centos-7
+  - name: debian-8
+  - name: debian-9
+  - name: freebsd-11
+  - name: fedora-27
+  - name: opensuse-leap-42
   - name: ubuntu-14.04
-    run_list:
-    - recipe[apt]
-  - name: debian-8.6
-    run_list:
-    - recipe[apt]
-  - name: debian-7.11
-    run_list:
-    - recipe[apt]
-  - name: centos-7.3
-  - name: centos-6.8
-  - name: fedora-25
-  - name: freebsd-11.0
-    run_list:
-    - recipe[freebsd_bash]
-  - name: freebsd-10.3
-    run_list:
-    - recipe[freebsd_bash]
+  - name: ubuntu-16.04
+  - name: ubuntu-18.04
+
 suites:
   - name: openjdk-6
     includes:
-      - centos-6.8
-      - centos-7.3
-      - debian-7.11
+      - amazon-linux
+      - centos-6
+      - centos-7
       - ubuntu-14.04
     run_list:
-      - recipe[java::default]
-      # - recipe[test_java::java_cert]
+      - recipe[test::openjdk6]
   - name: openjdk-7
     includes:
-      - centos-6.8
-      - centos-7.3
-      - debian-7.11
-      - debian-8.6
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - freebsd-11
+      - opensuse-leap-42
       - ubuntu-14.04
       - ubuntu-16.04
-      - freebsd-10.3
-      - freebsd-11.0
     run_list:
-      - recipe[java::default]
-      # - recipe[test_java::java_cert]
-    attributes:
-      java:
-        jdk_version: "7"
+      - recipe[test::openjdk7]
   - name: openjdk-8
     includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-9
+      - fedora-27
+      - freebsd-11
+      - opensuse-leap-42
       - ubuntu-14.04
       - ubuntu-16.04
-      - centos-6.8
-      - centos-7.3
-      - fedora-25
+      - ubuntu-18.04
     run_list:
-      - recipe[java::default]
-      # - recipe[test_java::java_cert]
-    attributes:
-      java:
-        jdk_version: "8"
-  - name: oracle
-    run_list:
-      - recipe[test_java::default]
-      - recipe[java::default]
-      # - recipe[test_java::java_cert]
-    attributes:
-      java:
-        oracle:
-          accept_oracle_download_terms: true
-          jce:
-            enabled: true
-        install_flavor: oracle
-  - name: oracle-7
-    run_list:
-      - recipe[test_java::default]
-      - recipe[java::default]
-      # - recipe[test_java::java_cert]
-    attributes:
-      java:
-        jdk_version: "7"
-        oracle:
-          accept_oracle_download_terms: true
-          jce:
-            enabled: true
-        install_flavor: oracle
+      - recipe[test::openjdk8]
   - name: oracle-8
     run_list:
-      - recipe[test_java::default]
-      - recipe[java::default]
-      # - recipe[test_java::java_cert]
-    attributes:
-      java:
-        jdk_version: "8"
-        oracle:
-          accept_oracle_download_terms: true
-          jce:
-            enabled: true
-        install_flavor: oracle
+      - recipe[test::oracle8]
   - name: oracle-direct
     run_list:
-      - recipe[java::oracle]
-    attributes:
-      java:
-        oracle:
-          accept_oracle_download_terms: true
+      - recipe[test::oracle_direct]
+    verifier:
+      inspec_tests:
+        - test/integration/oracle-8
   - name: openjdk-direct
     run_list:
-      - recipe[java::openjdk]
-  - name: oracle-rpm
-    includes:
-      - centos-6.8
-      - centos-7.3
-      - fedora-25
-    run_list:
-      - recipe[java::default]
-    attributes:
-      java:
-        install_flavor: oracle_rpm
-        jdk_version: 7
-        oracle:
-          accept_oracle_download_terms: true
+      - recipe[test::openjdk_direct]
   - name: oracle-rpm-8
     includes:
-      - centos-6.8
-      - centos-7.3
-      - fedora-25
+      - centos-6
+      - centos-7
+      - fedora-27
     run_list:
-      - recipe[java::default]
-    attributes:
-      java:
-        install_flavor: oracle_rpm
-        jdk_version: 8
-        oracle:
-          accept_oracle_download_terms: true
+      - recipe[test::oracle_rpm8]
+    verifier:
+      inspec_tests:
+        - test/integration/oracle-8

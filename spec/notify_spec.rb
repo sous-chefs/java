@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'java::notify' do
-  let(:chef_run) do
-    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
+  cached(:chef_run) do
+    ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
   end
 
   it 'logs jdk-version-changed' do

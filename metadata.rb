@@ -1,53 +1,33 @@
 name              'java'
-maintainer        'Agile Orbit'
-maintainer_email  'info@agileorbit.com'
+maintainer        'Sous Chefs'
+maintainer_email  'help@sous-chefs.org'
 license           'Apache-2.0'
-description       'Installs Java runtime.'
+description       'Recipes and resources for installing Java and managing certificates'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '1.50.0'
+version           '3.1.2'
 
-recipe 'java::default', 'Installs Java runtime'
-recipe 'java::default_java_symlink', 'Updates /usr/lib/jvm/default-java'
-recipe 'java::ibm', 'Installs the JDK for IBM'
-recipe 'java::ibm_tar', 'Installs the JDK for IBM from a tarball'
-recipe 'java::openjdk', 'Installs the OpenJDK flavor of Java'
-recipe 'java::oracle', 'Installs the Oracle flavor of Java'
-recipe 'java::oracle_i386', 'Installs the 32-bit jvm without setting it as the default'
-recipe 'java::oracle_rpm', 'Installs the Oracle RPM flavor of Java'
-recipe 'java::purge_packages', 'Purges old Sun JDK packages'
-recipe 'java::set_attributes_from_version', 'Sets various attributes that depend on jdk_version'
-recipe 'java::set_java_home', 'Sets the JAVA_HOME environment variable'
-recipe 'java::windows', 'Installs the JDK on Windows'
-recipe 'java::homebrew', 'Installs the JDK on Mac OS X via Homebrew'
-recipe 'java::oracle_jce', 'Installs the Java Crypto Extension for strong encryption'
+supports 'debian'
+supports 'ubuntu'
+supports 'centos'
+supports 'redhat'
+supports 'scientific'
+supports 'fedora'
+supports 'amazon'
+supports 'arch'
+supports 'oracle'
+supports 'freebsd'
+supports 'windows'
+supports 'suse'
+supports 'opensuse'
+supports 'opensuseleap'
+supports 'xenserver'
+supports 'smartos'
+supports 'mac_os_x'
+supports 'zlinux'
 
-%w(
-  debian
-  ubuntu
-  centos
-  redhat
-  scientific
-  fedora
-  amazon
-  arch
-  oracle
-  freebsd
-  windows
-  suse
-  opensuse
-  opensuseleap
-  xenserver
-  smartos
-  mac_os_x
-  zlinux
-).each do |os|
-  supports os
-end
-
-depends 'apt'
 depends 'windows'
 depends 'homebrew'
 
-source_url 'https://github.com/agileorbit-cookbooks/java'
-issues_url 'https://github.com/agileorbit-cookbooks/java/issues'
-chef_version '>= 12.1'
+source_url 'https://github.com/sous-chefs/java'
+issues_url 'https://github.com/sous-chefs/java/issues'
+chef_version '>= 12.9'
