@@ -20,21 +20,21 @@ describe 'java::set_attributes_from_version' do
     'debian-7.11' => {
       'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
       'jdk_version' => '6',
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
     },
     'ubuntu-14.04' => {
-      'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
-      'jdk_version' => '6',
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'java_home' => '/usr/lib/jvm/java-8-openjdk-amd64',
+      'jdk_version' => '8',
+      'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
     },
     'windows-2008R2' => {
       'java_home' => nil,
-      'jdk_version' => '6',
+      'jdk_version' => '8',
       'packages' => [],
     },
     'mac_os_x-10.12' => {
-      'java_home' => '$(/usr/libexec/java_home -v 1.6)',
-      'jdk_version' => '6',
+      'java_home' => '$(/usr/libexec/java_home -v 1.8)',
+      'jdk_version' => '8',
       'packages' => [],
     },
     'mac_os_x-10.14' => {
