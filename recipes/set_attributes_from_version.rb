@@ -54,6 +54,13 @@ when 'smartos'
   node.default['java']['openjdk_packages'] = ["sun-jdk#{node['java']['jdk_version']}", "sun-jre#{node['java']['jdk_version']}"]
 when 'windows'
   node.default['java']['java_home'] = nil
+when 'mac_os_x'
+  java_home = if node['java']['jdk_version'].to_i >= 10
+                "$(/usr/libexec/java_home -v #{node['java']['jdk_version']})"
+              else
+                "$(/usr/libexec/java_home -v 1.#{node['java']['jdk_version']})"
+              end
+  node.default['java']['java_home'] = java_home
 else
   node.default['java']['java_home'] = '/usr/lib/jvm/default-java'
   node.default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk"]
