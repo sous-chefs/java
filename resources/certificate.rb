@@ -112,7 +112,7 @@ action_class do
 
     certendpoint = new_resource.ssl_endpoint
     unless certendpoint.nil?
-      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint} 2> /dev/null | openssl x509")
+      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -servername #{certendpoint.split(':').first} -connect #{certendpoint} 2> /dev/null | openssl x509")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 
