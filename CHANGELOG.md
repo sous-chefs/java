@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Set java home on macosx using /usr/libexec/java_home
 - Find command should have ./ for path to search, works for nix and mac
+- make java_certificate work with SNI endpoints
 
 ## 3.1.1 - (2018-11-09)
 
