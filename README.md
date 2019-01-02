@@ -191,7 +191,7 @@ At this time the `java::ibm` recipe does not support multiple SDK installations.
 
 ### notify
 
-The `java::notify` recipe contains a log resource that's `:write` action is called when a JDK version changes. This gives cookbook authors a way to subscribe to JDK changes and take actions (say restart a java service):
+The `java::notify` recipe contains a log resource whose `:write` action is called when a JDK version changes. This gives cookbook authors a way to subscribe to JDK changes and take actions (say restart a java service):
 
 ```ruby
 service 'somejavaservice' do
