@@ -1,6 +1,6 @@
 # java cookbook
 
-[![Build Status](https://travis-ci.org/sous-chefs/java.svg?branch=master)](https://travis-ci.org/sous-chefs/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
+[![Build Status](https://travis-ci.org/sous-chefs/java.svg?branch=master)](https://travis-ci.org/sous-chefs/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java) [![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
 
 This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle and IBM JDKs.
 
