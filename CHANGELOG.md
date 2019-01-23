@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
+- Add support OpenJDK 11
+
 ## 3.1.2 - (2018-12-11)
 
 - Set java home on macosx using /usr/libexec/java_home
