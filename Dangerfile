@@ -25,8 +25,6 @@ end
 
 fail 'Please provide a summary of your Pull Request.' if github.pr_body.length < 10
 
-fail 'Please add labels to this Pull Request' if github.pr_labels.empty?
-
 warn 'This is a big Pull Request.' if git.lines_of_code > 400
 
 # Require a CHANGELOG entry for non-test changes.
