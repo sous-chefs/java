@@ -58,6 +58,16 @@ suites:
       - ubuntu-18.04
     run_list:
       - recipe[test::openjdk8]
+  - name: openjdk-11
+    includes:
+      - centos-7
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::openjdk11]
+    verifier:
+      inspec_tests:
+        - test/integration/openjdk-11
   - name: oracle-8
     run_list:
       - recipe[test::oracle8]

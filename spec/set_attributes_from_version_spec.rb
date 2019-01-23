@@ -7,6 +7,11 @@ describe 'java::set_attributes_from_version' do
       'jdk_version' => '6',
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
     },
+    'centos-7.6.1804' => {
+      'java_home' => '/usr/lib/jvm/java-1.6.0',
+      'jdk_version' => '6',
+      'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
+    },
     'redhat-6.9' => {
       'java_home' => '/usr/lib/jvm/java-1.6.0',
       'jdk_version' => '6',

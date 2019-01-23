@@ -61,7 +61,8 @@ module ChefCookbook
       when 'debian'
         format('java-%s-openjdk%s/jre', @jdk_version, arch_dir)
       when 'rhel', 'fedora', 'amazon'
-        format('jre-1.%s.0-openjdk%s', @jdk_version, arch_dir)
+        path = @node['java']['jdk_version'].to_i < 11 ? 'jre-1.%s.0-openjdk%s' : 'java-%s'
+        format(path, @jdk_version, arch_dir)
       else
         'jre'
       end

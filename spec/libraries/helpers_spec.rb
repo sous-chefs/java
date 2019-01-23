@@ -180,4 +180,24 @@ describe ChefCookbook::OpenJDK do
       expect(subject.java_location).to eq(expected_path)
     end
   end
+
+  context 'centos 7.6.1804 64 bit' do
+    before do
+      node['platform'] = 'centos'
+      node['platform_version'] = '7.6.1804'
+      node['platform_family'] = 'rhel'
+      node['kernel']['machine'] = 'x86_64'
+    end
+
+    it 'sets the java location for JDK 6' do
+      expected_path = '/usr/lib/jvm/jre-1.6.0-openjdk.x86_64/bin/java'
+      expect(subject.java_location).to eq(expected_path)
+    end
+
+    it 'sets the java location for JDK 11' do
+      node['java']['jdk_version'] = '11'
+      expected_path = '/usr/lib/jvm/java-11/bin/java'
+      expect(subject.java_location).to eq(expected_path)
+    end
+  end
 end

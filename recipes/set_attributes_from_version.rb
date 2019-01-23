@@ -25,9 +25,9 @@ when 'rhel', 'fedora', 'amazon'
                                       when 'oracle_rpm'
                                         '/usr/java/latest'
                                       else
-                                        "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0"
+                                        node['java']['jdk_version'].to_i < 11 ? "/usr/lib/jvm/java-1.#{node['java']['jdk_version']}.0" : "/usr/lib/jvm/java-#{node['java']['jdk_version']}"
                                       end
-  node.default['java']['openjdk_packages'] = ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"]
+  node.default['java']['openjdk_packages'] = node['java']['jdk_version'].to_i < 11 ? ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"] : ["java-#{node['java']['jdk_version']}-openjdk", "java-#{node['java']['jdk_version']}-openjdk-devel"]
 when 'suse'
   node.default['java']['java_home'] = case node['java']['install_flavor']
                                       when 'oracle'
