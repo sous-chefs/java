@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the Java cookbook.
 ## Unreleased
 
 - Add support OpenJDK 11
+- Fixed oracle download link again
 
 ## 3.1.2 - (2018-12-11)
 
