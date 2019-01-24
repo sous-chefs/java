@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+## 3.2.0 - (2019-01-24)
+
 - Add support OpenJDK 11
 - Fixed oracle download link again
 
