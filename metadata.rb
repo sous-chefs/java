@@ -21,6 +21,7 @@ supports 'opensuseleap'
 supports 'mac_os_x'
 
 depends 'homebrew'
+depends 'windows'
 
 source_url 'https://github.com/sous-chefs/java'
 issues_url 'https://github.com/sous-chefs/java/issues'
