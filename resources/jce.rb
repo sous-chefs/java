@@ -49,8 +49,6 @@ action :install do
   jre_path = node['java']['install_type'] == 'jdk' ? 'jre' : ''
 
   if node['os'] == 'windows'
-    # Not clear if this should be this cookbook's 'windows' recipe, or the upstream windows default recipe.
-    include_recipe 'windows' # ~FC007
 
     staging_path = ::File.join(jce_home, jdk_version)
     staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
