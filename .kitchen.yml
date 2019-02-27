@@ -17,9 +17,8 @@ platforms:
   - name: debian-8
   - name: debian-9
   - name: freebsd-11
-  - name: fedora-27
+  - name: fedora-29
   - name: opensuse-leap-42
-  - name: ubuntu-14.04
   - name: ubuntu-16.04
   - name: ubuntu-18.04
 
@@ -29,7 +28,6 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - ubuntu-14.04
     run_list:
       - recipe[test::openjdk6]
   - name: openjdk-7
@@ -40,7 +38,6 @@ suites:
       - debian-8
       - freebsd-11
       - opensuse-leap-42
-      - ubuntu-14.04
       - ubuntu-16.04
     run_list:
       - recipe[test::openjdk7]
@@ -50,10 +47,9 @@ suites:
       - centos-6
       - centos-7
       - debian-9
-      - fedora-27
+      - fedora-29
       - freebsd-11
       - opensuse-leap-42
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -84,7 +80,7 @@ suites:
     includes:
       - centos-6
       - centos-7
-      - fedora-27
+      - fedora-29
     run_list:
       - recipe[test::oracle_rpm8]
     verifier:
@@ -97,7 +93,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -114,7 +109,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -131,7 +125,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -148,7 +141,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -165,7 +157,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -182,7 +173,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -199,7 +189,6 @@ suites:
       - centos-7
       - debian-8
       - debian-9
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
