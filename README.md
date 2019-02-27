@@ -70,12 +70,11 @@ Chef 13+
 ### Platforms
 
 - Debian, Ubuntu
-- CentOS, RedHat, Fedora, Scientific, Amazon, XenServer
+- CentOS, RedHat, Fedora, Scientific, Amazon
 - ArchLinux
 - FreeBSD
-- SmartOS
 - Windows
-- Mac OS X
+- macOS
 
 ### Cookbooks
 
