@@ -3,19 +3,19 @@ require 'spec_helper'
 describe 'java::openjdk' do
   platforms = {
     'debian-8.10' => {
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
       'update_alts' => true,
     },
     'debian-9.1' => {
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
       'update_alts' => true,
     },
     'centos-6.9' => {
-      'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
+      'packages' => ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel'],
       'update_alts' => true,
     },
     'centos-7.4.1708' => {
-      'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
+      'packages' => ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel'],
       'update_alts' => true,
     },
   }

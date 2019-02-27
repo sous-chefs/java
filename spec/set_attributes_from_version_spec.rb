@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'java::set_attributes_from_version' do
   platforms = {
     'centos-6.9' => {
-      'java_home' => '/usr/lib/jvm/java-1.6.0',
-      'jdk_version' => '6',
-      'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
+      'java_home' => '/usr/lib/jvm/java-1.8.0',
+      'jdk_version' => '8',
+      'packages' => ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel'],
     },
     'centos-7.6.1804' => {
       'java_home' => '/usr/lib/jvm/java-1.6.0',
@@ -13,33 +13,33 @@ describe 'java::set_attributes_from_version' do
       'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
     },
     'redhat-6.9' => {
-      'java_home' => '/usr/lib/jvm/java-1.6.0',
-      'jdk_version' => '6',
-      'packages' => ['java-1.6.0-openjdk', 'java-1.6.0-openjdk-devel'],
+      'java_home' => '/usr/lib/jvm/java-1.8.0',
+      'jdk_version' => '8',
+      'packages' => ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel'],
     },
     'freebsd-10.3' => {
-      'java_home' => '/usr/local/openjdk6',
-      'jdk_version' => '6',
-      'packages' => ['openjdk6'],
+      'java_home' => '/usr/local/openjdk8',
+      'jdk_version' => '8',
+      'packages' => ['openjdk8'],
     },
     'debian-7.11' => {
-      'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
-      'jdk_version' => '6',
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'java_home' => '/usr/lib/jvm/java-8-openjdk-amd64',
+      'jdk_version' => '8',
+      'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
     },
     'ubuntu-14.04' => {
-      'java_home' => '/usr/lib/jvm/java-6-openjdk-amd64',
-      'jdk_version' => '6',
-      'packages' => ['openjdk-6-jdk', 'openjdk-6-jre-headless'],
+      'java_home' => '/usr/lib/jvm/java-8-openjdk-amd64',
+      'jdk_version' => '8',
+      'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
     },
     'windows-2008R2' => {
       'java_home' => nil,
-      'jdk_version' => '6',
+      'jdk_version' => '8',
       'packages' => [],
     },
     'mac_os_x-10.12' => {
-      'java_home' => '$(/usr/libexec/java_home -v 1.6)',
-      'jdk_version' => '6',
+      'java_home' => '$(/usr/libexec/java_home -v 1.8)',
+      'jdk_version' => '8',
       'packages' => [],
     },
     'mac_os_x-10.14' => {

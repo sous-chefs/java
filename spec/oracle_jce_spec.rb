@@ -85,7 +85,7 @@ describe 'java::oracle_jce' do
     let(:file_cache_path) { Chef::Config[:file_cache_path] }
 
     it 'creates JCE home' do
-      expect(chef_run).to create_directory('/opt/java_jce/6')
+      expect(chef_run).to create_directory('/opt/java_jce/8')
     end
 
     it 'downloads the JCE zip' do
@@ -103,8 +103,8 @@ describe 'java::oracle_jce' do
     end
 
     it 'Links jars' do
-      expect(chef_run).to create_link('/usr/lib/jvm/java/jre/lib/security/local_policy.jar').with(to: '/opt/java_jce/6/local_policy.jar')
-      expect(chef_run).to create_link('/usr/lib/jvm/java/jre/lib/security/US_export_policy.jar').with(to: '/opt/java_jce/6/US_export_policy.jar')
+      expect(chef_run).to create_link('/usr/lib/jvm/java/jre/lib/security/local_policy.jar').with(to: '/opt/java_jce/8/local_policy.jar')
+      expect(chef_run).to create_link('/usr/lib/jvm/java/jre/lib/security/US_export_policy.jar').with(to: '/opt/java_jce/8/US_export_policy.jar')
     end
   end
 end
