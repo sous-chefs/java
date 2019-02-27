@@ -11,6 +11,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - Remove support for Java 6 & 7
 - Remove platform suport for untested platforms (smartOS, XenServer, zlinux, arch)
 - Remove Ubuntu 14.04 support
+- Fixed oracle download link for JDK 8 (update to 8u202 from 8u201)
 
 ## 3.2.0 - (2019-01-24)
 
