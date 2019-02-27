@@ -9,6 +9,22 @@ This file is used to list changes made in each version of the Java cookbook.
 - Updated AdoptOpenJDK links for Java 8
 - Updated AdoptOpenJDK links for Java 11 to 11.0.1
 
+## 3.2.0 - (2019-01-24)
+
+- Add support OpenJDK 11
+- Fixed oracle download link again
+
+## 3.1.2 - (2018-12-11)
+
+- Set java home on macosx using /usr/libexec/java_home
+- Find command should have ./ for path to search, works for nix and mac
+- Make `java_certificate` work with SNI endpoints
+
+## 3.1.1 - (2018-11-09)
+
+- Fix jce installation linux
+- Allow overwrite `returns` property of windows_packages
+
 ## 3.1.0 - (2018-10-18)
 
 - Add support for JDK 11

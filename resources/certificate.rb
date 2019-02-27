@@ -19,7 +19,7 @@
 # limitations under the License.
 
 property :java_home, String, default: lazy { node['java']['java_home'] }
-property :keystore_path, String, default: ''
+property :keystore_path, String, default: lazy { node['java']['jdk_version'].to_i < 11 ? "#{node['java']['java_home']}/jre/lib/security/cacerts" : "#{node['java']['java_home']}/lib/security/cacerts" }
 property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String, name_property: true
 property :cert_data, String
@@ -120,7 +120,7 @@ action_class do
 
     certendpoint = new_resource.ssl_endpoint
     unless certendpoint.nil?
-      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -connect #{certendpoint} 2> /dev/null | openssl x509")
+      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -servername #{certendpoint.split(':').first} -connect #{certendpoint} 2> /dev/null | openssl x509")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 

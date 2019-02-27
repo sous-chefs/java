@@ -1,6 +1,8 @@
 # java cookbook
 
-[![Build Status](https://travis-ci.org/sous-chefs/java.svg?branch=master)](https://travis-ci.org/sous-chefs/java) [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
+[![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
+[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/java/master.svg)](https://circleci.com/gh/sous-chefs/java)
+[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
 
 This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle, IBM JDKs or AdoptOpenJDK.
 
@@ -103,6 +105,8 @@ See `attributes/default.rb` for default values.
 - `node['java']['windows']['aws_access_key_id']` - AWS Acess Key ID to use with AWS API calls
 - `node['java']['windows']['aws_secret_access_key']` - AWS Secret Access Key to use with AWS API calls
 - `node['java']['windows']['aws_session_token']` - AWS Session Token to use with AWS API calls
+- `node['java']['windows']['returns']` - The allowed return codes for the package to
+  be installed on Windows machines (default is 0, you can define an array of valid values.)
 - `node['java']['ibm']['url']` - The URL which to download the IBM JDK/SDK. See the `ibm` recipe section below.
 - `node['java']['ibm']['accept_ibm_download_terms']` - Indicates that you accept IBM's EULA (for `java::ibm`)
 - `node['java']['oracle_rpm']['type']` - Type of java RPM (`jre` or `jdk`), default `jdk`
@@ -194,7 +198,7 @@ At this time the `java::ibm` recipe does not support multiple SDK installations.
 
 ### notify
 
-The `java::notify` recipe contains a log resource that's `:write` action is called when a JDK version changes. This gives cookbook authors a way to subscribe to JDK changes and take actions (say restart a java service):
+The `java::notify` recipe contains a log resource whose `:write` action is called when a JDK version changes. This gives cookbook authors a way to subscribe to JDK changes and take actions (say restart a java service):
 
 ```ruby
 service 'somejavaservice' do
