@@ -18,8 +18,6 @@ default['java']['jdk']['7']['x86_64']['checksum'] = 'The SHA-256 checksum of the
 default['java']['oracle']['accept_oracle_download_terms'] = true
 ```
 
-NOTE: Oracle JDK 6 & 7 are unable to be automatically downloaded at this time.
-
 ## Usage
 
 Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (AdoptOpenJDK, OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 and 10 for Oracle and AdoptOpenJDK ).
@@ -72,12 +70,11 @@ Chef 13.4+
 ### Platforms
 
 - Debian, Ubuntu
-- CentOS, RedHat, Fedora, Scientific, Amazon, XenServer
+- CentOS, RedHat, Fedora, Scientific, Amazon
 - ArchLinux
 - FreeBSD
-- SmartOS
 - Windows
-- Mac OS X
+- macOS
 
 ### Cookbooks
 
@@ -93,8 +90,6 @@ See `attributes/default.rb` for default values.
 - `node['java']['java_home']` - Default location of the "`$JAVA_HOME`". To configure this attribute for `ibm`, `ibm_tar`, and `oracle_rpm` install flavors, you must use an attribute precedence of `force_default` or higher in your attribute file.
 - `node['java']['set_etc_environment']` - Optionally sets JAVA_HOME in `/etc/environment` for Default `false`.
 - `node['java']['openjdk_packages']` - Array of OpenJDK package names to install in the `java::openjdk` recipe. This is set based on the platform.
-- `node['java']['tarball']` - Name of the tarball to retrieve from your internal repository, default `jdk1.6.0_29_i386.tar.gz`
-- `node['java']['tarball_checksum']` - Checksum for the tarball, if you use a different tarball, you also need to create a new sha256 checksum
 - `node['java']['jdk']` - Version and architecture specific attributes for setting the URL on Oracle's site for the JDK, and the checksum of the .tar.gz.
 - `node['java']['oracle']['accept_oracle_download_terms']` - Indicates that you accept Oracle's EULA
 - `node['java']['windows']['url']` - The internal location of your java install for windows
@@ -147,7 +142,7 @@ On platforms such as SmartOS that require the acceptance of a license agreement 
 
 This recipe installs the `oracle` flavor of Java. This recipe does not use distribution packages as Oracle changed the licensing terms with JDK 1.6u27 and prohibited the practice for both RHEL and Debian family platforms.
 
-As of 26 March 2012 you can no longer directly download the JDK from Oracle's website without using a special cookie. This cookbook uses that cookie to download the oracle recipe on your behalf, however the `java::oracle` recipe forces you to set either override the `node['java']['oracle']['accept_oracle_download_terms']` to true or set up a private repository accessible by HTTP.
+You can not directly download the JDK from Oracle's website without using a special cookie. This cookbook uses that cookie to download the oracle recipe on your behalf, however the `java::oracle` recipe forces you to set either override the `node['java']['oracle']['accept_oracle_download_terms']` to true or set up a private repository accessible by HTTP.
 
 override the `accept_oracle_download_terms` in, e.g., `roles/base.rb`
 
