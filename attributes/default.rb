@@ -133,8 +133,8 @@ default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extch
 # Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u172checksum.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = 'cb700cc0ac3ddc728a567c350881ce7e25118eaf7ca97ca9705d4580c506e370'
+default['java']['jdk']['8']['x86_64']['url'] = 'https://download.oracle.com/otn-pub/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/jdk-8u202-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = '9a5c32411a6a06e22b69c495b7975034409fa1652d03aeb8eb5b6f59fd4594e0'
 
 # i586
 default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-i586.tar.gz'

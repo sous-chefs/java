@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
+- Fixed oracle download link for JDK 8 (update to 8u202 from 8u201)
 
 ## 3.2.0 - (2019-01-24)
 
