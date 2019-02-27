@@ -20,9 +20,8 @@ supports 'suse'
 supports 'opensuseleap'
 supports 'mac_os_x'
 
-depends 'windows'
 depends 'homebrew'
 
 source_url 'https://github.com/sous-chefs/java'
 issues_url 'https://github.com/sous-chefs/java/issues'
-chef_version '>= 12.9'
+chef_version '>= 13.4'
