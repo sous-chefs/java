@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/java/master.svg)](https://circleci.com/gh/sous-chefs/java)
 [![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
 
-This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle and IBM JDKs.
+This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle, IBM JDKs or AdoptOpenJDK.
 
 ## Production Deployment with Oracle Java
 
@@ -22,7 +22,7 @@ NOTE: Oracle JDK 6 & 7 are unable to be automatically downloaded at this time.
 
 ## Usage
 
-Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 for Oracle only).
+Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (AdoptOpenJDK, OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 and 10 for Oracle and AdoptOpenJDK ).
 
 ### Examples
 
@@ -88,7 +88,7 @@ Chef 12.9+
 
 See `attributes/default.rb` for default values.
 
-- `node['java']['install_flavor']` - Flavor of JVM you would like installed (`oracle`, `oracle_rpm`, `openjdk`, `ibm`, `windows`), default `openjdk` on Linux/Unix platforms, `windows` on Windows platforms.
+- `node['java']['install_flavor']` - Flavor of JVM you would like installed (`oracle`, `oracle_rpm`, `openjdk`, `adoptopenjdk`, `ibm`, `windows`), default `openjdk` on Linux/Unix platforms, `windows` on Windows platforms.
 - `node['java']['install_type']` - Type of Java installation, defauls to jdk, needed for JCE to find the install path of jar's for JDK/JRE installation.
 - `node['java']['jdk_version']` - JDK version to install, defaults to `'6'`.
 - `node['java']['java_home']` - Default location of the "`$JAVA_HOME`". To configure this attribute for `ibm`, `ibm_tar`, and `oracle_rpm` install flavors, you must use an attribute precedence of `force_default` or higher in your attribute file.
@@ -118,6 +118,7 @@ See `attributes/default.rb` for default values.
 - `node['java']['oracle']['jce']['home']` - Where the JCE policy files should be installed to
 - `node['java']['oracle']['jce'][java_version]['checksum']` - Checksum of the JCE policy zip. Can be sha256 or md5
 - `node['java']['oracle']['jce'][java_version]['url']` - URL which to download the JCE policy zip
+- `node['java']['adoptopenjdk']['variant']` - Install the Eclipse Openj9 (default), Eclipse OpenJ9 Large Heap or Hotspot version of AdoptOpenJDK
 
 ## Recipes
 
@@ -176,6 +177,10 @@ This recipe operates in a similar manner to `java::oracle`.
 This recipe installs the Oracle JRE or JDK provided by a custom YUM repositories. It also uses the `alternatives` system on RHEL families to set the default Java.
 
 While public YUM repos for Oracle Java 7 and prior are available, you need to download the RPMs manually for Java 8 and make your own internal repository. This must be done to use this recipe to install Oracle Java 8 via RPM. You will also likely need to set `node['java']['oracle_rpm']['package_name']` to `jdk1.8.0_40`, replacing `40` with the most current version in your local repo.
+
+### adoptopenjdk
+
+This recipe installs the `AdoptOpenJDK` flavor of Java from https://adoptopenjdk.net/. It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
 
 ### windows
 
@@ -242,6 +247,43 @@ java_oracle_install "jdk" do
 end
 ```
 
+### adoptopenjdk_install
+
+This cookbook contains the `adoptopenjdk_install` resource which handles the installation of AdopOpenJDK's distribution of Java.
+
+By default, the extracted directory is extracted to `app_root/extracted_dir_name` and symlinked to `app_root/default`
+
+#### Actions
+
+- `:install`: extracts the tarball and makes necessary symlinks
+- `:remove`: removes the tarball and run update-alternatives for all symlinked `bin_cmds`
+
+#### Attribute Parameters
+
+- `url`: path to tarball, .tar.gz is currently supported
+- `checksum`: SHA256 checksum, not used for security but avoid redownloading the archive on each chef-client run
+- `app_home`: the default for installations of this type of application, for example, `/usr/lib/tomcat/default`.
+- `app_home_mode`: file mode for app_home, is an integer
+- `bin_cmds`: array of binary commands that should be symlinked to `/usr/bin`, examples are mvn, java, javac, etc. These cmds must be in the `bin` subdirectory of the extracted folder. Will be ignored if this `java_oracle_install` is not the default
+- `owner`: owner of extracted directory, set to "root" by default
+- `group`: group of extracted directory, set to `:owner` by default
+- `default`: whether this the default installation of this package, boolean true or false
+- `reset_alternatives`: whether alternatives is reset boolean true or false
+- `variant`: One of `hotspot`, `openj9`, or `openj9-large-heap`
+
+#### Examples
+
+```ruby
+# install Java 10 from AdoptOpenJDK
+adoptopenjdk_install "jdk" do
+    url 'https://github.com/AdoptOpenJDK/openjdk10-openj9-releases/releases/download/jdk-10.0.2%2B13_openj9-0.9.0/OpenJDK10-OPENJ9_x64_Linux_jdk-10.0.2.13_openj9-0.9.0.tar.gz'
+    checksum  '1ef0dab3853b2f3666091854ef8149fcb85970254558d5d62cfa9446831779d1'
+    app_home '/usr/local/java/default'
+    bin_cmds ["java", "javac"]
+    action :install
+end
+```
+
 ### java_alternatives
 
 The `java_alternatives` resource uses `update-alternatives` command to set and unset command alternatives for various Java tools such as java, javac, etc.
@@ -271,7 +313,7 @@ end
 
 ### java_certificate
 
-This cookbook contains the `java_certificate` resource which simplifies adding certificates to a java keystore. It can also populate the keystore with a certificate retrieved from a given SSL end-point. It defaults to the default keystore `<java_home>/jre/lib/security/cacerts` with the default password if a specific keystore is not provided.
+This cookbook contains the `java_certificate` resource which simplifies adding certificates to a java keystore. It can also populate the keystore with a certificate retrieved from a given SSL end-point. It defaults to the default keystore `<java_home>/jre/lib/security/cacerts` for Java 8 or below and `<java_home>/lib/security/cacerts` for Java 9+ with the default password if a specific keystore is not provided.
 
 ### Actions
 
@@ -286,7 +328,7 @@ Optional parameters:
 
 - `java_home`: the java home directory. Defaults to `node['java']['java_home']`.
 
-- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts`.
+- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts` for Java 8 or below and `node['java']['java_home']/lib/security/cacerts` for Java 9+.
 
 - `keystore_passwd`: the keystore password. Defaults to 'changeit' as specified by the Java Documentation.
 

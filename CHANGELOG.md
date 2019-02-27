@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Added new install flavor "adoptopenjdk" for AdoptOpenJDK's distribution of Java
+- The certificate resource now uses the Java version to determine the default cacerts location
+- Updated AdoptOpenJDK links for Java 8
+- Updated AdoptOpenJDK links for Java 11 to 11.0.1
+
 ## 3.2.0 - (2019-01-24)
 
 - Add support OpenJDK 11

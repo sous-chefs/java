@@ -31,7 +31,11 @@ action :install do
 
   java_home = new_resource.java_home
   keytool = "#{java_home}/bin/keytool"
-  truststore = new_resource.keystore_path
+  truststore = if new_resource.keystore_path.empty?
+                 truststore_default_location
+               else
+                 new_resource.keystore_path
+               end
   truststore_passwd = new_resource.keystore_passwd
   certalias = new_resource.cert_alias
   certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
@@ -83,7 +87,11 @@ end
 
 action :remove do
   certalias = new_resource.name
-  truststore = new_resource.keystore_path
+  truststore = if new_resource.keystore_path.nil?
+                 truststore_default_location
+               else
+                 new_resource.keystore_path
+               end
   truststore_passwd = new_resource.keystore_passwd
   keytool = "#{node['java']['java_home']}/bin/keytool"
 
@@ -124,5 +132,13 @@ action_class do
     end
 
     Chef::Application.fatal!('At least one of cert_data, cert_file or ssl_endpoint attributes must be provided.', 999)
+  end
+
+  def truststore_default_location
+    if node['java']['jdk_version'].to_i > 8
+      "#{node['java']['java_home']}/lib/security/cacerts"
+    else
+      "#{node['java']['java_home']}/jre/lib/security/cacerts"
+    end
   end
 end

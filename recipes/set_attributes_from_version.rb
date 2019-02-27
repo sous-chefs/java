@@ -20,6 +20,8 @@
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
   node.default['java']['java_home'] = case node['java']['install_flavor']
+                                      when 'adoptopenjdk'
+                                        "/usr/lib/jvm/java-#{node['java']['jdk_version'].to_i}-#{node['java']['install_flavor']}-#{node['java']['adoptopenjdk']['variant']}"
                                       when 'oracle'
                                         '/usr/lib/jvm/java'
                                       when 'oracle_rpm'
@@ -30,6 +32,8 @@ when 'rhel', 'fedora', 'amazon'
   node.default['java']['openjdk_packages'] = node['java']['jdk_version'].to_i < 11 ? ["java-1.#{node['java']['jdk_version']}.0-openjdk", "java-1.#{node['java']['jdk_version']}.0-openjdk-devel"] : ["java-#{node['java']['jdk_version']}-openjdk", "java-#{node['java']['jdk_version']}-openjdk-devel"]
 when 'suse'
   node.default['java']['java_home'] = case node['java']['install_flavor']
+                                      when 'adoptopenjdk'
+                                        "/usr/lib/jvm/java-#{node['java']['jdk_version'].to_i}-#{node['java']['install_flavor']}-#{node['java']['adoptopenjdk']['variant']}"
                                       when 'oracle'
                                         '/usr/lib/jvm/java'
                                       when 'oracle_rpm'
@@ -47,7 +51,12 @@ when 'arch'
   node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-openjdk"
   node.default['java']['openjdk_packages'] = ["openjdk#{node['java']['jdk_version']}"]
 when 'debian'
-  node.default['java']['java_home'] = "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}"
+  node.default['java']['java_home'] = case node['java']['install_flavor']
+                                      when 'adoptopenjdk'
+                                        "/usr/lib/jvm/java-#{node['java']['jdk_version'].to_i}-#{node['java']['install_flavor']}-#{node['java']['adoptopenjdk']['variant']}"
+                                      else
+                                        "/usr/lib/jvm/java-#{node['java']['jdk_version']}-#{node['java']['install_flavor']}-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}"
+                                      end
   node.default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk", "openjdk-#{node['java']['jdk_version']}-jre-headless"]
 when 'smartos'
   node.default['java']['java_home'] = '/opt/local/java/sun6'
