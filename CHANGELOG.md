@@ -8,6 +8,9 @@ This file is used to list changes made in each version of the Java cookbook.
 - The certificate resource now uses the Java version to determine the default cacerts location
 - Updated AdoptOpenJDK links for Java 8
 - Updated AdoptOpenJDK links for Java 11 to 11.0.1
+- Remove support for Java 6 & 7
+- Remove platform suport for untested platforms (smartOS, XenServer, zlinux, arch)
+- Remove Ubuntu 14.04 support
 
 ## 3.2.0 - (2019-01-24)
 
