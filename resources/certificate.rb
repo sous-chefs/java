@@ -38,7 +38,7 @@ action :install do
                end
   truststore_passwd = new_resource.keystore_passwd
   certalias = new_resource.cert_alias
-  certdata = new_resource.cert_data ? new_resource.cert_data : fetch_certdata
+  certdata = new_resource.cert_data || fetch_certdata
 
   hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
   certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
