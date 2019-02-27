@@ -259,8 +259,8 @@ action_class do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
           %(curl --fail --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
-                                   timeout: new_resource.download_timeout
-                  )
+            timeout: new_resource.download_timeout
+        )
       end
       # Can't verify anything with HTTP return codes from Oracle. For example, they return 200 for auth failure.
       # Do a generic verification of the download
