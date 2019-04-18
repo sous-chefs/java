@@ -20,7 +20,7 @@ property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
 property :alternatives_priority, Integer, default: 1
 property :reset_alternatives, [true, false], default: true
-property :variant, ['hotspot', 'openj9', 'openj9-large-heap'], default: 'openj9'
+property :variant, ['openj9', 'openj9-jre', 'openj9-large-heap', 'hotspot', 'hotspot-jre'], default: 'openj9'
 
 action :install do
   raise 'No URL provided to download AdoptOpenJDK\'s tar file!' if new_resource.url.nil? || new_resource.url.empty?
@@ -52,6 +52,7 @@ action :install do
         retries new_resource.retries
         retry_delay new_resource.retry_delay
         mode 0o644
+        show_progress true
         action :nothing
       end.run_action(:create_if_missing)
     end
@@ -154,28 +155,37 @@ end
 action_class do
   require 'uri'
 
-  def parse_app_dir_name(url)
+  def parse_app_dir_name(url, variant)
     uri = URI.parse(url)
     file_name = uri.path.split('/').last
-    if file_name =~ /jdk\d+u\d+-b\d+/ # OpenJDK8
-      dir_name_results = file_name.scan(/_(jdk\d+u\d+-b\d+)(?:_openj[-.\d]+)?\.tar\.gz$/)
+    if file_name =~ /jdk\d+u\d+-b\d+.\w+-\d+.\d+.\d+\.tar\.gz$/ # OpenJDK8 with 'jdk' word before 8u, with package_version at the end
+      dir_name_results = file_name.scan(/(jdk\d+u\d+-b\d+).\w+-(\d+.\d+.\d+)\.tar\.gz$/)
       app_dir_name = dir_name_results[0][0] unless dir_name_results.empty?
-    elsif file_name =~ /_\d+u\d+b\d+\.tar\.gz$/ # OpenJDK8U
+      app_dir_name += '-jre' if variant.include? 'jre'
+      package_version = dir_name_results[0][1]
+    elsif file_name =~ /_\d+u\d+b\d+\.tar\.gz$/ # OpenJDK8 without 'jdk' word before 8u, without package_version at the end
       dir_name_results = file_name.scan(/_(\d+u\d+)(b\d+)\.tar\.gz$/)
       app_dir_name = "jdk#{dir_name_results[0][0]}-#{dir_name_results[0][1]}" unless dir_name_results.empty?
-    else
+      app_dir_name += '-jre' if variant.include? 'jre'
+    elsif file_name =~ /_\d+u\d+b\d+.\w+-\d+.\d+.\d+\.tar\.gz$/ # OpenJDK8 without 'jdk' word before 8u, with package_version at the end
+      dir_name_results = file_name.scan(/_(\d+u\d+)(b\d+).\w+-(\d+.\d+.\d+)\.tar\.gz$/)
+      app_dir_name = "jdk#{dir_name_results[0][0]}-#{dir_name_results[0][1]}" unless dir_name_results.empty?
+      app_dir_name += '-jre' if variant.include? 'jre'
+      package_version = dir_name_results[0][2]
+    else # OpenJDK >= 10
       dir_name_results = file_name.scan(/[-_]([.\d]+)[._]([\d]+)(?:_openj[-.\d]+)?\.tar\.gz$/)
-      app_dir_name = "jdk-#{dir_name_results[0][0]}+#{dir_name_results[0][1]}" unless dir_name_results.empty?
+      app_dir_name = "jdk-#{dir_name_results[0][0]}-#{dir_name_results[0][1]}" unless dir_name_results.empty?
     end
     Chef::Application.fatal!("Failed to parse #{file_name} for application directory name!") if dir_name_results.empty?
 
-    [app_dir_name, file_name]
+    [app_dir_name, file_name, package_version]
   end
 
   def parse_dir_names(url, app_home, variant)
-    app_dir_name, tarball_name = parse_app_dir_name(url)
+    app_dir_name, tarball_name, package_version = parse_app_dir_name(url, variant)
     app_root = app_home.split('/')[0..-2].join('/')
     app_dir = "#{app_root}/#{app_dir_name}-#{variant}"
+    app_dir += "-#{package_version}" unless package_version.nil?
     [app_dir_name, tarball_name, app_root, app_dir]
   end
 

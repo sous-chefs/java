@@ -112,7 +112,7 @@ See `attributes/default.rb` for default values.
 - `node['java']['oracle']['jce']['home']` - Where the JCE policy files should be installed to
 - `node['java']['oracle']['jce'][java_version]['checksum']` - Checksum of the JCE policy zip. Can be sha256 or md5
 - `node['java']['oracle']['jce'][java_version]['url']` - URL which to download the JCE policy zip
-- `node['java']['adoptopenjdk']['variant']` - Install the Eclipse Openj9 (default), Eclipse OpenJ9 Large Heap or Hotspot version of AdoptOpenJDK
+- `node['java']['adoptopenjdk']['variant']` - Select the AdoptOpenJDK version: Eclipse Openj9 JDK (default), Eclipse Openj9 JRE, Eclipse OpenJ9 Large Heap, Hotspot JDK, Hotspot JRE
 
 ## Recipes
 
@@ -263,7 +263,7 @@ By default, the extracted directory is extracted to `app_root/extracted_dir_name
 - `group`: group of extracted directory, set to `:owner` by default
 - `default`: whether this the default installation of this package, boolean true or false
 - `reset_alternatives`: whether alternatives is reset boolean true or false
-- `variant`: One of `hotspot`, `openj9`, or `openj9-large-heap`
+- `variant`: One of `openj9`, `openj9-jre`, `openj9-large-heap`, `hotspot` or `hotspot-jre`
 
 #### Examples
 

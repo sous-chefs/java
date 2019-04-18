@@ -12,7 +12,12 @@ This file is used to list changes made in each version of the Java cookbook.
 - Remove platform suport for untested platforms (smartOS, XenServer, zlinux, arch)
 - Remove testing of Ubuntu 14.04, support at this point is no longer guaranteed and patches or other changes may not be accepted going further as Ubuntu 14.04 will be shortly EOL
 - Fixed oracle download link for JDK 8 (update to 8u202 from 8u201)
-- fixed specs for windows
+- Fixed specs for windows
+- Add support for new artifacts naming schema to adoptopenjdk
+- Add openj9-jre and hotspot-jre install types to adoptopenjdk
+- Show download progress for adoptopenjdk files
+- Add links to adoptopenjdk JDK12 and fill bin_cmds for it
+- Update adoptopenjdk 8 links to 8u212
 
 ## 3.2.0 - (2019-01-24)
 
