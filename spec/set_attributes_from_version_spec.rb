@@ -17,7 +17,7 @@ describe 'java::set_attributes_from_version' do
       'jdk_version' => '8',
       'packages' => ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-devel'],
     },
-    'freebsd-10.3' => {
+    'freebsd-10' => {
       'java_home' => '/usr/local/openjdk8',
       'jdk_version' => '8',
       'packages' => ['openjdk8'],
