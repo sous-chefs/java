@@ -6,7 +6,7 @@ describe 'java::openjdk' do
       'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
       'update_alts' => true,
     },
-    'debian-9.1' => {
+    'debian-9' => {
       'packages' => ['openjdk-8-jdk', 'openjdk-8-jre-headless'],
       'update_alts' => true,
     },
