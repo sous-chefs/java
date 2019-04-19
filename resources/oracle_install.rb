@@ -27,7 +27,7 @@ property :mirrorlist, Array, default: []
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :app_home, String
-property :app_home_mode, Integer, default: 0755
+property :app_home_mode, Integer, default: 0o755
 property :bin_cmds, Array, default: []
 property :owner, String, default: 'root'
 property :group, String, default: lazy { node['root_group'] }
@@ -258,8 +258,19 @@ action_class do
       converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
-          %(curl --fail --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
-            timeout: new_resource.download_timeout
+          %W(
+            curl
+            --fail
+            --create-dirs
+            -L
+            --retry #{new_resource.retries}
+            --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}"
+            #{new_resource.url}
+            -o #{download_path}
+            --connect-timeout #{new_resource.connect_timeout}
+            #{proxy}
+          ).join(' '),
+          timeout: new_resource.download_timeout
         )
       end
       # Can't verify anything with HTTP return codes from Oracle. For example, they return 200 for auth failure.
