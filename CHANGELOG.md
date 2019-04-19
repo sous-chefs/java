@@ -4,11 +4,13 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+## 4.0.0 - 2019-04-19
+
 - Added new install flavor "adoptopenjdk" for AdoptOpenJDK's distribution of Java
 - The certificate resource now uses the Java version to determine the default cacerts location
 - Updated AdoptOpenJDK links for Java 8
 - Updated AdoptOpenJDK links for Java 11 to 11.0.1
-- Remove support for Java 6 & 7
+- BREAKING CHANGE: Remove support for Java 6 & 7
 - Remove platform suport for untested platforms (smartOS, XenServer, zlinux, arch)
 - Remove testing of Ubuntu 14.04, support at this point is no longer guaranteed and patches or other changes may not be accepted going further as Ubuntu 14.04 will be shortly EOL
 - Fixed oracle download link for JDK 8 (update to 8u202 from 8u201)
