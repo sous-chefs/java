@@ -311,26 +311,37 @@ This cookbook contains the `java_certificate` resource which simplifies adding c
 
 ### Actions
 
-- `:install`: installs a certificate.
-- `:remove`: removes a certificate.
+- `:install`: Installs a certificate.
+
+- `:remove`: Removes a certificate.
 
 ### Attribute Parameters
 
 - `cert_alias`: The alias of the certificate in the keystore. This defaults to the name of the resource.
 
+- `cert_type`: The type of certificate to import, either `file` or `keystore`. Defaults to `file`.
+
+- `source_keystore_path`: If `cert_type` is `keystore`, the path to the source keystore to import certs from. Required if `cert_type` is `keystore`.
+
+- `source_keystore_passwd`: If `cert_type` is `keystore`, the password to the keystore specified in `source_keystore_path`. Required if `cert_type` is `keystore`.
+
 Optional parameters:
 
-- `java_home`: the java home directory. Defaults to `node['java']['java_home']`.
+- `java_home`: The java home directory. Defaults to `node['java']['java_home']`.
 
-- `keystore_path`: the keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts` for Java 8 or below and `node['java']['java_home']/lib/security/cacerts` for Java 9+.
+- `keystore_path`: The keystore path. Defaults to `node['java']['java_home']/jre/lib/security/cacerts` for Java 8 or below and `node['java']['java_home']/lib/security/cacerts` for Java 9+.
 
-- `keystore_passwd`: the keystore password. Defaults to 'changeit' as specified by the Java Documentation.
+- `keystore_passwd`: The keystore password. Defaults to 'changeit' as specified by the Java Documentation.
 
-Only one of the following
+- `source_cert_alias`: If `cert_type` is `keystore`, the alias of the cert to import from the source keystore. If this is not specified, all certs from the source keystore will be imported.
 
-- `cert_data`: the certificate data to install
-- `cert_file`: path to a certificate file to install
-- `ssl_endpoint`: an SSL end-point from which to download the certificate
+Only one of the following (if `cert_type` is `file`):
+
+- `cert_data`: The certificate data to install.
+
+- `cert_file`: Path to a certificate file to install.
+
+- `ssl_endpoint`: An SSL end-point from which to download the certificate.
 
 ### Examples
 
@@ -340,6 +351,15 @@ java_certificate "Install LDAP server certificate to Java CA keystore for Jenkin
     ssl_endpoint node['jenkins']['ldap']['url']
     action :install
     notifies :restart, "runit_service[jenkins]", :delayed
+end
+```
+
+```
+java_certificate 'imported_cert' do
+  cert_type 'keystore'
+  source_keystore_path '/tmp/source_keystore'
+  source_keystore_passwd 'changeit'
+  source_cert_alias 'cert_to_import'
 end
 ```
 
