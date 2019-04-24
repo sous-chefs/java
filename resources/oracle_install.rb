@@ -27,7 +27,7 @@ property :mirrorlist, Array, default: []
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :app_home, String
-property :app_home_mode, Integer, default: 0o755
+property :app_home_mode, Integer, default: 0755
 property :bin_cmds, Array, default: []
 property :owner, String, default: 'root'
 property :group, String, default: lazy { node['root_group'] }
