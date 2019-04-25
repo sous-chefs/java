@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- The certificate resource can now import certificates from an existing keystore
+
 ## 4.0.0 - 2019-04-19
 
 - Added new install flavor "adoptopenjdk" for AdoptOpenJDK's distribution of Java
