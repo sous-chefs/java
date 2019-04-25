@@ -26,7 +26,7 @@ property :cert_alias, String, name_property: true
 property :cert_data, String
 property :cert_file, String
 property :ssl_endpoint, String
-property :cert_type, String, default: 'file', equal_to: [ 'file', 'keystore' ]
+property :cert_type, String, default: 'file', equal_to: %w(file keystore)
 property :source_keystore_path, String
 property :source_keystore_passwd, String
 property :source_cert_alias, String
@@ -43,14 +43,15 @@ action :install do
                  new_resource.keystore_path
                end
   truststore_passwd = new_resource.keystore_passwd
+  dest_keystore = Keystore.new(truststore, truststore_passwd)
 
-  if cert_type == 'file' then
+  if cert_type == 'file'
     certalias = new_resource.cert_alias
     certdata = new_resource.cert_data || fetch_certdata
 
     hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
     certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
-    keystore_cert = get_keystore_cert(certalias, truststore, truststore_passwd)
+    keystore_cert = get_keystore_cert(certalias, dest_keystore)
 
     keystore_cert_digest = keystore_cert.empty? ? nil : OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
     certfile_digest = OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
@@ -64,17 +65,7 @@ action :install do
 
       has_key = !cmd.stdout[/Alias name: \b#{certalias}/i].nil?
 
-      if has_key
-        converge_by("delete existing certificate #{certalias} from #{truststore}") do
-          cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
-          cmd.run_command
-          Chef::Log.debug(cmd.format_for_exception)
-          unless cmd.exitstatus == 0
-            Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
-                "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
-          end
-        end
-      end
+      delete_keystore_cert(certalias, dest_keystore) if has_key
 
       ::File.open(certfile, 'w', 0o644) { |f| f.write(certdata) }
 
@@ -97,19 +88,20 @@ action :install do
       Chef::Application.fatal!('source_keystore_passwd is a required parameter when cert_type is keystore')
     end
 
-    src_keystore = new_resource.source_keystore_path
+    src_path = new_resource.source_keystore_path
     src_password = new_resource.source_keystore_passwd
+    src_keystore = Keystore.new(src_path, src_password)
 
     if new_resource.source_cert_alias.nil?
       Chef::Log.debug('source_cert_alias was not provided, we will import every cert from the source keystore')
 
       read_all_certs().each do |cert_alias|
-        converge_keystore_cert(cert_alias, src_keystore, src_password, cert_alias, truststore, truststore_passwd)
+        converge_keystore_cert(cert_alias, src_keystore, cert_alias, dest_keystore)
       end
     else
       src_alias = new_resource.source_cert_alias
       dest_alias = new_resource.cert_alias
-      converge_keystore_cert(src_alias, src_keystore, src_password, dest_alias, truststore, truststore_passwd)
+      converge_keystore_cert(src_alias, src_keystore, dest_alias, dest_keystore)
     end
   end
 end
@@ -144,6 +136,19 @@ action :remove do
 end
 
 action_class do
+  class Keystore
+    attr_accessor :path, :password
+
+    def initialize(path, password)
+      @path = path
+      @password = password
+    end
+
+    def to_s
+      @path
+    end
+  end
+
   def fetch_certdata
     return IO.read(new_resource.cert_file) unless new_resource.cert_file.nil?
 
@@ -176,7 +181,7 @@ action_class do
     src_password = new_resource.source_keystore_passwd
     keytool = "#{node['java']['java_home']}/bin/keytool"
 
-    unless src_keystore.nil? or src_password.nil?
+    unless src_keystore.nil? || src_password.nil?
       cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{src_keystore} -v -storepass '#{src_password}' | grep 'Alias name:' | awk '{ print $3; }'")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
@@ -191,49 +196,53 @@ action_class do
     Chef::Application.fatal!('Both source_keystore_path and source_keystore_passwd must be provided when the cert type is keystore.')
   end
 
-  def get_keystore_cert (cert_alias, keystore, password)
+  def get_keystore_cert(cert_alias, keystore)
     java_home = new_resource.java_home
     keytool = "#{java_home}/bin/keytool"
 
-    cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{keystore} -storepass #{password} -rfc -alias \"#{cert_alias}\"")
+    cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{keystore.path} -storepass #{keystore.password} -rfc -alias \"#{cert_alias}\"")
     cmd.run_command
     keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
 
-    return keystore_cert
+    keystore_cert
   end
 
-  def converge_keystore_cert (src_alias, src_keystore, src_password, dest_alias, dest_keystore, dest_password)
+  def delete_keystore_cert(cert_alias, keystore)
     java_home = new_resource.java_home
     keytool = "#{java_home}/bin/keytool"
-    src_cert = get_keystore_cert(src_alias, src_keystore, src_password)
-    dest_cert = get_keystore_cert(dest_alias, dest_keystore, dest_password)
+
+    converge_by("Delete existing certificate #{cert_alias} from #{keystore}") do
+      cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{cert_alias}\" -keystore #{keystore.path} -storepass #{keystore.password}")
+      cmd.run_command
+      Chef::Log.debug(cmd.format_for_exception)
+      unless cmd.exitstatus == 0
+        Chef::Application.fatal!("Error deleting certificate #{cert_alias} from keystore #{keystore}: #{cmd.exitstatus}", cmd.exitstatus)
+      end
+    end
+  end
+
+  def converge_keystore_cert(src_alias, src_keystore, dest_alias, dest_keystore)
+    java_home = new_resource.java_home
+    keytool = "#{java_home}/bin/keytool"
+    src_cert = get_keystore_cert(src_alias, src_keystore)
+    dest_cert = get_keystore_cert(dest_alias, dest_keystore)
 
     insert_cert = false
 
-    if dest_cert.empty? or dest_cert.nil?
+    if dest_cert.empty? || dest_cert.nil?
       insert_cert = true
+    elsif src_cert == dest_cert
+      Chef::Log.debug("Certificate \"#{dest_alias}\" in keystore \"#{dest_keystore}\" is up-to-date.")
     else
-      if src_cert == dest_cert
-        Chef::Log.debug("Certificate \"#{dest_alias}\" in keystore \"#{dest_keystore}\" is up-to-date.")
-      else
-        converge_by("Delete existing certificate #{dest_alias} from #{dest_keystore}") do
-          cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias '#{dest_alias}' -keystore '#{dest_keystore}' -storepass '#{dest_password}'")
-          cmd.run_command()
-          Chef::Log::debug(cmd.format_for_exception)
-
-          unless cmd.exitstatus == 0
-            Chef::Application.fatal!("Error deleting certificate #{dest_alias} from keystore #{dest_keystore}: #{cmd.exitstatus}", cmd.exitstatus)
-          end
-        end
-        insert_cert = true
-      end
+      delete_keystore_cert(dest_alias, dest_keystore)
+      insert_cert = true
     end
 
     if insert_cert
       converge_by("Add certificate #{src_alias} from keystore #{src_keystore} to keystore #{dest_keystore} as #{dest_alias}") do
-        cmd = Mixlib::ShellOut.new("#{keytool} -importkeystore -srckeystore '#{src_keystore}' -srcstorepass '#{src_password}' -srcalias '#{src_alias}' -destkeystore '#{dest_keystore}' -deststorepass '#{dest_password}' -destalias '#{dest_alias}'")
+        cmd = Mixlib::ShellOut.new("#{keytool} -importkeystore -srckeystore '#{src_keystore.path}' -srcstorepass '#{src_keystore.password}' -srcalias '#{src_alias}' -destkeystore '#{dest_keystore.path}' -deststorepass '#{dest_keystore.password}' -destalias '#{dest_alias}'")
         cmd.run_command()
-        Chef::Log::debug(cmd.format_for_exception)
+        Chef::Log.debug(cmd.format_for_exception)
 
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Error importing certificate #{dest_alias} into keystore #{dest_keystore}: #{cmd.exitstatus}", cmd.exitstatus)
