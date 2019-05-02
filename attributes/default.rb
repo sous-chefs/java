@@ -47,6 +47,7 @@ when 'windows'
   default['java']['windows']['returns'] = 0
 when 'mac_os_x'
   default['java']['install_flavor'] = 'homebrew'
+  default['java']['homebrew']['cask'] = 'java'
 else
   default['java']['install_flavor'] = 'openjdk'
 end

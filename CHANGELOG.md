@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Make Homebrew Cask name an attribute to allow for other options (ex: adoptopenjdk)
+
 ## 4.1.0 - 2019-05-08
 
 - Added new install flavor "corretto" for Amazon's Corretto distribution of OpenJDK
