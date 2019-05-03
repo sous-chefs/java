@@ -201,7 +201,6 @@ suites:
   - name: corretto-8
     includes:
       - amazon-linux
-      - amazonlinux2
       - centos-6
       - centos-7
       - debian-8
