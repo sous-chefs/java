@@ -173,3 +173,12 @@ default['java']['adoptopenjdk']['12']['x86_64']['openj9-large-heap']['url'] = ni
 default['java']['adoptopenjdk']['12']['x86_64']['openj9-large-heap']['checksum'] = nil
 # TODO: Update list when released
 default['java']['adoptopenjdk']['12']['bin_cmds']['default'] = %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+
+# Amazon Corretto
+default['java']['corretto']['8']['x86_64']['url'] = 'https://d3pxv6yz143wms.cloudfront.net/8.212.04.2/amazon-corretto-8.212.04.2-linux-x64.tar.gz'
+default['java']['corretto']['8']['x86_64']['checksum'] = '782d5452cd7395340d791dbdd0f418a8'
+default['java']['corretto']['8']['bin_cmds'] = %w(appletviewer clhsdb extcheck hsdb idlj jar jarsigner java java-rmi.cgi javac javadoc javafxpackager javah javap javapackager jcmd jconsole jdb jdeps jhat jinfo jjs jmap jps jrunscript jsadebugd jstack jstat jstatd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+
+default['java']['corretto']['11']['x86_64']['url'] = 'https://d3pxv6yz143wms.cloudfront.net/11.0.3.7.1/amazon-corretto-11.0.3.7.1-linux-x64.tar.gz'
+default['java']['corretto']['11']['x86_64']['checksum'] = '08a0cea184824c5477a62ce6a6a0fb0b'
+default['java']['corretto']['11']['bin_cmds'] = %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
