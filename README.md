@@ -2,7 +2,9 @@
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/java.svg)](https://supermarket.chef.io/cookbooks/java)
 [![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/java/master.svg)](https://circleci.com/gh/sous-chefs/java)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install Oracle, IBM JDKs or AdoptOpenJDK.
 
@@ -174,7 +176,7 @@ While public YUM repos for Oracle Java 7 and prior are available, you need to do
 
 ### adoptopenjdk
 
-This recipe installs the `AdoptOpenJDK` flavor of Java from https://adoptopenjdk.net/. It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
+This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjdk.net/.](https://adoptopenjdk.net/.) It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
 
 ### Amazon Corretto
 This recipe installs the `Amazon Corretto` flavor of OpenJDK from https://aws.amazon.com/corretto/.  It also uses the `alternatives` system on RHEL/Debian families to set the default Java.
@@ -337,7 +339,7 @@ Only one of the following
 
 ### Examples
 
-```
+```ruby
 java_certificate "Install LDAP server certificate to Java CA keystore for Jenkins" do
     cert_alias node['jenkins']['ldap']['url'][/\/\/(.*)/, 1]
     ssl_endpoint node['jenkins']['ldap']['url']
@@ -432,23 +434,27 @@ suites:
 
 Log into the IBM DeveloperWorks site to download a copy of the IBM Java SDK you wish to use/test, host it on an internal HTTP server, and calculate the SHA256 checksum to use in the suite.
 
-## License and Author
+## Contributors
 
-- Author: Eric Helgeson ([erichelgeson@gmail.com](mailto:erichelgeson@gmail.com))
-- Author: Tim Smith ([tsmith@chef.io](mailto:tsmith@chef.io))
+This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
 
-Copyright: 2014-2017, Agile Orbit, LLC
+### Backers
 
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Thank you to all our backers!
 
-    http://www.apache.org/licenses/LICENSE-2.0
+![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
+
+![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
