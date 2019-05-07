@@ -182,7 +182,7 @@ This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjd
 
 Because as of 26 March 2012 you can no longer directly download the JDK msi from Oracle's website without using a special cookie. This recipe requires you to set `node['java']['oracle']['accept_oracle_download_terms']` to true or host it internally on your own http repo or s3 bucket.
 
-#### IMPORTANT NOTE
+**IMPORTANT NOTE**
 
 If you use the `windows` recipe, you'll need to make sure you've uploaded the `aws` and `windows` cookbooks. As of version 1.18.0, this cookbook references them with `suggests` instead of `depends`, as they are only used by the `windows` recipe.
 
