@@ -198,3 +198,25 @@ suites:
         - test/integration/remove-adoptopenjdk
       attrs:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
+  - name: corretto-8
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::corretto8]
+  - name: corretto-11
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::corretto11]

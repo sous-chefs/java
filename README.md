@@ -178,6 +178,9 @@ While public YUM repos for Oracle Java 7 and prior are available, you need to do
 
 This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjdk.net/.](https://adoptopenjdk.net/.) It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
 
+### Amazon Corretto
+This recipe installs the `Amazon Corretto` flavor of OpenJDK from https://aws.amazon.com/corretto/.  It also uses the `alternatives` system on RHEL/Debian families to set the default Java.
+
 ### windows
 
 Because as of 26 March 2012 you can no longer directly download the JDK msi from Oracle's website without using a special cookie. This recipe requires you to set `node['java']['oracle']['accept_oracle_download_terms']` to true or host it internally on your own http repo or s3 bucket.
