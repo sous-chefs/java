@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-## 4.0.0 - 2019-05-08
+## 4.1.0 - 2019-05-08
 
 - Added new install flavor "corretto" for Amazon's Corretto distribution of OpenJDK
 
