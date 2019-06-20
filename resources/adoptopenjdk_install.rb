@@ -21,13 +21,17 @@ property :default, [true, false], default: true
 property :alternatives_priority, Integer, default: 1
 property :reset_alternatives, [true, false], default: true
 property :variant, ['hotspot', 'openj9', 'openj9-large-heap'], default: 'openj9'
+property :custom_naming_capture, String, default: ''
+property :custom_naming_replace, String, default: ''
 
 action :install do
   raise 'No URL provided to download AdoptOpenJDK\'s tar file!' if new_resource.url.nil? || new_resource.url.empty?
   app_dir_name, tarball_name, app_root, app_dir =
     parse_dir_names(new_resource.url,
                     new_resource.app_home,
-                    new_resource.variant)
+                    new_resource.variant,
+                    new_resource.custom_naming_capture,
+                    new_resource.custom_naming_replace)
   app_group = new_resource.group
   app_home = new_resource.app_home
   Chef::Log.debug("processing #{new_resource.variant} variant")
@@ -127,7 +131,9 @@ action :remove do
   _app_dir_name, _tarball_name, _app_root, app_dir =
     parse_dir_names(new_resource.url,
                     new_resource.app_home,
-                    new_resource.variant)
+                    new_resource.variant,
+                    new_resource.custom_naming_capture,
+                    new_resource.custom_naming_replace)
   app_home = new_resource.app_home
   Chef::Log.debug("processing #{new_resource.variant} variant")
 
@@ -154,10 +160,14 @@ end
 action_class do
   require 'uri'
 
-  def parse_app_dir_name(url)
+  def parse_app_dir_name(url, custom_naming_capture, custom_naming_replace)
     uri = URI.parse(url)
     file_name = uri.path.split('/').last
-    if file_name =~ /jdk\d+u\d+-b\d+/ # OpenJDK8
+    if !custom_naming_capture.empty? && file_name.match?(custom_naming_capture)
+      re = Regexp.new custom_naming_capture
+      dir_name_results = file_name.scan(re)
+      app_dir_name = file_name.sub(re, custom_naming_replace) unless dir_name_results.empty?
+    elsif file_name =~ /jdk\d+u\d+-b\d+/ # OpenJDK8
       dir_name_results = file_name.scan(/_(jdk\d+u\d+-b\d+)(?:_openj[-.\d]+)?\.tar\.gz$/)
       app_dir_name = dir_name_results[0][0] unless dir_name_results.empty?
     elsif file_name =~ /_\d+u\d+b\d+\.tar\.gz$/ # OpenJDK8U
@@ -172,8 +182,8 @@ action_class do
     [app_dir_name, file_name]
   end
 
-  def parse_dir_names(url, app_home, variant)
-    app_dir_name, tarball_name = parse_app_dir_name(url)
+  def parse_dir_names(url, app_home, variant, custom_naming_capture, custom_naming_replace)
+    app_dir_name, tarball_name = parse_app_dir_name(url, custom_naming_capture, custom_naming_replace)
     app_root = app_home.split('/')[0..-2].join('/')
     app_dir = "#{app_root}/#{app_dir_name}-#{variant}"
     [app_dir_name, tarball_name, app_root, app_dir]

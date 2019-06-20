@@ -273,6 +273,8 @@ By default, the extracted directory is extracted to `app_root/extracted_dir_name
 - `default`: whether this the default installation of this package, boolean true or false
 - `reset_alternatives`: whether alternatives is reset boolean true or false
 - `variant`: One of `hotspot`, `openj9`, or `openj9-large-heap`
+- `custom_naming_capture`: optional regular expression for capturing in the package file name the elements needed to build the installation directory name
+- `custom_naming_replace`: optional expression used by String.gsub method for building the installation directory name with capturing groups in the file name
 
 #### Examples
 
@@ -285,6 +287,14 @@ adoptopenjdk_install "jdk" do
     bin_cmds ["java", "javac"]
     action :install
 end
+```
+
+The optional attributes `custom_naming_capture` and `custom_naming_replace` allow to customize the scheme used for the package file name.
+If the file name follows the classic Maven pattern (`artifactId`-`version`-`classifier`.`type`), for example `jdk-8u212-b03-linux-x64-hotspot.tar.gz`,
+then we can extract the directory name by adding the following attributes in the `adoptopenjdk_install` resource:
+```ruby
+    custom_naming_capture '(jdk)-(\\d+u\\d+-b\\d+).*\\.tar\\.gz$'
+    custom_naming_replace '\\1\\2'
 ```
 
 ### java_alternatives
