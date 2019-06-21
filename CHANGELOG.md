@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Upgrade circleci orb to version 2, add yamllint and markdown lint
+
 ## 4.1.0 - 2019-05-08
 
 - Added new install flavor "corretto" for Amazon's Corretto distribution of OpenJDK

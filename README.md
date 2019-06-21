@@ -180,10 +180,11 @@ While public YUM repos for Oracle Java 7 and prior are available, you need to do
 
 ### adoptopenjdk
 
-This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjdk.net/.](https://adoptopenjdk.net/.) It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
+This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjdk.net/](https://adoptopenjdk.net/). It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
 
 ### Amazon Corretto
-This recipe installs the `Amazon Corretto` flavor of OpenJDK from https://aws.amazon.com/corretto/.  It also uses the `alternatives` system on RHEL/Debian families to set the default Java.
+
+This recipe installs the `Amazon Corretto` flavor of OpenJDK from [https://aws.amazon.com/corretto/](https://aws.amazon.com/corretto/).  It also uses the `alternatives` system on RHEL/Debian families to set the default Java.
 
 ### windows
 
