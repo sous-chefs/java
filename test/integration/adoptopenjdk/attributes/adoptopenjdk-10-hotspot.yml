@@ -1,10 +1,11 @@
+---
 java_version: 10.0.2
 adoptopenjdk_variant: hotspot
 alternative_bin_cmds: [appletviewer, idlj, jaotc, jar, jarsigner, java,
-		       javac, javadoc, javap, jcmd, jconsole, jdb,
-		       jdeprscan, jdeps, jhsdb, jimage, jinfo, jjs,
-		       jlink, jmap, jmod, jps, jrunscript, jshell,
-		       jstack, jstat, jstatd, keytool, orbd, pack200,
-		       rmic, rmid, rmiregistry, schemagen, serialver,
-		       servertool, tnameserv, unpack200, wsgen,
-		       wsimport, xjc]
+                       javac, javadoc, javap, jcmd, jconsole, jdb,
+                       jdeprscan, jdeps, jhsdb, jimage, jinfo, jjs,
+                       jlink, jmap, jmod, jps, jrunscript, jshell,
+                       jstack, jstat, jstatd, keytool, orbd, pack200,
+                       rmic, rmid, rmiregistry, schemagen, serialver,
+                       servertool, tnameserv, unpack200, wsgen,
+                       wsimport, xjc]

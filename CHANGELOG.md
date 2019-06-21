@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Upgrade circleci orb to version 2 and add yamllint and markdown lint
+
 ## 4.2.0 - 2019-06-20
 
 - Fix for issue 538
