@@ -41,7 +41,7 @@ action :install do
   certdata = new_resource.cert_data || fetch_certdata
 
   hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
-  certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
+  certfile = "#{node['java']['download_path']}/#{certalias}.cert.#{hash}"
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -rfc -alias \"#{certalias}\"")
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
@@ -111,7 +111,7 @@ action :remove do
     end
   end
 
-  FileUtils.rm_f("#{Chef::Config[:file_cache_path]}/#{certalias}.cert.*")
+  FileUtils.rm_f("#{node['java']['download_path']}/#{certalias}.cert.*")
 end
 
 action_class do

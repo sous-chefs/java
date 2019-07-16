@@ -18,6 +18,7 @@
 # limitations under the License.
 
 # default jdk attributes
+default['java']['download_path'] = Chef::Config[:file_cache_path]
 default['java']['jdk_version'] = '8'
 default['java']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? 'x86_64' : 'i586'
 default['java']['openjdk_packages'] = []

@@ -4,6 +4,14 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Upgrade circleci orb to version 2 and add yamllint and markdown lint
+
+## 4.2.0 - 2019-07-15
+
+- Fix for issue 538
+- Added "download_path" node attribute defaulting to file_cache_path
+- Replaced all hardcoded instances of file_cache_path with the node attribute
+
 ## 4.1.0 - 2019-05-08
 
 - Added new install flavor "corretto" for Amazon's Corretto distribution of OpenJDK
