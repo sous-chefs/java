@@ -90,6 +90,7 @@ Chef 13.4+
 
 See `attributes/default.rb` for default values.
 
+- `node['java']['download_path']` - Location to download and extract the tarball
 - `node['java']['install_flavor']` - Flavor of JVM you would like installed (`oracle`, `oracle_rpm`, `openjdk`, `adoptopenjdk`, `ibm`, `windows`), default `openjdk` on Linux/Unix platforms, `windows` on Windows platforms.
 - `node['java']['install_type']` - Type of Java installation, defauls to jdk, needed for JCE to find the install path of jar's for JDK/JRE installation.
 - `node['java']['jdk_version']` - JDK version to install, defaults to `'6'`.

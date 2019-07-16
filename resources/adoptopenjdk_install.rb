@@ -41,12 +41,12 @@ action :install do
   end.run_action(:create)
 
   unless ::File.exist?(app_dir)
-    download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+    download_path = "#{node['java']['download_path']}/#{tarball_name}"
     if adoptopendjk_downloaded?(download_path, new_resource)
       Chef::Log.debug('AdoptOpenJDK tarball already downloaded, not downloading again')
     else
       Chef::Log.debug("downloading tarball from #{URI.parse(new_resource.url).host}")
-      remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+      remote_file "#{node['java']['download_path']}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
         retries new_resource.retries
@@ -62,17 +62,17 @@ action :install do
         action :nothing
       end.run_action(:install)
 
-      cmd = shell_out(%(tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
+      cmd = shell_out(%(tar xvzf "#{node['java']['download_path']}/#{tarball_name}" -C "#{node['java']['download_path']}" --no-same-owner)
                      )
       unless cmd.exitstatus == 0
         Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
       end
 
       cmd = shell_out(
-        %(mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
+        %(mv "#{node['java']['download_path']}/#{app_dir_name}" "#{app_dir}" )
       )
       unless cmd.exitstatus == 0
-        Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
+        Chef::Application.fatal!(%( Command \' mv "#{node['java']['download_path']}/#{app_dir_name}" "#{app_dir}" \' failed ))
       end
 
       # change ownership of extracted files
