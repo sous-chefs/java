@@ -20,7 +20,7 @@ property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
 property :alternatives_priority, Integer, default: 1
 property :reset_alternatives, [true, false], default: true
-property :variant, ['hotspot', 'openj9', 'openj9-large-heap'], default: 'openj9'
+property :variant, %w(hotspot openj9 openj9-large-heap), default: 'openj9'
 
 action :install do
   raise 'No URL provided to download AdoptOpenJDK\'s tar file!' if new_resource.url.nil? || new_resource.url.empty?
@@ -51,7 +51,7 @@ action :install do
         checksum new_resource.checksum
         retries new_resource.retries
         retry_delay new_resource.retry_delay
-        mode 0o644
+        mode '644'
         action :nothing
       end.run_action(:create_if_missing)
     end
