@@ -3,7 +3,7 @@
 This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
-- Fixed java_certificate pattern match for if cert exists.
+- Fixed java_certificate regex where it checks if cert exists in cacert file.
 
 ## 4.3.0 (2019-08-04)
 
