@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
+- Fixed java_certificate pattern match for if cert exists.
 
 ## 4.3.0 (2019-08-04)
 

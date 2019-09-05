@@ -56,7 +56,7 @@ action :install do
     Chef::Log.debug(cmd.format_for_exception)
     Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-    has_key = !cmd.stdout[/Alias name: \b#{certalias}/i].nil?
+    has_key = !cmd.stdout[/Alias name: \b#{certalias}\s*$/i].nil?
 
     if has_key
       converge_by("delete existing certificate #{certalias} from #{truststore}") do
