@@ -41,7 +41,7 @@ action :install do
   certdata = new_resource.cert_data || fetch_certdata
 
   hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
-  certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
+  certfile = "#{node['java']['download_path']}/#{certalias}.cert.#{hash}"
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -rfc -alias \"#{certalias}\"")
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
@@ -56,7 +56,7 @@ action :install do
     Chef::Log.debug(cmd.format_for_exception)
     Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-    has_key = !cmd.stdout[/Alias name: \b#{certalias}/i].nil?
+    has_key = !cmd.stdout[/Alias name: \b#{certalias}\s*$/i].nil?
 
     if has_key
       converge_by("delete existing certificate #{certalias} from #{truststore}") do
@@ -111,7 +111,7 @@ action :remove do
     end
   end
 
-  FileUtils.rm_f("#{Chef::Config[:file_cache_path]}/#{certalias}.cert.*")
+  FileUtils.rm_f("#{node['java']['download_path']}/#{certalias}.cert.*")
 end
 
 action_class do

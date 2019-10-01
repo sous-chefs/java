@@ -4,4 +4,4 @@ platforms:
     driver:
       box: macosx-10.10
     run_list:
-    - recipe[homebrew]
+      - recipe[homebrew]

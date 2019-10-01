@@ -3,14 +3,25 @@
 This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
-
+- Fixed java_certificate regex where it checks if cert exists in cacert file.
 - Make Homebrew Cask name an attribute to allow for other options (ex: adoptopenjdk)
 
-## 4.1.0 - 2019-05-08
+## 4.3.0 (2019-08-04)
+
+- Upgrade Amazon Corretto to the latest versions: 8.222.10.1 and 11.0.4.11.1
+- Upgrade circleci orb to version 2 and add yamllint and markdown lint
+
+## 4.2.0 - (2019-07-15)
+
+- Fix for issue 538
+- Added "download_path" node attribute defaulting to file_cache_path
+- Replaced all hardcoded instances of file_cache_path with the node attribute
+
+## 4.1.0 - (2019-05-08)
 
 - Added new install flavor "corretto" for Amazon's Corretto distribution of OpenJDK
 
-## 4.0.0 - 2019-04-19
+## 4.0.0 - (2019-04-19)
 
 - Added new install flavor "adoptopenjdk" for AdoptOpenJDK's distribution of Java
 - The certificate resource now uses the Java version to determine the default cacerts location
@@ -101,19 +112,19 @@ This file is used to list changes made in each version of the Java cookbook.
 - Removed testing of Oracle JDK 6/7 since Oracle no longer allows directly downloading these releases.
 - Added kitchen-dokken based testing
 
-## v1.50.0 - 05/24/2017
+## v1.50.0 - (05/24/2017)
 
 - Oracle downloads changed again. Only Oracle 8 is able to be downloaded automatically. Please host your own copy internally to avoid issues such as this.
 - Add Log warning if download url contains oracle.com
 
-## v1.49.0 - 04/21/2017
+## v1.49.0 - (04/21/2017)
 
 - potential 'curl' resource cloning #415
 - Oracle 8u131
 - Add ChefSpec matchers for java_certificate resource
 - Remove unnecessary apt update
 
-## v1.48.0 - 03/31/2017
+## v1.48.0 - (03/31/2017)
 
 - Update Oracle Java links from 101 to 121
 - Remove convergence report
@@ -122,27 +133,27 @@ This file is used to list changes made in each version of the Java cookbook.
 - Update platforms in the specs
 - Remove testing on EOL platforms
 
-## v1.47.0 - 01/30/2017
+## v1.47.0 - (01/30/2017)
 
 - Fix typo in method name (#397)
 - Remove useless ruby_block[set-env-java-home]
 - Update README: using java::notify
 - Add forgotten "do" to README
 
-## v1.46.0 - 01/09/2017
+## v1.46.0 - (01/09/2017)
 
 - fix jce installation on windows #386
 
-## v1.45.0 - 12/27/2016
+## v1.45.0 - (12/27/2016)
 
 - Update to resolve latest rubocop rules
 
-## v1.44.0 - 12/27/2016
+## v1.44.0 - (12/27/2016)
 
 - Unpublished due to newer rubocop rules in travis
 - Added zlinux defaults
 
-## v1.43.0 - 12/6/2016
+## v1.43.0 - (12/6/2016)
 
 - Switch recursive chown from executing on the jdk parent directory to executing on the jdk directory itself.
 - Added proxy support to curl
@@ -151,7 +162,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - (Windows) Can download from s3 only using an IAM profile
 - (Windows) aws session token for windows java download
 
-## v1.42.0 - 8/8/2016
+## v1.42.0 - (8/8/2016)
 
 - Use openjdk ppa for all ubuntu versions to allow for older/newer jdks to be installed. Fixes #368
 - update oracle java 8u101 - Use sha256 hash (seems to help with downloading each converge)
@@ -159,17 +170,17 @@ This file is used to list changes made in each version of the Java cookbook.
 - Remove chef 14(!) depreciation warning in tests
 - Resolve chef-12 related warning
 
-## v1.41.0 - 7/15/2016
+## v1.41.0 - (7/15/2016)
 
 - Feature: Add new resource for cookbooks to subscribe to, see README
 - Use a remote_file resource for JCE download instead of curl in an execute block.
 - Since v1.40.4 Travis deploys cookbook to supermarket - expect more frequent, smaller releases.
 
-## v1.40.4 - 7/12/2016
+## v1.40.4 - (7/12/2016)
 
 - Automated deploy, no cookbook changes.
 
-## v1.40.3 - 7/12/2016
+## v1.40.3 - (7/12/2016)
 
 - Attempt to have travis publish this.
 - Mac depends on homebrew.
@@ -177,11 +188,11 @@ This file is used to list changes made in each version of the Java cookbook.
 - fix openjdk version logic for freebsd
 - Enable Ark provider to handle URI with get parameters
 
-## v1.40.1 - 7/8/2016
+## v1.40.1 - (7/8/2016)
 
 - Fixed: JAVA_HOME not set on systems with restrictive umask #359
 
-## v1.40 - 6/29/2016
+## v1.40 - (6/29/2016)
 
 - Travis build green
 - Add Windows JCE support
@@ -195,36 +206,32 @@ This file is used to list changes made in each version of the Java cookbook.
 - Distinguishing the Java version for installing on the Mac OS X
 - Doc and cruft cleanup
 
-## v1.39 - 1/14/2016
+## v1.39 - (1/14/2016)
 
 - Travis debugging only, no code changes.
 
-## v1.38 - 1/13/2016
+## v1.38 - (1/13/2016)
 
 - (Win) Fix for Java install failing on Windows (introduced in #315)
 - Travis fixes/badge
 
-## v1.37 - 11/9/2015
+## v1.37 - (11/9/2015)
 
 - (Win) Attirbute for specifying the install directory for the public jre #315
 
-## v1.36 - 9/3/2015
+## v1.36 - (9/3/2015)
 
 - Oracle JDK 1.8.0_65
 - Add Ubuntu ppa (allows OpenJDK 8)
 - Added ChefSpec matchers #284
 - Fix compile error using Chef::Application.fatal #279
-- # 222 Provide possibility to set ark download timeout
-
+- #222 Provide possibility to set ark download timeout
 - Openjdk6 does not exist in deb 8.2
-
 - Change to create java home dir even if top level doesn't exist(Eg mkdir_p instead of mkdir)
-
 - Fix berks url and remove apt
-
 - Documentation and dependency updates
 
-## v1.35 - 8/4/2015
+## v1.35 - (8/4/2015)
 
 - Use bento boxes and remove EOL distros from testing suite.
 - Update to latest JDKs. Note Oracle JDK7 is now EOL.
@@ -239,78 +246,55 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Kitchen CI test with 12.04 fails due to hostname unable to be set.
 
-## v1.31 - 2/3/2015
+## v1.31 - (2/3/2015)
 
 - Update to latest JDKs for 7 and 8\. JDK7 will be EOL April 2015
 - Fix up Travis support.
 - Add ability to install JCE policy files for oracle JDK #228
 - Change connect timeout to 30 seconds
 
-## v1.29.0 - 11/14/2014
-
-### Bug
+## v1.29.0 - (11/14/2014)
 
 - **[#216](https://github.com/agileorbit-cookbooks/java/pull/216)** - Ensure dirs, links, and jinfo files are owned correctly
 - **[#217](https://github.com/agileorbit-cookbooks/java/pull/217)** - Update to Oracle JDK 8u25
 - **[#214](https://github.com/agileorbit-cookbooks/java/pull/214)** - Update to Oracle JDK 7u71-b14
-
-### Improvement
-
 - Adding a connect_timeout option for downloading java.
-
-### Misc
-
 - Switched to chef-zero provisioner in test suites.
 - Adding ISSUES.md for guidance on creating new issues for the Java cookbook.
 - Fix IBM unit tests.
 
-## v1.28.0 - 9/6/2014
-
-### Improvement
+## v1.28.0 - (9/6/2014)
 
 - Allow setting of group to extracted java files.
-
-### Bug
-
 - Add -no-same-owner parameter to tar extract to avoid issues when the chef cache dir is on an NFS mounted drive.
 - In the ark provider, it doesn't compare the MD5 sum with the right value which causes Java cookbook always download tarball from oracle server
 
-## v1.27.0 - 8/22/2014
+## v1.27.0 - (8/22/2014)
 
 - Update Oracle JDK8 to version 8u20
 
-## v1.26.0 - 8/16/2014
+## v1.26.0 - (8/16/2014)
 
 - **[#201](https://github.com/agileorbit-cookbooks/java/pull/201)** - Allow pinning of package versions for openjdk
 - **[#198](https://github.com/agileorbit-cookbooks/java/pull/198)** - Update Oracle JDK7 to version 7u67
 - **[#189](https://github.com/agileorbit-cookbooks/java/pull/184)** - Support specific version and name for Oracle RPM
 
-## v1.25.0 - 8/1/2014
-
-### Improvement
+## v1.25.0 - (8/1/2014)
 
 - **[#189](https://github.com/agileorbit-cookbooks/java/pull/189)** - Resource ark -> attribute bin_cmds default value
 - **[#168](https://github.com/agileorbit-cookbooks/java/pull/168)** - Add option to put JAVA_HOME in /etc/environment
 - **[#172](https://github.com/agileorbit-cookbooks/java/pull/172)** - Allow ark to pull from http and files ending in .gz.
-
-### Documentation
-
 - Recommendations for inclusion in community cookbooks
 - Production Deployment with Oracle Java
 - Update testing instructions for chefdk
 - Various Readme formatting.
-
-### Misc
-
 - Use Supermarket endpoint in berksfile
 - rspec cleanup
 - Adding ubuntu-14.04 to test suite
 
-## v1.24.0 - 7/25/2014
+## v1.24.0 - (7/25/2014)
 
 New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
-
-### Improvement
 
 - **[#192](https://github.com/agileorbit-cookbooks/java/pull/192)** - Bump JDK7 URLs to 7u65
 - **[#191](https://github.com/agileorbit-cookbooks/java/pull/192)** - Upgrade Oracle's Java 8 to u11
@@ -323,13 +307,11 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 - **[#157](https://github.com/agileorbit-cookbooks/java/pull/157)** -Remove VirtualBox specific box_urls
 - List AgileOrbit as the maintainer (AgileOrbit took over from Socrata in July 2014)
 
-## v1.23.0 - 7/25/2014
+## v1.23.0 - (7/25/2014)
 
 - Tagged but never published to community cookbooks. All changes rolled into 1.24.0
 
 ## v1.22.0
-
-### Improvement
 
 - **[#148](https://github.com/socrata-cookbooks/java/pull/148)** - Add support for Oracle JDK 1.8.0
 - **[#150](https://github.com/socrata-cookbooks/java/pull/150)** - Make use of Chef's cache directory instead of /tmp
@@ -338,13 +320,9 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 
 ## v1.21.2
 
-### Bug
-
 - **[#146](https://github.com/socrata-cookbooks/java/pull/146)** - Update Oracle accept-license-terms cookie format
 
 ## v1.21.0
-
-### Improvement
 
 - **[#143](https://github.com/socrata-cookbooks/java/pull/143)** - Symlink /usr/lib/jvm/default-java for both OpenJDK and Oracle
 - **[#144](https://github.com/socrata-cookbooks/java/pull/144)** - Remove /var/lib/alternatives/#{cmd} before calling alternatives (Hopefully fixes sporadic issues when setting alternatives)
@@ -352,26 +330,16 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 
 ## v1.20.0
 
-### Improvement
-
 - **[#137](https://github.com/socrata-cookbooks/java/pull/137)** - Create /usr/lib/jvm/default-java on Debian
 - **[#138](https://github.com/socrata-cookbooks/java/pull/138)** - allow wrapping cookbook without providing templates
 - **[#140](https://github.com/socrata-cookbooks/java/pull/140)** - Adds set_default attribute to toggle setting JDK as default
-
-### Bug
-
 - **[#141](https://github.com/socrata-cookbooks/java/pull/141)** - set java_home correctly for oracle_rpm
 
 ## v1.19.2
 
-### Improvement
-
 - **[#129](https://github.com/socrata-cookbooks/java/pull/129)** - Upgrade to ChefSpec 3
 - Rewrite unit tests for better coverage and to work with ChefSpec 3 (various commits)
 - List Socrata as the maintainer (Socrata took over from Opscode in December 2013)
-
-### Bug
-
 - **[#133](https://github.com/socrata-cookbooks/java/pull/133)** - Allow jdk_version to be a string or number
 - **[#131](https://github.com/socrata-cookbooks/java/pull/131)** - Fix JDK install on Windows
 - **[Fix openjdk_packages on Arch Linux](https://github.com/socrata-cookbooks/java/commit/677bee7b9bf08988596d40ac65e75984a86bda99)**
@@ -379,8 +347,6 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 ## v1.19.0
 
 Refactor the cookbook to better support wrapper cookbooks and other cookbook authoring patterns.
-
-### Improvement
 
 - **[#123](https://github.com/socrata-cookbooks/java/pull/123)** - Update documentation & add warning for issue 122
 - **[#124](https://github.com/socrata-cookbooks/java/pull/124)** - Refactor default recipe to better enable wrapper cookbooks
@@ -390,22 +356,15 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 - **[Adds recipes to README](https://github.com/socrata-cookbooks/java/commit/76d52114bb9df084174d43fed143123b1cdbae16)**
 - **[The Opscode CCLA is no longer required](https://github.com/socrata-cookbooks/java/commit/ce4ac25caa8383f185c25c4e32cafef8c0453376)**
 - **[Adds tests for openjdk-7 and oracle-7](https://github.com/socrata-cookbooks/java/commit/9c38af241f68b3198cde4ad6fe2b4cb752062009)**
-
-### Bug
-
 - **[#119](https://github.com/socrata-cookbooks/java/pull/119)** - Use java_home instead of java_location for update-alternatives
 - **[Fix java_home for rhel and fedora](https://github.com/socrata-cookbooks/java/commit/71dadbd1bfe2eab50ff21cdab4ded97877911cc4)**
 
 ## v1.18.0
 
-### Improvement
-
 - **[#118](https://github.com/socrata-cookbooks/java/pull/118)** - Upgrade to 7u51
 - **[#117](https://github.com/socrata-cookbooks/java/pull/117)** - Suggest windows and aws
 
 ## v1.17.6
-
-### Bug
 
 - Revert **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** - The headers option was only added to remote_file in Chef 11.6.0, meaning this change breaks older clients.
 
@@ -518,28 +477,19 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 - [COOK-2154]: Add SmartOS support to java::openjdk recipe
 - [COOK-3278]: upgrade to Oracle Java 7u25
-
-### Bug
-
 - [COOK-2931]: Adding support for the platform 'xenserver' (for installations of java in DOM0)
 - [COOK-3277]: java cookbook fails on Fedora
 
 ## v1.11.6
-
-### Bug
 
 - [COOK-2847]: Java cookbook does not have opensuse support
 - [COOK-3142]: Syntax Errors spec/default_spec.rb:4-8
 
 ## v1.11.4
 
-### Bug
-
 - [COOK-2989]: `bash[update-java-alternatives]` resource uses wrong attribute
 
 ## v1.11.2
-
-### Bug
 
 - Use SHA256 checksums for Oracle downloads, not SHA1.
 
@@ -547,20 +497,12 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 This version brings a wealth of tests and (backwards-compatible) refactoring, plus some new features (updated Java, IBM recipe).
 
-### Sub-task
-
 - [COOK-2897]: Add ibm recipe to java cookbook
 - [COOK-2903]: move java_home resources to their own recipe
 - [COOK-2904]: refactor ruby_block "update-java-alternatives"
 - [COOK-2905]: use platform_family in java cookbook
 - [COOK-2920]: add chefspec to java cookbook
-
-### Task
-
 - [COOK-2902]: Refactor java cookbook
-
-### Improvement
-
 - [COOK-2900]: update JDK to JDK 7u21, 6u45
 
 ## v1.10.2
@@ -601,7 +543,6 @@ This version brings a wealth of tests and (backwards-compatible) refactoring, pl
 ## v1.7.0
 
 - [COOK-2001] - improvements for Oracle update-alternatives
-
   - When installing an Oracle JDK it is now registered with a higher priority than OpenJDK. (Related to COOK-1131.)
   - When running both the oracle and oracle_i386 recipes, alternatives are now created for both JDKs.
   - Alternatives are now created for all binaries listed in version specific attributes. (Related to COOK-1563 and COOK-1635.)
@@ -615,8 +556,8 @@ This version brings a wealth of tests and (backwards-compatible) refactoring, pl
 
 - whyrun support in `java_ark` LWRP
 - CHEF-1804 compatibility
-- [COOK-1786]- install Java 6u37 and Java 7u9
-- [COOK-1819] -incorrect warning text about `node['java']['oracle']['accept_oracle_download_terms']`
+- [COOK-1786] - install Java 6u37 and Java 7u9
+- [COOK-1819] - incorrect warning text about `node['java']['oracle']['accept_oracle_download_terms']`
 
 ## v1.6.0
 
