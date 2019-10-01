@@ -14,7 +14,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ## Production Deployment with Oracle Java
 
-Oracle has been known to change the behavior of its download site frequently. It is recommended you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
+Oracle has been known to change the behavior of its download site frequently. It is recommended that you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
 
 ```ruby
 default['java']['jdk_version'] = '8'
