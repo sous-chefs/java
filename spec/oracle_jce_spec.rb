@@ -25,7 +25,7 @@ describe 'java::oracle_jce' do
     end
 
     it 'extracts JCE zip to staging path' do
-      expect(chef_run).to unzip_windows_zipfile('c:/temp/jce/8')
+      expect(chef_run).to extract_archive_file('c:/temp/jce/8')
     end
 
     it 'creates local_policy.jar file resource' do
@@ -62,7 +62,7 @@ describe 'java::oracle_jce' do
     end
 
     it 'extracts JCE zip to staging path' do
-      expect(chef_run).to unzip_windows_zipfile('c:/temp/jce/8')
+      expect(chef_run).to extract_archive_file('c:/temp/jce/8')
     end
 
     it 'creates local_policy.jar file resource' do

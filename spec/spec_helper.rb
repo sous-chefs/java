@@ -4,6 +4,7 @@ require 'chefspec'
 require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
+  config.file_cache_path = File.join(Dir.tmpdir, 'chefspec') if config.respond_to?(:file_cache_path)
   config.color = true
   config.tty = true
   config.formatter = :documentation

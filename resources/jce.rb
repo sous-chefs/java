@@ -58,9 +58,9 @@ action :install do
     final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
 
     archive_file staging_path do
-      source r.path
-      checksum jce_checksum
-      action :unzip
+      path r.path
+      destination staging_path
+      action :extract
       not_if { ::File.exist? staging_local_policy }
     end
 
