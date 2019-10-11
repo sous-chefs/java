@@ -57,7 +57,7 @@ action :install do
     final_local_policy = ::File.join(jre_final_path, 'local_policy.jar')
     final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
 
-    windows_zipfile staging_path do
+    archive_file staging_path do
       source r.path
       checksum jce_checksum
       action :unzip

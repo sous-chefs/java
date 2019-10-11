@@ -10,7 +10,7 @@ describe 'java::oracle_jce' do
       end
       runner.converge(described_recipe)
     end
-    let(:zipfile) { chef_run.windows_zipfile('c:/temp/jce/8') }
+    let(:zipfile) { chef_run.archive_file('c:/temp/jce/8') }
 
     before do
       allow(::File).to receive(:read).and_call_original
@@ -47,7 +47,7 @@ describe 'java::oracle_jce' do
       end
       runner.converge(described_recipe)
     end
-    let(:zipfile) { chef_run.windows_zipfile('c:/temp/jce/8') }
+    let(:zipfile) { chef_run.archive_file('c:/temp/jce/8') }
 
     before do
       allow(::File).to receive(:read).and_call_original
