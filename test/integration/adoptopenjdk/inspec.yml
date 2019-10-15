@@ -1,0 +1,7 @@
+---
+name: adoptopenjdk
+title: AdoptOpenJDK tests
+license: Public domain
+copyright: None
+summary: Verify installation of AdoptOpenJDK
+version: 0.0.1

@@ -38,12 +38,12 @@ package 'rpm' do
   only_if { platform_family?('debian') && jdk_filename !~ /archive/ }
 end
 
-template "#{Chef::Config[:file_cache_path]}/installer.properties" do
+template "#{node['java']['download_path']}/installer.properties" do
   source 'ibm_jdk.installer.properties.erb'
   only_if { node['java']['ibm']['accept_ibm_download_terms'] }
 end
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
+remote_file "#{node['java']['download_path']}/#{jdk_filename}" do
   source source_url
   mode '0755'
   if node['java']['ibm']['checksum']
@@ -70,7 +70,7 @@ java_alternatives 'set-java-alternatives' do
 end
 
 execute 'install-ibm-java' do
-  cwd Chef::Config[:file_cache_path]
+  cwd node['java']['download_path']
   environment('_JAVA_OPTIONS' => '-Dlax.debug.level=3 -Dlax.debug.all=true',
               'LAX_DEBUG' => '1')
   command "./#{jdk_filename} -f ./installer.properties -i silent"

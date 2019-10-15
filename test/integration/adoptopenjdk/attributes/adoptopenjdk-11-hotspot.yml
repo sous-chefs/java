@@ -1,0 +1,9 @@
+---
+java_version: 11
+adoptopenjdk_variant: hotspot
+alternative_bin_cmds: [jaotc, jar, jarsigner, java, javac, javadoc,
+                       javap, jcmd, jconsole, jdb, jdeprscan, jdeps,
+                       jhsdb, jimage, jinfo, jjs, jlink, jmap, jmod,
+                       jps, jrunscript, jshell, jstack, jstat, jstatd,
+                       keytool, pack200, rmic, rmid, rmiregistry,
+                       serialver, unpack200]

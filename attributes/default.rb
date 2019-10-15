@@ -18,7 +18,8 @@
 # limitations under the License.
 
 # default jdk attributes
-default['java']['jdk_version'] = '6'
+default['java']['download_path'] = Chef::Config[:file_cache_path]
+default['java']['jdk_version'] = '8'
 default['java']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? 'x86_64' : 'i586'
 default['java']['openjdk_packages'] = []
 default['java']['openjdk_version'] = nil
@@ -48,6 +49,7 @@ when 'windows'
   default['java']['windows']['returns'] = 0
 when 'mac_os_x'
   default['java']['install_flavor'] = 'homebrew'
+  default['java']['homebrew']['cask'] = 'java'
 else
   default['java']['install_flavor'] = 'openjdk'
 end
@@ -88,40 +90,6 @@ default['java']['oracle']['accept_oracle_download_terms'] = false
 
 # direct download paths for oracle, you have been warned!
 
-# jdk6 attributes
-default['java']['jdk']['6']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck HtmlConverter idlj jar jarsigner
-                                             java javac javadoc javah javap javaws jconsole jcontrol jdb jhat
-                                             jinfo jmap jps jrunscript jsadebugd jstack jstat jstatd jvisualvm
-                                             keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry
-                                             schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-
-# x86_64
-default['java']['jdk']['6']['x86_64']['url'] = 'http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-linux-x64.bin'
-default['java']['jdk']['6']['x86_64']['checksum'] = '6b493aeab16c940cae9e3d07ad2a5c5684fb49cf06c5d44c400c7993db0d12e8'
-
-# i586
-default['java']['jdk']['6']['i586']['url'] = 'http://download.oracle.com/otn/java/jdk/6u45-b06/jdk-6u45-linux-i586.bin'
-default['java']['jdk']['6']['i586']['checksum'] = 'd53b5a2518d80e1d95565f0adda54eee229dc5f4a1d1a3c2f7bf5045b168a357'
-
-# jdk7 attributes
-
-default['java']['jdk']['7']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac
-                                             javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb
-                                             jhat jinfo jmap jps jrunscript jsadebugd jstack jstat jstatd jvisualvm
-                                             keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry
-                                             schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-
-# Oracle doesn't seem to publish SHA256 checksums for Java releases, so we use MD5 instead.
-# Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/7u75checksum.html
-
-# x86_64
-default['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn/java/jdk/7u75-b13/jdk-7u75-linux-x64.tar.gz'
-default['java']['jdk']['7']['x86_64']['checksum'] = '6f1f81030a34f7a9c987f8b68a24d139'
-
-# i586
-default['java']['jdk']['7']['i586']['url'] = 'http://download.oracle.com/otn/java/jdk/7u75-b13/jdk-7u75-linux-i586.tar.gz'
-default['java']['jdk']['7']['i586']['checksum'] = 'e4371a4fddc049eca3bfef293d812b8e'
-
 # jdk8 attributes
 
 default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac
@@ -134,8 +102,8 @@ default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extch
 # Official checksums for the latest release can be found at https://www.oracle.com/webfolder/s/digest/8u172checksum.html
 
 # x86_64
-default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = '53c29507e2405a7ffdbba627e6d64856089b094867479edc5ede4105c1da0d65'
+default['java']['jdk']['8']['x86_64']['url'] = 'https://download.oracle.com/otn-pub/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/jdk-8u202-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = '9a5c32411a6a06e22b69c495b7975034409fa1652d03aeb8eb5b6f59fd4594e0'
 
 # i586
 default['java']['jdk']['8']['i586']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-i586.tar.gz'
@@ -174,3 +142,46 @@ default['java']['oracle']['jce']['7']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FI
 default['java']['oracle']['jce']['6']['url'] = 'http://ORACLE_HAS_REMOVED_THESE_FILES.SELF_HOST_THEM_INSTEAD'
 default['java']['oracle']['jce']['6']['checksum'] = 'CALCULATE_THIS_FROM_YOUR_FILE'
 default['java']['oracle']['jce']['home'] = '/opt/java_jce'
+
+# AdoptOpenJDK
+default['java']['adoptopenjdk']['variant'] = 'openj9'
+# AdoptOpenJDK 8
+default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u181-b13/OpenJDK8U-jdk_x64_linux_hotspot_8u181b13.tar.gz'
+default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['checksum'] = '7cac51df1a976a376e9acd6d053c96ce0fe54db24e5d7079c303d09c416270a2'
+default['java']['adoptopenjdk']['8']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u192-b12/OpenJDK8U-jdk_x64_linux_openj9_8u192b12.tar.gz'
+default['java']['adoptopenjdk']['8']['x86_64']['openj9']['checksum'] = '23f7f99c051b45366f0d91a94f8d5465f01bfccdc78f6d62222b1f338e6663eb'
+default['java']['adoptopenjdk']['8']['bin_cmds']['default'] = %w(appletviewer extcheck idlj jar jarsigner java javac javadoc javah javap jconsole jdb jdeps jdmpview jextract jjs jrunscript jsadebugd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv traceformat unpack200 wsgen wsimport xjc)
+# AdoptOpenJDK 10
+default['java']['adoptopenjdk']['10']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk10-releases/releases/download/jdk-10.0.2%2B13/OpenJDK10_x64_Linux_jdk-10.0.2.13.tar.gz'
+default['java']['adoptopenjdk']['10']['x86_64']['hotspot']['checksum'] = 'f8caa2e8c28370e3b8e455686e1ddeb74656f068848f8c355d9d8d1c225528f4'
+default['java']['adoptopenjdk']['10']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk10-openj9-releases/releases/download/jdk-10.0.2%2B13_openj9-0.9.0/OpenJDK10-OPENJ9_x64_Linux_jdk-10.0.2.13_openj9-0.9.0.tar.gz'
+default['java']['adoptopenjdk']['10']['x86_64']['openj9']['checksum'] = '1ef0dab3853b2f3666091854ef8149fcb85970254558d5d62cfa9446831779d1'
+default['java']['adoptopenjdk']['10']['bin_cmds']['default'] = %w(appletviewer idlj jar jarsigner java javac javadoc javap jconsole jdb jdeprscan jdeps jdmpview jextract jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv traceformat unpack200 wsgen wsimport xjc)
+default['java']['adoptopenjdk']['10']['bin_cmds']['hotspot'] = %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+# AdoptOpenJDK 11
+default['java']['adoptopenjdk']['11']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11%2B28/OpenJDK11-jdk_x64_linux_hotspot_11_28.tar.gz'
+default['java']['adoptopenjdk']['11']['x86_64']['hotspot']['checksum'] = 'e1e18fc9ce2917473da3e0acb5a771bc651f600c0195a3cb40ef6f22f21660af'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.1%2B13/OpenJDK11-jdk_x64_linux_openj9_11.0.1_13.tar.gz'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9']['checksum'] = '765947ab9457a29d2aa9d11460a4849611343c1e0ea3b33b9c08409cd4672251'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9-large-heap']['url'] = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.1%2B13/OpenJDK11-jdk_x64_linux_openj9_linuxXL_11.0.1_13.tar.gz'
+default['java']['adoptopenjdk']['11']['x86_64']['openj9-large-heap']['checksum'] = '0b6050cc670eefd9465370ab19ae70401476430fca329e65f0dd636ca9cce9bd'
+default['java']['adoptopenjdk']['11']['bin_cmds']['default'] = %w(jar jarsigner java javac javadoc javap jconsole jdb jdeprscan jdeps jdmpview jextract jimage jjs jlink jrunscript jshell keytool pack200 rmic rmid rmiregistry serialver traceformat unpack200)
+default['java']['adoptopenjdk']['11']['bin_cmds']['hotspot'] = %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+# Placeholders for AdoptOpenJDK 12 when it gets released
+default['java']['adoptopenjdk']['12']['x86_64']['hotspot']['url'] = nil
+default['java']['adoptopenjdk']['12']['x86_64']['hotspot']['checksum'] = nil
+default['java']['adoptopenjdk']['12']['x86_64']['openj9']['url'] = nil
+default['java']['adoptopenjdk']['12']['x86_64']['openj9']['checksum'] = nil
+default['java']['adoptopenjdk']['12']['x86_64']['openj9-large-heap']['url'] = nil
+default['java']['adoptopenjdk']['12']['x86_64']['openj9-large-heap']['checksum'] = nil
+# TODO: Update list when released
+default['java']['adoptopenjdk']['12']['bin_cmds']['default'] = %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+
+# Amazon Corretto
+default['java']['corretto']['8']['x86_64']['url'] = 'https://d3pxv6yz143wms.cloudfront.net/8.222.10.1/amazon-corretto-8.222.10.1-linux-x64.tar.gz'
+default['java']['corretto']['8']['x86_64']['checksum'] = '6599a081ce56dda81ee7ac23802d6e67'
+default['java']['corretto']['8']['bin_cmds'] = %w(appletviewer clhsdb extcheck hsdb idlj jar jarsigner java java-rmi.cgi javac javadoc javafxpackager javah javap javapackager jcmd jconsole jdb jdeps jhat jinfo jjs jmap jps jrunscript jsadebugd jstack jstat jstatd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+
+default['java']['corretto']['11']['x86_64']['url'] = 'https://d3pxv6yz143wms.cloudfront.net/11.0.4.11.1/amazon-corretto-11.0.4.11.1-linux-x64.tar.gz'
+default['java']['corretto']['11']['x86_64']['checksum'] = '4bbcd5e6d721fef56e46b3bfa8631c1c'
+default['java']['corretto']['11']['bin_cmds'] = %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)

@@ -35,7 +35,7 @@ unless jdk_filename =~ /\.(tar.gz|tgz)$/
   raise "The attribute `node['java']['ibm']['url']` must specify a .tar.gz file"
 end
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{jdk_filename}" do
+remote_file "#{node['java']['download_path']}/#{jdk_filename}" do
   source source_url
   mode '0755'
   if node['java']['ibm']['checksum']
@@ -69,7 +69,7 @@ java_alternatives 'set-java-alternatives' do
 end
 
 execute 'untar-ibm-java' do
-  cwd Chef::Config[:file_cache_path]
+  cwd node['java']['download_path']
   command "tar xzf ./#{jdk_filename} -C #{node['java']['java_home']} --strip 1"
   notifies :set, 'java_alternatives[set-java-alternatives]', :immediately
   notifies :write, 'log[jdk-version-changed]', :immediately

@@ -33,7 +33,7 @@ s3_bucket = node['java']['windows']['bucket']
 s3_remote_path = node['java']['windows']['remote_path']
 
 uri = ::URI.parse(node['java']['windows']['url'])
-cache_file_path = File.join(Chef::Config[:file_cache_path], File.basename(::URI.unescape(uri.path)))
+cache_file_path = File.join(node['java']['download_path'], File.basename(::URI.unescape(uri.path)))
 
 if s3_bucket && s3_remote_path
   aws_s3_file cache_file_path do
@@ -65,7 +65,7 @@ else
   end
 end
 
-if node['java'].attribute?('java_home')
+if node['java'].attribute?('java_home') && !node['java']['java_home'].nil?
   java_home_win = win_friendly_path(node['java']['java_home'])
   additional_options = if node['java']['jdk_version'].to_s == '8'
                          # Seems that the jdk 8 EXE installer does not need anymore the /v /qn flags

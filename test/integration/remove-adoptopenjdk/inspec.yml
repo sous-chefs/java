@@ -1,0 +1,7 @@
+---
+name: remove-adoptopenjdk
+title: AdoptOpenJDK removal tests
+license: Public domain
+copyright: None
+summary: Verify removal of AdoptOpenJDK
+version: 0.0.1

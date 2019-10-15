@@ -36,7 +36,7 @@ action :install do
     recursive true
   end
 
-  r = remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
+  r = remote_file "#{node['java']['download_path']}/jce.zip" do
     source jce_url
     checksum jce_checksum
     headers(
@@ -49,7 +49,6 @@ action :install do
   jre_path = node['java']['install_type'] == 'jdk' ? 'jre' : ''
 
   if node['os'] == 'windows'
-    include_recipe 'windows'
 
     staging_path = ::File.join(jce_home, jdk_version)
     staging_local_policy = ::File.join(staging_path, "UnlimitedJCEPolicyJDK#{jdk_version}", 'local_policy.jar')
@@ -88,7 +87,7 @@ action :install do
         find ./ -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{jce_home}/#{jdk_version}/
         chmod -R 0644 #{jce_home}/#{jdk_version}/*.jar
       EOF
-      cwd Chef::Config[:file_cache_path]
+      cwd node['java']['download_path']
       creates ::File.join(jce_home, jdk_version, 'US_export_policy.jar')
     end
 

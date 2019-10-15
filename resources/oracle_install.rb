@@ -64,7 +64,7 @@ action :install do
 
   unless ::File.exist?(app_dir)
     if new_resource.url =~ /oracle\.com.*$/
-      download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+      download_path = "#{node['java']['download_path']}/#{tarball_name}"
       if oracle_downloaded?(download_path, new_resource)
         Chef::Log.debug('oracle tarball already downloaded, not downloading again')
       else
@@ -73,7 +73,7 @@ action :install do
       end
     else
       Chef::Log.debug('downloading tarball from an unofficial repository')
-      remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+      remote_file "#{node['java']['download_path']}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
         retries new_resource.retries
@@ -87,7 +87,7 @@ action :install do
       case tarball_name
       when /^.*\.bin/
         cmd = shell_out(
-          %(cd "#{Chef::Config[:file_cache_path]}";
+          %(cd "#{node['java']['download_path']}";
               bash ./#{tarball_name} -noregister
             )
         )
@@ -96,7 +96,7 @@ action :install do
         end
       when /^.*\.zip/
         cmd = shell_out(
-          %(unzip "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -d "#{Chef::Config[:file_cache_path]}" )
+          %(unzip "#{node['java']['download_path']}/#{tarball_name}" -d "#{node['java']['download_path']}" )
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -108,7 +108,7 @@ action :install do
         end.run_action(:install)
 
         cmd = shell_out(
-          %(tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
+          %(tar xvzf "#{node['java']['download_path']}/#{tarball_name}" -C "#{node['java']['download_path']}" --no-same-owner)
         )
         unless cmd.exitstatus == 0
           Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
@@ -116,10 +116,10 @@ action :install do
       end
 
       cmd = shell_out(
-        %(mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
+        %(mv "#{node['java']['download_path']}/#{app_dir_name}" "#{app_dir}" )
       )
       unless cmd.exitstatus == 0
-        Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
+        Chef::Application.fatal!(%( Command \' mv "#{node['java']['download_path']}/#{app_dir_name}" "#{app_dir}" \' failed ))
       end
 
       # change ownership of extracted files
@@ -246,7 +246,7 @@ action_class do
   end
 
   def download_direct_from_oracle(tarball_name, new_resource)
-    download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+    download_path = "#{node['java']['download_path']}/#{tarball_name}"
     cookie = 'oraclelicense=accept-securebackup-cookie'
     proxy = "-x #{new_resource.proxy}" unless new_resource.proxy.nil?
     if new_resource.accept_oracle_download_terms
@@ -258,8 +258,19 @@ action_class do
       converge_by('download oracle tarball straight from the server') do
         Chef::Log.debug 'downloading oracle tarball straight from the source'
         shell_out!(
-          %(curl --fail --create-dirs -L --retry #{new_resource.retries} --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}" #{new_resource.url} -o #{download_path} --connect-timeout #{new_resource.connect_timeout} #{proxy} ),
-                                   timeout: new_resource.download_timeout
+          %W(
+            curl
+            --fail
+            --create-dirs
+            -L
+            --retry #{new_resource.retries}
+            --retry-delay #{new_resource.retry_delay} --cookie "#{cookie}"
+            #{new_resource.url}
+            -o #{download_path}
+            --connect-timeout #{new_resource.connect_timeout}
+            #{proxy}
+          ).join(' '),
+          timeout: new_resource.download_timeout
         )
       end
       # Can't verify anything with HTTP return codes from Oracle. For example, they return 200 for auth failure.

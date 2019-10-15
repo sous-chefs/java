@@ -1,3 +1,4 @@
+---
 driver:
   name: vagrant
 
@@ -17,9 +18,8 @@ platforms:
   - name: debian-8
   - name: debian-9
   - name: freebsd-11
-  - name: fedora-27
+  - name: fedora-29
   - name: opensuse-leap-42
-  - name: ubuntu-14.04
   - name: ubuntu-16.04
   - name: ubuntu-18.04
 
@@ -29,7 +29,6 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - ubuntu-14.04
     run_list:
       - recipe[test::openjdk6]
   - name: openjdk-7
@@ -40,7 +39,6 @@ suites:
       - debian-8
       - freebsd-11
       - opensuse-leap-42
-      - ubuntu-14.04
       - ubuntu-16.04
     run_list:
       - recipe[test::openjdk7]
@@ -50,14 +48,23 @@ suites:
       - centos-6
       - centos-7
       - debian-9
-      - fedora-27
+      - fedora-29
       - freebsd-11
       - opensuse-leap-42
-      - ubuntu-14.04
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
       - recipe[test::openjdk8]
+  - name: openjdk-11
+    includes:
+      - centos-7
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::openjdk11]
+    verifier:
+      inspec_tests:
+        - test/integration/openjdk-11
   - name: oracle-8
     run_list:
       - recipe[test::oracle8]
@@ -74,9 +81,143 @@ suites:
     includes:
       - centos-6
       - centos-7
-      - fedora-27
+      - fedora-29
     run_list:
       - recipe[test::oracle_rpm8]
     verifier:
       inspec_tests:
         - test/integration/oracle-8
+  - name: adoptopenjdk-8-openj9
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-8-openj9]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml
+  - name: adoptopenjdk-10-openj9
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-10-openj9]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-10-openj9.yml
+  - name: adoptopenjdk-10-hotspot
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-10-hotspot]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-10-hotspot.yml
+  - name: adoptopenjdk-11-hotspot
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-11-hotspot]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-hotspot.yml
+  - name: adoptopenjdk-11-openj9
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-11-openj9]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
+  - name: adoptopenjdk-11-openj9-large-heap
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-11-openj9-large-heap]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9-large-heap.yml
+  - name: adoptopenjdk-removal-11-openj9
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::remove-adoptopenjdk-11-openj9]
+    verifier:
+      inspec_tests:
+        - test/integration/remove-adoptopenjdk
+      attrs:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
+  - name: corretto-8
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::corretto8]
+  - name: corretto-11
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-8
+      - debian-9
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::corretto11]
