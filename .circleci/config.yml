@@ -36,24 +36,16 @@ workflows:
           suite: openjdk-7-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: openjdk-7-debian-8
+          suite: openjdk-7-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: openjdk-7-centos-6
           suite: openjdk-7-centos-6
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-7-centos-7
           suite: openjdk-7-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-7-debian-8
-          suite: openjdk-7-debian-8
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-7-freebsd-11
-          suite: openjdk-7-freebsd-11
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-7-opensuse-leap-42
-          suite: openjdk-7-opensuse-leap-42
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-7-ubuntu-1604
@@ -64,6 +56,10 @@ workflows:
           suite: openjdk-8-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: openjdk-8-debian-9
+          suite: openjdk-8-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: openjdk-8-centos-6
           suite: openjdk-8-centos-6
           requires: *lint_and_unit
@@ -72,20 +68,8 @@ workflows:
           suite: openjdk-8-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: openjdk-8-debian-9
-          suite: openjdk-8-debian-9
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-8-freebsd-11
-          suite: openjdk-8-freebsd-11
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: openjdk-8-fedora-29
           suite: openjdk-8-fedora-29
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-8-opensuse-leap-42
-          suite: openjdk-8-opensuse-leap-42
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-8-ubuntu-1604
@@ -112,12 +96,8 @@ workflows:
           suite: oracle-8-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: oracle-8-centos-6
-          suite: oracle-8-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-8-centos-7
-          suite: oracle-8-centos-7
+          name: oracle-8-amazonlinux-2
+          suite: oracle-8-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-8-debian-8
@@ -128,16 +108,16 @@ workflows:
           suite: oracle-8-debian-9
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: oracle-8-freebsd-11
-          suite: oracle-8-freebsd-11
+          name: oracle-8-centos-6
+          suite: oracle-8-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: oracle-8-centos-7
+          suite: oracle-8-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-8-fedora-29
           suite: oracle-8-fedora-29
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-8-opensuse-leap-42
-          suite: oracle-8-opensuse-leap-42
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-8-ubuntu-1604
@@ -148,16 +128,16 @@ workflows:
           suite: oracle-8-ubuntu-1804
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: oracle-8-opensuse-leap
+          suite: oracle-8-opensuse-leap
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: oracle-direct-amazon-linux
           suite: oracle-direct-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: oracle-direct-centos-6
-          suite: oracle-direct-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-direct-centos-7
-          suite: oracle-direct-centos-7
+          name: oracle-direct-amazonlinux-2
+          suite: oracle-direct-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-direct-debian-8
@@ -168,16 +148,16 @@ workflows:
           suite: oracle-direct-debian-9
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: oracle-direct-freebsd-11
-          suite: oracle-direct-freebsd-11
+          name: oracle-direct-centos-6
+          suite: oracle-direct-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: oracle-direct-centos-7
+          suite: oracle-direct-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-direct-fedora-29
           suite: oracle-direct-fedora-29
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-direct-opensuse-leap-42
-          suite: oracle-direct-opensuse-leap-42
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-direct-ubuntu-1604
@@ -188,16 +168,16 @@ workflows:
           suite: oracle-direct-ubuntu-1804
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: oracle-direct-opensuse-leap
+          suite: oracle-direct-opensuse-leap
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: openjdk-direct-amazon-linux
           suite: openjdk-direct-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: openjdk-direct-centos-6
-          suite: openjdk-direct-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-direct-centos-7
-          suite: openjdk-direct-centos-7
+          name: openjdk-direct-amazonlinux-2
+          suite: openjdk-direct-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-direct-debian-8
@@ -208,16 +188,16 @@ workflows:
           suite: openjdk-direct-debian-9
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: openjdk-direct-freebsd-11
-          suite: openjdk-direct-freebsd-11
+          name: openjdk-direct-centos-6
+          suite: openjdk-direct-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: openjdk-direct-centos-7
+          suite: openjdk-direct-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-direct-fedora-29
           suite: openjdk-direct-fedora-29
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-direct-opensuse-leap-42
-          suite: openjdk-direct-opensuse-leap-42
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-direct-ubuntu-1604
@@ -226,6 +206,10 @@ workflows:
       - kitchen/dokken-single:
           name: openjdk-direct-ubuntu-1804
           suite: openjdk-direct-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: openjdk-direct-opensuse-leap
+          suite: openjdk-direct-opensuse-leap
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: oracle-rpm-8-centos-6
@@ -244,20 +228,20 @@ workflows:
           suite: adoptopenjdk-8-openj9-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-8-openj9-centos-6
-          suite: adoptopenjdk-8-openj9-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-8-openj9-centos-7
-          suite: adoptopenjdk-8-openj9-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-8-openj9-debian-8
           suite: adoptopenjdk-8-openj9-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-8-openj9-debian-9
           suite: adoptopenjdk-8-openj9-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-8-openj9-centos-6
+          suite: adoptopenjdk-8-openj9-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-8-openj9-centos-7
+          suite: adoptopenjdk-8-openj9-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-8-openj9-ubuntu-1604
@@ -272,20 +256,20 @@ workflows:
           suite: adoptopenjdk-10-openj9-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-10-openj9-centos-6
-          suite: adoptopenjdk-10-openj9-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-10-openj9-centos-7
-          suite: adoptopenjdk-10-openj9-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-10-openj9-debian-8
           suite: adoptopenjdk-10-openj9-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-10-openj9-debian-9
           suite: adoptopenjdk-10-openj9-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-10-openj9-centos-6
+          suite: adoptopenjdk-10-openj9-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-10-openj9-centos-7
+          suite: adoptopenjdk-10-openj9-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-10-openj9-ubuntu-1604
@@ -300,20 +284,20 @@ workflows:
           suite: adoptopenjdk-10-hotspot-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-10-hotspot-centos-6
-          suite: adoptopenjdk-10-hotspot-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-10-hotspot-centos-7
-          suite: adoptopenjdk-10-hotspot-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-10-hotspot-debian-8
           suite: adoptopenjdk-10-hotspot-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-10-hotspot-debian-9
           suite: adoptopenjdk-10-hotspot-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-10-hotspot-centos-6
+          suite: adoptopenjdk-10-hotspot-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-10-hotspot-centos-7
+          suite: adoptopenjdk-10-hotspot-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-10-hotspot-ubuntu-1604
@@ -328,20 +312,20 @@ workflows:
           suite: adoptopenjdk-11-hotspot-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-11-hotspot-centos-6
-          suite: adoptopenjdk-11-hotspot-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-11-hotspot-centos-7
-          suite: adoptopenjdk-11-hotspot-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-11-hotspot-debian-8
           suite: adoptopenjdk-11-hotspot-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-hotspot-debian-9
           suite: adoptopenjdk-11-hotspot-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-11-hotspot-centos-6
+          suite: adoptopenjdk-11-hotspot-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-11-hotspot-centos-7
+          suite: adoptopenjdk-11-hotspot-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-hotspot-ubuntu-1604
@@ -356,20 +340,20 @@ workflows:
           suite: adoptopenjdk-11-openj9-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-11-openj9-centos-6
-          suite: adoptopenjdk-11-openj9-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-11-openj9-centos-7
-          suite: adoptopenjdk-11-openj9-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-11-openj9-debian-8
           suite: adoptopenjdk-11-openj9-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-openj9-debian-9
           suite: adoptopenjdk-11-openj9-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-11-openj9-centos-6
+          suite: adoptopenjdk-11-openj9-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-11-openj9-centos-7
+          suite: adoptopenjdk-11-openj9-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-openj9-ubuntu-1604
@@ -384,20 +368,20 @@ workflows:
           suite: adoptopenjdk-11-openj9-large-heap-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-11-openj9-large-heap-centos-6
-          suite: adoptopenjdk-11-openj9-large-heap-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-11-openj9-large-heap-centos-7
-          suite: adoptopenjdk-11-openj9-large-heap-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-11-openj9-large-heap-debian-8
           suite: adoptopenjdk-11-openj9-large-heap-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-openj9-large-heap-debian-9
           suite: adoptopenjdk-11-openj9-large-heap-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-11-openj9-large-heap-centos-6
+          suite: adoptopenjdk-11-openj9-large-heap-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-11-openj9-large-heap-centos-7
+          suite: adoptopenjdk-11-openj9-large-heap-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-openj9-large-heap-ubuntu-1604
@@ -412,20 +396,20 @@ workflows:
           suite: adoptopenjdk-removal-11-openj9-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: adoptopenjdk-removal-11-openj9-centos-6
-          suite: adoptopenjdk-removal-11-openj9-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-removal-11-openj9-centos-7
-          suite: adoptopenjdk-removal-11-openj9-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: adoptopenjdk-removal-11-openj9-debian-8
           suite: adoptopenjdk-removal-11-openj9-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-removal-11-openj9-debian-9
           suite: adoptopenjdk-removal-11-openj9-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-removal-11-openj9-centos-6
+          suite: adoptopenjdk-removal-11-openj9-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: adoptopenjdk-removal-11-openj9-centos-7
+          suite: adoptopenjdk-removal-11-openj9-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-removal-11-openj9-ubuntu-1604
@@ -440,20 +424,20 @@ workflows:
           suite: corretto-8-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: corretto-8-centos-6
-          suite: corretto-8-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: corretto-8-centos-7
-          suite: corretto-8-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: corretto-8-debian-8
           suite: corretto-8-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: corretto-8-debian-9
           suite: corretto-8-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: corretto-8-centos-6
+          suite: corretto-8-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: corretto-8-centos-7
+          suite: corretto-8-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: corretto-8-ubuntu-1604
@@ -468,20 +452,20 @@ workflows:
           suite: corretto-11-amazon-linux
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: corretto-11-centos-6
-          suite: corretto-11-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: corretto-11-centos-7
-          suite: corretto-11-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: corretto-11-debian-8
           suite: corretto-11-debian-8
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: corretto-11-debian-9
           suite: corretto-11-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: corretto-11-centos-6
+          suite: corretto-11-centos-6
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: corretto-11-centos-7
+          suite: corretto-11-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: corretto-11-ubuntu-1604
