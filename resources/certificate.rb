@@ -19,7 +19,7 @@
 # limitations under the License.
 
 property :java_home, String, default: lazy { node['java']['java_home'] }
-property :keystore_path, String, default: lazy { node['java']['jdk_version'].to_i < 11 ? "#{node['java']['java_home']}/jre/lib/security/cacerts" : "#{node['java']['java_home']}/lib/security/cacerts" }
+property :keystore_path, String 
 property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String, name_property: true
 property :cert_data, String
@@ -31,7 +31,7 @@ action :install do
 
   java_home = new_resource.java_home
   keytool = "#{java_home}/bin/keytool"
-  truststore = if new_resource.keystore_path.empty?
+  truststore = if new_resource.keystore_path.nil?
                  truststore_default_location
                else
                  new_resource.keystore_path
