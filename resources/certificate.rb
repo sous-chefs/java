@@ -19,7 +19,7 @@
 # limitations under the License.
 
 property :java_home, String, default: lazy { node['java']['java_home'] }
-property :keystore_path, String 
+property :keystore_path, String
 property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String, name_property: true
 property :cert_data, String
