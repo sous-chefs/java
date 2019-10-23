@@ -89,6 +89,13 @@ default['java']['oracle']['accept_oracle_download_terms'] = false
 
 # direct download paths for oracle, you have been warned!
 
+default['java']['jdk']['7']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac
+                                             javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb
+                                             jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack
+                                             jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool
+                                             rmic rmid rmiregistry schemagen serialver servertool tnameserv
+                                             unpack200 wsgen wsimport xjc)
+
 # jdk8 attributes
 
 default['java']['jdk']['8']['bin_cmds'] = %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac
