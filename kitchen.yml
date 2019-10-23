@@ -67,6 +67,8 @@ suites:
   - name: openjdk-direct
     run_list:
       - recipe[test::openjdk_direct]
+    excludes:
+      - debian-8
   - name: oracle-rpm-8
     includes:
       - centos-6
