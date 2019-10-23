@@ -24,13 +24,6 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-  - name: openjdk-6
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-    run_list:
-      - recipe[test::openjdk6]
   - name: openjdk-7
     includes:
       - amazon-linux
