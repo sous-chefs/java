@@ -2,11 +2,26 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## [Unreleased]
+
+### Added
+
+### Changed
 
 - Fixed java_certificate regex where it checks if cert exists in cacert file.
 - Make Homebrew Cask name an attribute to allow for other options (ex: adoptopenjdk)
 - Make builds parallel
+- Updates package name and link changes for adoptopenjdk
+
+### Deprecated
+
+### Removed
+
+- Removes openjdk-6
+- Removes openjdk-7 for Ubuntu 16.04
+- Removes openjdk-11 for Ubuntu
+- Removes openjdk-direct for Debian 8
+- Removes oracle variants from test configurations
 
 ## 4.3.0 (2019-08-04)
 
