@@ -1,6 +1,6 @@
 # the right version of java is installed
 describe command('java -version 2>&1') do
-  its('stdout') { should match /11\.0\.3/ }
+  its('stdout') { should match /openjdk version \"11\.\d+\.\d+\"/ }
 end
 
 # alternatives were properly set

@@ -1,5 +1,5 @@
 ---
-java_version: 11
+java_version: 11.0.5
 adoptopenjdk_variant: hotspot
 alternative_bin_cmds: [jaotc, jar, jarsigner, java, javac, javadoc,
                        javap, jcmd, jconsole, jdb, jdeprscan, jdeps,

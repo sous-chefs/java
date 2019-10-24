@@ -164,7 +164,7 @@ action_class do
       dir_name_results = file_name.scan(/_(\d+u\d+)(b\d+)\.tar\.gz$/)
       app_dir_name = "jdk#{dir_name_results[0][0]}-#{dir_name_results[0][1]}" unless dir_name_results.empty?
     else
-      dir_name_results = file_name.scan(/[-_]([.\d]+)[._]([\d]+)(?:_openj[-.\d]+)?\.tar\.gz$/)
+      dir_name_results = file_name.scan(/[-_]([.\d]+)[._+]([\d]+)(?:_openj[-.\d]+)?\.tar\.gz$/)
       app_dir_name = "jdk-#{dir_name_results[0][0]}+#{dir_name_results[0][1]}" unless dir_name_results.empty?
     end
     Chef::Application.fatal!("Failed to parse #{file_name} for application directory name!") if dir_name_results.empty?
