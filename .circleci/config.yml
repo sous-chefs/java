@@ -20,18 +20,6 @@ workflows:
       - kitchen/delivery:
           name: delivery
       - kitchen/dokken-single:
-          name: openjdk-6-amazon-linux
-          suite: openjdk-6-amazon-linux
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-6-centos-6
-          suite: openjdk-6-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-6-centos-7
-          suite: openjdk-6-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: openjdk-7-amazon-linux
           suite: openjdk-7-amazon-linux
           requires: *lint_and_unit
@@ -46,10 +34,6 @@ workflows:
       - kitchen/dokken-single:
           name: openjdk-7-centos-7
           suite: openjdk-7-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-7-ubuntu-1604
-          suite: openjdk-7-ubuntu-1604
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: openjdk-8-amazon-linux
@@ -100,10 +84,6 @@ workflows:
           suite: openjdk-direct-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: openjdk-direct-debian-8
-          suite: openjdk-direct-debian-8
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: openjdk-direct-debian-9
           suite: openjdk-direct-debian-9
           requires: *lint_and_unit
@@ -130,18 +110,6 @@ workflows:
       - kitchen/dokken-single:
           name: openjdk-direct-opensuse-leap
           suite: openjdk-direct-opensuse-leap
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-rpm-8-centos-6
-          suite: oracle-rpm-8-centos-6
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-rpm-8-centos-7
-          suite: oracle-rpm-8-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: oracle-rpm-8-fedora-29
-          suite: oracle-rpm-8-fedora-29
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-8-openj9-amazon-linux
@@ -246,10 +214,6 @@ workflows:
       - kitchen/dokken-single:
           name: adoptopenjdk-11-hotspot-centos-7
           suite: adoptopenjdk-11-hotspot-centos-7
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: adoptopenjdk-11-hotspot-ubuntu-1604
-          suite: adoptopenjdk-11-hotspot-ubuntu-1604
           requires: *lint_and_unit
       - kitchen/dokken-single:
           name: adoptopenjdk-11-hotspot-ubuntu-1804
