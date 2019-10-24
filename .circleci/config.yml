@@ -68,14 +68,6 @@ workflows:
           suite: openjdk-11-centos-7
           requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: openjdk-11-ubuntu-1604
-          suite: openjdk-11-ubuntu-1604
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
-          name: openjdk-11-ubuntu-1804
-          suite: openjdk-11-ubuntu-1804
-          requires: *lint_and_unit
-      - kitchen/dokken-single:
           name: openjdk-direct-amazon-linux
           suite: openjdk-direct-amazon-linux
           requires: *lint_and_unit
