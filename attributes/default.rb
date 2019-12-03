@@ -152,10 +152,10 @@ default['java']['oracle']['jce']['home'] = '/opt/java_jce'
 # AdoptOpenJDK
 default['java']['adoptopenjdk']['variant'] = 'openj9'
 # AdoptOpenJDK 8
-default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u181-b13/OpenJDK8U-jdk_x64_linux_hotspot_8u181b13.tar.gz'
-default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['checksum'] = '7cac51df1a976a376e9acd6d053c96ce0fe54db24e5d7079c303d09c416270a2'
-default['java']['adoptopenjdk']['8']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u192-b12/OpenJDK8U-jdk_x64_linux_openj9_8u192b12.tar.gz'
-default['java']['adoptopenjdk']['8']['x86_64']['openj9']['checksum'] = '23f7f99c051b45366f0d91a94f8d5465f01bfccdc78f6d62222b1f338e6663eb'
+default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz'
+default['java']['adoptopenjdk']['8']['x86_64']['hotspot']['checksum'] = '7b7884f2eb2ba2d47f4c0bf3bb1a2a95b73a3a7734bd47ebf9798483a7bcc423'
+default['java']['adoptopenjdk']['8']['x86_64']['openj9']['url'] = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09_openj9-0.17.0/OpenJDK8U-jdk_x64_linux_openj9_8u232b09_openj9-0.17.0.tar.gz'
+default['java']['adoptopenjdk']['8']['x86_64']['openj9']['checksum'] = 'abea758c7e102f3c4a3be8757ee0ce039a70e2d498c160400dfb83c6f7004dbf'
 default['java']['adoptopenjdk']['8']['bin_cmds']['default'] = %w(appletviewer extcheck idlj jar jarsigner java javac javadoc javah javap jconsole jdb jdeps jdmpview jextract jjs jrunscript jsadebugd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv traceformat unpack200 wsgen wsimport xjc)
 # AdoptOpenJDK 10
 default['java']['adoptopenjdk']['10']['x86_64']['hotspot']['url'] = 'https://github.com/AdoptOpenJDK/openjdk10-releases/releases/download/jdk-10.0.2%2B13/OpenJDK10_x64_Linux_jdk-10.0.2+13.tar.gz'
