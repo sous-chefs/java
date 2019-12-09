@@ -26,7 +26,7 @@ default['java']['oracle']['accept_oracle_download_terms'] = true
 
 ## Usage
 
-Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (AdoptOpenJDK, OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 and 10 for Oracle and AdoptOpenJDK ).
+Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 8 is installed. The `install_flavor` attribute is used to determine which JDK to install (AdoptOpenJDK, OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 and 10 for Oracle and AdoptOpenJDK ).
 
 ### Examples
 
