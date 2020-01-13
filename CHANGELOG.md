@@ -12,6 +12,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - Make Homebrew Cask name an attribute to allow for other options (ex: adoptopenjdk)
 - Make builds parallel
 - Updates package name and link changes for adoptopenjdk
+- Migrated testing to github actions
 
 ### Deprecated
 
