@@ -49,10 +49,9 @@ jobs:
           - 'opensuse-leap-42'
           - 'ubuntu-16.04'
           - 'ubuntu-18.04'
-
         suite:
-          - 'openjdk-7'
-          - 'openjdk-8'
+          # - 'openjdk-7'
+          # - 'openjdk-8'
           - 'openjdk-11'
           - 'openjdk-direct'
           - 'adoptopenjdk-8-openj9'

@@ -23,23 +23,22 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-  - name: openjdk-7
-    excludes: [debian-10]
+  # - name: openjdk-7
+  #   excludes: [debian-10]
 
-    run_list:
-      - recipe[test::openjdk7]
+  #   run_list:
+  #     - recipe[test::openjdk7]
 
-  - name: openjdk-8
-    excludes: [debian-10]
-    run_list:
-      - recipe[test::openjdk8]
+  # - name: openjdk-8
+  #   excludes: [debian-10]
+  #   run_list:
+  #     - recipe[test::openjdk8]
 
   - name: openjdk-11
-    includes: [centos-7]
     run_list:
       - recipe[test::openjdk11]
-    verifier:
-      inspec_tests: [test/integration/openjdk-11]
+    # verifier:
+    #   inspec_tests: [test/integration/openjdk-11]
 
   - name: openjdk-direct
     run_list:
@@ -49,17 +48,14 @@ suites:
     run_list:
       - recipe[test::adoptopenjdk-8-openj9]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      attrs:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml
+      inspec_tests: [test/integration/adoptopenjdk]
+      attrs: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml]
 
   - name: adoptopenjdk-10-openj9
     run_list:
       - recipe[test::adoptopenjdk-10-openj9]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
+      inspec_tests: [test/integration/adoptopenjdk]
       attrs: [test/integration/adoptopenjdk/attributes/adoptopenjdk-10-openj9.yml]
 
   - name: adoptopenjdk-10-hotspot
