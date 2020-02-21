@@ -41,12 +41,16 @@ jobs:
       matrix:
         os:
           - 'amazon-linux'
-          - 'debian-9'
+          - 'centos-6'
           - 'centos-7'
           - 'debian-9'
           - 'debian-10'
-          - 'ubuntu-1604'
-          - 'ubuntu-1804'
+          - 'freebsd-11'
+          - 'fedora-29'
+          - 'opensuse-leap-42'
+          - 'ubuntu-16.04'
+          - 'ubuntu-18.04'
+
         suite:
           - 'openjdk-7'
           - 'openjdk-8'
