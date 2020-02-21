@@ -10,6 +10,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Fixed java_certificate regex where it checks if cert exists in cacert file.
 - Make Homebrew Cask name an attribute to allow for other options (ex: adoptopenjdk)
+- Switch homebrew tap to homebrew/cask-versions
 - Make builds parallel
 - Updates package name and link changes for adoptopenjdk
 - Migrated testing to github actions
