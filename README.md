@@ -14,7 +14,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ## Production Deployment with Oracle Java
 
-Oracle has been known to change the behavior of its download site frequently. It is recommended you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
+Oracle has been known to change the behavior of its download site frequently. It is recommended that you store the archives on an artifact server or s3 bucket. You can then override the attributes in a cookbook, role, or environment:
 
 ```ruby
 default['java']['jdk_version'] = '8'
@@ -26,7 +26,7 @@ default['java']['oracle']['accept_oracle_download_terms'] = true
 
 ## Usage
 
-Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 6 is installed. The `install_flavor` attribute is used to determine which JDK to install (AdoptOpenJDK, OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 and 10 for Oracle and AdoptOpenJDK ).
+Include the `java` recipe wherever you would like Java installed, such as a run list (`recipe[java]`) or a cookbook (`include_recipe 'java'`). By default, OpenJDK 8 is installed. The `install_flavor` attribute is used to determine which JDK to install (AdoptOpenJDK, OpenJDK, Oracle, IBM, or Windows), and `jdk_version` specifies which version to install (currently 6 and 7 are supported for all JDK types, 8 and 10 for Oracle and AdoptOpenJDK ).
 
 ### Examples
 
@@ -90,6 +90,7 @@ Chef 13.4+
 
 See `attributes/default.rb` for default values.
 
+- `node['java']['download_path']` - Location to download and extract the tarball
 - `node['java']['install_flavor']` - Flavor of JVM you would like installed (`oracle`, `oracle_rpm`, `openjdk`, `adoptopenjdk`, `ibm`, `windows`), default `openjdk` on Linux/Unix platforms, `windows` on Windows platforms.
 - `node['java']['install_type']` - Type of Java installation, defauls to jdk, needed for JCE to find the install path of jar's for JDK/JRE installation.
 - `node['java']['jdk_version']` - JDK version to install, defaults to `'6'`.
@@ -180,10 +181,11 @@ While public YUM repos for Oracle Java 7 and prior are available, you need to do
 
 ### adoptopenjdk
 
-This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjdk.net/.](https://adoptopenjdk.net/.) It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
+This recipe installs the `AdoptOpenJDK` flavor of Java from [https://adoptopenjdk.net/](https://adoptopenjdk.net/). It also uses the `alternatives` system on the RHEL/Debian families to set the default Java.
 
 ### Amazon Corretto
-This recipe installs the `Amazon Corretto` flavor of OpenJDK from https://aws.amazon.com/corretto/.  It also uses the `alternatives` system on RHEL/Debian families to set the default Java.
+
+This recipe installs the `Amazon Corretto` flavor of OpenJDK from [https://aws.amazon.com/corretto/](https://aws.amazon.com/corretto/).  It also uses the `alternatives` system on RHEL/Debian families to set the default Java.
 
 ### windows
 

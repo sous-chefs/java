@@ -36,7 +36,7 @@ action :install do
     recursive true
   end
 
-  r = remote_file "#{Chef::Config[:file_cache_path]}/jce.zip" do
+  r = remote_file "#{node['java']['download_path']}/jce.zip" do
     source jce_url
     checksum jce_checksum
     headers(
@@ -57,10 +57,10 @@ action :install do
     final_local_policy = ::File.join(jre_final_path, 'local_policy.jar')
     final_export_policy = ::File.join(jre_final_path, 'US_export_policy.jar')
 
-    windows_zipfile staging_path do
-      source r.path
-      checksum jce_checksum
-      action :unzip
+    archive_file staging_path do
+      path r.path
+      destination staging_path
+      action :extract
       not_if { ::File.exist? staging_local_policy }
     end
 
@@ -87,7 +87,7 @@ action :install do
         find ./ -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{jce_home}/#{jdk_version}/
         chmod -R 0644 #{jce_home}/#{jdk_version}/*.jar
       EOF
-      cwd Chef::Config[:file_cache_path]
+      cwd node['java']['download_path']
       creates ::File.join(jce_home, jdk_version, 'US_export_policy.jar')
     end
 

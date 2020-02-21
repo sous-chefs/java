@@ -20,7 +20,7 @@ property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
 property :alternatives_priority, Integer, default: 1
 property :reset_alternatives, [true, false], default: true
-property :variant, ['hotspot', 'openj9', 'openj9-large-heap'], default: 'openj9'
+property :variant, %w(hotspot openj9 openj9-large-heap), default: 'openj9'
 property :custom_naming_capture, String, default: ''
 property :custom_naming_replace, String, default: ''
 
@@ -45,17 +45,17 @@ action :install do
   end.run_action(:create)
 
   unless ::File.exist?(app_dir)
-    download_path = "#{Chef::Config[:file_cache_path]}/#{tarball_name}"
+    download_path = "#{node['java']['download_path']}/#{tarball_name}"
     if adoptopendjk_downloaded?(download_path, new_resource)
       Chef::Log.debug('AdoptOpenJDK tarball already downloaded, not downloading again')
     else
       Chef::Log.debug("downloading tarball from #{URI.parse(new_resource.url).host}")
-      remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
+      remote_file "#{node['java']['download_path']}/#{tarball_name}" do
         source new_resource.url
         checksum new_resource.checksum
         retries new_resource.retries
         retry_delay new_resource.retry_delay
-        mode 0o644
+        mode '644'
         action :nothing
       end.run_action(:create_if_missing)
     end
@@ -66,17 +66,17 @@ action :install do
         action :nothing
       end.run_action(:install)
 
-      cmd = shell_out(%(tar xvzf "#{Chef::Config[:file_cache_path]}/#{tarball_name}" -C "#{Chef::Config[:file_cache_path]}" --no-same-owner)
+      cmd = shell_out(%(tar xvzf "#{node['java']['download_path']}/#{tarball_name}" -C "#{node['java']['download_path']}" --no-same-owner)
                      )
       unless cmd.exitstatus == 0
         Chef::Application.fatal!("Failed to extract file #{tarball_name}!")
       end
 
       cmd = shell_out(
-        %(mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" )
+        %(mv "#{node['java']['download_path']}/#{app_dir_name}" "#{app_dir}" )
       )
       unless cmd.exitstatus == 0
-        Chef::Application.fatal!(%( Command \' mv "#{Chef::Config[:file_cache_path]}/#{app_dir_name}" "#{app_dir}" \' failed ))
+        Chef::Application.fatal!(%( Command \' mv "#{node['java']['download_path']}/#{app_dir_name}" "#{app_dir}" \' failed ))
       end
 
       # change ownership of extracted files
@@ -174,7 +174,7 @@ action_class do
       dir_name_results = file_name.scan(/_(\d+u\d+)(b\d+)\.tar\.gz$/)
       app_dir_name = "jdk#{dir_name_results[0][0]}-#{dir_name_results[0][1]}" unless dir_name_results.empty?
     else
-      dir_name_results = file_name.scan(/[-_]([.\d]+)[._]([\d]+)(?:_openj[-.\d]+)?\.tar\.gz$/)
+      dir_name_results = file_name.scan(/[-_]([.\d]+)[._+]([\d]+)(?:_openj[-.\d]+)?\.tar\.gz$/)
       app_dir_name = "jdk-#{dir_name_results[0][0]}+#{dir_name_results[0][1]}" unless dir_name_results.empty?
     end
     Chef::Application.fatal!("Failed to parse #{file_name} for application directory name!") if dir_name_results.empty?
