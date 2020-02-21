@@ -24,13 +24,6 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-  - name: openjdk-6
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-    run_list:
-      - recipe[test::openjdk6]
   - name: openjdk-7
     includes:
       - amazon-linux
@@ -39,7 +32,6 @@ suites:
       - debian-8
       - freebsd-11
       - opensuse-leap-42
-      - ubuntu-16.04
     run_list:
       - recipe[test::openjdk7]
   - name: openjdk-8
@@ -58,35 +50,16 @@ suites:
   - name: openjdk-11
     includes:
       - centos-7
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::openjdk11]
     verifier:
       inspec_tests:
         - test/integration/openjdk-11
-  - name: oracle-8
-    run_list:
-      - recipe[test::oracle8]
-  - name: oracle-direct
-    run_list:
-      - recipe[test::oracle_direct]
-    verifier:
-      inspec_tests:
-        - test/integration/oracle-8
   - name: openjdk-direct
+    excludes:
+      - debian-8
     run_list:
       - recipe[test::openjdk_direct]
-  - name: oracle-rpm-8
-    includes:
-      - centos-6
-      - centos-7
-      - fedora-29
-    run_list:
-      - recipe[test::oracle_rpm8]
-    verifier:
-      inspec_tests:
-        - test/integration/oracle-8
   - name: adoptopenjdk-8-openj9
     includes:
       - amazon-linux

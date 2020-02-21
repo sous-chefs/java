@@ -1,5 +1,5 @@
 ---
-java_version: 11.0.1
+java_version: 11.0.5
 adoptopenjdk_variant: openj9
 alternative_bin_cmds: [jar, jarsigner, java, javac, javadoc,
                        javap, jconsole, jdb, jdeprscan, jdeps,
