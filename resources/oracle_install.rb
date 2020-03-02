@@ -19,9 +19,6 @@
 # limitations under the License.
 
 # backwards compatibility with the old name
-provides :java_oracle_install
-provides :java_ark
-
 property :url, String
 property :mirrorlist, Array, default: []
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
@@ -33,10 +30,10 @@ property :owner, String, default: 'root'
 property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
 property :alternatives_priority, Integer, default: 1
-property :connect_timeout, Integer, default: 30 # => 30 seconds
+property :connect_timeout, Integer, default: 30
 property :reset_alternatives, [true, false], default: true
 property :use_alt_suffix, [true, false], default: true
-property :download_timeout, Integer, default: 600 # => 600 seconds
+property :download_timeout, Integer, default: 600
 property :proxy, String
 property :accept_oracle_download_terms, [true, false], default: lazy { node['java']['oracle']['accept_oracle_download_terms'] }
 

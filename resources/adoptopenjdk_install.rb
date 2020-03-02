@@ -1,15 +1,8 @@
-#
-# Cookbook:: java
-# Resource:: adoptopenjdk_install
-#
-# Based on oracle_install.rb by Bryan W. Berry (<bryan.berry@gmail.com>)
-#
-
 resource_name :adoptopenjdk_install
 
 default_action :install
 
-property :url, String
+property :url, String, required: true
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :app_home, String
@@ -23,7 +16,6 @@ property :reset_alternatives, [true, false], default: true
 property :variant, %w(hotspot openj9 openj9-large-heap), default: 'openj9'
 
 action :install do
-  raise 'No URL provided to download AdoptOpenJDK\'s tar file!' if new_resource.url.nil? || new_resource.url.empty?
   app_dir_name, tarball_name, app_root, app_dir =
     parse_dir_names(new_resource.url,
                     new_resource.app_home,

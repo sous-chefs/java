@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 6.0.0 (2020-03-02)
+
+## Deprecated
+
+- The resource alias `java_ark` has been deprecated in favour of `java_oracle_install`
+
 ## 5.0.0 (2020-02-21)
 
 ### Added
