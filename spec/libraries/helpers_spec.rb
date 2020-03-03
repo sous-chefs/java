@@ -61,10 +61,11 @@ describe ChefCookbook::OpenJDK do
     end
   end
 
-  context 'debian 7 32 bit' do
+  # rubocop:disable ChefDeprecations/NodeSetWithoutLevel
+  context 'debian 8 32 bit' do
     before do
       node['platform'] = 'debian'
-      node['platform_version'] = '7.11'
+      node['platform_version'] = '8.11'
       node['platform_family'] = 'debian'
       node['kernel']['machine'] = 'i386'
     end
@@ -81,10 +82,10 @@ describe ChefCookbook::OpenJDK do
     end
   end
 
-  context 'debian 7 64 bit' do
+  context 'debian 8 64 bit' do
     before do
       node['platform'] = 'debian'
-      node['platform_version'] = '7.11'
+      node['platform_version'] = '8.11'
       node['platform_family'] = 'debian'
       node['kernel']['machine'] = 'x86_64'
     end
@@ -101,10 +102,10 @@ describe ChefCookbook::OpenJDK do
     end
   end
 
-  context 'centos 5 32 bit' do
+  context 'centos 7 32 bit' do
     before do
       node['platform'] = 'centos'
-      node['platform_version'] = '5.9'
+      node['platform_version'] = '7'
       node['platform_family'] = 'rhel'
       node['kernel']['machine'] = 'i386'
     end
@@ -124,7 +125,7 @@ describe ChefCookbook::OpenJDK do
   context 'centos 5 64 bit' do
     before do
       node['platform'] = 'centos'
-      node['platform_version'] = '5.9'
+      node['platform_version'] = '7'
       node['platform_family'] = 'rhel'
       node['kernel']['machine'] = 'x86_64'
     end
@@ -200,4 +201,5 @@ describe ChefCookbook::OpenJDK do
       expect(subject.java_location).to eq(expected_path)
     end
   end
+  # rubocop:enable ChefDeprecations/NodeSetWithoutLevel
 end

@@ -45,7 +45,6 @@ end
 if platform?('foo') == 'ubuntu'
   apt_repository 'openjdk-r-ppa' do
     uri 'ppa:openjdk-r'
-    distribution node['lsb']['codename']
   end
 end
 

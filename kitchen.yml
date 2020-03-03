@@ -5,6 +5,7 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: false
+  # log_level: :info
 
 verifier:
   name: inspec
@@ -24,16 +25,6 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-  - name: openjdk-7
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-8
-      - freebsd-11
-      - opensuse-leap-42
-    run_list:
-      - recipe[test::openjdk7]
   - name: openjdk-8
     includes:
       - amazon-linux
@@ -48,18 +39,26 @@ suites:
     run_list:
       - recipe[test::openjdk8]
   - name: openjdk-11
-    includes:
-      - centos-7
+    includes: [centos-7]
     run_list:
       - recipe[test::openjdk11]
     verifier:
       inspec_tests:
         - test/integration/openjdk-11
   - name: openjdk-direct
-    excludes:
-      - debian-8
+    excludes: [debian-8]
     run_list:
       - recipe[test::openjdk_direct]
+  - name: adoptopenjdk-8-hotspot
+    includes:
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-8-hotspot]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      input_files:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-hotspot.yml
   - name: adoptopenjdk-8-openj9
     includes:
       - amazon-linux
@@ -74,7 +73,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      attrs:
+      input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml
   - name: adoptopenjdk-10-openj9
     includes:
@@ -90,7 +89,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      attrs:
+      input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-10-openj9.yml
   - name: adoptopenjdk-10-hotspot
     includes:
@@ -106,7 +105,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      attrs:
+      input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-10-hotspot.yml
   - name: adoptopenjdk-11-hotspot
     includes:
@@ -122,7 +121,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      attrs:
+      input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-hotspot.yml
   - name: adoptopenjdk-11-openj9
     includes:
@@ -136,10 +135,8 @@ suites:
     run_list:
       - recipe[test::adoptopenjdk-11-openj9]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      attrs:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
+      inspec_tests: ["test/integration/adoptopenjdk"]
+      input_files: ["test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml"]
   - name: adoptopenjdk-11-openj9-large-heap
     includes:
       - amazon-linux
@@ -154,7 +151,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      attrs:
+      input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9-large-heap.yml
   - name: adoptopenjdk-removal-11-openj9
     includes:
@@ -170,7 +167,7 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/remove-adoptopenjdk
-      attrs:
+      input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
   - name: corretto-8
     includes:

@@ -1,6 +1,6 @@
 ---
 java_version: 10.0.2
-adoptopenjdk_variant: hotspot
+variant: "hotspot"
 alternative_bin_cmds: [appletviewer, idlj, jaotc, jar, jarsigner, java,
                        javac, javadoc, javap, jcmd, jconsole, jdb,
                        jdeprscan, jdeps, jhsdb, jimage, jinfo, jjs,
@@ -9,3 +9,4 @@ alternative_bin_cmds: [appletviewer, idlj, jaotc, jar, jarsigner, java,
                        rmic, rmid, rmiregistry, schemagen, serialver,
                        servertool, tnameserv, unpack200, wsgen,
                        wsimport, xjc]
+keystore_location: '/usr/lib/jvm/java-10-adoptopenjdk-hotspot/jdk-10.0.2+13/lib/security/cacerts'

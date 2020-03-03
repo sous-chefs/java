@@ -1,9 +1,10 @@
 ---
 java_version: 11.0.5
-adoptopenjdk_variant: hotspot
+variant: "hotspot"
 alternative_bin_cmds: [jaotc, jar, jarsigner, java, javac, javadoc,
                        javap, jcmd, jconsole, jdb, jdeprscan, jdeps,
                        jhsdb, jimage, jinfo, jjs, jlink, jmap, jmod,
                        jps, jrunscript, jshell, jstack, jstat, jstatd,
                        keytool, pack200, rmic, rmid, rmiregistry,
                        serialver, unpack200]
+keystore_location: '/usr/lib/jvm/java-11-adoptopenjdk-hotspot/jdk-11.0.5+10/lib/security/cacerts'

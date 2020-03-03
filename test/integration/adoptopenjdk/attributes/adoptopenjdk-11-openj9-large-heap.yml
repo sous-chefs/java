@@ -1,9 +1,10 @@
 ---
 java_version: 11.0.5
-adoptopenjdk_variant: openj9-large-heap
+variant: "openj9-large-heap"
 alternative_bin_cmds: [jar, jarsigner, java, javac, javadoc,
                        javap, jconsole, jdb, jdeprscan, jdeps,
                        jdmpview, jextract, jimage, jjs, jlink,
                        jrunscript, jshell, keytool, pack200, rmic,
                        rmid, rmiregistry, serialver, traceformat,
                        unpack200]
+keystore_location: '/usr/lib/jvm/java-10-adoptopenjdk-openj9-large-heap/jdk-11.0.5+10/lib/security/cacerts'

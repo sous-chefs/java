@@ -2,6 +2,19 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 7.0.0 (tbc)
+
+- Refactored and sped up unit tests.
+
+## Added
+
+- Added the `adoptopenjdk_install` resource, documentation
+
+## Deprecated
+
+- Removed the adoptopenjdk recipe, please use the `adoptopenjdk_install` resource instead.
+- Increased the minimum Chef requirement to Chef 15 to use the archive resource.
+
 ## 6.0.0 (2020-03-02)
 
 ## Deprecated

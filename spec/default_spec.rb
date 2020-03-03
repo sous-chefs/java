@@ -4,7 +4,7 @@ describe 'java::default' do
   let(:chef_run) do
     runner = ChefSpec::SoloRunner.new(
       platform: 'debian',
-      version: '7.11'
+      version: '8.11'
     )
     runner.converge(described_recipe)
   end
@@ -124,13 +124,7 @@ describe 'java::default' do
   context 'AdoptOpenJDK 11' do
     cached(:chef_run) do
       runner = ChefSpec::SoloRunner.new
-      runner.node.override['java']['install_flavor'] = 'adoptopenjdk'
-      runner.node.override['java']['jdk_version'] = '11'
       runner.converge(described_recipe)
-    end
-
-    it 'should include the adoptopenjdk recipe' do
-      expect(chef_run).to include_recipe('java::adoptopenjdk')
     end
 
     it 'should not error' do

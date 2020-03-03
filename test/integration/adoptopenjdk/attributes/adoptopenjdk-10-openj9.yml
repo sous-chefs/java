@@ -1,5 +1,6 @@
 ---
 java_version: 10.0.2
+variant: "openj9"
 alternative_bin_cmds: [appletviewer, idlj, jar, jarsigner, java,
                        javac, javadoc, javap, jconsole, jdb,
                        jdeprscan, jdeps, jdmpview, jextract,
@@ -8,3 +9,4 @@ alternative_bin_cmds: [appletviewer, idlj, jar, jarsigner, java,
                        orbd, pack200, rmic, rmid, rmiregistry,
                        schemagen, serialver, servertool, tnameserv,
                        traceformat, unpack200, wsgen, wsimport, xjc]
+keystore_location: '/usr/lib/jvm/java-10-adoptopenjdk-openj9/jdk-10.0.2+13/lib/security/cacerts'

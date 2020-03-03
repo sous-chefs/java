@@ -19,6 +19,8 @@
 # limitations under the License.
 
 property :java_home, String, default: lazy { node['java']['java_home'] }
+property :java_version, String, default: lazy { node['java']['jdk_version'] }
+property :download_path, String, default: lazy { node['java']['download_path'] }
 property :keystore_path, String
 property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String, name_property: true
@@ -30,6 +32,7 @@ action :install do
   require 'openssl'
 
   java_home = new_resource.java_home
+  Chef::Log.info java_home
   keytool = "#{java_home}/bin/keytool"
   truststore = if new_resource.keystore_path.nil?
                  truststore_default_location
@@ -41,7 +44,7 @@ action :install do
   certdata = new_resource.cert_data || fetch_certdata
 
   hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
-  certfile = "#{node['java']['download_path']}/#{certalias}.cert.#{hash}"
+  certfile = "#{new_resource.download_path}/#{certalias}.cert.#{hash}"
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -rfc -alias \"#{certalias}\"")
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
@@ -53,7 +56,7 @@ action :install do
   else
     cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v")
     cmd.run_command
-    Chef::Log.debug(cmd.format_for_exception)
+    Chef::Log.info(cmd.format_for_exception)
     Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
     has_key = !cmd.stdout[/Alias name: \b#{certalias}\s*$/i].nil?
@@ -93,7 +96,7 @@ action :remove do
                  new_resource.keystore_path
                end
   truststore_passwd = new_resource.keystore_passwd
-  keytool = "#{node['java']['java_home']}/bin/keytool"
+  keytool = "#{new_resource.java_home}/bin/keytool"
 
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep \"#{certalias}\"")
   cmd.run_command
@@ -111,7 +114,7 @@ action :remove do
     end
   end
 
-  FileUtils.rm_f("#{node['java']['download_path']}/#{certalias}.cert.*")
+  FileUtils.rm_f("#{new_reource.download_path}/#{certalias}.cert.*")
 end
 
 action_class do
@@ -135,10 +138,10 @@ action_class do
   end
 
   def truststore_default_location
-    if node['java']['jdk_version'].to_i > 8
-      "#{node['java']['java_home']}/lib/security/cacerts"
+    if new_resource.java_version.to_i > 8
+      "#{new_resource.java_home}/lib/security/cacerts"
     else
-      "#{node['java']['java_home']}/jre/lib/security/cacerts"
+      "#{new_resource.java_home}/jre/lib/security/cacerts"
     end
   end
 end
