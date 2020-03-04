@@ -1,7 +1,7 @@
 apt_update
 
-version = '10'
-variant = 'hotspot'
+version = '13'
+variant = 'openj9'
 
 adoptopenjdk_install version do
   variant variant
