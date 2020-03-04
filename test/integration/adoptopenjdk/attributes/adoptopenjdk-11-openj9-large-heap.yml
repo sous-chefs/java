@@ -7,4 +7,4 @@ alternative_bin_cmds: [jar, jarsigner, java, javac, javadoc,
                        jrunscript, jshell, keytool, pack200, rmic,
                        rmid, rmiregistry, serialver, traceformat,
                        unpack200]
-keystore_location: '/usr/lib/jvm/java-10-adoptopenjdk-openj9-large-heap/jdk-11.0.5+10/lib/security/cacerts'
+keystore_location: '/usr/lib/jvm/java-11-adoptopenjdk-openj9-large-heap/jdk-11.0.5+10/lib/security/cacerts'
