@@ -16,8 +16,8 @@ platforms:
       box: mvbcoding/awslinux
   - name: centos-6
   - name: centos-7
-  - name: debian-8
   - name: debian-9
+  - name: debian-10
   - name: freebsd-11
   - name: fedora-29
   - name: opensuse-leap-42
@@ -30,7 +30,7 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-9
+      - debian-10
       - fedora-29
       - freebsd-11
       - opensuse-leap-42
@@ -46,7 +46,7 @@ suites:
       inspec_tests:
         - test/integration/openjdk-11
   - name: openjdk-direct
-    excludes: [debian-8]
+    excludes: [debian-9]
     run_list:
       - recipe[test::openjdk_direct]
   - name: adoptopenjdk-8-hotspot
@@ -64,8 +64,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -80,8 +80,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -96,8 +96,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -112,8 +112,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -128,8 +128,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -142,8 +142,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -158,8 +158,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -174,8 +174,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
@@ -185,8 +185,8 @@ suites:
       - amazon-linux
       - centos-6
       - centos-7
-      - debian-8
       - debian-9
+      - debian-10
       - ubuntu-16.04
       - ubuntu-18.04
     run_list:
