@@ -1,4 +1,4 @@
 ---
 java_version: 1.8.0
 variant: "openj9"
-keystore_location: '/usr/lib/jvm/java-8-adoptopenjdk-openj9/jdk8u232-b09/jre/lib/security/cacerts'
+keystore_location: '/usr/lib/jvm/java-8-adoptopenjdk-openj9/jdk8u242-b08/jre/lib/security/cacerts'
