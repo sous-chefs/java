@@ -1,0 +1,4 @@
+---
+java_version: 13.0.2
+variant: "openj9-large-heap"
+keystore_location: '/usr/lib/jvm/java-13-adoptopenjdk-openj9-large-heap/jdk-13.0.2+8/lib/security/cacerts'
