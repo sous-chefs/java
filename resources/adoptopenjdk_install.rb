@@ -10,7 +10,7 @@ property :arch, default: lazy { node['kernel']['machine'] }
 property :url, String, default: lazy { node['java']['adoptopenjdk'][version][arch][variant]['url'] }
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { node['java']['adoptopenjdk'][version][arch][variant]['checksum'] }
 property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
-property :java_home_mode, Integer, default: 0755
+property :java_home_mode, Integer, String, default: '0755'
 property :bin_cmds, Array, default: lazy {
   if variant == 'hotspot'
     node['java']['adoptopenjdk'][version]['bin_cmds']['hotspot']
