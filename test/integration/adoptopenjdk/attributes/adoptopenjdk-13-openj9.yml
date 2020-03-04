@@ -1,12 +1,4 @@
 ---
 java_version: 13.0.2
 variant: "openj9"
-alternative_bin_cmds: [appletviewer, idlj, jar, jarsigner, java,
-                       javac, javadoc, javap, jconsole, jdb,
-                       jdeprscan, jdeps, jdmpview, jextract,
-                       jimage, jinfo, jjs, jlink, jmap, jmod, jps,
-                       jrunscript, jshell, jstack, jstat, keytool,
-                       orbd, pack200, rmic, rmid, rmiregistry,
-                       schemagen, serialver, servertool, tnameserv,
-                       traceformat, unpack200, wsgen, wsimport, xjc]
 keystore_location: '/usr/lib/jvm/java-13-adoptopenjdk-openj9/jdk-13.0.2+8/lib/security/cacerts'

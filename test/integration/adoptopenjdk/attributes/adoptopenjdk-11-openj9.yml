@@ -1,10 +1,4 @@
 ---
 java_version: 11.0.6
 variant: "openj9"
-alternative_bin_cmds: [jar, jarsigner, java, javac, javadoc,
-                       javap, jconsole, jdb, jdeprscan, jdeps,
-                       jdmpview, jextract, jimage, jjs, jlink,
-                       jrunscript, jshell, keytool, pack200, rmic,
-                       rmid, rmiregistry, serialver, traceformat,
-                       unpack200]
 keystore_location: '/usr/lib/jvm/java-11-adoptopenjdk-openj9/jdk-11.0.6+10/lib/security/cacerts'

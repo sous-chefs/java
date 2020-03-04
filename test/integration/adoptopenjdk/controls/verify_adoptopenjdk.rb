@@ -1,7 +1,5 @@
 variant = attribute('variant', description: 'Variant being used: openj9, openj9-large-heap, or hotspot')
-alternative_bin_cmds = attribute('alternative_bin_cmds', description: 'List of bin commands that should be included in alternatives')
 java_version = attribute('java_version', description: 'Which version of java should be installed')
-
 certificate_sha256_checksum = attribute('certificate_sha256_checksum',
                                         value: '64:F3:3B:A7:EF:C3:5C:6B:2D:ED:95:0B:CB:4E:96:3B:12:97:B8:62:BA:1A:8E:30:13:B0:B0:59:77:12:31:EA',
                                         description: 'The SHA256 checksum of the certificate'
@@ -13,7 +11,6 @@ install_flavor = attribute('install_flavor',
 parent_install_dir = attribute('parent_install_dir',
                       value: "java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-#{install_flavor}-#{variant}",
                       description: 'The parent of the Java home')
-
 keystore_location = attribute('keystore_location',
                               value: nil,
                               description: 'Where the java keystore is located'
@@ -48,7 +45,7 @@ control 'check-java-alternatives' do
   title 'Verify alternatives for java'
   desc 'Verify alternatives for java are set to the correct version'
 
-  alternative_bin_cmds.each do |cmd|
+  %w(jar jarsigner java javac).each do |cmd|
     describe command("update-alternatives --display #{cmd}") do
       its('stdout') { should match parent_install_dir.to_s }
     end

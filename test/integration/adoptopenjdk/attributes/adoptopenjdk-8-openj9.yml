@@ -1,11 +1,4 @@
 ---
 java_version: 1.8.0
 variant: "openj9"
-alternative_bin_cmds: [appletviewer, extcheck, idlj, jar, jarsigner,
-                       java, javac, javadoc, javah, javap, jconsole,
-                       jdb, jdeps, jdmpview, jjs, jrunscript,
-                       jsadebugd, keytool, native2ascii, orbd, pack200,
-                       policytool, rmic, rmid, rmiregistry, schemagen,
-                       serialver, servertool, tnameserv, traceformat,
-                       unpack200, wsgen, wsimport, xjc]
 keystore_location: '/usr/lib/jvm/java-8-adoptopenjdk-openj9/jdk8u232-b09/jre/lib/security/cacerts'
