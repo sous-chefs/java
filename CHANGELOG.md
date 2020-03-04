@@ -9,11 +9,13 @@ This file is used to list changes made in each version of the Java cookbook.
 ## Added
 
 - Added the `adoptopenjdk_install` resource, documentation
+- Added AdoptOpenJDK 13 testing
 
 ## Deprecated
 
 - Removed the adoptopenjdk recipe, please use the `adoptopenjdk_install` resource instead.
 - Increased the minimum Chef requirement to Chef 15 to use the archive resource.
+- Removed AdoptOpenJDK 10 testing
 
 ## 6.0.0 (2020-03-02)
 
