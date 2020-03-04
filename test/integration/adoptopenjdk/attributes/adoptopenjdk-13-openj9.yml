@@ -1,5 +1,5 @@
 ---
-java_version: 10.0.2
+java_version: 13.0.2
 variant: "openj9"
 alternative_bin_cmds: [appletviewer, idlj, jar, jarsigner, java,
                        javac, javadoc, javap, jconsole, jdb,
