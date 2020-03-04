@@ -25,6 +25,7 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
+  # OpenJDK
   - name: openjdk-8
     includes:
       - amazon-linux
@@ -59,6 +60,8 @@ suites:
         - test/integration/adoptopenjdk
       input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-hotspot.yml
+
+  # AdoptOpenJDK
   - name: adoptopenjdk-8-openj9
     includes:
       - amazon-linux
@@ -75,38 +78,6 @@ suites:
         - test/integration/adoptopenjdk
       input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml
-  - name: adoptopenjdk-10-openj9
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
-    run_list:
-      - recipe[test::adoptopenjdk-10-openj9]
-    verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-10-openj9.yml
-  - name: adoptopenjdk-10-hotspot
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
-    run_list:
-      - recipe[test::adoptopenjdk-10-hotspot]
-    verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-10-hotspot.yml
   - name: adoptopenjdk-11-hotspot
     includes:
       - amazon-linux
@@ -169,6 +140,40 @@ suites:
         - test/integration/remove-adoptopenjdk
       input_files:
         - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
+  - name: adoptopenjdk-13-openj9
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-9
+      - debian-10
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-13-openj9]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      input_files:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-13-openj9.yml
+  - name: adoptopenjdk-13-hotspot
+    includes:
+      - amazon-linux
+      - centos-6
+      - centos-7
+      - debian-9
+      - debian-10
+      - ubuntu-16.04
+      - ubuntu-18.04
+    run_list:
+      - recipe[test::adoptopenjdk-13-hotspot]
+    verifier:
+      inspec_tests:
+        - test/integration/adoptopenjdk
+      input_files:
+        - test/integration/adoptopenjdk/attributes/adoptopenjdk-13-hotspot.yml
+
+  # Corretto
   - name: corretto-8
     includes:
       - amazon-linux
