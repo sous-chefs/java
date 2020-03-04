@@ -7,17 +7,11 @@ property :variant, String, equal_to: %w(hotspot openj9 openj9-large-heap), defau
 property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-adoptopenjdk-#{variant}/#{sub_dir(url)}" }
 property :arch, default: lazy { node['kernel']['machine'] }
 
-property :url, String, default: lazy { node['java']['adoptopenjdk'][version][arch][variant]['url'] }
-property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { node['java']['adoptopenjdk'][version][arch][variant]['checksum'] }
+property :url, String, default: lazy { default_adopt_openjdk_url(version)[variant] }
+property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_adopt_openjdk_checksum(version)[variant] }
 property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :java_home_mode, [Integer, String], default: '0755'
-property :bin_cmds, Array, default: lazy {
-  if variant == 'hotspot'
-    node['java']['adoptopenjdk'][version]['bin_cmds']['hotspot']
-  else
-    node['java']['adoptopenjdk'][version]['bin_cmds']['default']
-  end
-}
+property :bin_cmds, Array, default: lazy { default_adopt_openjdk_bin_cmds(version)[variant] }
 property :owner, String, default: 'root'
 property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true

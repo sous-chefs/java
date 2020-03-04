@@ -57,6 +57,7 @@ jobs:
           - 'adoptopenjdk-11-openj9-large-heap'
           - 'adoptopenjdk-13-openj9'
           - 'adoptopenjdk-13-hotspot'
+          - 'adoptopenjdk-13-hotspot-large-heap'
           - 'adoptopenjdk-removal-11-openj9'
           - 'corretto-11'
           - 'corretto-8'

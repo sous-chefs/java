@@ -5,7 +5,7 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: false
-  # log_level: :info
+  log_level: :info
 
 verifier:
   name: inspec
@@ -18,25 +18,15 @@ platforms:
   - name: centos-7
   - name: debian-9
   - name: debian-10
-  - name: freebsd-11
-  - name: fedora-29
-  - name: opensuse-leap-42
+  # - name: freebsd-11
+  # - name: fedora-29
+  # - name: opensuse-leap-42
   - name: ubuntu-16.04
   - name: ubuntu-18.04
 
 suites:
   # OpenJDK
   - name: openjdk-8
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-10
-      - fedora-29
-      - freebsd-11
-      - opensuse-leap-42
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::openjdk8]
   - name: openjdk-11
@@ -44,155 +34,86 @@ suites:
     run_list:
       - recipe[test::openjdk11]
     verifier:
-      inspec_tests:
-        - test/integration/openjdk-11
+      inspec_tests: [test/integration/openjdk-11]
   - name: openjdk-direct
     excludes: [debian-9]
     run_list:
       - recipe[test::openjdk_direct]
+
+  # AdoptOpenJDK
+  # Version 8
   - name: adoptopenjdk-8-hotspot
-    includes:
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-8-hotspot]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-hotspot.yml
-
-  # AdoptOpenJDK
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-hotspot.yml]
   - name: adoptopenjdk-8-openj9
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-8-openj9]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml]
+  - name: adoptopenjdk-8-openj9-large-heap
+    run_list:
+      - recipe[test::adoptopenjdk-8-openj9-large-heap]
+    verifier:
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9-large-heap.yml]
+
+  # Version 11
   - name: adoptopenjdk-11-hotspot
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-11-hotspot]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-hotspot.yml
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-hotspot.yml]
   - name: adoptopenjdk-11-openj9
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-11-openj9]
     verifier:
-      inspec_tests: ["test/integration/adoptopenjdk"]
-      input_files: ["test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml"]
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml]
   - name: adoptopenjdk-11-openj9-large-heap
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-11-openj9-large-heap]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9-large-heap.yml
-  - name: adoptopenjdk-removal-11-openj9
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9-large-heap.yml]
+
+  # Version 13
+  - name: adoptopenjdk-13-openj9-large-heap
     run_list:
-      - recipe[test::remove-adoptopenjdk-11-openj9]
+      - recipe[test::adoptopenjdk-13-openj9-large-heap]
     verifier:
-      inspec_tests:
-        - test/integration/remove-adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-13-openj9-large-heap.yml]
   - name: adoptopenjdk-13-openj9
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-13-openj9]
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-13-openj9.yml
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-13-openj9.yml]
   - name: adoptopenjdk-13-hotspot
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::adoptopenjdk-13-hotspot]
     verifier:
-      inspec_tests:
-        - test/integration/adoptopenjdk
-      input_files:
-        - test/integration/adoptopenjdk/attributes/adoptopenjdk-13-hotspot.yml
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-13-hotspot.yml]
+
+  # 11 Removal
+  - name: adoptopenjdk-removal-11-openj9
+    run_list:
+      - recipe[test::remove-adoptopenjdk-11-openj9]
+    verifier:
+      inspec_tests: [test/integration/remove-adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml]
 
   # Corretto
   - name: corretto-8
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::corretto8]
   - name: corretto-11
-    includes:
-      - amazon-linux
-      - centos-6
-      - centos-7
-      - debian-9
-      - debian-10
-      - ubuntu-16.04
-      - ubuntu-18.04
     run_list:
       - recipe[test::corretto11]
