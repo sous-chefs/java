@@ -71,7 +71,7 @@ RSpec.describe Java::Cookbook::Helpers do
       let(:variant) { 'openj9-large-heap' }
 
       it 'returns the correct folder name' do
-        expect(subject.default_adopt_openjdk_url(version)[variant]).to eq 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.5%2B10_openj9-0.17.0/OpenJDK11U-jdk_x64_linux_openj9_linuxXL_11.0.5_10_openj9-0.17.0.tar.gz'
+        expect(subject.default_adopt_openjdk_url(version)[variant]).to eq 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.6%2B10_openj9-0.18.1/OpenJDK11U-jdk_x64_linux_openj9_linuxXL_11.0.6_10_openj9-0.18.1.tar.gz'
       end
     end
 
