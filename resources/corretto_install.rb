@@ -1,15 +1,17 @@
-resource_name :openjdk_install
-include Java::Cookbook::OpenJdkHelpers
+resource_name :corretto_install
+include Java::Cookbook::CorrettoHelpers
 default_action :install
 
 property :version, String, name_property: true
-property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-openjdk/jdk-#{version}" }
+property :variant, String, equal_to: %w(hotspot openj9 openj9-large-heap), default: 'openj9'
+property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-corretto-#{variant}/#{sub_dir(url)}" }
+property :arch, default: lazy { node['kernel']['machine'] }
 
-property :url, String, default: lazy { default_openjdk_url(version) }
-property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_openjdk_checksum(version) }
-
+property :url, String, default: lazy { default_adopt_openjdk_url(version)[variant] }
+property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_adopt_openjdk_checksum(version)[variant] }
+property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
 property :java_home_mode, [Integer, String], default: '0755'
-property :bin_cmds, Array, default: lazy { default_openjdk_bin_cmds(version) }
+property :bin_cmds, Array, default: lazy { default_adopt_openjdk_bin_cmds(version)[variant] }
 property :owner, String, default: 'root'
 property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
@@ -41,6 +43,21 @@ action :install do
   end
 
   node.default['java']['java_home'] = new_resource.java_home
+
+  # Set up .jinfo file for update-java-alternatives
+  template "/usr/lib/jvm/.java-#{new_resource.version}-corretto-#{new_resource.variant}.jinfo" do
+    cookbook 'java'
+    source 'jinfo.erb'
+    owner new_resource.owner
+    group new_resource.group
+    variables(
+      priority: new_resource.alternatives_priority,
+      bin_cmds: new_resource.bin_cmds,
+      name: extract_dir.split('/').last,
+      app_dir: new_resource.java_home
+    )
+    only_if { platform_family?('debian') }
+  end
 
   java_alternatives 'set-java-alternatives' do
     java_location new_resource.java_home

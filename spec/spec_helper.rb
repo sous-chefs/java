@@ -1,9 +1,9 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 require 'chefspec'
 require 'chefspec/berkshelf'
 
 require_relative '../libraries/adopt_openjdk_helpers.rb'
-require_relative '../libraries/helpers.rb'
+require_relative '../libraries/corretto_helpers.rb'
+require_relative '../libraries/openjdk_helpers.rb'
 
 RSpec.configure do |config|
   config.file_cache_path = File.join(Dir.tmpdir, 'chefspec') if config.respond_to?(:file_cache_path)

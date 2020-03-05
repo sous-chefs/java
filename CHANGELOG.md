@@ -2,9 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 8.0.0 (tbc)
 
 - Added `openjdk_install` resource & documentation
+- Deprecated openjdk recipe
 
 ## 7.0.0 (2020-03-05)
 
