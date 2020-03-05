@@ -2,7 +2,9 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## 7.0.0 (tbc)
+## Unreleased
+
+## 7.0.0 (2020-03-05)
 
 - Refactored and sped up unit tests.
 
