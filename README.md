@@ -214,7 +214,7 @@ end
 
 ## Resources
 
-- [adoptopenjdk_install](https://github.com/sous-chefs/java/tree/master/documentation/adoptopenjdk_install.md)
+- [adoptopenjdk_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/install_adoptopenjdk.md)
 
 ### java_oracle_install
 
