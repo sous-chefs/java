@@ -4,13 +4,15 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Added `openjdk_install` resource & documentation
+
 ## 7.0.0 (2020-03-05)
 
 - Refactored and sped up unit tests.
 
 ## Added
 
-- Added the `adoptopenjdk_install` resource, documentation
+- Added `adoptopenjdk_install` resource & documentation
 - Added AdoptOpenJDK 13 testing
 
 ## Deprecated

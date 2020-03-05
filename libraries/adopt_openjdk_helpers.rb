@@ -1,6 +1,6 @@
 module Java
   module Cookbook
-    module Helpers
+    module AdoptOpenJdkHelpers
       def sub_dir(url)
         uri = URI.parse(url)
         file_name = uri.path.split('/')[-2]
