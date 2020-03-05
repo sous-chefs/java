@@ -30,13 +30,13 @@ Introduced: v8.0.0
 To install OpenJDK 11 and set it as the default Java
 
 ```ruby
-openjdk_install '11'
+corretto_install '11'
 ```
 
-To install OpenJDK 11 and set it as second highest priority
+To install Corretto 11 and set it as second highest priority
 
 ```ruby
-openjdk_install '10' do
+corretto_install '10' do
   alternatives_priority 2
 end
 ```
