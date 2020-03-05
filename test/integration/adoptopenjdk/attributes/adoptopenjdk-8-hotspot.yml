@@ -1,0 +1,4 @@
+---
+java_version: 1.8.0
+variant: "hotspot"
+keystore_location: '/usr/lib/jvm/java-8-adoptopenjdk-hotspot/jdk8u242-b08/jre/lib/security/cacerts'

@@ -1,23 +1,16 @@
-adoptopenjdk_variant = attribute('adoptopenjdk_variant',
-                                 default: 'openj9',
-                                 description: 'Variant being used: openj9, openj9-large-heap, or hotspot'
-                                )
+variant = attribute('variant', value: 'openj9', description: 'Variant being used: openj9, openj9-large-heap, or hotspot')
 alternative_bin_cmds = attribute('alternative_bin_cmds',
-                                 default: %w(jar java keytool),
-                                 description: 'List of bin commands that should be included in alternatives'
-                                )
+                                 value: %w(jar java keytool),
+                                 description: 'List of bin commands that should be included in alternatives')
 install_flavor = attribute('install_flavor',
-                           default: 'adoptopenjdk',
-                           description: 'The installation flavor used to install java'
-                          )
+                           value: 'adoptopenjdk',
+                           description: 'The installation flavor used to install java')
 java_version = attribute('java_version',
-                         default: '1.8.0',
-                         description: 'Which version of java should be installed'
-                        )
+                         value: '1.8.0',
+                         description: 'Which version of java should be installed')
 java_home = attribute('java_home',
-                      default: "/usr/lib/jvm/java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-#{install_flavor}-#{adoptopenjdk_variant}",
-                      description: 'Path to the Java home directory'
-                     )
+                      value: "/usr/lib/jvm/java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-#{install_flavor}-#{variant}",
+                      description: 'Path to the Java home directory')
 
 control 'check-removal-java-directory' do
   impact 1.0

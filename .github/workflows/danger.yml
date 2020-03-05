@@ -1,7 +1,7 @@
 ---
 name: danger
 
-on:
+'on':
   pull_request:
 
 jobs:

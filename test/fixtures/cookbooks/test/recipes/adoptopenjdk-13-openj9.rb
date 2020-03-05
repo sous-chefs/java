@@ -1,6 +1,6 @@
 apt_update
 
-version = '8'
+version = '13'
 variant = 'openj9'
 
 adoptopenjdk_install version do

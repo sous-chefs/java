@@ -1,7 +1,26 @@
-node.default['java']['install_flavor'] = 'adoptopenjdk'
-node.default['java']['jdk_version'] = '11'
-node.default['java']['adoptopenjdk']['variant'] = 'hotspot'
+apt_update
 
-include_recipe 'test::base'
-include_recipe 'java::default'
-include_recipe 'test::java_cert'
+version = '11'
+variant = 'hotspot'
+
+adoptopenjdk_install version do
+  variant variant
+end
+
+cookbook_file '/tmp/java_certificate_test.pem' do
+  source 'java_certificate_test.pem'
+end
+
+java_certificate 'java_certificate_test' do
+  cert_file '/tmp/java_certificate_test.pem'
+  java_version version
+end
+
+java_certificate 'java_certificate_ssl_endpoint' do
+  ssl_endpoint 'google.com:443'
+  java_version version
+end
+
+cookbook_file '/tmp/UnlimitedSupportJCETest.jar' do
+  source 'UnlimitedSupportJCETest.jar'
+end

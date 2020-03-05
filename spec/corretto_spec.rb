@@ -16,11 +16,6 @@ describe 'java::corretto' do
     expect(chef_run).to include_recipe('java::set_java_home')
   end
 
-  it 'should configure an java_oracle_install[jdk] resource' do
-    pending 'Testing LWRP use is not required at this time, this is tested post-converge.'
-    this_should_not_get_executed
-  end
-
   it 'should notify jdk-version-change' do
     expect(chef_run.java_oracle_install('jdk')).to notify('log[jdk-version-changed]')\
       .to(:write).immediately
@@ -43,7 +38,7 @@ describe 'java::corretto' do
 
     context 'centos' do
       let(:chef_run) do
-        runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '7.5')
+        runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '7')
         runner.node.override['java']['jdk_version'] = '11'
         runner.node.override['java']['install_flavor'] = 'corretto'
         runner.converge('java::default')

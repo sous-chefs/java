@@ -1,7 +1,7 @@
 ---
 name: ci
 
-on:
+'on':
   pull_request:
   push:
     branches:
@@ -42,24 +42,25 @@ jobs:
         os:
           - 'amazon-linux'
           - 'debian-9'
+          - 'debian-10'
           - 'centos-7'
-          - 'debian-9'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
         suite:
-          - 'openjdk-7'
-          - 'openjdk-8'
-          - 'openjdk-11'
-          - 'openjdk-direct'
+          # - 'openjdk-7'
+          # - 'openjdk-8'
+          # - 'openjdk-11'
+          # - 'openjdk-direct'
           - 'adoptopenjdk-8-openj9'
-          - 'adoptopenjdk-10-openj9'
-          - 'adoptopenjdk-10-hotspot'
           - 'adoptopenjdk-11-hotspot'
           - 'adoptopenjdk-11-openj9'
           - 'adoptopenjdk-11-openj9-large-heap'
+          - 'adoptopenjdk-13-hotspot'
+          - 'adoptopenjdk-13-openj9'
+          - 'adoptopenjdk-13-openj9-large-heap'
           - 'adoptopenjdk-removal-11-openj9'
-          - 'corretto-11'
-          - 'corretto-8'
+          # - 'corretto-11'
+          # - 'corretto-8'
       fail-fast: false
 
     steps:

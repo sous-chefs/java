@@ -4,7 +4,7 @@ describe 'java::default' do
   let(:chef_run) do
     runner = ChefSpec::SoloRunner.new(
       platform: 'debian',
-      version: '7.11'
+      version: '8'
     )
     runner.converge(described_recipe)
   end
@@ -14,23 +14,6 @@ describe 'java::default' do
   it 'includes set_attributes_from_version' do
     expect(chef_run).to include_recipe('java::set_attributes_from_version')
   end
-
-  #  context 'windows' do
-  #    let(:chef_run) do
-  #      runner = ChefSpec::SoloRunner.new(
-  #        :platform => 'windows',
-  #        :version => '2012R2'
-  #      )
-  #      runner.node.override['java']['windows']['url'] = 'http://example.com/windows-java.msi'
-  #      runner.node.override['java']['java_home'] = 'C:/java'
-  #    end
-  #
-  #    # Running the tests on non-Windows platforms will error in the Windows library,
-  #    # but this means the recipe was included. There has to be a better way to handle this...
-  #    it 'should error on windows recipe' do
-  #      expect { chef_run }.to raise_error(TypeError)
-  #    end
-  #  end
 
   context 'oracle' do
     cached(:chef_run) do
@@ -124,13 +107,7 @@ describe 'java::default' do
   context 'AdoptOpenJDK 11' do
     cached(:chef_run) do
       runner = ChefSpec::SoloRunner.new
-      runner.node.override['java']['install_flavor'] = 'adoptopenjdk'
-      runner.node.override['java']['jdk_version'] = '11'
       runner.converge(described_recipe)
-    end
-
-    it 'should include the adoptopenjdk recipe' do
-      expect(chef_run).to include_recipe('java::adoptopenjdk')
     end
 
     it 'should not error' do

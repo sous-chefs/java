@@ -214,9 +214,11 @@ end
 
 ## Resources
 
+- [adoptopenjdk_install](https://github.com/sous-chefs/java/tree/master/documentation/adoptopenjdk_install.md)
+
 ### java_oracle_install
 
-This cookbook contains the `java_oracle_install` resource which handles installation of Oracle's distribution of Java..
+This cookbook contains the `java_oracle_install` resource which handles installation of Oracle's distribution of Java.
 
 By default, the extracted directory is extracted to `app_root/extracted_dir_name` and symlinked to `app_root/default`
 
