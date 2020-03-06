@@ -1,0 +1,7 @@
+---
+name: corretto
+title: Corretto tests
+license: Public domain
+copyright: None
+summary: Verify installation of Amazon Corretto
+version: 0.0.1

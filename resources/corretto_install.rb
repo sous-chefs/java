@@ -3,15 +3,14 @@ include Java::Cookbook::CorrettoHelpers
 default_action :install
 
 property :version, String, name_property: true
-property :variant, String, equal_to: %w(hotspot openj9 openj9-large-heap), default: 'openj9'
-property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-corretto-#{variant}/#{sub_dir(url)}" }
-property :arch, default: lazy { node['kernel']['machine'] }
+property :full_version, String
+property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-corretto/#{corretto_sub_dir(version, full_version)}" }
 
-property :url, String, default: lazy { default_adopt_openjdk_url(version)[variant] }
-property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_adopt_openjdk_checksum(version)[variant] }
-property :md5, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/
+property :url, String, default: lazy { default_corretto_url(version) }
+property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_corretto_checksum(version) }
+
 property :java_home_mode, [Integer, String], default: '0755'
-property :bin_cmds, Array, default: lazy { default_adopt_openjdk_bin_cmds(version)[variant] }
+property :bin_cmds, Array, default: lazy { default_corretto_bin_cmds(version) }
 property :owner, String, default: 'root'
 property :group, String, default: lazy { node['root_group'] }
 property :default, [true, false], default: true
@@ -45,7 +44,7 @@ action :install do
   node.default['java']['java_home'] = new_resource.java_home
 
   # Set up .jinfo file for update-java-alternatives
-  template "/usr/lib/jvm/.java-#{new_resource.version}-corretto-#{new_resource.variant}.jinfo" do
+  template "/usr/lib/jvm/.java-#{new_resource.version}-corretto.jinfo" do
     cookbook 'java'
     source 'jinfo.erb'
     owner new_resource.owner

@@ -30,8 +30,8 @@ when 'windows'
 when 'mac_os_x'
   default['java']['install_flavor'] = 'homebrew'
   default['java']['homebrew']['cask'] = 'java'
-else
-  raise 'The OpenJDK recipe is no longer recommended. Please use the openjdk_install resources instead'
+  # else
+  #   Chef::Log.info('The default recipe is no longer recommended. Please use the install resources instead')
 end
 
 # S390(X) - IBM zSeries Architecture - only IBM jre / jdk can be used. Download from https://developer.ibm.com/javasdk/downloads/
