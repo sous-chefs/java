@@ -28,7 +28,7 @@ Introduced: v8.0.0
 
 ## Examples
 
-To install OpenJDK 11 and set it as the default Java
+To install Corretto 11 and set it as the default Java
 
 ```ruby
 corretto_install '11'
