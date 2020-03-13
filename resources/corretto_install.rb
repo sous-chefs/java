@@ -1,6 +1,5 @@
 resource_name :corretto_install
 include Java::Cookbook::CorrettoHelpers
-default_action :install
 
 property :version, String, name_property: true
 property :full_version, String
