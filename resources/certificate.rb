@@ -20,7 +20,6 @@
 
 property :java_home, String, default: lazy { node['java']['java_home'] }
 property :java_version, String, default: lazy { node['java']['jdk_version'] }
-property :download_path, String, default: lazy { node['java']['download_path'] }
 property :keystore_path, String
 property :keystore_passwd, String, default: 'changeit'
 property :cert_alias, String, name_property: true
@@ -44,7 +43,7 @@ action :install do
   certdata = new_resource.cert_data || fetch_certdata
 
   hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
-  certfile = "#{new_resource.download_path}/#{certalias}.cert.#{hash}"
+  certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -rfc -alias \"#{certalias}\"")
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
