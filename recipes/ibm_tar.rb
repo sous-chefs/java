@@ -1,7 +1,7 @@
 
 Chef::Log.fatal("
 
-IBM tar recipe is now deprecated
+java::ibm_tar recipe is now deprecated
 Using one of the documented install resources
 See the documentation folder for a list of resources
 
