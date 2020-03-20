@@ -40,20 +40,13 @@ module Java
       def default_openjdk_bin_cmds(version)
         case version
         when '9'
-          %w(appletviewer jaotc jarsigner javac javah jcmd jdb jdeps jimage jjs jmap jps jshell
-             jstat keytool pack200 rmic rmiregistry serialver tnameserv wsgen xjc idlj jar java
-             javadoc javap jconsole jdeprscan jhsdb jinfo jlink jmod jrunscript jstack jstatd orbd
-             policytool rmid schemagen servertool unpack200 wsimport)
+          %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javah javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '10'
-          %w(appletviewer jaotc jarsigner javac javap jconsole jdeprscan jhsdb jinfo jlink jmod jrunscript
-             jstack jstatd orbd rmic rmiregistry serialver tnameserv wsgen xjc idlj jar java javadoc jcmd jdb
-             jdeps jimage jjs jmap jps jshell jstat keytool pack200 rmid schemagen servertool unpack200 wsimport)
+          %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '11'
-          %w(jaotc jarsigner javac javap jconsole jdeprscan jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver
-             jar java javadoc jcmd jdb jdeps jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200)
+          %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
         when '12', '13'
-          %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200
-             jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
+          %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
         end

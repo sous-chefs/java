@@ -19,15 +19,9 @@ module Java
 
       def default_corretto_bin_cmds(version)
         if version.to_s == '8'
-          %w(appletviewer clhsdb extcheck hsdb idlj jar jarsigner java java-rmi.cgi
-             javac javadoc javafxpackager javah javap javapackager jcmd jconsole jdb
-             jdeps jhat jinfo jjs jmap jps jrunscript jsadebugd jstack jstat jstatd
-             keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry
-             schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+          ['appletviewer', 'clhsdb', 'extcheck', 'hsdb', 'idlj', 'jar', 'jarsigner', 'java', 'java-rmi.cgi', 'javac', 'javadoc', 'javafxpackager', 'javah', 'javap', 'javapackager', 'jcmd', 'jconsole', 'jdb', 'jdeps', 'jhat', 'jinfo', 'jjs', 'jmap', 'jps', 'jrunscript', 'jsadebugd', 'jstack', 'jstat', 'jstatd', 'keytool', 'native2ascii', 'orbd', 'pack200', 'policytool', 'rmic', 'rmid', 'rmiregistry', 'schemagen', 'serialver', 'servertool', 'tnameserv', 'unpack200', 'wsgen', 'wsimport', 'xjc']
         else
-          %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan
-             jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack
-             jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+          %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
         end
       end
 

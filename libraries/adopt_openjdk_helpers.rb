@@ -57,29 +57,17 @@ module Java
       def default_adopt_openjdk_bin_cmds(version)
         case version
         when '8'
-          { 'hotspot' => %w(appletviewer hsdb jarsigner javadoc java-rmi.cgi jdb jinfo jps jstack keytool pack200 rmid serialver unpack200 xjc
-                            clhsdb idlj java javah jcmd jdeps jjs jrunscript jstat native2ascii policytool rmiregistry servertool wsgen
-                            extcheck jar javac javap jconsole jhat jmap jsadebugd jstatd orbd rmic schemagen tnameserv wsimport),
-            'openj9' => %w(appletviewer jar javac javap jconsole jdmpview jmap jsadebugd keytool pack200 rmid serialver traceformat wsimport
-                           extcheck jarsigner javadoc java-rmi.cgi jdb jitserver jps jstack native2ascii policytool rmiregistry servertool unpack200 xjc
-                           idlj java javah jcmd jdeps jjs jrunscript jstat orbd rmic schemagen tnameserv wsgen),
-            'openj9-large-heap' => %w(appletviewer jar javac javap jconsole jdmpview jmap jsadebugd keytool pack200 rmid serialver traceformat wsimport
-                                      extcheck jarsigner javadoc java-rmi.cgi jdb jitserver jps jstack native2ascii policytool rmiregistry servertool unpack200 xjc
-                                      idlj java javah jcmd jdeps jjs jrunscript jstat orbd rmic schemagen tnameserv wsgen) }
+          { 'hotspot' => ['appletviewer', 'clhsdb', 'extcheck', 'hsdb', 'idlj', 'jar', 'jarsigner', 'java', 'java-rmi.cgi', 'javac', 'javadoc', 'javah', 'javap', 'jcmd', 'jconsole', 'jdb', 'jdeps', 'jhat', 'jinfo', 'jjs', 'jmap', 'jps', 'jrunscript', 'jsadebugd', 'jstack', 'jstat', 'jstatd', 'keytool', 'native2ascii', 'orbd', 'pack200', 'policytool', 'rmic', 'rmid', 'rmiregistry', 'schemagen', 'serialver', 'servertool', 'tnameserv', 'unpack200', 'wsgen', 'wsimport', 'xjc'],
+            'openj9' => ['appletviewer', 'extcheck', 'idlj', 'jar', 'jarsigner', 'java', 'java-rmi.cgi', 'javac', 'javadoc', 'javah', 'javap', 'jcmd', 'jconsole', 'jdb', 'jdeps', 'jdmpview', 'jitserver', 'jjs', 'jmap', 'jps', 'jrunscript', 'jsadebugd', 'jstack', 'jstat', 'keytool', 'native2ascii', 'orbd', 'pack200', 'policytool', 'rmic', 'rmid', 'rmiregistry', 'schemagen', 'serialver', 'servertool', 'tnameserv', 'traceformat', 'unpack200', 'wsgen', 'wsimport', 'xjc'],
+            'openj9-large-heap' => ['appletviewer', 'extcheck', 'idlj', 'jar', 'jarsigner', 'java', 'java-rmi.cgi', 'javac', 'javadoc', 'javah', 'javap', 'jcmd', 'jconsole', 'jdb', 'jdeps', 'jdmpview', 'jitserver', 'jjs', 'jmap', 'jps', 'jrunscript', 'jsadebugd', 'jstack', 'jstat', 'keytool', 'native2ascii', 'orbd', 'pack200', 'policytool', 'rmic', 'rmid', 'rmiregistry', 'schemagen', 'serialver', 'servertool', 'tnameserv', 'traceformat', 'unpack200', 'wsgen', 'wsimport', 'xjc'] }
         when '11'
-          { 'hotspot' => %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200
-                            jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver),
-            'openj9' => %w(jar java javadoc jcmd jdb jdeps jextract jitserver jlink jmod jrunscript jstack keytool rmic rmiregistry traceformat
-                           jarsigner javac javap jconsole jdeprscan jdmpview jimage jjs jmap jps jshell jstat pack200 rmid serialver unpack200),
-            'openj9-large-heap' => %w(jar java javadoc jcmd jdb jdeps jextract jitserver jlink jmod jrunscript jstack keytool rmic rmiregistry traceformat
-                                      jarsigner javac javap jconsole jdeprscan jdmpview jimage jjs jmap jps jshell jstat pack200 rmid serialver unpack200) }
+          { 'hotspot' => %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200),
+            'openj9' => %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jdmpview jextract jimage jitserver jjs jlink jmap jmod jps jrunscript jshell jstack jstat keytool pack200 rmic rmid rmiregistry serialver traceformat unpack200),
+            'openj9-large-heap' => %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jdmpview jextract jimage jitserver jjs jlink jmap jmod jps jrunscript jshell jstack jstat keytool pack200 rmic rmid rmiregistry serialver traceformat unpack200) }
         when '13'
-          { 'hotspot' => %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200
-                            jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver),
-            'openj9' => %w(jar java javadoc jcmd jdb jdeps jextract jjs jmap jps jshell jstat pack200 rmid serialver unpack200
-                           jarsigner javac javap jconsole jdeprscan jdmpview jimage jlink jmod jrunscript jstack keytool rmic rmiregistry traceformat),
-            'openj9-large-heap' => %w(jar java javadoc jcmd jdb jdeps jextract jjs jmap jps jshell jstat pack200 rmid serialver unpack200
-                                      jarsigner javac javap jconsole jdeprscan jdmpview jimage jlink jmod jrunscript jstack keytool rmic rmiregistry traceformat) }
+          { 'hotspot' => %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200),
+            'openj9' => %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jdmpview jextract jimage jjs jlink jmap jmod jps jrunscript jshell jstack jstat keytool pack200 rmic rmid rmiregistry serialver traceformat unpack200),
+            'openj9-large-heap' => %w(jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jdmpview jextract jimage jjs jlink jmap jmod jps jrunscript jshell jstack jstat keytool pack200 rmic rmid rmiregistry serialver traceformat unpack200) }
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
         end
