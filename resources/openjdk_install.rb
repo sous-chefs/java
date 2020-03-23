@@ -2,19 +2,31 @@ resource_name :openjdk_install
 include Java::Cookbook::OpenJdkHelpers
 default_action :install
 
-property :version, String, name_property: true
-property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-openjdk/jdk-#{version}" }
+property :version, String, name_property: true,
+  description: 'Java version to install'
 
 property :url, String, default: lazy { default_openjdk_url(version) }
+  description: 'The URL to download from'
 property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_openjdk_checksum(version) }
+  description: 'The checksum for the downloaded file'
 
-property :java_home_mode, [Integer, String], default: '0755'
-property :bin_cmds, Array, default: lazy { default_openjdk_bin_cmds(version) }
+property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-openjdk/jdk-#{version}" }
+  description: 'Set to override the java_home'
+property :java_home_mode, String, default: '0755',
+  description: 'The permission for the Java home directory'
 property :owner, String, default: 'root'
-property :group, String, default: lazy { node['root_group'] }
-property :default, [true, false], default: true
-property :alternatives_priority, Integer, default: 1
-property :reset_alternatives, [true, false], default: true
+  description: 'Owner of the Java Home'
+property :group, String, default: lazy { node['root_group'] },
+  description: 'Group for the Java Home'
+
+property :default, [true, false], default: true,
+  description: ' Whether to set this as the defalut Java'
+property :bin_cmds, Array, default: lazy { default_openjdk_bin_cmds(version) }
+  description: 'A list of bin_cmds based on the version and variant'
+property :alternatives_priority, Integer, default: 1,
+  description: 'Alternatives priority to set for this Java'
+property :reset_alternatives, [true, false], default: true,
+  description: 'Whether to reset alternatives before setting'
 
 action :install do
   extract_dir = new_resource.java_home.split('/')[0..-2].join('/')
