@@ -47,7 +47,7 @@ action :install do
   # Set up .jinfo file for update-java-alternatives
   template "/usr/lib/jvm/.java-#{new_resource.version}-adoptopenjdk-#{new_resource.variant}.jinfo" do
     cookbook 'java'
-    source 'adoptopenjdk.jinfo.erb'
+    source 'jinfo.erb'
     owner new_resource.owner
     group new_resource.group
     variables(
