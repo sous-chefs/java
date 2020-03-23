@@ -3,7 +3,7 @@ Chef::Log.fatal("
 
 java::openjdk recipe is now deprecated
 Using the adoptopenjdk_install resource is now recommended
-See: https://github.com/sous-chefs/java/blob/master/documentation/resources/install_openjdk.md for help
+See: https://github.com/sous-chefs/java/blob/master/documentation/resources/openjdk_install.md for help
 
 ")
 

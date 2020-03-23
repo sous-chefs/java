@@ -18,7 +18,7 @@ Introduced: v8.0.0
 | url                   | String          | `default_corretto_url(version)`      | The URL to download from                                                                                          |
 | checksum              | String          | `default_corretto_checksum(version)` | The checksum for the downloaded file                                                                              |
 | java_home             | String          | Based on the version                 | Set to override the java_home                                                                                     |
-| java_home_mode        | Integer, String | 0755                                 | The permission for the Java home directory                                                                        |
+| java_home_mode        | Integer, String | `0755`                               | The permission for the Java home directory                                                                        |
 | owner                 | String          | `root`                               | Owner of the Java Home                                                                                            |
 | group                 | String          | `node['root_group']`                 | Group for the Java Home                                                                                           |
 | default               | Boolean         | `true`                               | Whether to set this as the defalut Java                                                                           |
