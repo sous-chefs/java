@@ -14,7 +14,7 @@ Introduced: v7.0.0
 | Name                  | Type            | Default                                  | Description                                         | Allowed Values                         |
 | --------------------- | --------------- | ---------------------------------------- | --------------------------------------------------- |
 | version               | String          |                                          | Java version to install                             |
-| variant               | String          | `openj9`                                 | Install falvour                                     | `hotspot` `openj9` `openj9-large-heap` |
+| variant               | String          | `openj9`                                 | Install flavour                                     | `hotspot` `openj9` `openj9-large-heap` |
 | url                   | String          | `default_adoptopenjdk_url(version)`      | The URL to download from                            |
 | checksum              | String          | `default_adoptopenjdk_checksum(version)` | The checksum for the downloaded file                |
 | java_home             | String          | Based on the version                     | Set to override the java_home                       |
