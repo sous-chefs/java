@@ -32,8 +32,8 @@ action :install do
   tarball_name = new_resource.url.split('/').last
 
   directory parent_dir do
-    owner new_resource.owner
-    group new_resource.group
+    owner new_resource.java_home_owner
+    group new_resource.java_home_group
     mode new_resource.java_home_mode
     recursive true
   end
@@ -56,8 +56,8 @@ action :install do
   template "/usr/lib/jvm/.java-#{new_resource.version}-corretto.jinfo" do
     cookbook 'java'
     source 'jinfo.erb'
-    owner new_resource.owner
-    group new_resource.group
+    owner new_resource.java_home_owner
+    group new_resource.java_home_group
     variables(
       priority: new_resource.alternatives_priority,
       bin_cmds: new_resource.bin_cmds,

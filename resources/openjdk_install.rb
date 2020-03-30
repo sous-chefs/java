@@ -31,8 +31,8 @@ action :install do
   tarball_name = new_resource.url.split('/').last
 
   directory parent_dir do
-    owner new_resource.owner
-    group new_resource.group
+    owner new_resource.java_home_owner
+    group new_resource.java_home_group
     mode new_resource.java_home_mode
     recursive true
   end
