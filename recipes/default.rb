@@ -1,22 +1,10 @@
-#
-# Author:: Seth Chisamore (<schisamo@chef.io>)
-# Cookbook:: java
-# Recipe:: default
-#
-# Copyright:: 2008-2015, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 
-include_recipe 'java::set_attributes_from_version'
-include_recipe "java::#{node['java']['install_flavor']}"
+Chef::Log.fatal("
+
+Default install recipe is now deprecated
+Use one of the documented install resources
+See the documentation folder for a list of resources
+
+")
+
+raise 'Recipe used instead of custom resource'

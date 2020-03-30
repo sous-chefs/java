@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe Java::Cookbook::Helpers do
+RSpec.describe Java::Cookbook::AdoptOpenJdkHelpers do
   class DummyClass < Chef::Node
-    include Java::Cookbook::Helpers
+    include Java::Cookbook::AdoptOpenJdkHelpers
   end
 
   subject { DummyClass.new }
