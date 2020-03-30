@@ -2,32 +2,29 @@ resource_name :corretto_install
 include Java::Cookbook::CorrettoHelpers
 
 property :version, String, name_property: true,
-  description: 'Java version to install'
+                           description: 'Java version to install'
 property :full_version, String,
   description: 'Used to configure the package directory, change this is the version installed by the package is no longer correct'
-
 property :url, String, default: lazy { default_corretto_url(version) },
-  description: 'The URL to download from'
-property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_corretto_checksum(version) }
-  description: 'The checksum for the downloaded file'
-
+                       description: 'The URL to download from'
+property :checksum, String, regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/, default: lazy { default_corretto_checksum(version) },
+                            description: 'The checksum for the downloaded file'
 property :java_home, String, default: lazy { "/usr/lib/jvm/java-#{version}-corretto/#{corretto_sub_dir(version, full_version)}" },
-  description: 'Set to override the java_home'
+                             description: 'Set to override the java_home'
 property :java_home_mode, String, default: '0755',
-  description: 'The permission for the Java home directory'
-property :owner, String, default: 'root'
-  description: 'Owner of the Java Home'
-property :group, String, default: lazy { node['root_group'] },
-  description: 'Group for the Java Home'
-
+                                  description: 'The permission for the Java home directory'
+property :java_home_owner, String, default: 'root',
+                                   description: 'Owner of the Java Home'
+property :java_home_group, String, default: lazy { node['root_group'] },
+                                   description: 'Group for the Java Home'
 property :default, [true, false], default: true,
-  description: ' Whether to set this as the defalut Java'
+                                  description: ' Whether to set this as the defalut Java'
 property :bin_cmds, Array, default: lazy { default_corretto_bin_cmds(version) },
-  description: 'A list of bin_cmds based on the version and variant'
+                           description: 'A list of bin_cmds based on the version and variant'
 property :alternatives_priority, Integer, default: 1,
-  description: 'Alternatives priority to set for this Java'
+                                          description: 'Alternatives priority to set for this Java'
 property :reset_alternatives, [true, false], default: true,
-  description: 'Whether to reset alternatives before setting'
+                                             description: 'Whether to reset alternatives before setting'
 
 action :install do
   extract_dir = new_resource.java_home.split('/')[0..-2].join('/')
