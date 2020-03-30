@@ -26,7 +26,6 @@ Introduced: v7.0.0
 | alternatives_priority | Integer         | `1`                                      | Alternatives priority to set for this Java          |
 | reset_alternatives    | Boolean         | `true`                                   | Whether to reset alternatives before setting        |
 
-
 ## Examples
 
 To install Hotspot AdoptOpenJDK 11 and set it as the default Java
