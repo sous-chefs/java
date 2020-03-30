@@ -1,7 +1,14 @@
 ---
-platforms:
-  - name: macosx-10.10
-    driver:
-      box: macosx-10.10
+driver:
+  name: proxy
+  host: localhost
+  reset_command: 'exit 0'
+
+suites:
+  # MacOS OpenJDK
+  - name: openjdk-10
     run_list:
-      - recipe[homebrew]
+      - recipe[test::macos-openjdk]
+
+platforms:
+   - name: macos
