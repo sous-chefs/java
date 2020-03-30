@@ -14,11 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :java_location, String
-property :bin_cmds, Array
-property :default, [true, false], default: true
-property :priority, Integer, default: 1061
-property :reset_alternatives, [true, false], default: true
+property :java_location, String,
+  description: 'Java installation location'
+property :bin_cmds, Array,
+  description: 'Array of Java tool names to set or unset alternatives on'
+property :default, [true, false], default: true,
+                                  description: 'Whether to set the Java tools as system default. Boolean, defaults to `true`'
+property :priority, Integer, default: 1061,
+                             description: ' Priority of the alternatives. Integer, defaults to `1061`'
+property :reset_alternatives, [true, false], default: true,
+                                             description: 'Whether to reset alternatives before setting them'
 
 action :set do
   if new_resource.bin_cmds
