@@ -17,9 +17,9 @@
 property :jdk_version, String, default: lazy { node['java']['jdk_version'].to_s }, description: 'The Java version to install into'
 property :jce_url, String, default: lazy { node['java']['oracle']['jce'][jdk_version]['url'] }, description: 'The URL for the JCE distribution'
 property :jce_checksum, String, default: lazy { node['java']['oracle']['jce'][jdk_version]['checksum'] }, description: 'The checksum of the JCE distribution'
-property :java_home, String, default: lazy { node['java']['java_home'] }, description: 'Indicates that you accept Oracles EULA'
+property :java_home, String, default: lazy { node['java']['java_home'] }, description: 'The location of the Java installation'
 property :jce_home, String, default: lazy { node['java']['oracle']['jce']['home'] }, description: 'The location where JCE files will be decompressed for installation'
-property :jce_cookie, String, default: lazy { node['java']['oracle']['accept_oracle_download_terms'] ? 'oraclelicense=accept-securebackup-cookie' : '' }, description: 'The location of the Java installation'
+property :jce_cookie, String, default: lazy { node['java']['oracle']['accept_oracle_download_terms'] ? 'oraclelicense=accept-securebackup-cookie' : '' }, description: 'Indicates that you accept Oracles EULA'
 property :principal, String, default: lazy { platform_family?('windows') ? node['java']['windows']['owner'] : 'administrator' }, description: 'For Windows installations only, this determines the owner of the JCE files'
 
 action :install do
