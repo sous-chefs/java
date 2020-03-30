@@ -8,31 +8,31 @@ name: ci
       - master
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@master
-        env:
-          CHEF_LICENSE: accept-no-persist
+  # delivery:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
+  #     - name: Run Chef Delivery
+  #       uses: actionshub/chef-delivery@master
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
 
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@master
+  # yamllint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
+  #     - name: Run yaml Lint
+  #       uses: actionshub/yamllint@master
 
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@master
+  # mdl:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
+  #     - name: Run Markdown Lint
+  #       uses: actionshub/markdownlint@master
 
   # dokken:
   #   needs: [mdl, yamllint, delivery]
@@ -78,7 +78,7 @@ jobs:
     #       os: ${{ matrix.os }}
 
   macos:
-    needs: [mdl, yamllint, delivery]
+    # needs: [mdl, yamllint, delivery]
     runs-on: macos-latest
     steps:
       - name: Check out code
@@ -92,9 +92,9 @@ jobs:
         run: |
           kitchen list macos
 
-  final:
-    needs: [dokken]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
+  # final:
+  #   needs: [dokken]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
