@@ -90,7 +90,7 @@ jobs:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
         run: |
-          kitchen list macos
+          kitchen converge macos
 
   # final:
   #   needs: [dokken]
