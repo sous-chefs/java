@@ -91,19 +91,19 @@ jobs:
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
         run: kitchen converge
 
-  windows:
-    # needs: [mdl, yamllint, delivery]
-    runs-on: windows-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Install Chef
-        uses: actionshub/chef-install@master
-      - name: Run Test Kitchen
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.windows.yml
-        run: kitchen converge
+  # windows:
+  #   # needs: [mdl, yamllint, delivery]
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
+  #     - name: Install Chef
+  #       uses: actionshub/chef-install@master
+  #     - name: Run Test Kitchen
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
+  #         KITCHEN_LOCAL_YAML: kitchen.windows.yml
+  #       run: kitchen converge
 
   # final:
   #   needs: [dokken]
