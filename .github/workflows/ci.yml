@@ -93,7 +93,7 @@ jobs:
 
   windows:
     # needs: [mdl, yamllint, delivery]
-    runs-on: mawindows-latest
+    runs-on: windows-latest
     steps:
       - name: Check out code
         uses: actions/checkout@master
