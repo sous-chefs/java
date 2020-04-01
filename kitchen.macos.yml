@@ -3,6 +3,14 @@ driver:
   name: exec
   host: localhost
 
+provisioner:
+  require_chef_omnibus: false
+  chef_client_path: "/opt/chef-workstation/bin/chef-client"
+  name: chef_zero
+  deprecations_as_errors: false
+  log_level: :info
+  install_strategy: skip
+
 suites:
   # MacOS OpenJDK
   - name: openjdk-10
