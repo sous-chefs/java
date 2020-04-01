@@ -1,8 +1,7 @@
 ---
 driver:
-  name: proxy
+  name: exec
   host: localhost
-  reset_command: 'exit 0'
 
 suites:
   # MacOS OpenJDK
