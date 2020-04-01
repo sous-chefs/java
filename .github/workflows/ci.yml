@@ -105,9 +105,9 @@ jobs:
           KITCHEN_LOCAL_YAML: kitchen.windows.yml
         run: kitchen converge
 
-  final:
-    needs: [dokken]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
+  # final:
+  #   needs: [dokken]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
