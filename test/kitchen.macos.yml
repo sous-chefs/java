@@ -12,10 +12,9 @@ provisioner:
   install_strategy: skip
 
 suites:
-  # MacOS OpenJDK
-  - name: openjdk-10
+  - name: adoptopenjdk-13-openj9
     run_list:
-      - recipe[test::macos-openjdk]
+      - recipe[test::adoptopenjdk-13-openj9]
 
 platforms:
    - name: macos
