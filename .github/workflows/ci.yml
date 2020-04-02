@@ -89,7 +89,7 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
-        run: sudo -E kitchen converge
+        run: kitchen converge
 
   # windows:
   #   # needs: [mdl, yamllint, delivery]
