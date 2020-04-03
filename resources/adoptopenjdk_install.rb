@@ -43,7 +43,6 @@ action :install do
       cask_options new_resource.cask_options
       homebrew_path new_resource.homebrew_path
       owner new_resource.owner
-      action :remove
     end
   when 'windows'
     log 'not yet implemented'
