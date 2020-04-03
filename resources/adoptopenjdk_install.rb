@@ -39,7 +39,7 @@ action :install do
   when 'mac_os_x'
     puts "adoptopenjdk#{new_resource.version}-#{new_resource.variant}"
 
-    variant = new_resource.variant == 'hotspot' ? '' : new_resource.variant
+    variant = "-{new_resource.variant}" == 'hotspot' ? '' : new_resource.variant
 
     adoptopenjdk_macos_install 'homebrew' do
       tap_full new_resource.tap_full
@@ -47,7 +47,7 @@ action :install do
       cask_options new_resource.cask_options
       homebrew_path new_resource.homebrew_path
       owner new_resource.owner
-      version "adoptopenjdk#{new_resource.version}-#{variant}"
+      version "adoptopenjdk#{new_resource.version}#{variant}"
     end
   when 'windows'
     log 'not yet implemented'
