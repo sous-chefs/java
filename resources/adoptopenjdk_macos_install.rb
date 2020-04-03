@@ -16,8 +16,8 @@ property :version, String, default: 'adoptopenjdk14', equal_to: %w(adoptopenjdk8
                                                                    adoptopenjdk12-jre adoptopenjdk12-openj9-jre adoptopenjdk12-openj9-jre-large
                                                                    adoptopenjdk13 adoptopenjdk13-openj9 adoptopenjdk13-openj9-large
                                                                    adoptopenjdk13-jre adoptopenjdk13-openj9-jre adoptopenjdk13-openj9-jre-large
-                                                                   adoptopenjkd14-jre adoptopenjkd14-openj9-jre adoptopenjkd14-openj9-jre-large
-                                                                   adoptopenjkd14 adoptopenjkd14-openj9 adoptopenjre14-openj9-large)
+                                                                   adoptopenjdk14 adoptopenjdk14-openj9 adoptopenjdk14-openj9-large
+                                                                   adoptopenjdk14-jre adoptopenjdk14-openj9-jre adoptopenjdk14-openj9-jre-large)
 
 action :install do
   homebrew_tap 'AdoptOpenJDK/openjdk' do
