@@ -37,6 +37,8 @@ property :owner, [String, Integer], description: 'The owner of the Homebrew inst
 action :install do
   case node['platform_family']
   when 'mac_os_x'
+    puts "adoptopenjdk#{new_resource.version}-#{new_resource.variant}"
+
     adoptopenjdk_macos_install 'homebrew' do
       tap_full new_resource.tap_full
       tap_url new_resource.tap_url
