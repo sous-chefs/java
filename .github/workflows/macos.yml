@@ -17,4 +17,4 @@ jobs:
           env:
             CHEF_LICENSE: accept-no-persist
             KITCHEN_LOCAL_YAML: kitchen.macos.yml
-          run: kitchen converge adoptopenjdk-8-hotspot-macos
+          run: kitchen test adoptopenjdk-8-hotspot-macos

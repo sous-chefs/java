@@ -43,6 +43,7 @@ action :install do
       cask_options new_resource.cask_options
       homebrew_path new_resource.homebrew_path
       owner new_resource.owner
+      version "adoptopenjdk#{new_resource.version}-#{new_resource.variant}"
     end
   when 'windows'
     log 'not yet implemented'
