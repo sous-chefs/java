@@ -8,7 +8,7 @@ provisioner:
   chef_client_path: "/opt/chef-workstation/bin/chef-client"
   name: chef_zero
   deprecations_as_errors: false
-  log_level: :info
+  # log_level: :info
   sudo: true
   install_strategy: skip
 

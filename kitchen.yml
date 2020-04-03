@@ -5,7 +5,7 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: false
-  log_level: :info
+  # log_level: :info
 
 verifier:
   name: inspec
