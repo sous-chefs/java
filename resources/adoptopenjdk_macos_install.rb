@@ -22,7 +22,7 @@ action :install do
     action             :tap
   end
 
-  homebrew_cask "adoptopenjdk\\#{new_resource.version}" do
+  homebrew_cask new_resource.version do
     homebrew_path      new_resource.homebrew_path
     install_cask       true
     options            new_resource.cask_options
