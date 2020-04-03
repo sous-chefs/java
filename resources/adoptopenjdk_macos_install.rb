@@ -5,19 +5,20 @@ property :tap_url, String, description: 'The URL of the tap'
 property :cask_options, String, description: 'Options to pass to the brew command during installation'
 property :homebrew_path, String, description: 'The path to the homebrew binary'
 property :owner, [String, Integer], description: 'The owner of the Homebrew installation'
-property :version, String, default: 'adoptopenjdk14', equal_to: %w(adoptopenjdk8 adoptopenjdk8-openj9 adoptopenjdk8-openj9-large
-                                                                   adoptopenjdk8-jre adoptopenjdk8-openj9-jre adoptopenjdk8-jre-large
-                                                                   adoptopenjdk9
-                                                                   adoptopenjdk10
-                                                                   adoptopenjdk11 adoptopenjdk11-openj9 adoptopenjdk11-openj9-large
-                                                                   adoptopenjdk11 adoptopenjdk11-openj9 adoptopenjdk11-openj9-large
-                                                                   adoptopenjdk11-jre adoptopenjdk11-openj9-jre adoptopenjdk11-openj9-jre-large
-                                                                   adoptopenjdk12 adoptopenjdk12-openj9 adoptopenjdk12-openj9-large
-                                                                   adoptopenjdk12-jre adoptopenjdk12-openj9-jre adoptopenjdk12-openj9-jre-large
-                                                                   adoptopenjdk13 adoptopenjdk13-openj9 adoptopenjdk13-openj9-large
-                                                                   adoptopenjdk13-jre adoptopenjdk13-openj9-jre adoptopenjdk13-openj9-jre-large
-                                                                   adoptopenjdk14 adoptopenjdk14-openj9 adoptopenjdk14-openj9-large
-                                                                   adoptopenjdk14-jre adoptopenjdk14-openj9-jre adoptopenjdk14-openj9-jre-large)
+property :version, String, default: 'adoptopenjdk14'
+# , equal_to: %w(adoptopenjdk8 adoptopenjdk8-openj9 adoptopenjdk8-openj9-large
+#                                                                    adoptopenjdk8-jre adoptopenjdk8-openj9-jre adoptopenjdk8-jre-large
+#                                                                    adoptopenjdk9
+#                                                                    adoptopenjdk10
+#                                                                    adoptopenjdk11 adoptopenjdk11-openj9 adoptopenjdk11-openj9-large
+#                                                                    adoptopenjdk11 adoptopenjdk11-openj9 adoptopenjdk11-openj9-large
+#                                                                    adoptopenjdk11-jre adoptopenjdk11-openj9-jre adoptopenjdk11-openj9-jre-large
+#                                                                    adoptopenjdk12 adoptopenjdk12-openj9 adoptopenjdk12-openj9-large
+#                                                                    adoptopenjdk12-jre adoptopenjdk12-openj9-jre adoptopenjdk12-openj9-jre-large
+#                                                                    adoptopenjdk13 adoptopenjdk13-openj9 adoptopenjdk13-openj9-large
+#                                                                    adoptopenjdk13-jre adoptopenjdk13-openj9-jre adoptopenjdk13-openj9-jre-large
+#                                                                    adoptopenjdk14 adoptopenjdk14-openj9 adoptopenjdk14-openj9-large
+#                                                                    adoptopenjdk14-jre adoptopenjdk14-openj9-jre adoptopenjdk14-openj9-jre-large)
 
 action :install do
   homebrew_tap 'AdoptOpenJDK/openjdk' do
