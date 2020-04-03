@@ -39,7 +39,7 @@ action :install do
   when 'mac_os_x'
     puts "adoptopenjdk#{new_resource.version}-#{new_resource.variant}"
 
-    variant = "-{new_resource.variant}" == 'hotspot' ? '' : new_resource.variant
+    variant = new_resource.variant == 'hotspot' ? '' : new_resource.variant
 
     adoptopenjdk_macos_install 'homebrew' do
       tap_full new_resource.tap_full
