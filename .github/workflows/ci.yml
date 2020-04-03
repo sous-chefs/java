@@ -79,21 +79,21 @@ jobs:
 
   macos:
     # needs: [mdl, yamllint, delivery]
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        os: ['macos']
-        suite:
-  #         - 'openjdk-11'
-  #         - 'openjdk-12'
-  #         - 'openjdk-13'
-          - 'adoptopenjdk-13-hotspot'
-          - 'adoptopenjdk-13-openj9'
-          - 'adoptopenjdk-13-openj9-large-heap'
-          - 'adoptopenjdk-removal-11-openj9'
-  #         - 'corretto-11'
-  #         - 'corretto-8'
-      fail-fast: false
+  #   runs-on: macos-latest
+  #   strategy:
+  #     matrix:
+  #       os: ['macos']
+  #       suite:
+  # #         - 'openjdk-11'
+  # #         - 'openjdk-12'
+  # #         - 'openjdk-13'
+  #         - 'adoptopenjdk-13-hotspot'
+  #         - 'adoptopenjdk-13-openj9'
+  #         - 'adoptopenjdk-13-openj9-large-heap'
+  #         - 'adoptopenjdk-removal-11-openj9'
+  # #         - 'corretto-11'
+  # #         - 'corretto-8'
+  #     fail-fast: false
     steps:
       - name: Check out code
         uses: actions/checkout@master
