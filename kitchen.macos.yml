@@ -12,10 +12,5 @@ provisioner:
   sudo: true
   install_strategy: skip
 
-suites:
-  - name: adoptopenjdk-13-openj9
-    run_list:
-      - recipe[test::adoptopenjdk-13-openj9]
-
 platforms:
    - name: macos
