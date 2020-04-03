@@ -77,20 +77,6 @@ jobs:
   #         suite: ${{ matrix.suite }}
   #         os: ${{ matrix.os }}
 
-  macos:
-    # needs: [mdl, yamllint, delivery]
-    runs-on: macos-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Install Chef
-        uses: actionshub/chef-install@master
-      - name: Run Test Kitchen
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.macos.yml
-        run: kitchen converge doptopenjdk-8-hotspot-macos
-
   # windows:
   #   # needs: [mdl, yamllint, delivery]
   #   runs-on: windows-latest
