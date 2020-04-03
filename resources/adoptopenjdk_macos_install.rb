@@ -41,7 +41,7 @@ action :remove do
   homebrew_cask "adoptopenjdk#{new_resource.version}" do
     homebrew_path      new_resource.homebrew_path
     options            new_resource.cask_options
-    owner              new_resource.cask_owner
+    owner              new_resource.owner
     action             :remove
   end
 end
