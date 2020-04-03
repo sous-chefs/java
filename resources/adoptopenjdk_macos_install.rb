@@ -16,7 +16,7 @@ property :version, String, default: 'adoptopenjdk14', equal_to: %w(adoptopenjdk8
 action :install do
   homebrew_tap 'AdoptOpenJDK/openjdk' do
     full               new_resource.tap_full
-    homebrew_path      new_resource.tap_homebrew_path
+    homebrew_path      new_resource.homebrew_path
     owner              new_resource.owner
     url                new_resource.tap_url
     action             :tap
@@ -33,7 +33,7 @@ end
 
 action :remove do
   homebrew_tap 'AdoptOpenJDK/openjdk' do
-    homebrew_path      new_resource.tap_homebrew_path
+    homebrew_path      new_resource.homebrew_path
     owner              new_resource.owner
     action :untap
   end
