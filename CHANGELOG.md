@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 8.0.2 (tbc)
+
+ - Added MacOS support for AdoptOpenJDK
+
 ## 8.0.1 (30-03-2020)
 
 - Added documentation in documentation/resources for `adoptopenjdk_install`, `alternatives`, `certificate`, `corretto_install`, `jce`, `openjdk_install`
