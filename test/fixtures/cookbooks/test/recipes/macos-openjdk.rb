@@ -1,1 +1,1 @@
-log 'Hello'
+log node['platform_family']
