@@ -75,8 +75,6 @@ action :install do
       destination extract_dir
     end
 
-    node.default['java']['java_home'] = new_resource.java_home
-
     template "/usr/lib/jvm/.java-#{new_resource.version}-adoptopenjdk-#{new_resource.variant}.jinfo" do
       cookbook 'java'
       source 'jinfo.erb'
@@ -100,6 +98,8 @@ action :install do
       action :set
     end
   end
+
+  node.default['java']['java_home'] = new_resource.java_home
 end
 
 action :remove do
