@@ -1,10 +1,12 @@
 resource_name :adoptopenjdk_macos_install
+include Java::Cookbook::AdoptOpenJdkMacOsHelpers
 
 property :tap_full, [true, false], default: true, description: 'Perform a full clone on the tap, as opposed to a shallow clon.'
 property :tap_url, String, description: 'The URL of the tap'
 property :cask_options, String, description: 'Options to pass to the brew command during installation'
 property :homebrew_path, String, description: 'The path to the homebrew binary'
 property :owner, [String, Integer], description: 'The owner of the Homebrew installation'
+property :java_home, String, default: lazy { macos_java_home(version) }, description: 'MacOS specific JAVA_HOME'
 property :version, String, default: 'adoptopenjdk14'
 # , equal_to: %w(adoptopenjdk8 adoptopenjdk8-openj9 adoptopenjdk8-openj9-large
 #                                                                    adoptopenjdk8-jre adoptopenjdk8-openj9-jre adoptopenjdk8-jre-large
@@ -36,6 +38,8 @@ action :install do
     owner              new_resource.owner
     action             :install
   end
+
+  node['java']['home'] = new_resource.macos_java_home
 end
 
 action :remove do
