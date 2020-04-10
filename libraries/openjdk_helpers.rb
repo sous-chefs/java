@@ -58,7 +58,7 @@ module Java
 
       def default_openjdk_pkg_names(version)
         value_for_platform_family(
-          ['rhel', 'fedora', 'amazon'] => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
+          %w(rhel fedora amazon) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           suse: ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"],
           freebsd: version.to_i == 7 ? 'openjdk' : "openjdk#{version}",
           arch: "openjdk#{version}",
@@ -69,7 +69,7 @@ module Java
 
       def default_openjdk_pkg_java_home(version)
         value_for_platform_family(
-          ['rhel', 'fedora', 'amazon'] => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
+          %w(rhel fedora amazon) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
           suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{version}.0",
           freebsd: "/usr/local/openjdk#{version}",
           arch: "/usr/lib/jvm/java-#{version}-openjdk",
