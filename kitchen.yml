@@ -59,7 +59,7 @@ suites:
       inputs: {java_version: '13'}
 
   # OpenJDK_PKG
-  - name: openjdk_pkg-7
+  - name: openjdk-pkg-7
     run_list:
       - recipe[test::openjdk_pkg]
     attributes: {version: '7'}
@@ -67,7 +67,7 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '7'}
 
-  - name: openjdk_pkg-8
+  - name: openjdk-pkg-8
     run_list:
       - recipe[test::openjdk_pkg]
     attributes: {version: '8'}
@@ -75,7 +75,7 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '8'}
 
-  - name: openjdk_pkg-11
+  - name: openjdk-pkg-11
     run_list:
       - recipe[test::openjdk_pkg]
     attributes: {version: '11'}
@@ -83,7 +83,7 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '11'}
 
-  - name: openjdk_pkg-latest_13
+  - name: openjdk-pkg-latest-13
     run_list:
       - recipe[test::openjdk_pkg]
     attributes: {version: 'latest'}
