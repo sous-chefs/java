@@ -36,7 +36,7 @@ openjdk_install '11'
 To install OpenJDK 11 and set it as second highest priority
 
 ```ruby
-openjdk_install '10' do
+openjdk_install '11' do
   alternatives_priority 2
 end
 ```

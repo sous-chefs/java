@@ -58,6 +58,39 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: {java_version: '13'}
 
+  # OpenJDK_PKG
+  - name: openjdk_pkg-7
+    run_list:
+      - recipe[test::openjdk_pkg]
+    attributes: {version: '7'}
+    verifier:
+      inspec_tests: [test/integration/openjdk_pkg]
+      inputs: {java_version: '7'}
+
+  - name: openjdk_pkg-8
+    run_list:
+      - recipe[test::openjdk_pkg]
+    attributes: {version: '8'}
+    verifier:
+      inspec_tests: [test/integration/openjdk_pkg]
+      inputs: {java_version: '8'}
+
+  - name: openjdk_pkg-11
+    run_list:
+      - recipe[test::openjdk_pkg]
+    attributes: {version: '11'}
+    verifier:
+      inspec_tests: [test/integration/openjdk_pkg]
+      inputs: {java_version: '11'}
+
+  - name: openjdk_pkg-latest_13
+    run_list:
+      - recipe[test::openjdk_pkg]
+    attributes: {version: 'latest'}
+    verifier:
+      inspec_tests: [test/integration/openjdk_pkg]
+      inputs: {java_version: '13'}
+
   # AdoptOpenJDK
   # Version 8
   - name: adoptopenjdk-8-hotspot

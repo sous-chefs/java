@@ -39,6 +39,10 @@ module Java
 
       def default_openjdk_bin_cmds(version)
         case version
+        when '7'
+          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+        when '8'
+          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '9'
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javah javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '10'
@@ -50,6 +54,29 @@ module Java
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
         end
+      end
+
+      def default_openjdk_pkg_names(version)
+        value_for_platform_family(
+          ['rhel', 'fedora', 'amazon'] => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
+          suse: ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"],
+          freebsd: version.to_i == 7 ? 'openjdk' : "openjdk#{version}",
+          arch: "openjdk#{version}",
+          debian: ["openjdk-#{version}-jdk", "openjdk-#{version}-jre-headless"],
+          default: ["openjdk-#{version}-jdk"]
+        )
+      end
+
+      def default_openjdk_pkg_java_home(version)
+        value_for_platform_family(
+          ['rhel', 'fedora', 'amazon'] => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
+          suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{version}.0",
+          freebsd: "/usr/local/openjdk#{version}",
+          arch: "/usr/lib/jvm/java-#{version}-openjdk",
+          debian: "/usr/lib/jvm/java-#{version}-openjdk-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}",
+          mac_os_x: version.to_i >= 10 ? "$(/usr/libexec/java_home -v #{version})" : "$(/usr/libexec/java_home -v 1.#{version})",
+          default: '/usr/lib/jvm/default-java'
+        )
       end
     end
   end

@@ -1,0 +1,7 @@
+---
+name: openjdk_pkg
+title: OpenJDK tests
+license: Public domain
+copyright: None
+summary: Verify installation of OpenJDK
+version: 0.0.1
