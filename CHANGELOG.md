@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## 8.1.0 (10-04-2020)
+
+- Added `openjdk_pkg_install` resource & documentation
+
 ## 8.0.1 (30-03-2020)
 
 - Added documentation in documentation/resources for `adoptopenjdk_install`, `alternatives`, `certificate`, `corretto_install`, `jce`, `openjdk_install`
@@ -11,7 +15,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - Added `openjdk_install` resource & documentation
 - Removed openjdk, corretto, default_java_symlink, ibm & ibm_tar, notify & oracle recipes
 - Removed support for IBM and Oracle Java
-- Temporarily removed sypport for Windows
+- Temporarily removed support for Windows
 - Split out helpers for each provider into their own namespace and file
 
 ## 7.0.0 (2020-03-05)
