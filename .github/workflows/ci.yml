@@ -68,13 +68,22 @@ jobs:
           - corretto-11
           - corretto-8
         exclude:
+          - os:
+              - debian-9
+              - debian-10
+              - ubuntu-1804
+              - ubuntu-2004
+            suite: openjdk-pkg-7
+
           - os: amazon-linux
-            suite: ['openjdk-pkg-11', 'openjdk-pkg-latest']
+            suite:
+              - openjdk-pkg-11
+              - openjdk-pkg-latest
           - os: amazonlinux-2
-            suite: 'openjdk-pkg-latest'
+            suite: openjdk-pkg-latest
           - os: centos-7
             suite:
-              - 'openjdk-pkg-13'
+              - openjdk-pkg-13
               - openjdk-pkg-latest
           - os: debian-9
             suite:
