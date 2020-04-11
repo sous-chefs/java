@@ -70,11 +70,11 @@ platforms:
         - RUN /usr/bin/apt-get update
 
   - name: ubuntu-20.04
-      driver:
-        image: dokken/ubuntu-20.04
-        pid_one_command: /bin/systemd
-        intermediate_instructions:
-          - RUN /usr/bin/apt-get update
+    driver:
+      image: dokken/ubuntu-20.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
 
   - name: opensuse-leap
     driver:
