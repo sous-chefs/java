@@ -49,7 +49,7 @@ module Java
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '11'
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
-        when '12', '13'
+        when '12', '13', 'latest'
           %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
@@ -58,7 +58,8 @@ module Java
 
       def default_openjdk_pkg_names(version)
         value_for_platform_family(
-          %w(rhel fedora amazon) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
+          amazon: version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : "java-#{version}-amazon-corretto",
+          %w(rhel fedora) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           suse: ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"],
           freebsd: version.to_i == 7 ? 'openjdk' : "openjdk#{version}",
           arch: "openjdk#{version}",
@@ -74,7 +75,6 @@ module Java
           freebsd: "/usr/local/openjdk#{version}",
           arch: "/usr/lib/jvm/java-#{version}-openjdk",
           debian: "/usr/lib/jvm/java-#{version}-openjdk-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}",
-          mac_os_x: version.to_i >= 10 ? "$(/usr/libexec/java_home -v #{version})" : "$(/usr/libexec/java_home -v 1.#{version})",
           default: '/usr/lib/jvm/default-java'
         )
       end

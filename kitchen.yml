@@ -11,9 +11,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazon-linux
-    driver_config:
-      box: mvbcoding/awslinux
+  - name: amazonlinux-2
   - name: centos-6
   - name: centos-7
   - name: debian-9
@@ -83,10 +81,10 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '11'}
 
-  - name: openjdk-pkg-latest-13
+  - name: openjdk-pkg-latest
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: {version: 'latest'}
+    attributes: {version: '13'}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '13'}
