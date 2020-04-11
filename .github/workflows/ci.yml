@@ -71,7 +71,11 @@ jobs:
           - os: amazon-linux
             suite: openjdk-pkg-11
           - os: amazon-linux
+            suite: openjdk-pkg-13
+          - os: amazon-linux
             suite: openjdk-pkg-latest
+          - os: amazonlinux-2
+            suite: openjdk-pkg-13
           - os: amazonlinux-2
             suite: openjdk-pkg-latest
           - os: centos-7
