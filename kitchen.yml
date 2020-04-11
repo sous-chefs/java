@@ -72,6 +72,8 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '8'}
+    excludes:
+      - debian-10
 
   - name: openjdk-pkg-11
     run_list:
@@ -88,6 +90,9 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '13'}
+    excludes:
+      - amazon-linux
+      - amazonlinux-2
 
   # AdoptOpenJDK
   # Version 8
