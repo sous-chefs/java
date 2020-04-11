@@ -6,7 +6,7 @@ property :version, String,
          name_property: true,
          description: 'Java major version to install'
 
-property :pkg_names, Array,
+property :pkg_names, [String, Array],
          default: lazy { default_openjdk_pkg_names(version) },
          description: 'List of packages to install'
 

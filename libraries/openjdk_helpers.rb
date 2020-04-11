@@ -61,7 +61,7 @@ module Java
           amazon: version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : "java-#{version}-amazon-corretto",
           %w(rhel fedora) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           suse: ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"],
-          freebsd: version.to_i == 7 ? 'openjdk' : "openjdk#{version}",
+          freebsd: version.to_i.eql?(7) ? 'openjdk' : "openjdk#{version}",
           arch: "openjdk#{version}",
           debian: ["openjdk-#{version}-jdk", "openjdk-#{version}-jre-headless"],
           default: ["openjdk-#{version}-jdk"]

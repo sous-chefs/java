@@ -40,32 +40,67 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'amazon-linux'
-          - 'amazonlinux-2'
-          - 'debian-9'
-          - 'debian-10'
-          - 'centos-7'
-          - 'ubuntu-1604'
-          - 'ubuntu-1804'
-          - 'ubuntu-2004'
+          - amazon-linux
+          - amazonlinux-2
+          - debian-9
+          - debian-10
+          - centos-7
+          - ubuntu-1604
+          - ubuntu-1804
+          - ubuntu-2004
         suite:
-          - 'openjdk-11'
-          - 'openjdk-12'
-          - 'openjdk-13'
-          - 'openjdk-pkg-7'
-          - 'openjdk-pkg-8'
-          - 'openjdk-pkg-11'
-          - 'openjdk-pkg-latest'
-          - 'adoptopenjdk-8-openj9'
-          - 'adoptopenjdk-11-hotspot'
-          - 'adoptopenjdk-11-openj9'
-          - 'adoptopenjdk-11-openj9-large-heap'
-          - 'adoptopenjdk-13-hotspot'
-          - 'adoptopenjdk-13-openj9'
-          - 'adoptopenjdk-13-openj9-large-heap'
-          - 'adoptopenjdk-removal-11-openj9'
-          - 'corretto-11'
-          - 'corretto-8'
+          - openjdk-11
+          - openjdk-12
+          - openjdk-13
+          - openjdk-pkg-7
+          - openjdk-pkg-8
+          - openjdk-pkg-11
+          - openjdk-pkg-13
+          - openjdk-pkg-latest
+          - adoptopenjdk-8-openj9
+          - adoptopenjdk-11-hotspot
+          - adoptopenjdk-11-openj9
+          - adoptopenjdk-11-openj9-large-heap
+          - adoptopenjdk-13-hotspot
+          - adoptopenjdk-13-openj9
+          - adoptopenjdk-13-openj9-large-heap
+          - adoptopenjdk-removal-11-openj9
+          - corretto-11
+          - corretto-8
+        exclude:
+          - os: amazon-linux
+            suite:
+              - openjdk-pkg-11
+              - openjdk-pkg-latest
+          - os: amazonlinux-2
+            suite: openjdk-pkg-latest
+          - os: centos-7
+            suite:
+              - openjdk-pkg-13
+              - openjdk-pkg-latest
+          - os: debian-9
+            suite:
+              - openjdk-pkg-7
+              - openjdk-pkg-11
+              - openjdk-pkg-13
+              - openjdk-pkg-latest
+          - os: debian-10
+            suite:
+              - openjdk-pkg-7
+              - openjdk-pkg-8
+              - openjdk-pkg-13
+              - openjdk-pkg-latest
+          - os: ubuntu-1604
+            suite: openjdk-pkg-latest
+          - os: ubuntu-1804
+            suite:
+              - openjdk-pkg-7
+              - openjdk-pkg-13
+              - openjdk-pkg-latest
+          - os: ubuntu-2004
+            suite:
+              - openjdk-pkg-7
+              - openjdk-pkg-latest
       fail-fast: false
 
     steps:
