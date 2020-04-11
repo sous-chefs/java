@@ -68,46 +68,44 @@ jobs:
           - corretto-11
           - corretto-8
         exclude:
-          - os:
-              - debian-9
-              - debian-10
-              - ubuntu-1804
-              - ubuntu-2004
-            suite: openjdk-pkg-7
-
           - os: amazon-linux
-            suite:
-              - openjdk-pkg-11
-              - openjdk-pkg-latest
+            suite: openjdk-pkg-11
+          - os: amazon-linux
+            suite: openjdk-pkg-latest
           - os: amazonlinux-2
             suite: openjdk-pkg-latest
           - os: centos-7
-            suite:
-              - openjdk-pkg-13
-              - openjdk-pkg-latest
+            suite: openjdk-pkg-13
+          - os: centos-7
+            suite: openjdk-pkg-latest
           - os: debian-9
-            suite:
-              - openjdk-pkg-7
-              - openjdk-pkg-11
-              - openjdk-pkg-13
-              - openjdk-pkg-latest
+            suite: openjdk-pkg-7
+          - os: debian-9
+            suite: openjdk-pkg-11
+          - os: debian-9
+            suite: openjdk-pkg-13
+          - os: debian-9
+            suite: openjdk-pkg-latest
           - os: debian-10
-            suite:
-              - openjdk-pkg-7
-              - openjdk-pkg-8
-              - openjdk-pkg-13
-              - openjdk-pkg-latest
+            suite: openjdk-pkg-7
+          - os: debian-10
+            suite: openjdk-pkg-8
+          - os: debian-10
+            suite: openjdk-pkg-13
+          - os: debian-10
+            suite: openjdk-pkg-latest
           - os: ubuntu-1604
             suite: openjdk-pkg-latest
           - os: ubuntu-1804
-            suite:
-              - openjdk-pkg-7
-              - openjdk-pkg-13
-              - openjdk-pkg-latest
+            suite: openjdk-pkg-7
+          - os: ubuntu-1804
+            suite: openjdk-pkg-13
+          - os: ubuntu-1804
+            suite: openjdk-pkg-latest
           - os: ubuntu-2004
-            suite:
-              - openjdk-pkg-7
-              - openjdk-pkg-latest
+            suite: openjdk-pkg-7
+          - os: ubuntu-2004
+            suite: openjdk-pkg-latest
       fail-fast: false
 
     steps:
