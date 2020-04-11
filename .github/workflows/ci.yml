@@ -70,13 +70,13 @@ jobs:
         exclude:
           - os: amazon-linux
             suite:
-              - openjdk-pkg-11
-              - openjdk-pkg-latest
+              - 'openjdk-pkg-11'
+              - 'openjdk-pkg-latest'
           - os: amazonlinux-2
-            suite: openjdk-pkg-latest
+            suite: 'openjdk-pkg-latest'
           - os: centos-7
             suite:
-              - openjdk-pkg-13
+              - 'openjdk-pkg-13'
               - openjdk-pkg-latest
           - os: debian-9
             suite:
