@@ -40,14 +40,16 @@ control 'check-java-version' do
   end
 end
 
-control 'check-java-alternatives' do
-  impact 1.0
-  title 'Verify alternatives for java'
-  desc 'Verify alternatives for java are set to the correct version'
+if os.linux?
+  control 'check-java-alternatives' do
+    impact 1.0
+    title 'Verify alternatives for java'
+    desc 'Verify alternatives for java are set to the correct version'
 
-  %w(jar jarsigner java javac).each do |cmd|
-    describe command("update-alternatives --display #{cmd}") do
-      its('stdout') { should match parent_install_dir.to_s }
+    %w(jar jarsigner java javac).each do |cmd|
+      describe command("update-alternatives --display #{cmd}") do
+        its('stdout') { should match parent_install_dir.to_s }
+      end
     end
   end
 end
