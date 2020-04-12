@@ -9,7 +9,7 @@ property :owner, [String, Integer], description: 'The owner of the Homebrew inst
 property :java_home, String, default: lazy { macos_java_home(version) }, description: 'MacOS specific JAVA_HOME'
 property :version, String,
          default: 'adoptopenjdk14',
-         regex: /adoptopenjdk\d{1,2}(-openj9)?(-large)?|(-jre?)(-large)?/
+         regex: /adoptopenjdk\d{1,2}(-openj9)?(-large)?|(-jre)?(-large)?/
 
 action :install do
   homebrew_tap 'AdoptOpenJDK/openjdk' do

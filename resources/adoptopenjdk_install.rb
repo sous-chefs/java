@@ -28,13 +28,16 @@ property :owner, [String, Integer], description: 'The owner of the Homebrew inst
 action :install do
   case node['platform_family']
   when 'mac_os_x'
+
+    variant = new_resource.variant == 'hotspot' ? '' : new_resource.variant
+
     adoptopenjdk_macos_install 'homebrew' do
       tap_full new_resource.tap_full
       tap_url new_resource.tap_url
       cask_options new_resource.cask_options
       homebrew_path new_resource.homebrew_path
       owner new_resource.owner
-      version new_resource.version
+      version "adoptopenjdk#{new_resource.version}#{variant}"
     end
   when 'windows'
     log 'not yet implemented'
