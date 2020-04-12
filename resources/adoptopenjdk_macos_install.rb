@@ -28,7 +28,7 @@ action :install do
     action             :install
   end
 
-  node.default['java']['home'] = new_resource.java_home
+  node.default['java']['java_home'] = new_resource.java_home
 end
 
 action :remove do

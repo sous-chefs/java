@@ -81,6 +81,8 @@ action :install do
     reset_alternatives new_resource.reset_alternatives
     action :set
   end
+
+  node.default['java']['java_home'] = new_resource.java_home
 end
 
 action :remove do

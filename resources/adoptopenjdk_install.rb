@@ -51,8 +51,6 @@ action :install do
       java_home_mode new_resource.java_home_mode
       java_home_group new_resource.java_home_group
     end
-
-    # node.default['java']['java_home'] = new_resource.java_home
   end
 end
 
