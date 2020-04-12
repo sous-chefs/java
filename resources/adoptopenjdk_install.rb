@@ -28,7 +28,11 @@ property :owner, [String, Integer], description: 'The owner of the Homebrew inst
 action :install do
   case node['platform_family']
   when 'mac_os_x'
-    variant = new_resource.variant.include? 'openj9' ? '' : "-#{new_resource.variant}"
+    variant = if new_resource.variant.include? 'openj9'
+                ''
+              else
+                "-#{new_resource.variant}"
+              end
 
     adoptopenjdk_macos_install 'homebrew' do
       tap_full new_resource.tap_full
