@@ -13,3 +13,11 @@ provisioner:
 
 platforms:
    - name: macos
+
+suites:
+  - name: adoptopenjdk-14-openj9
+    run_list:
+      - recipe[test::adoptopenjdk-14-openj9]
+    verifier:
+      inspec_tests: [test/integration/adoptopenjdk]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-macos.yml]
