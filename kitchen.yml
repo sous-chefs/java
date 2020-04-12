@@ -22,8 +22,8 @@ platforms:
   - name: fedora-31
   - name: opensuse-leap-42
   - name: opensuse-leap-15
-  - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
   # OpenJDK
@@ -103,7 +103,6 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '13'}
     includes:
-      - ubuntu-16.04
       - ubuntu-18.04
       - ubuntu-20.04
 

@@ -55,9 +55,9 @@ platforms:
       image: dokken/fedora-31
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: fedora-31
+  - name: fedora-latest
     driver:
-      image: dokken/fedora-31
+      image: dokken/fedora-latest
       pid_one_command: /usr/lib/systemd/systemd
 
   - name: ubuntu-18.04

@@ -75,6 +75,10 @@ jobs:
             suite: openjdk-pkg-13
           - os: centos-7
             suite: openjdk-pkg-13
+          - os: centos-8
+            suite: openjdk-pkg-7
+          - os: centos-8
+            suite: openjdk-pkg-13
           - os: debian-9
             suite: openjdk-pkg-7
           - os: debian-9
