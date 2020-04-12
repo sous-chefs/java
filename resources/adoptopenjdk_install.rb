@@ -6,7 +6,7 @@ default_action :install
 property :version, String, name_property: true, description: 'Java version to install'
 
 # Linux options
-property :variant, String, description: 'Install flavour'
+property :variant, String, description: 'Install flavour', default: 'openj9'
 property :url, String, description: 'The URL to download from'
 property :checksum, String, description: 'The checksum for the downloaded file'
 property :java_home, String, description: 'Set to override the java_home'
