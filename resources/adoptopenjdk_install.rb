@@ -29,7 +29,7 @@ action :install do
   case node['platform_family']
   when 'mac_os_x'
 
-    variant = new_resource.variant == 'hotspot' ? '' : new_resource.variant
+    variant = new_resource.variant == 'hotspot' ? '' : "-#{new_resource.variant}"
 
     adoptopenjdk_macos_install 'homebrew' do
       tap_full new_resource.tap_full
