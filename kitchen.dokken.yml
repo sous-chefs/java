@@ -51,9 +51,9 @@ platforms:
       pid_one_command: /usr/lib/systemd/systemd
 
   - name: fedora-30
-      driver:
-        image: dokken/fedora-31
-        pid_one_command: /usr/lib/systemd/systemd
+    driver:
+      image: dokken/fedora-31
+      pid_one_command: /usr/lib/systemd/systemd
 
   - name: fedora-31
     driver:
