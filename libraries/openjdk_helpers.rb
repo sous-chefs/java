@@ -39,17 +39,44 @@ module Java
 
       def default_openjdk_bin_cmds(version)
         case version
+        when '7'
+          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
+        when '8'
+          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '9'
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javah javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '10'
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '11'
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
-        when '12', '13'
+        when '12', '13', 'latest'
           %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
         end
+      end
+
+      def default_openjdk_pkg_names(version)
+        value_for_platform_family(
+          amazon: version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : "java-#{version}-amazon-corretto",
+          %w(rhel fedora) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
+          suse: ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"],
+          freebsd: version.to_i.eql?(7) ? 'openjdk' : "openjdk#{version}",
+          arch: "openjdk#{version}",
+          debian: ["openjdk-#{version}-jdk", "openjdk-#{version}-jre-headless"],
+          default: ["openjdk-#{version}-jdk"]
+        )
+      end
+
+      def default_openjdk_pkg_java_home(version)
+        value_for_platform_family(
+          %w(rhel fedora amazon) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
+          suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{version}.0",
+          freebsd: "/usr/local/openjdk#{version}",
+          arch: "/usr/lib/jvm/java-#{version}-openjdk",
+          debian: "/usr/lib/jvm/java-#{version}-openjdk-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}",
+          default: '/usr/lib/jvm/default-java'
+        )
       end
     end
   end
