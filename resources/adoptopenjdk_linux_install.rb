@@ -35,7 +35,7 @@ property :reset_alternatives, [true, false],
          default: true,
          description: 'Whether to reset alternatives before setting'
 
-adtion :install do
+action :install do
   extract_dir = new_resource.java_home.split('/')[0..-2].join('/')
   parent_dir = new_resource.java_home.split('/')[0..-3].join('/')
   tarball_name = new_resource.url.split('/').last
