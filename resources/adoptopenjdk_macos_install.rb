@@ -9,7 +9,7 @@ property :owner, [String, Integer], description: 'The owner of the Homebrew inst
 property :java_home, String, default: lazy { macos_java_home(version) }, description: 'MacOS specific JAVA_HOME'
 property :version, String,
          default: 'adoptopenjdk14',
-         equal_to: %(
+         equal_to: %w(
            adoptopenjdk8 adoptopenjdk8-openj9 adoptopenjdk8-openj9-large
            adoptopenjdk8-jre adoptopenjdk8-openj9-jre adoptopenjdk8-jre-large
            adoptopenjdk9 adoptopenjdk10
