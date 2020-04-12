@@ -45,4 +45,3 @@ RSpec.describe Java::Cookbook::AdoptOpenJdkMacOsHelpers do
     end
   end
 end
-
