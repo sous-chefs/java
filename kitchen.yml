@@ -68,6 +68,7 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '7'}
     includes:
+      - amazon-linux # Used for dokken kitchen support
       - amazonlinux-2
       - centos-7
 
