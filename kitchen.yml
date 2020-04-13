@@ -20,7 +20,6 @@ platforms:
   - name: freebsd-12
   - name: fedora-30
   - name: fedora-31
-  - name: opensuse-leap-42
   - name: opensuse-leap-15
   - name: ubuntu-18.04
   - name: ubuntu-20.04
