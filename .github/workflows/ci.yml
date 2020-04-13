@@ -61,8 +61,6 @@ jobs:
   #         - 'corretto-11'
   #         - 'corretto-8'
   #     fail-fast: false
-
-
   #   steps:
   #     - name: Check out code
   #       uses: actions/checkout@master

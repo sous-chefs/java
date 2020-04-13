@@ -14,7 +14,7 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
   config.platform = 'ubuntu'
-  config.version = '16.04'
+  config.version = '18.04'
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end

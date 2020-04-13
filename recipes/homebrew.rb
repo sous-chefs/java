@@ -1,5 +1,9 @@
-include_recipe 'homebrew'
-include_recipe 'homebrew::cask'
+Chef::Log.fatal("
 
-homebrew_tap 'homebrew/cask-versions'
-homebrew_cask 'java'
+The java::homebrew recipe is now deprecated
+Use the homebrew cookbook and resources in your wrapper cookbook
+See the documentation folder for a list of resources
+
+")
+
+raise 'Recipe used instead of custom resource'

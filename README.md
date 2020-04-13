@@ -31,6 +31,7 @@ Chef 15+
 - [corretto_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/corretto_install.md)
 - [jce](https://github.com/sous-chefs/java/blob/master/documentation/resources/jce.md)
 - [openjdk_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/openjdk_install.md)
+- [openjdk_pkg_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/openjdk_pkg_install.md)
 
 ## Contributors
 
