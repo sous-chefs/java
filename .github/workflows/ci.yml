@@ -52,10 +52,8 @@ jobs:
           - openjdk-11
           - openjdk-12
           - openjdk-13
-          - openjdk-pkg-7
           - openjdk-pkg-8
           - openjdk-pkg-11
-          - openjdk-pkg-13
           - adoptopenjdk-8-openj9
           - adoptopenjdk-11-hotspot
           - adoptopenjdk-11-openj9
@@ -66,35 +64,24 @@ jobs:
           - adoptopenjdk-removal-11-openj9
           - corretto-11
           - corretto-8
+        include:
+          - os: amazon-linux
+            suite: openjdk-pkg-7
+          - os: amazonlinux-2
+            suite: openjdk-pkg-7
+          - os: centos-7
+            suite: openjdk-pkg-7
+          - os: ubuntu-1804
+            suite: openjdk-pkg-13
+          - os: ubuntu-2004
+            suite: openjdk-pkg-13
         exclude:
           - os: amazon-linux
             suite: openjdk-pkg-11
-          - os: amazon-linux
-            suite: openjdk-pkg-13
-          - os: amazonlinux-2
-            suite: openjdk-pkg-13
-          - os: centos-7
-            suite: openjdk-pkg-13
-          - os: centos-8
-            suite: openjdk-pkg-7
-          - os: centos-8
-            suite: openjdk-pkg-13
-          - os: debian-9
-            suite: openjdk-pkg-7
           - os: debian-9
             suite: openjdk-pkg-11
-          - os: debian-9
-            suite: openjdk-pkg-13
-          - os: debian-10
-            suite: openjdk-pkg-7
           - os: debian-10
             suite: openjdk-pkg-8
-          - os: debian-10
-            suite: openjdk-pkg-13
-          - os: ubuntu-1804
-            suite: openjdk-pkg-7
-          - os: ubuntu-2004
-            suite: openjdk-pkg-7
       fail-fast: false
 
     steps:
