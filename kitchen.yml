@@ -67,12 +67,9 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '7'}
-    excludes:
-      - centos-8
-      - debian-9
-      - debian-10
-      - ubuntu-18.04
-      - ubuntu-20.04
+    includes:
+      - amazonlinux-2
+      - centos-7
 
   - name: openjdk-pkg-8
     run_list:
