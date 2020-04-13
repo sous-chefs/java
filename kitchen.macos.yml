@@ -20,7 +20,7 @@ platforms:
        gui: false
 
 suites:
-  - name: adoptopenjdk-14-openj9
+  - name: adoptopenjdk-14
     run_list:
       - recipe[homebrew]
       - recipe[test::adoptopenjdk-14-openj9]
