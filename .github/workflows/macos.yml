@@ -19,3 +19,4 @@ jobs:
             KITCHEN_LOCAL_YAML: kitchen.macos.yml
             TERM: dumb
           run: kitchen test adoptopenjdk-14-openj9-macos
+
