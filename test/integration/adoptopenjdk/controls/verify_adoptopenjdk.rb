@@ -26,17 +26,8 @@ control 'check-java-version' do
 
   match_java_version = "^openjdk version \"#{Regexp.escape(java_version.to_s)}[-_\"]"
   describe command('java -version 2>&1') do
+    its('stdout') { should match /AdoptOpenJDK/ }
     its('stdout') { should match match_java_version }
-  end
-
-  if variant == 'hotspot'
-    describe command('java -version 2>&1') do
-      its('stdout') { should_not match /OpenJ9/i }
-    end
-  else
-    describe command('java -version 2>&1') do
-      its('stdout') { should match /OpenJ9/i }
-    end
   end
 end
 
@@ -68,7 +59,7 @@ end
 control 'check-certificate' do
   impact 1.0
   title 'Verify Java keystore contains the certificate'
-  desc 'Verify Java keystore contains the certificate'
+  desc 'Verify Java keystore exists and contains the certificate'
 
   unless certificate_sha256_checksum.nil? || certificate_sha256_checksum.empty?
     cmd = "keytool -list -v -keystore #{keystore_location}"

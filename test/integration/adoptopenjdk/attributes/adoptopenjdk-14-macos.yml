@@ -1,3 +1,4 @@
 ---
 variant: "openj9"
-keystore_location: '/Library/Java/JavaVirtualMachines/adoptopenjdk-14-openj9.jdk/Contents/Home/lib/security/cacerts'
+keystore_location: '/Library/Java/JavaVirtualMachines/adoptopenjdk-14.jdk/Contents/Home/lib/security/cacerts'
+java_version: '14'
