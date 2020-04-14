@@ -18,4 +18,5 @@ jobs:
             CHEF_LICENSE: accept-no-persist
             KITCHEN_LOCAL_YAML: kitchen.macos.yml
             TERM: dumb
-          run: kitchen test adoptopenjdk-14-macos
+          # run: kitchen test adoptopenjdk-14-macos
+          run: ls /usr/share/terminfo/*
