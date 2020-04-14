@@ -69,3 +69,13 @@ control 'check-certificate' do
     end
   end
 end
+
+control 'JAVA_HOME' do
+  impact 1.0
+  title 'Verify the JAVA_HOME is set correctly'
+  desc 'Verify that JAVA_HOME is set correctly and to the correct version'
+
+  describe os_env('JAVA_HOME') do
+    its('content') { should include '14' }
+  end
+end
