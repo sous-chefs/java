@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## 8.1.1 (2020-04-12)
+## Unreleased
 
 - Updated openjdk helper for jdk 14 & 15
 - Updated kitchen files and github ci.yml for testing
