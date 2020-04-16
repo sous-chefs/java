@@ -40,16 +40,17 @@ action :install do
     action             :install
   end
 
+  # Bash system wide environment variables
   append_if_no_line 'Java Home' do
     path "/etc/profile"
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
 
+  # Zsh system wide environment variables
   append_if_no_line 'Java Home' do
     path "/etc/zshrc"
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
-
 
   node.default['java']['java_home'] = new_resource.java_home
 end
