@@ -12,12 +12,12 @@ provisioner:
   sudo: true
 
 platforms:
-   - name: macos
-     driver:
-       box: damacus/macos-10.15.4
-       provider: parallels
-       linked_clone: true
-       gui: false
+  - name: macos
+    driver:
+      box: damacus/macos-10.15.4
+      provider: parallels
+      linked_clone: true
+      gui: false
 
 suites:
   - name: adoptopenjdk-14

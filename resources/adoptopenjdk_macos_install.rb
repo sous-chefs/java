@@ -42,13 +42,13 @@ action :install do
 
   # Bash system wide environment variables
   append_if_no_line 'Java Home' do
-    path "/etc/profile"
+    path '/etc/profile'
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
 
   # Zsh system wide environment variables
   append_if_no_line 'Java Home' do
-    path "/etc/zshrc"
+    path '/etc/zshrc'
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
 
