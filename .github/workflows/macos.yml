@@ -19,12 +19,8 @@ jobs:
             KITCHEN_LOCAL_YAML: kitchen.macos.yml
             TERM: xterm-256color
           run: |
-            echo $SHELL
             kitchen converge adoptopenjdk-14-macos
-            echo "JAVA_HOME"
-            echo $JAVA_HOME
             source /etc/profile
             echo "sourced profile for JAVA_HOME"
-            echo $JAVA_HOME
+            echo "New JAVA home after Chef run is: ${JAVA_HOME}"
             kitchen verify adoptopenjdk-14-macos
-          # run: whoami && echo $HOME && echo $SHELL && echo $JAVA_HOME
