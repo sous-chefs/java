@@ -19,4 +19,4 @@ jobs:
             KITCHEN_LOCAL_YAML: kitchen.macos.yml
             TERM: xterm-256color
           # run: kitchen test adoptopenjdk-14-macos
-          run: whoami
+          run: whoami && echo $HOME
