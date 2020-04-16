@@ -25,6 +25,8 @@ jobs:
             echo "foo"
             echo $JAVA_HOME
             echo $SHELL
-            kitchen test adoptopenjdk-14-macos
+            kitchen converge adoptopenjdk-14-macos
+            exec $SHELL
             echo $JAVA_HOME
+            kitchen verify adoptopenjdk-14-macos
           # run: whoami && echo $HOME && echo $SHELL && echo $JAVA_HOME
