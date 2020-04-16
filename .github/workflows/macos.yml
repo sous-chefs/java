@@ -24,6 +24,7 @@ jobs:
             unset JAVA_HOME
             echo "foo"
             echo $JAVA_HOME
+            echo $SHELL
             kitchen test adoptopenjdk-14-macos
             echo $JAVA_HOME
           # run: whoami && echo $HOME && echo $SHELL && echo $JAVA_HOME
