@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
- - Added MacOS support for AdoptOpenJDK
+- Added MacOS support for AdoptOpenJDK
 
 ## 8.1.0 (tbc)
 
@@ -631,8 +631,8 @@ This version brings a wealth of tests and (backwards-compatible) refactoring, pl
 
 ## v1.5.4
 
-- [COOK-885] - update alternatives called on wrong file
-- [COOK-1607] - use shellout instead of execute resource to update alternatives
+- [COOK-885] update alternatives called on wrong file
+- [COOK-1607] use shellout instead of execute resource to update alternatives
 
 ## v1.5.2
 
