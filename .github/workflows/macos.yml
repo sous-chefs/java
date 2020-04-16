@@ -22,5 +22,6 @@ jobs:
             echo $SHELL
             kitchen converge adoptopenjdk-14-macos
             bash
+            source /etc/profile
             kitchen verify adoptopenjdk-14-macos
           # run: whoami && echo $HOME && echo $SHELL && echo $JAVA_HOME
