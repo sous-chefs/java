@@ -46,7 +46,7 @@ action :set do
           remove_cmd = shell_out("#{alternatives_cmd} --remove #{cmd} #{alt_path}")
           alternative_exists = false
           unless remove_cmd.exitstatus == 0
-            Chef::Application.fatal!(%( remove alternative failed ))
+            raise(%( remove alternative failed ))
           end
         end
       end
@@ -59,7 +59,7 @@ action :set do
           end
           install_cmd = shell_out("#{alternatives_cmd} --install #{bin_path} #{cmd} #{alt_path} #{priority}")
           unless install_cmd.exitstatus == 0
-            Chef::Application.fatal!(%( install alternative failed ))
+            raise(%( install alternative failed ))
           end
         end
       end
@@ -72,7 +72,7 @@ action :set do
         Chef::Log.debug "Setting alternative for #{cmd}"
         set_cmd = shell_out("#{alternatives_cmd} --set #{cmd} #{alt_path}")
         unless set_cmd.exitstatus == 0
-          Chef::Application.fatal!(%( set alternative failed ))
+          raise(%( set alternative failed ))
         end
       end
     end

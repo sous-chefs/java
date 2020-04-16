@@ -8,6 +8,10 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## 8.1.0 (tbc)
 
+- resolved cookstyle error: resources/alternatives.rb:49:13 refactor: `ChefCorrectness/ChefApplicationFatal`
+- resolved cookstyle error: resources/alternatives.rb:62:13 refactor: `ChefCorrectness/ChefApplicationFatal`
+- resolved cookstyle error: resources/alternatives.rb:75:11 refactor: `ChefCorrectness/ChefApplicationFatal`
+- resolved cookstyle error: resources/jce.rb:51:6 refactor: `ChefStyle/UnnecessaryOSCheck`
 - Added `openjdk_pkg_install` resource & documentation
 
 ## 8.0.1 (30-03-2020)
