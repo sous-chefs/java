@@ -45,6 +45,13 @@ action :install do
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
 
+  CI_USER = 'runner'
+
+  append_if_no_line 'User JAVA_HOME' do
+    path "/Users/#{CI_RUNNER}/.profile"
+    line "export JAVA_HOME=#{new_resource.java_home}"
+  end
+
   node.default['java']['java_home'] = new_resource.java_home
 end
 
