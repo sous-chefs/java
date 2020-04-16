@@ -18,5 +18,7 @@ jobs:
             CHEF_LICENSE: accept-no-persist
             KITCHEN_LOCAL_YAML: kitchen.macos.yml
             TERM: xterm-256color
-          run: kitchen test adoptopenjdk-14-macos
-          # run: whoami && echo $HOME && echo $SHELL
+          run: |
+            unset JAVA_HOME
+            kitchen test adoptopenjdk-14-macos
+          # run: whoami && echo $HOME && echo $SHELL && echo $JAVA_HOME
