@@ -70,12 +70,14 @@ control 'check-certificate' do
   end
 end
 
-control 'JAVA_HOME' do
-  impact 0.1
-  title 'Verify the JAVA_HOME is set correctly'
-  desc 'Verify that JAVA_HOME is set correctly and to the correct version in the bash profile'
+if os.darwin?
+  control 'JAVA_HOME' do
+    impact 0.1
+    title 'Verify the JAVA_HOME is set correctly'
+    desc 'Verify that JAVA_HOME is set correctly and to the correct version in the bash profile'
 
-  describe file('/etc/profile') do
-    its('content') { should match /JAVA_HOME/ }
+    describe file('/etc/profile') do
+      its('content') { should match /JAVA_HOME/ }
+    end
   end
 end
