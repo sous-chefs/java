@@ -45,12 +45,11 @@ action :install do
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
 
-  user = 'runner'
-
-  append_if_no_line 'User JAVA_HOME' do
-    path "/Users/#{user}/.profile"
+  append_if_no_line 'Java Home' do
+    path "/etc/zshrc"
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
+
 
   node.default['java']['java_home'] = new_resource.java_home
 end
