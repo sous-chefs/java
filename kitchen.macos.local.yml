@@ -2,6 +2,7 @@
 provisioner:
   name: chef_zero
   install_strategy: skip
+  channel: current
 
 platforms:
    - name: macos

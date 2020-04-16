@@ -70,12 +70,12 @@ control 'check-certificate' do
   end
 end
 
-control 'JAVA_HOME' do
-  impact 1.0
-  title 'Verify the JAVA_HOME is set correctly'
-  desc 'Verify that JAVA_HOME is set correctly and to the correct version'
+# control 'JAVA_HOME' do
+#   impact 0.1
+#   title 'Verify the JAVA_HOME is set correctly'
+#   desc 'Verify that JAVA_HOME is set correctly and to the correct version'
 
-  describe os_env('JAVA_HOME') do
-    its('content') { should include '14' }
-  end
-end
+#   describe os_env('JAVA_HOME') do
+#     its('content') { should match '14' }
+#   end
+# end
