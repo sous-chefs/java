@@ -4,12 +4,8 @@ certificate_sha256_checksum = attribute('certificate_sha256_checksum',
                                         value: '64:F3:3B:A7:EF:C3:5C:6B:2D:ED:95:0B:CB:4E:96:3B:12:97:B8:62:BA:1A:8E:30:13:B0:B0:59:77:12:31:EA',
                                         description: 'The SHA256 checksum of the certificate'
                                        )
-install_flavor = attribute('install_flavor',
-                           value: 'adoptopenjdk',
-                           description: 'The installation flavor used to install java')
-
 parent_install_dir = attribute('parent_install_dir',
-                      value: "java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-#{install_flavor}-#{variant}",
+                      value: "java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-adoptopenjdk-#{variant}",
                       description: 'The parent of the Java home')
 keystore_location = attribute('keystore_location',
                               value: nil,
@@ -26,7 +22,7 @@ control 'check-java-version' do
 
   match_java_version = "^openjdk version \"#{Regexp.escape(java_version.to_s)}[-_\"]"
   describe command('java -version 2>&1') do
-    its('stdout') { should match /AdoptOpenJDK/ }
+    its('stdout') { should match /AdoptOpenJDK/ } unless java_version.to_i == 1
     its('stdout') { should match match_java_version }
   end
 end
