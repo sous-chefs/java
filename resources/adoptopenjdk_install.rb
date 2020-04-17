@@ -1,5 +1,4 @@
 resource_name :adoptopenjdk_install
-include Java::Cookbook::AdoptOpenJdkHelpers
 default_action :install
 
 # Common options
