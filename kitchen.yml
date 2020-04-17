@@ -50,13 +50,13 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: {java_version: '12'}
 
-  - name: openjdk-13
+  - name: openjdk-14
     run_list:
       - recipe[test::openjdk]
-    attributes: {version: '13'}
+    attributes: {version: '14'}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: {java_version: '13'}
+      inputs: {java_version: '14'}
 
   # OpenJDK_PKG
   - name: openjdk-pkg-7
@@ -92,13 +92,13 @@ suites:
       - amazon-linux
       - debian-9
 
-  - name: openjdk-pkg-13
+  - name: openjdk-pkg-14
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: {version: '13'}
+    attributes: {version: '14'}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: {java_version: '13'}
+      inputs: {java_version: '14'}
     includes:
       - ubuntu-18.04
       - ubuntu-20.04
