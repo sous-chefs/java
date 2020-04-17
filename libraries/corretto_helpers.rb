@@ -11,9 +11,9 @@ module Java
 
       def default_corretto_checksum(version)
         if version.to_s == '8'
-          'e302fbd2d7354a2a8c5fa7491f4de1d73967104078da9671abada260b2f02fcd'
+          '7f08bc6097a14424bf09eb693304d48812099f29edb1d7326c6372a85b86b1df'
         else
-          'ceb676297a169c0f38bc3807fba9769f3a97ddf1e7522b92b85e97e11c35d3f4'
+          '24a487d594d10df540383c4c642444f969a00e616331d3dc3bdc4815ada71c0e'
         end
       end
 

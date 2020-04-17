@@ -1,15 +1,8 @@
 ---
-driver:
-  name: exec
-  host: localhost
-
 provisioner:
-  require_chef_omnibus: false
   name: chef_zero
   install_strategy: skip
-  chef_client_path: "/opt/chef-workstation/bin/chef-client"
-  deprecations_as_errors: false
-  sudo: true
+  channel: current
 
 platforms:
   - name: macos

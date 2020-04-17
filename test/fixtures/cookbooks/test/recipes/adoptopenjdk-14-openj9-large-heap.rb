@@ -1,6 +1,6 @@
 apt_update
 
-version = '13'
+version = '14'
 variant = 'openj9-large-heap'
 
 adoptopenjdk_install version do

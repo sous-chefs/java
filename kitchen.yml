@@ -5,7 +5,7 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: false
-  log_level: :info
+  # log_level: :info
 
 verifier:
   name: inspec
@@ -144,26 +144,26 @@ suites:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9-large-heap.yml]
 
-  # Version 13
-  - name: adoptopenjdk-13-openj9-large-heap
+  # Version 14
+  - name: adoptopenjdk-14-openj9-large-heap
     run_list:
-      - recipe[test::adoptopenjdk-13-openj9-large-heap]
+      - recipe[test::adoptopenjdk-14-openj9-large-heap]
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-13-openj9-large-heap.yml]
-  - name: adoptopenjdk-13-openj9
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-openj9-large-heap.yml]
+  - name: adoptopenjdk-14-openj9
     run_list:
-      - recipe[test::adoptopenjdk-13-openj9]
+      - recipe[test::adoptopenjdk-14-openj9]
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
-      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-13-openj9.yml]
-  - name: adoptopenjdk-13-hotspot
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-openj9.yml]
+  - name: adoptopenjdk-14-hotspot
     run_list:
-      - recipe[test::adoptopenjdk-13-hotspot]
+      - recipe[test::adoptopenjdk-14-hotspot]
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-13-hotspot.yml]
+      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-hotspot.yml]
 
   # 11 Removal
   - name: adoptopenjdk-removal-11-openj9

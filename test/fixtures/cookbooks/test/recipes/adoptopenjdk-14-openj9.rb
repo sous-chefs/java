@@ -1,11 +1,8 @@
 apt_update
 
-version = '13'
-variant = 'hotspot'
+version = '14'
 
-adoptopenjdk_install version do
-  variant variant
-end
+adoptopenjdk_install version
 
 cookbook_file '/tmp/java_certificate_test.pem' do
   source 'java_certificate_test.pem'

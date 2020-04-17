@@ -20,3 +20,5 @@ supports 'opensuseleap'
 source_url 'https://github.com/sous-chefs/java'
 issues_url 'https://github.com/sous-chefs/java/issues'
 chef_version '>= 15.0'
+
+depends 'line'
