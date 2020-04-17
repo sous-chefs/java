@@ -50,13 +50,13 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: {java_version: '12'}
 
-  - name: openjdk-14
+  - name: openjdk-13
     run_list:
       - recipe[test::openjdk]
-    attributes: {version: '14'}
+    attributes: {version: '13'}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: {java_version: '14'}
+      inputs: {java_version: '13'}
 
   # OpenJDK_PKG
   - name: openjdk-pkg-7
