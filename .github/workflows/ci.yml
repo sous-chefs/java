@@ -51,7 +51,7 @@ jobs:
         suite:
           - openjdk-11
           - openjdk-12
-          - openjdk-14
+          - openjdk-13
           - openjdk-pkg-8
           - openjdk-pkg-11
           - adoptopenjdk-8-openj9
