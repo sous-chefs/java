@@ -1,7 +1,7 @@
 resource_name :adoptopenjdk_macos_install
 include Java::Cookbook::AdoptOpenJdkMacOsHelpers
 
-property :tap_full, [true, false], default: true, description: 'Perform a full clone on the tap, as opposed to a shallow clon.'
+property :tap_full, [true, false], default: true, description: 'Perform a full clone on the tap, as opposed to a shallow clone'
 property :tap_url, String, description: 'The URL of the tap'
 property :cask_options, String, description: 'Options to pass to the brew command during installation'
 property :homebrew_path, String, description: 'The path to the homebrew binary'
