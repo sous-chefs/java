@@ -58,12 +58,12 @@ jobs:
           - adoptopenjdk-11-hotspot
           - adoptopenjdk-11-openj9
           - adoptopenjdk-11-openj9-large-heap
-          - adoptopenjdk-13-hotspot
-          - adoptopenjdk-13-openj9
-          - adoptopenjdk-13-openj9-large-heap
+          - adoptopenjdk-14-hotspot
+          - adoptopenjdk-14-openj9
+          - adoptopenjdk-14-openj9-large-heap
           - adoptopenjdk-removal-11-openj9
-          - corretto-11
-          - corretto-8
+          # - corretto-11
+          # - corretto-8
         include:
           - os: ubuntu-1804
             suite: openjdk-pkg-13
