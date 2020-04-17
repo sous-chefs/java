@@ -12,15 +12,17 @@ verifier:
 
 platforms:
   - name: amazonlinux-2
-  - name: centos-6
   - name: centos-7
+  - name: centos-8
   - name: debian-9
   - name: debian-10
   - name: freebsd-11
-  - name: fedora-29
-  - name: opensuse-leap-42
-  - name: ubuntu-16.04
+  - name: freebsd-12
+  - name: fedora-30
+  - name: fedora-31
+  - name: opensuse-leap-15
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
   # OpenJDK
@@ -64,9 +66,10 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '7'}
-    excludes:
-      - debian-9
-      - debian-10
+    includes:
+      - amazon-linux # Used for dokken kitchen support
+      - amazonlinux-2
+      - centos-7
 
   - name: openjdk-pkg-8
     run_list:
@@ -89,33 +92,15 @@ suites:
       - amazon-linux
       - debian-9
 
-  - name: openjdk-pkg-13
+  - name: openjdk-pkg-14
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: {version: '13'}
+    attributes: {version: '14'}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: {java_version: '13'}
-    excludes:
-      - amazon-linux
-      - amazonlinux-2
-      - centos-7
-      - debian-9
-      - debian-10
-
-  - name: openjdk-pkg-latest
-    run_list:
-      - recipe[test::openjdk_pkg]
-    attributes: {version: 'latest'}
-    verifier:
-      inspec_tests: [test/integration/openjdk_pkg]
-      inputs: {java_version: '13'}
-    excludes:
-      - amazon-linux
-      - amazonlinux-2
-      - centos-7
-      - debian-9
-      - debian-10
+      inputs: {java_version: '14'}
+    includes:
+      - ubuntu-20.04
 
   # AdoptOpenJDK
   # Version 8

@@ -17,11 +17,11 @@ This file is used to list changes made in each version of the Java cookbook.
 - Added documentation for adoptopenjdk_linux_install
 - Added documentation for adoptopenjdk_macos_install
 
-## 8.0.1 (30-03-2020)
+## 8.0.1 (2020-03-30)
 
 - Added documentation in documentation/resources for `adoptopenjdk_install`, `alternatives`, `certificate`, `corretto_install`, `jce`, `openjdk_install`
 
-## 8.0.0 (30-03-2020)
+## 8.0.0 (2020-03-30)
 
 - Added `openjdk_install` resource & documentation
 - Removed openjdk, corretto, default_java_symlink, ibm & ibm_tar, notify & oracle recipes

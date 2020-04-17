@@ -67,4 +67,11 @@ action :remove do
   package new_resource.pkg_names do
     action :remove
   end
+
+  if platform?('ubuntu')
+    apt_repository 'openjdk-r-ppa' do
+      uri 'ppa:openjdk-r'
+      action :remove
+    end
+  end
 end
