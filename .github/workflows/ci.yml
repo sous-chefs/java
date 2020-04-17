@@ -65,8 +65,6 @@ jobs:
           # - corretto-11
           # - corretto-8
         include:
-          - os: ubuntu-1804
-            suite: openjdk-pkg-14
           - os: ubuntu-2004
             suite: openjdk-pkg-14
         exclude:

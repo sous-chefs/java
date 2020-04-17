@@ -100,7 +100,6 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '14'}
     includes:
-      - ubuntu-18.04
       - ubuntu-20.04
 
   # AdoptOpenJDK
