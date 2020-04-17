@@ -26,6 +26,8 @@ Chef 15+
 ## Resources
 
 - [adoptopenjdk_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/adoptopenjdk_install.md)
+- [adoptopenjdk_linux_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/adoptopenjdk_linux_install.md)
+- [adoptopenjdk_macos_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/adoptopenjdk_macos_install.md)
 - [alternatives](https://github.com/sous-chefs/java/blob/master/documentation/resources/alternatives.md)
 - [certificate](https://github.com/sous-chefs/java/blob/master/documentation/resources/certificate.md)
 - [corretto_install](https://github.com/sous-chefs/java/blob/master/documentation/resources/corretto_install.md)
