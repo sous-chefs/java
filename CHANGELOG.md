@@ -4,13 +4,14 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Added MacOS support for AdoptOpenJDK
+
+## 8.1.0 (tbc)
+
 - resolved cookstyle error: resources/alternatives.rb:49:13 refactor: `ChefCorrectness/ChefApplicationFatal`
 - resolved cookstyle error: resources/alternatives.rb:62:13 refactor: `ChefCorrectness/ChefApplicationFatal`
 - resolved cookstyle error: resources/alternatives.rb:75:11 refactor: `ChefCorrectness/ChefApplicationFatal`
 - resolved cookstyle error: resources/jce.rb:51:6 refactor: `ChefStyle/UnnecessaryOSCheck`
-
-## 8.1.0 (10-04-2020)
-
 - Added `openjdk_pkg_install` resource & documentation
 
 ## 8.0.1 (30-03-2020)
@@ -630,8 +631,8 @@ This version brings a wealth of tests and (backwards-compatible) refactoring, pl
 
 ## v1.5.4
 
-- [COOK-885] - update alternatives called on wrong file
-- [COOK-1607] - use shellout instead of execute resource to update alternatives
+- [COOK-885] update alternatives called on wrong file
+- [COOK-1607] use shellout instead of execute resource to update alternatives
 
 ## v1.5.2
 

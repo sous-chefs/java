@@ -59,6 +59,22 @@ RSpec.describe Java::Cookbook::AdoptOpenJdkHelpers do
         expect(subject.sub_dir(url)).to eq 'jdk-11.0.6+10'
       end
     end
+
+    context 'AdoptOpenJDK 14 Hotspot' do
+      let(:url) { 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jdk_x64_linux_hotspot_14_36.tar.gz' }
+
+      it 'returns the correct folder name' do
+        expect(subject.sub_dir(url)).to eq 'jdk-14+36'
+      end
+    end
+
+    context 'AdoptOpenJDK 14 LargeHeap' do
+      let(:url) { 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jdk_x64_linux_openj9_linuxXL_14_36_openj9-0.19.0.tar.gz' }
+
+      it 'returns the correct folder name' do
+        expect(subject.sub_dir(url)).to eq 'jdk-14+36'
+      end
+    end
   end
 
   describe '#default_adopt_openjdk_url' do

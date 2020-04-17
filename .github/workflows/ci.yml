@@ -40,78 +40,27 @@ jobs:
     strategy:
       matrix:
         os:
-          - amazon-linux
-          - amazonlinux-2
-          - debian-9
-          - debian-10
-          - centos-7
-          - ubuntu-1604
-          - ubuntu-1804
-          - ubuntu-2004
+          - 'amazon-linux'
+          - 'debian-9'
+          - 'debian-10'
+          - 'centos-7'
+          - 'ubuntu-1604'
+          - 'ubuntu-1804'
         suite:
-          - openjdk-11
-          - openjdk-12
-          - openjdk-13
-          - openjdk-pkg-7
-          - openjdk-pkg-8
-          - openjdk-pkg-11
-          - openjdk-pkg-13
-          - openjdk-pkg-latest
-          - adoptopenjdk-8-openj9
-          - adoptopenjdk-11-hotspot
-          - adoptopenjdk-11-openj9
-          - adoptopenjdk-11-openj9-large-heap
-          - adoptopenjdk-13-hotspot
-          - adoptopenjdk-13-openj9
-          - adoptopenjdk-13-openj9-large-heap
-          - adoptopenjdk-removal-11-openj9
-          - corretto-11
-          - corretto-8
-        exclude:
-          - os: amazon-linux
-            suite: openjdk-pkg-11
-          - os: amazon-linux
-            suite: openjdk-pkg-13
-          - os: amazon-linux
-            suite: openjdk-pkg-latest
-          - os: amazonlinux-2
-            suite: openjdk-pkg-13
-          - os: amazonlinux-2
-            suite: openjdk-pkg-latest
-          - os: centos-7
-            suite: openjdk-pkg-13
-          - os: centos-7
-            suite: openjdk-pkg-latest
-          - os: debian-9
-            suite: openjdk-pkg-7
-          - os: debian-9
-            suite: openjdk-pkg-11
-          - os: debian-9
-            suite: openjdk-pkg-13
-          - os: debian-9
-            suite: openjdk-pkg-latest
-          - os: debian-10
-            suite: openjdk-pkg-7
-          - os: debian-10
-            suite: openjdk-pkg-8
-          - os: debian-10
-            suite: openjdk-pkg-13
-          - os: debian-10
-            suite: openjdk-pkg-latest
-          - os: ubuntu-1604
-            suite: openjdk-pkg-latest
-          - os: ubuntu-1804
-            suite: openjdk-pkg-7
-          - os: ubuntu-1804
-            suite: openjdk-pkg-13
-          - os: ubuntu-1804
-            suite: openjdk-pkg-latest
-          - os: ubuntu-2004
-            suite: openjdk-pkg-7
-          - os: ubuntu-2004
-            suite: openjdk-pkg-latest
+          - 'openjdk-11'
+          - 'openjdk-12'
+          - 'openjdk-13'
+          - 'adoptopenjdk-8-openj9'
+          - 'adoptopenjdk-11-hotspot'
+          - 'adoptopenjdk-11-openj9'
+          - 'adoptopenjdk-11-openj9-large-heap'
+          - 'adoptopenjdk-14-hotspot'
+          - 'adoptopenjdk-14-openj9'
+          - 'adoptopenjdk-14-openj9-large-heap'
+          - 'adoptopenjdk-removal-11-openj9'
+          # - 'corretto-11'
+          # - 'corretto-8'
       fail-fast: false
-
     steps:
       - name: Check out code
         uses: actions/checkout@master
@@ -125,6 +74,27 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
+
+  macos:
+    needs: [mdl, yamllint, delivery]
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: Run Test Kitchen
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.macos.yml
+          TERM: xterm-256color
+        run: |
+          kitchen converge adoptopenjdk-14-macos
+          source /etc/profile
+          echo "sourced profile for JAVA_HOME"
+          echo "New JAVA home after Chef run is: ${JAVA_HOME}"
+          kitchen verify adoptopenjdk-14-macos
+
 
   final:
     needs: [dokken]

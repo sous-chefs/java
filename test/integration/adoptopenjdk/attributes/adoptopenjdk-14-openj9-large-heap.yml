@@ -1,0 +1,4 @@
+---
+java_version: 14
+variant: "openj9-large-heap"
+keystore_location: '/usr/lib/jvm/java-14-adoptopenjdk-openj9-large-heap/jdk-14+36/lib/security/cacerts'
