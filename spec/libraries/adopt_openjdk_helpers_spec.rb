@@ -77,7 +77,6 @@ RSpec.describe Java::Cookbook::AdoptOpenJdkHelpers do
     end
   end
 
-
   describe '#default_adopt_openjdk_url' do
     before do
       allow(subject).to receive(:[]).with('version').and_return(version)

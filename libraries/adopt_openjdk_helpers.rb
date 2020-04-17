@@ -11,7 +11,7 @@ module Java
           result = f.split('_').first
         when /jdk-14/
           result = f.split('_').first.gsub('%2B', '+')
-          result = result.slice(0..(result.index('.')-1)) if result.include? '.'
+          result = result.slice(0..(result.index('.') - 1)) if result.include? '.'
           result
         else
           result = f.split('_').first.gsub('%2B', '+')
