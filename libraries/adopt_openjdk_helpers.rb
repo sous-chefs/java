@@ -34,7 +34,7 @@ module Java
           {
             'hotspot' => 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36/OpenJDK14U-jdk_x64_linux_hotspot_14_36.tar.gz',
             'openj9' => 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jdk_x64_linux_openj9_14_36_openj9-0.19.0.tar.gz',
-            'openj9-large' => 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jdk_x64_linux_openj9_linuxXL_14_36_openj9-0.19.0.tar.gz'
+            'openj9-large' => 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14%2B36.1_openj9-0.19.0/OpenJDK14U-jdk_x64_linux_openj9_linuxXL_14_36_openj9-0.19.0.tar.gz',
           }
         else
           Chef::Log.fatal('Version specified does not have a URL value set')
