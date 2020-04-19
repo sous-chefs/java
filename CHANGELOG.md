@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+## 8.1.1 (2020-04-19)
+
 - Fix JAVA_HOME for `adoptopenjdk_linux_install` resource
 
 ## 8.1.0 (2020-04-19)
