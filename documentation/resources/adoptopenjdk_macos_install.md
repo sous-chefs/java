@@ -2,7 +2,7 @@
 
 # adoptopenjdk_macos_install
 
-Introduced: v7.0.0
+Introduced: v8.1.0
 
 ## Actions
 

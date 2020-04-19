@@ -4,18 +4,18 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-## 8.1.0 (tbc)
+## 8.1.0 (2020-04-19)
 
-- Resolved cookstyle error: resources/alternatives.rb:49:13 refactor: `ChefCorrectness/ChefApplicationFatal`
-- Resolved cookstyle error: resources/alternatives.rb:62:13 refactor: `ChefCorrectness/ChefApplicationFatal`
-- Resolved cookstyle error: resources/alternatives.rb:75:11 refactor: `ChefCorrectness/ChefApplicationFatal`
-- Resolved cookstyle error: resources/jce.rb:51:6 refactor: `ChefStyle/UnnecessaryOSCheck`
 - Added `openjdk_pkg_install` resource
 - Added documentation for openjdk_pkg_install
 - Added `adoptopenjdk_linux_install` resource
 - Added `adoptopenjdk_macos_install` resource
-- Added documentation for adoptopenjdk_linux_install
-- Added documentation for adoptopenjdk_macos_install
+- Added documentation for `adoptopenjdk_linux_install`
+- Added documentation for `adoptopenjdk_macos_install`
+- Resolved cookstyle error: resources/alternatives.rb:49:13 refactor: `ChefCorrectness/ChefApplicationFatal`
+- Resolved cookstyle error: resources/alternatives.rb:62:13 refactor: `ChefCorrectness/ChefApplicationFatal`
+- Resolved cookstyle error: resources/alternatives.rb:75:11 refactor: `ChefCorrectness/ChefApplicationFatal`
+- Resolved cookstyle error: resources/jce.rb:51:6 refactor: `ChefStyle/UnnecessaryOSCheck`
 
 ## 8.0.1 (2020-03-30)
 
