@@ -124,7 +124,7 @@ jobs:
           action: verify
 
   final:
-    needs: [dokken]
+    needs: [dokken, macos]
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
