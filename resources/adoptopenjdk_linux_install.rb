@@ -87,7 +87,7 @@ action :install do
   node.default['java']['java_home'] = new_resource.java_home
 
   append_if_no_line 'Java Home' do
-    path '/etc/profile.d/jdk.sh'
+    path '/etc/profile.d/java.sh'
     line "export JAVA_HOME=#{new_resource.java_home}"
   end
 end
