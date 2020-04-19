@@ -1,11 +1,11 @@
 ---
 driver:
   name: vagrant
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  env: [CHEF_LICENSE=accept]
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: false
-  # log_level: :info
 
 verifier:
   name: inspec
