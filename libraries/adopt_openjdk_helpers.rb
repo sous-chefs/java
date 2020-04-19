@@ -4,7 +4,6 @@ module Java
       def sub_dir(url)
         uri = URI.parse(url)
         f = uri.path.split('/')[-2]
-        puts f
 
         case f
         when /jdk8/
