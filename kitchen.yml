@@ -1,11 +1,11 @@
 ---
 driver:
   name: vagrant
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  env: [CHEF_LICENSE=accept]
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: false
-  # log_level: :info
 
 verifier:
   name: inspec
@@ -66,10 +66,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '7'}
-    includes:
-      - amazon-linux # Used for dokken kitchen support
-      - amazonlinux-2
-      - centos-7
+    includes: ["amazon-linux", "amazonlinux-2", "centos-7"]
 
   - name: openjdk-pkg-8
     run_list:
@@ -78,8 +75,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '8'}
-    excludes:
-      - debian-10
+    excludes: ["debian-10"]
 
   - name: openjdk-pkg-11
     run_list:
@@ -88,9 +84,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '11'}
-    excludes:
-      - amazon-linux
-      - debian-9
+    excludes: ["amazon-linux", "debian-9"]
 
   - name: openjdk-pkg-14
     run_list:
@@ -99,8 +93,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: '14'}
-    includes:
-      - ubuntu-20.04
+    includes: [ubuntu-20.04]
 
   # AdoptOpenJDK
   # Version 8
