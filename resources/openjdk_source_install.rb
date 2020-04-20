@@ -1,21 +1,22 @@
-resource_name :corretto_install
-include Java::Cookbook::CorrettoHelpers
+resource_name :openjdk_install
+include Java::Cookbook::OpenJdkHelpers
+default_action :install
 
-property :version, String, name_property: true, description: 'Java version to install'
-property :full_version, String,
-  description: 'Used to configure the package directory, change this is the version installed by the package is no longer correct'
+property :version, String,
+  name_property: true,
+  description: 'Java version to install'
 
 property :url, String,
-  default: lazy { default_corretto_url(version) },
+  default: lazy { default_openjdk_url(version) },
   description: 'The URL to download from'
 
 property :checksum, String,
   regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/,
-  default: lazy { default_corretto_checksum(version) },
+  default: lazy { default_openjdk_checksum(version) },
   description: 'The checksum for the downloaded file'
 
 property :java_home, String,
-  default: lazy { "/usr/lib/jvm/java-#{version}-corretto/#{corretto_sub_dir(version, full_version)}" },
+  default: lazy { "/usr/lib/jvm/java-#{version}-openjdk/jdk-#{version}" },
   description: 'Set to override the java_home'
 
 property :java_home_mode, String,
@@ -35,7 +36,7 @@ property :default, [true, false],
   description: ' Whether to set this as the defalut Java'
 
 property :bin_cmds, Array,
-  default: lazy { default_corretto_bin_cmds(version) },
+  default: lazy { default_openjdk_bin_cmds(version) },
   description: 'A list of bin_cmds based on the version and variant'
 
 property :alternatives_priority, Integer,
@@ -71,21 +72,6 @@ action :install do
   end
 
   node.default['java']['java_home'] = new_resource.java_home
-
-  # Set up .jinfo file for update-java-alternatives
-  template "/usr/lib/jvm/.java-#{new_resource.version}-corretto.jinfo" do
-    cookbook 'java'
-    source 'jinfo.erb'
-    owner new_resource.java_home_owner
-    group new_resource.java_home_group
-    variables(
-      priority: new_resource.alternatives_priority,
-      bin_cmds: new_resource.bin_cmds,
-      name: extract_dir.split('/').last,
-      app_dir: new_resource.java_home
-    )
-    only_if { platform_family?('debian') }
-  end
 
   java_alternatives 'set-java-alternatives' do
     java_location new_resource.java_home
