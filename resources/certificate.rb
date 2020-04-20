@@ -17,15 +17,33 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+property :cert_alias, String,
+  name_property: true,
+  description: 'The alias of the certificate in the keystore. This defaults to the name of the resource'
 
-property :java_home, String, default: lazy { node['java']['java_home'] }, description: 'The java home directory'
-property :java_version, String, default: lazy { node['java']['jdk_version'] }, description: ' The java version'
-property :keystore_path, String, description: 'Path to the keystore'
-property :keystore_passwd, String, default: 'changeit', description: 'Password to the keystore'
-property :cert_alias, String, name_property: true, description: 'The alias of the certificate in the keystore. This defaults to the name of the resource'
-property :cert_data, String, description: 'The certificate data to install'
-property :cert_file, String, description: 'Path to a certificate file to install'
-property :ssl_endpoint, String, description: 'An SSL end-point from which to download the certificate'
+property :java_home, String,
+  default: lazy { node['java']['java_home'] },
+  description: 'The java home directory'
+
+property :java_version, String,
+  default: lazy { node['java']['jdk_version'] },
+  description: ' The java version'
+
+property :keystore_path, String,
+  description: 'Path to the keystore'
+
+property :keystore_passwd, String,
+  default: 'changeit',
+  description: 'Password to the keystore'
+
+property :cert_data, String,
+  description: 'The certificate data to install'
+
+property :cert_file, String,
+  description: 'Path to a certificate file to install'
+
+property :ssl_endpoint, String,
+  description: 'An SSL end-point from which to download the certificate'
 
 action :install do
   require 'openssl'

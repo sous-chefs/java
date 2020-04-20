@@ -4,6 +4,12 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+## 8.1.2 (2020-04-20)
+
+- Add OpenJDK source install resource
+- Add documentation for openjdk_source_install
+- Default the openjdk_install resource to install using the package manager by default
+
 ## 8.1.1 (2020-04-19)
 
 - Fix JAVA_HOME for `adoptopenjdk_linux_install` resource
