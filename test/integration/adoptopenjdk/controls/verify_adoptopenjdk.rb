@@ -20,10 +20,9 @@ control 'check-java-version' do
   title 'Verify java version'
   desc 'Verify the correct version of java is installed'
 
-  match_java_version = "^openjdk version \"#{Regexp.escape(java_version.to_s)}[-_\"]"
   describe command('java -version 2>&1') do
     its('stdout') { should match /AdoptOpenJDK/ } unless java_version.to_i == 1
-    its('stdout') { should match match_java_version }
+    its('stdout') { should match Regexp.new(java_version.to_s) }
   end
 end
 
