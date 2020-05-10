@@ -81,7 +81,7 @@ jobs:
       - name: Install Chef
         uses: actionshub/chef-install@master
       - name: Dokken
-        uses: actionshub/kitchen-dokken@master
+        uses: actionshub/test-kitchen@master
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -97,21 +97,36 @@ jobs:
         uses: actions/checkout@master
       - name: Install Chef
         uses: actionshub/chef-install@master
-      - name: Run Test Kitchen
+      - name: Kitchen Converge
+        uses: actionshub/test-kitchen@master
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
           TERM: xterm-256color
+        with:
+          suite: adoptopenjdk-14
+          os: macos
+          action: converge
+      - name: Source Profile for JAVA_HOME
         run: |
-          kitchen converge adoptopenjdk-14-macos
           source /etc/profile
           echo "sourced profile for JAVA_HOME"
           echo "New JAVA home after Chef run is: ${JAVA_HOME}"
-          kitchen verify adoptopenjdk-14-macos
-
+          # Magic line for github actions to persist the change
+          echo ::set-env name=JAVA_HOME::$(echo ${JAVA_HOME})
+      - name: Kitchen Verify
+        uses: actionshub/test-kitchen@master
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.macos.yml
+          TERM: xterm-256color
+        with:
+          suite: adoptopenjdk-14
+          os: macos
+          action: verify
 
   final:
-    needs: [dokken]
+    needs: [dokken, macos]
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
