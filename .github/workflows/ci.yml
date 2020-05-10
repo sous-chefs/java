@@ -34,60 +34,60 @@ jobs:
       - name: Run Markdown Lint
         uses: actionshub/markdownlint@master
 
-  dokken:
-    needs: [mdl, yamllint, delivery]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - amazon-linux
-          - amazonlinux-2
-          - debian-9
-          - debian-10
-          - centos-7
-          - centos-8
-          - ubuntu-1804
-          - ubuntu-2004
-        suite:
-          - openjdk-11
-          - openjdk-12
-          - openjdk-13
-          - openjdk-pkg-8
-          - openjdk-pkg-11
-          - adoptopenjdk-8-openj9
-          - adoptopenjdk-11-hotspot
-          - adoptopenjdk-11-openj9
-          - adoptopenjdk-11-openj9-large-heap
-          - adoptopenjdk-14-hotspot
-          - adoptopenjdk-14-openj9
-          - adoptopenjdk-14-openj9-large-heap
-          - adoptopenjdk-removal-11-openj9
-          # - corretto-11
-          # - corretto-8
-        include:
-          - os: ubuntu-2004
-            suite: openjdk-pkg-14
-        exclude:
-          - os: amazon-linux
-            suite: openjdk-pkg-11
-          - os: debian-9
-            suite: openjdk-pkg-11
-          - os: debian-10
-            suite: openjdk-pkg-8
-      fail-fast: false
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Install Chef
-        uses: actionshub/chef-install@master
-      - name: Dokken
-        uses: actionshub/test-kitchen@master
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
+  # dokken:
+  #   needs: [mdl, yamllint, delivery]
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - amazon-linux
+  #         - amazonlinux-2
+  #         - debian-9
+  #         - debian-10
+  #         - centos-7
+  #         - centos-8
+  #         - ubuntu-1804
+  #         - ubuntu-2004
+  #       suite:
+  #         - openjdk-11
+  #         - openjdk-12
+  #         - openjdk-13
+  #         - openjdk-pkg-8
+  #         - openjdk-pkg-11
+  #         - adoptopenjdk-8-openj9
+  #         - adoptopenjdk-11-hotspot
+  #         - adoptopenjdk-11-openj9
+  #         - adoptopenjdk-11-openj9-large-heap
+  #         - adoptopenjdk-14-hotspot
+  #         - adoptopenjdk-14-openj9
+  #         - adoptopenjdk-14-openj9-large-heap
+  #         - adoptopenjdk-removal-11-openj9
+  #         # - corretto-11
+  #         # - corretto-8
+  #       include:
+  #         - os: ubuntu-2004
+  #           suite: openjdk-pkg-14
+  #       exclude:
+  #         - os: amazon-linux
+  #           suite: openjdk-pkg-11
+  #         - os: debian-9
+  #           suite: openjdk-pkg-11
+  #         - os: debian-10
+  #           suite: openjdk-pkg-8
+  #     fail-fast: false
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@master
+  #     - name: Install Chef
+  #       uses: actionshub/chef-install@master
+  #     - name: Dokken
+  #       uses: actionshub/test-kitchen@master
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
+  #         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+  #       with:
+  #         suite: ${{ matrix.suite }}
+  #         os: ${{ matrix.os }}
 
   macos:
     needs: [mdl, yamllint, delivery]
@@ -112,6 +112,7 @@ jobs:
           source /etc/profile
           echo "sourced profile for JAVA_HOME"
           echo "New JAVA home after Chef run is: ${JAVA_HOME}"
+          echo ::set-env name=JAVA_HOME::$(echo ${JAVA_HOME})
       - name: Kitchen Verify
         uses: actionshub/test-kitchen@master
         env:
