@@ -118,7 +118,8 @@ action :remove do
   cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep \"#{certalias}\"")
   cmd.run_command
   has_key = !cmd.stdout[/Alias name: #{certalias}/].nil?
-  Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
+  does_not_exist = cmd.stdout[/Alias <#{certalias}> does not exist/].nil?
+  Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless (cmd.exitstatus == 0) || does_not_exist
 
   if has_key
     converge_by("remove certificate #{certalias} from #{truststore}") do
@@ -131,7 +132,7 @@ action :remove do
     end
   end
 
-  FileUtils.rm_f("#{new_reource.download_path}/#{certalias}.cert.*")
+  FileUtils.rm_f("#{Chef::Config[:file_cache_path]}/#{certalias}.cert.*")
 end
 
 action_class do
