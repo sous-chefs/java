@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Fixed java_certificate resource :remove bugs preventing removal
+
 ## 8.1.2 (2020-04-20)
 
 - Add OpenJDK source install resource
