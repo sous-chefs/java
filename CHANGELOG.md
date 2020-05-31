@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
+- Migrate resources from `resource_name` to `provides` to fix issue with Chef 16.2
+
 ## 8.2.0 (2020-05-22)
 
 - Fixed java_certificate resource :remove bugs preventing removal

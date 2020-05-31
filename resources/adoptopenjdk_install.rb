@@ -1,4 +1,4 @@
-resource_name :adoptopenjdk_install
+provides :adoptopenjdk_install
 default_action :install
 
 # Common options
