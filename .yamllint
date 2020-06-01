@@ -1,7 +1,6 @@
 ---
 extends: default
-ignore: .kitchen/
 rules:
   line-length:
-    max: 120
+    max: 256
     level: warning
