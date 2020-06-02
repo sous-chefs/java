@@ -2,9 +2,15 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 8.2.1 (2020-06-02)
 
-- Migrate resources from `resource_name` to `provides` to fix issue with Chef 16.2
+- resolved cookstyle error: resources/adoptopenjdk_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- resolved cookstyle error: resources/adoptopenjdk_linux_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- resolved cookstyle error: resources/adoptopenjdk_macos_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- resolved cookstyle error: resources/corretto_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- resolved cookstyle error: resources/openjdk_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- resolved cookstyle error: resources/openjdk_pkg_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
+- resolved cookstyle error: resources/openjdk_source_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
 
 ## 8.2.0 (2020-05-22)
 
