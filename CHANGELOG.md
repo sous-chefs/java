@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 8.2.1 (2020-06-02)
 
 - resolved cookstyle error: resources/adoptopenjdk_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
 - resolved cookstyle error: resources/adoptopenjdk_linux_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
