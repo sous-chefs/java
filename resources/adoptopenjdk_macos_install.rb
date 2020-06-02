@@ -1,4 +1,4 @@
-resource_name :adoptopenjdk_macos_install
+provides :adoptopenjdk_macos_install
 include Java::Cookbook::AdoptOpenJdkMacOsHelpers
 
 property :tap_full, [true, false],
