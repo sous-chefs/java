@@ -1,4 +1,6 @@
+resource_name :corretto_install
 provides :corretto_install
+
 include Java::Cookbook::CorrettoHelpers
 
 property :version, String, name_property: true, description: 'Java version to install'

@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## UNRELEASED
+
+- Restore compatibility with Chef Infra Client < 16
+- Update Fedora releases in the Kitchen configs
+
 ## 8.2.1 (2020-06-02)
 
 - resolved cookstyle error: resources/adoptopenjdk_install.rb:1:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`

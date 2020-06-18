@@ -1,4 +1,6 @@
+resource_name :adoptopenjdk_linux_install
 provides :adoptopenjdk_linux_install
+
 include Java::Cookbook::AdoptOpenJdkHelpers
 property :version, String, name_property: true, description: 'Java version to install'
 

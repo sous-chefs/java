@@ -1,4 +1,6 @@
+resource_name :openjdk_pkg_install
 provides :openjdk_pkg_install
+
 include Java::Cookbook::OpenJdkHelpers
 default_action :install
 
