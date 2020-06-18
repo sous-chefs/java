@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## UNRELEASED
+## 8.3.0 (2020-06-18)
 
 - Restore compatibility with Chef Infra Client < 16
 - Update Fedora releases in the Kitchen configs
