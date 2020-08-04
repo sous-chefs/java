@@ -2,23 +2,35 @@ module Java
   module Cookbook
     module AdoptOpenJdkHelpers
       def sub_dir(url)
-        uri = URI.parse(url)
-        f = uri.path.split('/')[-2]
+        if url.start_with?('https://github.com/AdoptOpenJDK/openjdk') # default url
+          uri = URI.parse(url)
+          f = uri.path.split('/')[-2]
 
-        case f
-        when /jdk8/
-          result = f.split('_').first
-        when /jdk-14/
-          result = f.split('_').first.gsub('%2B', '+')
-          result = result.slice(0..(result.index('.') - 1)) if result.include? '.'
+          case f
+          when /jdk8/
+            result = f.split('_').first
+          when /jdk-14/
+            result = f.split('_').first.gsub('%2B', '+')
+            result = result.slice(0..(result.index('.') - 1)) if result.include? '.'
+            result
+          else
+            result = f.split('_').first.gsub('%2B', '+')
+          end
+
+          raise("Failed to parse #{f} for directory name!") if result.empty?
+
           result
-        else
-          result = f.split('_').first.gsub('%2B', '+')
+
+        else # custom url
+          # assuming URL like url.of/custom/location/OpenJDK$VER-jdk_x64_linux_$VARIANT_$HASH.tar.gz
+          # get file basename, remove extention, get hash
+          hash = url.split('/')[-1].split('.')[0].split('_')[-1]
+
+          raise("Failed to parse #{f} for directory name!") if hash.empty?
+
+          # dir is `(...)/jdkAAAAA-BBB for 8-char hash AAAAABBB
+          "jdk#{hash[0..4]}-#{hash[-3..-1]}"
         end
-
-        raise("Failed to parse #{f} for directory name!") if result.empty?
-
-        result
       end
 
       def default_adopt_openjdk_url(version)

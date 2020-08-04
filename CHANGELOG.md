@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
+- Extract correct JAVA_HOME from custom URLs
+
 ## 8.3.0 (2020-06-18)
 
 - Restore compatibility with Chef Infra Client < 16
