@@ -181,9 +181,9 @@ suites:
       inspec_tests: [test/integration/corretto]
       inputs: {java_version: '11'}
 
+  # Custom URL test
   - name: custom-package
     run_list:
       - recipe[test::custom_package]
     verifier:
       inspec_tests: [test/integration/custom-package]
-
