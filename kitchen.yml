@@ -215,7 +215,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/custom-package]
       input_files: [test/integration/custom-package/attributes/openj9-11.yml]
-  - name: custom-package-11-openj9-largeheap
+  - name: custom-package-11-openj9-large-heap
     run_list:
       - recipe[test::custom_package]
     attributes:
@@ -225,4 +225,4 @@ suites:
       checksum: 6524d85d2ce334c955a4347015567326067ef15fe5f6a805714b25cace256f40
     verifier:
       inspec_tests: [test/integration/custom-package]
-      input_files: [test/integration/custom-package/attributes/openj9-largeheap-11.yml]
+      input_files: [test/integration/custom-package/attributes/openj9-large-heap-11.yml]
