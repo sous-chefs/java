@@ -22,14 +22,19 @@ module Java
           result
 
         else # custom url
-          # assuming URL like url.of/custom/location/OpenJDK$VER-jdk_x64_linux_$VARIANT_$HASH.tar.gz
-          # get file basename, remove extention, get hash
-          hash = url.split('/')[-1].split('.')[0].split('_')[-1]
+          # get file basename without extension
+          basename = url.split('/')[-1].gsub('.tar.gz', '')
 
-          raise("Failed to parse #{f} for directory name!") if hash.empty?
+          # Get version number from start of filename
+          case (basename.scan /\d+/)[0]
+          when '8'
+            ver = basename.split('_')[-1]
+            "jdk#{ver[0..4]}-#{ver[-3..-1]}"
+          else
+            ver = basename.split('_')
+            "jdk-#{ver[-2]}+#{ver[-1]}"
+          end
 
-          # dir is `(...)/jdkAAAAA-BBB for 8-char hash AAAAABBB
-          "jdk#{hash[0..4]}-#{hash[-3..-1]}"
         end
       end
 

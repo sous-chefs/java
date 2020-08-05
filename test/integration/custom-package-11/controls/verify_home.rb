@@ -4,14 +4,14 @@ control 'Custom URL JAVA_HOME' do
   desc 'Custom URL install sets JAVA_HOME properly'
 
   describe command('java -version 2>&1') do
-    its('stdout') { should match 'openjdk version "1.8.0_232"' }
+    its('stdout') { should match 'openjdk version "11.0.7"' }
   end
 
-  describe directory('/usr/lib/jvm/java-8-adoptopenjdk-hotspot/jdk8u232-b09') do
+  describe directory('/usr/lib/jvm/java-11-adoptopenjdk-hotspot/') do
     it { should exist }
   end
 
   describe file('/etc/profile.d/java.sh') do
-    its('content') { should match %r{JAVA_HOME=/usr/lib/jvm/java-8-adoptopenjdk-hotspot/jdk8u232-b09} }
+    its('content') { should match 'JAVA_HOME=/usr/lib/jvm/java-11-adoptopenjdk-hotspot/jdk-11.0.7\+10' }
   end
 end

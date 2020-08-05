@@ -58,7 +58,7 @@ Introduced: v8.1.0
 
 ## Examples
 
-To install Hotspot AdoptOpenJDK 11 and set it as the default Java
+To install Hotspot AdoptOpenJDK 11 and set it as the default Java:
 
 ```ruby
 adoptopenjdk_macos_install 'adoptopenjdk14-jre'

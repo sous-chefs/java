@@ -27,13 +27,13 @@ Introduced: v8.0.0
 
 ## Examples
 
-To install OpenJDK 11 and set it as the default Java
+To install OpenJDK 11 and set it as the default Java:
 
 ```ruby
 openjdk_install '11'
 ```
 
-To install OpenJDK 11 and set it as second highest priority
+To install OpenJDK 11 and set it as second highest priority:
 
 ```ruby
 openjdk_install '11' do

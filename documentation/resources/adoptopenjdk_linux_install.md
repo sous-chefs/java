@@ -26,17 +26,27 @@ Introduced: v8.1.0
 
 ## Examples
 
-To install Hotspot AdoptOpenJDK 11 and set it as the default Java
+To install Hotspot AdoptOpenJDK 11 and set it as the default Java:
 
 ```ruby
 adoptopenjdk_linux_install1 '11'
 ```
 
-To install hotspot AdoptOpenJDK 11 and set it as second highest priority
+To install hotspot AdoptOpenJDK 11 and set it as second highest priority:
 
 ```ruby
 adoptopenjdk_linux_install1 '10' do
   variant 'hotspot'
   alternatives_priority 2
+end
+```
+
+To install AdoptOpenJDK 11 from a custom tarball:
+
+```ruby
+adoptopenjdk_install '11' do
+  variant 'hotspot'
+  url 'http://url.of/path/to/OpenJDK11U-jdk_x64_linux_hotspot_11.0.7_10.tar.gz'
+  checksum asdfasdfasdf
 end
 ```

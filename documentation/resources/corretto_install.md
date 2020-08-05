@@ -28,13 +28,13 @@ Introduced: v8.0.0
 
 ## Examples
 
-To install Corretto 11 and set it as the default Java
+To install Corretto 11 and set it as the default Java:
 
 ```ruby
 corretto_install '11'
 ```
 
-To install Corretto 11 and set it as second highest priority
+To install Corretto 11 and set it as second highest priority:
 
 ```ruby
 corretto_install '8' do
