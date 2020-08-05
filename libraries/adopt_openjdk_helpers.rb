@@ -2,49 +2,28 @@ module Java
   module Cookbook
     module AdoptOpenJdkHelpers
       def sub_dir(url)
-        if url.start_with?('https://github.com/AdoptOpenJDK/openjdk') # default url
-          uri = URI.parse(url)
-          f = uri.path.split('/')[-2]
+        # get file basename without extension
+        basename = url.split('/')[-1].gsub('.tar.gz', '')
 
-          case f
-          when /jdk8/
-            result = f.split('_').first
-          when /jdk-14/
-            result = f.split('_').first.gsub('%2B', '+')
-            result = result.slice(0..(result.index('.') - 1)) if result.include? '.'
-            result
+        if basename.include?('linuxXL')
+          # Get version number from start of filename
+          case (basename.scan /\d+/)[0]
+          when '8'
+            ver = basename.split('_')[5]
+            "jdk#{ver[0..4]}-#{ver[-3..-1]}"
           else
-            result = f.split('_').first.gsub('%2B', '+')
+            ver = basename.split('_')
+            "jdk-#{ver[5]}+#{ver[6]}"
           end
-
-          raise("Failed to parse #{f} for directory name!") if result.empty?
-
-          result
-
-        else # custom url
-          # get file basename without extension
-          basename = url.split('/')[-1].gsub('.tar.gz', '')
-
-          if basename.include?('linuxXL')
-            # Get version number from start of filename
-            case (basename.scan /\d+/)[0]
-            when '8'
-              ver = basename.split('_')[5]
-              "jdk#{ver[0..4]}-#{ver[-3..-1]}"
-            else
-              ver = basename.split('_')
-              "jdk-#{ver[5]}+#{ver[6]}"
-            end
+        else
+          # Get version number from start of filename
+          case (basename.scan /\d+/)[0]
+          when '8'
+            ver = basename.split('_')[4]
+            "jdk#{ver[0..4]}-#{ver[-3..-1]}"
           else
-            # Get version number from start of filename
-            case (basename.scan /\d+/)[0]
-            when '8'
-              ver = basename.split('_')[4]
-              "jdk#{ver[0..4]}-#{ver[-3..-1]}"
-            else
-              ver = basename.split('_')
-              "jdk-#{ver[4]}+#{ver[5]}"
-            end
+            ver = basename.split('_')
+            "jdk-#{ver[4]}+#{ver[5]}"
           end
         end
       end
