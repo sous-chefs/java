@@ -54,6 +54,6 @@ To install AdoptOpenJDK 11 from a custom tarball:
 adoptopenjdk_install '11' do
   variant 'hotspot'
   url 'http://url.of/path/to/OpenJDK11U-jdk_x64_linux_hotspot_11.0.7_10.tar.gz'
-  checksum asdfasdfasdf
+  checksum 'asdfasdfasdf'
 end
 ```

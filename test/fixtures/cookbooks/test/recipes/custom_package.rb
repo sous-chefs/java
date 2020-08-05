@@ -1,5 +1,5 @@
 adoptopenjdk_install node['version'] do
-  variant 'hotspot'
+  variant node['variant']
   url node['url']
   checksum node['checksum']
   default true
