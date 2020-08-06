@@ -180,3 +180,49 @@ suites:
     verifier:
       inspec_tests: [test/integration/corretto]
       inputs: {java_version: '11'}
+
+  # Custom URL tests
+  - name: custom-package-8
+    run_list:
+      - recipe[test::custom_package]
+    attributes:
+      version: 8
+      variant: hotspot
+      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
+      checksum: 7b7884f2eb2ba2d47f4c0bf3bb1a2a95b73a3a7734bd47ebf9798483a7bcc423
+    verifier:
+      inspec_tests: [test/integration/custom-package]
+      input_files: [test/integration/custom-package/attributes/hotspot-8.yml]
+  - name: custom-package-11
+    run_list:
+      - recipe[test::custom_package]
+    attributes:
+      version: 11
+      variant: hotspot
+      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_hotspot_11.0.6_10.tar.gz
+      checksum: 330d19a2eaa07ed02757d7a785a77bab49f5ee710ea03b4ee2fa220ddd0feffc
+    verifier:
+      inspec_tests: [test/integration/custom-package]
+      input_files: [test/integration/custom-package/attributes/hotspot-11.yml]
+  - name: custom-package-11-openj9
+    run_list:
+      - recipe[test::custom_package]
+    attributes:
+      version: 11
+      variant: openj9
+      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_openj9_11.0.6_10_openj9-0.18.1.tar.gz
+      checksum: 1530172ee98edd129954fcdca1bf725f7b30c8bfc3cdc381c88de96b7d19e690
+    verifier:
+      inspec_tests: [test/integration/custom-package]
+      input_files: [test/integration/custom-package/attributes/openj9-11.yml]
+  - name: custom-package-11-openj9-large-heap
+    run_list:
+      - recipe[test::custom_package]
+    attributes:
+      version: 11
+      variant: openj9-large-heap
+      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_openj9_linuxXL_11.0.6_10_openj9-0.18.1.tar.gz
+      checksum: 6524d85d2ce334c955a4347015567326067ef15fe5f6a805714b25cace256f40
+    verifier:
+      inspec_tests: [test/integration/custom-package]
+      input_files: [test/integration/custom-package/attributes/openj9-large-heap-11.yml]

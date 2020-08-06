@@ -64,6 +64,10 @@ jobs:
           - adoptopenjdk-removal-11-openj9
           # - corretto-11
           # - corretto-8
+          - custom-package-8
+          - custom-package-11
+          - custom-package-11-openj9
+          - custom-package-11-openj9-large-heap
         include:
           - os: ubuntu-2004
             suite: openjdk-pkg-14

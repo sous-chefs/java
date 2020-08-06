@@ -3,22 +3,25 @@ module Java
     module AdoptOpenJdkHelpers
       def sub_dir(url)
         uri = URI.parse(url)
-        f = uri.path.split('/')[-2]
+        # get file basename without extension
+        basename = uri.path.split('/')[-1].gsub('.tar.gz', '')
 
-        case f
-        when /jdk8/
-          result = f.split('_').first
-        when /jdk-14/
-          result = f.split('_').first.gsub('%2B', '+')
-          result = result.slice(0..(result.index('.') - 1)) if result.include? '.'
-          result
+        if basename.include?('linuxXL') # compensate for longer name
+          # Get version number from start of filename
+          if (basename.scan /\d+/)[0] == '8'
+            ver = basename.split('_')[5]
+            "jdk#{ver[0..4]}-#{ver[-3..-1]}"
+          else
+            ver = basename.split('_')
+            "jdk-#{ver[5]}+#{ver[6]}"
+          end
+        elsif (basename.scan /\d+/)[0] == '8'
+          ver = basename.split('_')[4]
+          "jdk#{ver[0..4]}-#{ver[-3..-1]}"
         else
-          result = f.split('_').first.gsub('%2B', '+')
+          ver = basename.split('_')
+          "jdk-#{ver[4]}+#{ver[5]}"
         end
-
-        raise("Failed to parse #{f} for directory name!") if result.empty?
-
-        result
       end
 
       def default_adopt_openjdk_url(version)
