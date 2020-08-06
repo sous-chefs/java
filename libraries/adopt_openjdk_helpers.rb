@@ -6,7 +6,7 @@ module Java
         # get file basename without extension
         basename = uri.path.split('/')[-1].gsub('.tar.gz', '')
 
-        if basename.include?('linuxXL')
+        if basename.include?('linuxXL') # compensate for longer name
           # Get version number from start of filename
           if (basename.scan /\d+/)[0] == '8'
             ver = basename.split('_')[5]
@@ -15,15 +15,12 @@ module Java
             ver = basename.split('_')
             "jdk-#{ver[5]}+#{ver[6]}"
           end
+        elsif (basename.scan /\d+/)[0] == '8'
+          ver = basename.split('_')[4]
+          "jdk#{ver[0..4]}-#{ver[-3..-1]}"
         else
-          # Get version number from start of filename
-          if (basename.scan /\d+/)[0] == '8'
-            ver = basename.split('_')[4]
-            "jdk#{ver[0..4]}-#{ver[-3..-1]}"
-          else
-            ver = basename.split('_')
-            "jdk-#{ver[4]}+#{ver[5]}"
-          end
+          ver = basename.split('_')
+          "jdk-#{ver[4]}+#{ver[5]}"
         end
       end
 
