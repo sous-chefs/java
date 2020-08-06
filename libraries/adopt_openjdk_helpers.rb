@@ -2,13 +2,13 @@ module Java
   module Cookbook
     module AdoptOpenJdkHelpers
       def sub_dir(url)
+        uri = URI.parse(url)
         # get file basename without extension
-        basename = url.split('/')[-1].gsub('.tar.gz', '')
+        basename = uri.path.split('/')[-1].gsub('.tar.gz', '')
 
         if basename.include?('linuxXL')
           # Get version number from start of filename
-          case (basename.scan /\d+/)[0]
-          when '8'
+          if (basename.scan /\d+/)[0] == '8'
             ver = basename.split('_')[5]
             "jdk#{ver[0..4]}-#{ver[-3..-1]}"
           else
@@ -17,8 +17,7 @@ module Java
           end
         else
           # Get version number from start of filename
-          case (basename.scan /\d+/)[0]
-          when '8'
+          if (basename.scan /\d+/)[0] == '8'
             ver = basename.split('_')[4]
             "jdk#{ver[0..4]}-#{ver[-3..-1]}"
           else
