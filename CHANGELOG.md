@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unrleased
+
+- Add aarch64 installation candidate for Corretto
+
 ## 8.3.1 (2020-08-06)
 
 - Extract correct JAVA_HOME from custom URLs
