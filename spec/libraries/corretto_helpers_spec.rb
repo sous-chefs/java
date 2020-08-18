@@ -69,7 +69,7 @@ RSpec.describe Java::Cookbook::CorrettoHelpers do
     context 'No full_version passed for Corretto 11' do
       let(:version) { '11' }
 
-      it 'returns the default directory value for Corrretto 8' do
+      it 'returns the default directory value for Corrretto 11' do
         expect(subject.corretto_sub_dir(version)).to include '0.6.10.1'
       end
     end
