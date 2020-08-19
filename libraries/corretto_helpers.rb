@@ -1,19 +1,16 @@
 module Java
   module Cookbook
     module CorrettoHelpers
+      def correto_arch
+        node['kernel']['machine'].match?('aarch64') ? 'aarch64' : 'x64'
+      end
+
       def default_corretto_url(version)
+        corretto_arch = corretto_arch
         if version.to_s == '8'
-          if node['kernel']['machine'].match?('x86_64')
-            'https://corretto.aws/downloads/latest/amazon-corretto-8-x64-linux-jdk.tar.gz'
-          elsif node['kernel']['machine'].match?('aarch64')
-            'https://corretto.aws/downloads/latest/amazon-corretto-8-aarch64-linux-jdk.tar.gz'
-          end
+          "https://corretto.aws/downloads/latest/amazon-corretto-8-#{corretto_arch}-linux-jdk.tar.gz"
         elsif version.to_s == '11'
-          if node['kernel']['machine'].match?('x86_64')
-            'https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz'
-          elsif node['kernel']['machine'].match?('aarch64')
-            'https://corretto.aws/downloads/latest/amazon-corretto-11-aarch64-linux-jdk.tar.gz'
-          end
+          "https://corretto.aws/downloads/latest/amazon-corretto-11-#{corretto_arch}-linux-jdk.tar.gz"
         end
       end
 
@@ -47,8 +44,8 @@ module Java
               elsif version.to_s == '11'
                 full_version || '11.0.8.10.1'
               end
-        arch = node['kernel']['machine']
-        "amazon-corretto-#{ver}-linux-#{arch}"
+        corretto_arch = corretto_arch
+        "amazon-corretto-#{ver}-linux-#{corretto_arch}"
       end
     end
   end
