@@ -121,7 +121,7 @@ RSpec.describe Java::Cookbook::CorrettoHelpers do
       let(:full_version) { '8.123.45.6' }
       let(:machine) { 'x86_64' }
 
-      it 'returns the default directory value for Corrretto 8' do
+      it 'returns the default directory value for Corrretto 8 x64' do
         expect(subject.corretto_sub_dir(version, full_version)).to include '8.123.45.6'
       end
     end
