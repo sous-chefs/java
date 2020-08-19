@@ -1,12 +1,11 @@
 module Java
   module Cookbook
     module CorrettoHelpers
-      def correto_arch
+      def corretto_arch
         node['kernel']['machine'].match?('aarch64') ? 'aarch64' : 'x64'
       end
 
       def default_corretto_url(version)
-        corretto_arch = corretto_arch
         if version.to_s == '8'
           "https://corretto.aws/downloads/latest/amazon-corretto-8-#{corretto_arch}-linux-jdk.tar.gz"
         elsif version.to_s == '11'
@@ -44,7 +43,6 @@ module Java
               elsif version.to_s == '11'
                 full_version || '11.0.8.10.1'
               end
-        corretto_arch = corretto_arch
         "amazon-corretto-#{ver}-linux-#{corretto_arch}"
       end
     end
