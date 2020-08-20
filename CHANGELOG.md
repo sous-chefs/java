@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 8.3.2 (2020-08-20)
 
 - Add aarch64 installation candidate for Corretto
 
