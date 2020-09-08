@@ -70,7 +70,8 @@ module Java
 
       def default_openjdk_pkg_java_home(version)
         value_for_platform_family(
-          %w(rhel fedora amazon) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
+          %w(rhel fedora) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
+          amazon: version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/jre-#{version}",
           suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{version}.0",
           freebsd: "/usr/local/openjdk#{version}",
           arch: "/usr/lib/jvm/java-#{version}-openjdk",
