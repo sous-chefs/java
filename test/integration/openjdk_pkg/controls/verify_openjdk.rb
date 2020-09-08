@@ -9,6 +9,10 @@ control 'Java is installed & linked correctly' do
   end
 
   describe command('update-alternatives --display java') do
-    its('stdout') { should match %r{\/usr\/lib\/jvm\/java} }
+    if java_version.to_i < 11
+      its('stdout') { should match %r{\/usr\/lib\/jvm\/java} }
+    else
+      its('stdout') { should match %r{\/usr\/lib\/jvm\/jre} }
+    end
   end
 end
