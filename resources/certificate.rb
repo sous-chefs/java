@@ -46,7 +46,7 @@ property :ssl_endpoint, String,
   description: 'An SSL end-point from which to download the certificate'
 
 property :starttls, String,
-  equal_to: ['smtp', 'pop3', 'imap', 'ftp', 'xmpp', 'xmpp-server', 'irc', 'postgres', 'mysql', 'lmtp', 'nntp', 'sieve', 'ldap'],
+  equal_to: %w(smtp pop3 imap ftp xmpp xmpp-server irc postgres mysql lmtp nntp sieve ldap),
   description: 'A protocol specific STARTTLS argument to use when fetching from an ssl_endpoint'
 
 action :install do
