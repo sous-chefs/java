@@ -1,6 +1,6 @@
 apt_update
 
-include_recipe 'test::adoptopenjdk-11-openj9'
+include_recipe 'test::adoptopenjdk'
 
 adoptopenjdk_install '11' do
   variant 'openj9'

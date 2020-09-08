@@ -16,7 +16,10 @@ suites:
   - name: adoptopenjdk-14
     run_list:
       - recipe[homebrew]
-      - recipe[test::adoptopenjdk-14-openj9]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 14
+      variant: openj9
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-macos.yml]
