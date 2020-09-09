@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 8.4.0 (2020-09-09)
 
 - Add `starttls` property to `java_certificate` resource to allow fetching certificates from non HTTPS endpoints
 
