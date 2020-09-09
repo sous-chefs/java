@@ -14,7 +14,7 @@
 # suites:
 #   - name: adoptopenjdk-13-openj9
 #     run_list:
-#       - recipe[test::adoptopenjdk-13-openj9]
+#       - recipe[test::adoptopenjdk]
 
 # platforms:
 #    - name: windows_2019

@@ -99,19 +99,28 @@ suites:
   # Version 8
   - name: adoptopenjdk-8-hotspot
     run_list:
-      - recipe[test::adoptopenjdk-8-hotspot]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 8
+      variant: hotspot
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-hotspot.yml]
   - name: adoptopenjdk-8-openj9
     run_list:
-      - recipe[test::adoptopenjdk-8-openj9]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 8
+      variant: openj9
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9.yml]
   - name: adoptopenjdk-8-openj9-large-heap
     run_list:
-      - recipe[test::adoptopenjdk-8-openj9-large-heap]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 8
+      variant: openj9-large-heap
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-8-openj9-large-heap.yml]
@@ -119,19 +128,28 @@ suites:
   # Version 11
   - name: adoptopenjdk-11-hotspot
     run_list:
-      - recipe[test::adoptopenjdk-11-hotspot]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 11
+      variant: hotspot
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-hotspot.yml]
   - name: adoptopenjdk-11-openj9
     run_list:
-      - recipe[test::adoptopenjdk-11-openj9]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 11
+      variant: openj9
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml]
   - name: adoptopenjdk-11-openj9-large-heap
     run_list:
-      - recipe[test::adoptopenjdk-11-openj9-large-heap]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 11
+      variant: openj9-large-heap
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9-large-heap.yml]
@@ -139,20 +157,29 @@ suites:
   # Version 14
   - name: adoptopenjdk-14-openj9-large-heap
     run_list:
-      - recipe[test::adoptopenjdk-14-openj9-large-heap]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 14
+      variant: openj9-large-heap
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-openj9-large-heap.yml]
   - name: adoptopenjdk-14-openj9
     run_list:
-      - recipe[test::adoptopenjdk-14-openj9]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 14
+      variant: openj9
     verifier:
       inspec_tests:
         - test/integration/adoptopenjdk
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-openj9.yml]
   - name: adoptopenjdk-14-hotspot
     run_list:
-      - recipe[test::adoptopenjdk-14-hotspot]
+      - recipe[test::adoptopenjdk]
+    attributes:
+      version: 14
+      variant: hotspot
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-hotspot.yml]
@@ -161,6 +188,9 @@ suites:
   - name: adoptopenjdk-removal-11-openj9
     run_list:
       - recipe[test::remove-adoptopenjdk-11-openj9]
+    attributes:
+      version: 11
+      variant: openj9
     verifier:
       inspec_tests: [test/integration/remove-adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-11-openj9.yml]

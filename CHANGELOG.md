@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
+- Add `starttls` property to `java_certificate` resource to allow fetching certificates from non HTTPS endpoints
+
 ## 8.3.2 (2020-08-20)
 
 - Add aarch64 installation candidate for Corretto

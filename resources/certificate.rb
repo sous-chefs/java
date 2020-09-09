@@ -27,7 +27,7 @@ property :java_home, String,
 
 property :java_version, String,
   default: lazy { node['java']['jdk_version'] },
-  description: ' The java version'
+  description: 'The java version'
 
 property :keystore_path, String,
   description: 'Path to the keystore'
@@ -44,6 +44,10 @@ property :cert_file, String,
 
 property :ssl_endpoint, String,
   description: 'An SSL end-point from which to download the certificate'
+
+property :starttls, String,
+  equal_to: %w(smtp pop3 imap ftp xmpp xmpp-server irc postgres mysql lmtp nntp sieve ldap),
+  description: 'A protocol specific STARTTLS argument to use when fetching from an ssl_endpoint'
 
 action :install do
   require 'openssl'
@@ -140,8 +144,9 @@ action_class do
     return IO.read(new_resource.cert_file) unless new_resource.cert_file.nil?
 
     certendpoint = new_resource.ssl_endpoint
+    starttls = new_resource.starttls.nil? ? '' : "-starttls #{new_resource.starttls}"
     unless certendpoint.nil?
-      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -servername #{certendpoint.split(':').first} -connect #{certendpoint} 2> /dev/null | openssl x509")
+      cmd = Mixlib::ShellOut.new("echo QUIT | openssl s_client -showcerts -servername #{certendpoint.split(':').first} -connect #{certendpoint} #{starttls} 2> /dev/null | openssl x509")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 

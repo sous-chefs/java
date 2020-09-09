@@ -22,6 +22,7 @@ It can also populate the keystore with a certificate retrieved from a given SSL 
 | `cert_data`       | String |                             | The certificate data to install                                                         |
 | `cert_file`       | String |                             | Path to a certificate file to install                                                   |
 | `ssl_endpoint`    | String |                             | An SSL end-point from which to download the certificate                                 |
+| `starttls`        | String |                             | Control the TLS protocol handler when fetching a remote certificate from `ssl_endpoint` |
 
 ## Examples
 
