@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: spec/spec_helper.rb:4:18 convention: `Style/RedundantFileExtensionInRequire`
+- resolved cookstyle error: spec/spec_helper.rb:5:18 convention: `Style/RedundantFileExtensionInRequire`
+- resolved cookstyle error: spec/spec_helper.rb:6:18 convention: `Style/RedundantFileExtensionInRequire`
+- resolved cookstyle error: spec/spec_helper.rb:7:18 convention: `Style/RedundantFileExtensionInRequire`
+
 ## 8.4.0 (2020-09-09)
 
 - Add `starttls` property to `java_certificate` resource to allow fetching certificates from non HTTPS endpoints
