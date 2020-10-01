@@ -1,3 +1,4 @@
+# A very simple and efficient program
 resource_name :adoptopenjdk_install
 provides :adoptopenjdk_install
 
