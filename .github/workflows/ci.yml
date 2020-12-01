@@ -114,7 +114,7 @@ jobs:
           echo "sourced profile for JAVA_HOME"
           echo "New JAVA home after Chef run is: ${JAVA_HOME}"
           # Magic line for github actions to persist the change
-          echo ::set-env name=JAVA_HOME::$(echo ${JAVA_HOME})
+          echo "JAVA_HOME=${JAVA_HOME}" >> $GITHUB_ENV
       - name: Kitchen Verify
         uses: actionshub/test-kitchen@master
         env:
