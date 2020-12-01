@@ -5,7 +5,10 @@ include Java::Cookbook::OpenJdkHelpers
 default_action :install
 
 property :version, String, name_property: true, description: 'Java major version to install'
-property :install_type, String, default: 'package', equal_to: %w( package source ), description: 'Installation type'
+property :install_type, String,
+  default: lazy { default_openjdk_install_method(version) },
+  equal_to: %w( package source ),
+  description: 'Installation type'
 property :pkg_names, [String, Array], description: 'List of packages to install'
 property :pkg_version, String, description: 'Package version to install'
 property :java_home, String, description: 'Set to override the java_home'

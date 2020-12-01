@@ -1,6 +1,63 @@
 module Java
   module Cookbook
     module OpenJdkHelpers
+      def default_openjdk_install_method(version)
+        case node['platform_family']
+        when 'amazon'
+          case version.to_i
+          when 7, 8, 11
+            'package'
+          else
+            'source'
+          end
+        when 'rhel', 'fedora'
+          case node['platform_version'].to_i
+          when 7
+            case version.to_i
+            when 6, 7, 8, 11
+              'package'
+            else
+              'source'
+            end
+          when 8
+            case version.to_i
+            when 8, 11
+              'package'
+            else
+              'source'
+            end
+          else
+            # Assume Fedora
+            case version.to_i
+            when 8, 11
+              'package'
+            else
+              'source'
+            end
+          end
+        when 'debian'
+          if platform?('debian')
+            case node['platform_version'].to_i
+            when 9
+              'source'
+            when 10
+              version.to_i == 11 ? 'package' : 'source'
+            end
+          else
+            version.to_i == 10 ? 'source' : 'package'
+          end
+        when 'suse'
+          case version.to_i
+          when 8, 9, 11
+            'package'
+          else
+            'source'
+          end
+        else
+          'package'
+        end
+      end
+
       def default_openjdk_url(version)
         case version
         when '9'
