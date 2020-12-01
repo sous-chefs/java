@@ -18,8 +18,7 @@ platforms:
   - name: debian-10
   - name: freebsd-11
   - name: freebsd-12
-  - name: fedora-31
-  - name: fedora-32
+  - name: fedora-latest
   - name: opensuse-leap-15
   - name: ubuntu-18.04
   - name: ubuntu-20.04

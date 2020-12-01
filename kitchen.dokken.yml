@@ -42,11 +42,6 @@ platforms:
       image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: fedora-31
-    driver:
-      image: dokken/fedora-31
-      pid_one_command: /usr/lib/systemd/systemd
-
   - name: fedora-latest
     driver:
       image: dokken/fedora-latest
