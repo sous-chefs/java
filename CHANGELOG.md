@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - resolved cookstyle error: spec/spec_helper.rb:6:18 convention: `Style/RedundantFileExtensionInRequire`
 - resolved cookstyle error: spec/spec_helper.rb:7:18 convention: `Style/RedundantFileExtensionInRequire`
 - If installation issues with `openjdk_install` resource (fixes #645)
+- Remove testing of Amazon Linux 1
 
 ## 8.4.0 (2020-09-09)
 
