@@ -1,6 +1,63 @@
 module Java
   module Cookbook
     module OpenJdkHelpers
+      def default_openjdk_install_method(version)
+        case node['platform_family']
+        when 'amazon'
+          case version.to_i
+          when 7, 8, 11
+            'package'
+          else
+            'source'
+          end
+        when 'rhel', 'fedora'
+          case node['platform_version'].to_i
+          when 7
+            case version.to_i
+            when 6, 7, 8, 11
+              'package'
+            else
+              'source'
+            end
+          when 8
+            case version.to_i
+            when 8, 11
+              'package'
+            else
+              'source'
+            end
+          else
+            # Assume Fedora
+            case version.to_i
+            when 8, 11
+              'package'
+            else
+              'source'
+            end
+          end
+        when 'debian'
+          if platform?('debian')
+            case node['platform_version'].to_i
+            when 9
+              'source'
+            when 10
+              version.to_i == 11 ? 'package' : 'source'
+            end
+          else
+            version.to_i == 10 ? 'source' : 'package'
+          end
+        when 'suse'
+          case version.to_i
+          when 8, 9, 11
+            'package'
+          else
+            'source'
+          end
+        else
+          'package'
+        end
+      end
+
       def default_openjdk_url(version)
         case version
         when '9'
@@ -60,7 +117,7 @@ module Java
         value_for_platform_family(
           amazon: version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : "java-#{version}-amazon-corretto",
           %w(rhel fedora) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
-          suse: ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"],
+          suse: version.to_i == 8 ? ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           freebsd: version.to_i.eql?(7) ? 'openjdk' : "openjdk#{version}",
           arch: "openjdk#{version}",
           debian: ["openjdk-#{version}-jdk", "openjdk-#{version}-jre-headless"],
@@ -72,7 +129,7 @@ module Java
         value_for_platform_family(
           %w(rhel fedora) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
           amazon: version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/jre-#{version}",
-          suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-1.#{version}.0",
+          suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-#{version.to_i == 8 ? "1.#{version}.0" : version}",
           freebsd: "/usr/local/openjdk#{version}",
           arch: "/usr/lib/jvm/java-#{version}-openjdk",
           debian: "/usr/lib/jvm/java-#{version}-openjdk-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}",

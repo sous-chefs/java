@@ -5,7 +5,10 @@ include Java::Cookbook::OpenJdkHelpers
 default_action :install
 
 property :version, String, name_property: true, description: 'Java major version to install'
-property :install_type, String, default: 'package', equal_to: %w( package source ), description: 'Installation type'
+property :install_type, String,
+  default: lazy { default_openjdk_install_method(version) },
+  equal_to: %w( package source ),
+  description: 'Installation type'
 property :pkg_names, [String, Array], description: 'List of packages to install'
 property :pkg_version, String, description: 'Package version to install'
 property :java_home, String, description: 'Set to override the java_home'
@@ -20,7 +23,7 @@ property :java_home_owner, String, description: 'Owner of the Java Home'
 property :java_home_group, String, description: 'Group for the Java Home'
 
 action :install do
-  if install_type == 'package'
+  if new_resource.install_type == 'package'
     openjdk_pkg_install new_resource.version do
       pkg_names new_resource.pkg_names
       pkg_version new_resource.pkg_version
@@ -30,7 +33,7 @@ action :install do
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
     end
-  elsif install_type == 'source'
+  elsif new_resource.install_type == 'source'
     openjdk_source_install new_resource.version do
       url new_resource.url
       checksum new_resource.checksum
@@ -48,7 +51,7 @@ action :install do
 end
 
 action :remove do
-  if install_type == 'package'
+  if new_resource.install_type == 'package'
     openjdk_pkg_install new_resource.version do
       pkg_names new_resource.pkg_names
       pkg_version new_resource.pkg_version
@@ -59,7 +62,7 @@ action :remove do
       reset_alternatives new_resource.reset_alternatives
       action :remove
     end
-  elsif install_type == 'source'
+  elsif new_resource.install_type == 'source'
     openjdk_source_install new_resource.version do
       url new_resource.url
       checksum new_resource.checksum

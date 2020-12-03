@@ -40,7 +40,6 @@ jobs:
     strategy:
       matrix:
         os:
-          - amazon-linux
           - amazonlinux-2
           - debian-9
           - debian-10
@@ -72,8 +71,6 @@ jobs:
           - os: ubuntu-2004
             suite: openjdk-pkg-14
         exclude:
-          - os: amazon-linux
-            suite: openjdk-pkg-11
           - os: debian-9
             suite: openjdk-pkg-11
           - os: debian-10
@@ -117,7 +114,7 @@ jobs:
           echo "sourced profile for JAVA_HOME"
           echo "New JAVA home after Chef run is: ${JAVA_HOME}"
           # Magic line for github actions to persist the change
-          echo ::set-env name=JAVA_HOME::$(echo ${JAVA_HOME})
+          echo "JAVA_HOME=${JAVA_HOME}" >> $GITHUB_ENV
       - name: Kitchen Verify
         uses: actionshub/test-kitchen@master
         env:

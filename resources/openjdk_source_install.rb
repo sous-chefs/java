@@ -1,5 +1,5 @@
-resource_name :openjdk_install
-provides :openjdk_install
+resource_name :openjdk_source_install
+provides :openjdk_source_install
 
 include Java::Cookbook::OpenJdkHelpers
 default_action :install
