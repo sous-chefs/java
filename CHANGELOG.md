@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 8.5.0 - *2020-12-03*
 
 - resolved cookstyle error: spec/spec_helper.rb:4:18 convention: `Style/RedundantFileExtensionInRequire`
