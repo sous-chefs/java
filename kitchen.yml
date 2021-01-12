@@ -28,70 +28,70 @@ suites:
   - name: openjdk-10
     run_list:
       - recipe[test::openjdk]
-    attributes: { version: '10' }
+    attributes: {version: "10"}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: '10' }
+      inputs: {java_version: "10"}
 
   - name: openjdk-11
     run_list:
       - recipe[test::openjdk]
-    attributes: { version: '11' }
+    attributes: {version: "11"}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: '11' }
+      inputs: {java_version: "11"}
 
   - name: openjdk-12
     run_list:
       - recipe[test::openjdk]
-    attributes: { version: '12' }
+    attributes: {version: "12"}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: '12' }
+      inputs: {java_version: "12"}
 
   - name: openjdk-13
     run_list:
       - recipe[test::openjdk]
-    attributes: { version: '13' }
+    attributes: {version: "13"}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: '13' }
+      inputs: {java_version: "13"}
 
   # OpenJDK_PKG
   - name: openjdk-pkg-7
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: { version: '7' }
+    attributes: {version: "7"}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: { java_version: '7' }
-    includes: ['amazon-linux', 'amazonlinux-2', 'centos-7']
+      inputs: {java_version: "7"}
+    includes: ["amazon-linux", "amazonlinux-2", "centos-7"]
 
   - name: openjdk-pkg-8
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: { version: '8' }
+    attributes: {version: "8"}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: { java_version: '8' }
-    excludes: ['debian-10']
+      inputs: {java_version: "8"}
+    excludes: ["debian-10"]
 
   - name: openjdk-pkg-11
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: { version: '11' }
+    attributes: {version: "11"}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: { java_version: '11' }
-    excludes: ['amazon-linux', 'debian-9']
+      inputs: {java_version: "11"}
+    excludes: ["amazon-linux", "debian-9"]
 
   - name: openjdk-pkg-14
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: { version: '14' }
+    attributes: {version: "14"}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: { java_version: '14' }
+      inputs: {java_version: "14"}
     includes: [ubuntu-20.04]
 
   # AdoptOpenJDK
@@ -214,24 +214,24 @@ suites:
   - name: corretto-8
     run_list:
       - recipe[test::corretto]
-    attributes: { version: '8' }
+    attributes: {version: "8"}
     verifier:
       inspec_tests: [test/integration/corretto]
-      inputs: { java_version: '8' }
+      inputs: {java_version: "8"}
   - name: corretto-11
     run_list:
       - recipe[test::corretto]
-    attributes: { version: '11' }
+    attributes: {version: "11"}
     verifier:
       inspec_tests: [test/integration/corretto]
-      inputs: { java_version: '11' }
+      inputs: {java_version: "11"}
   - name: corretto-15
     run_list:
       - recipe[test::corretto]
-    attributes: { version: '15' }
+    attributes: {version: "15"}
     verifier:
       inspec_tests: [test/integration/corretto]
-      inputs: { java_version: '15' }
+      inputs: {java_version: "15"}
 
   # Custom URL tests
   - name: custom-package-8
