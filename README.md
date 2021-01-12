@@ -6,7 +6,7 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This cookbook installs a Java JDK/JRE. It defaults to installing OpenJDK, but it can also install AdoptOpenJDK.
+This cookbook installs a Java JDK/JRE. It defaults to installing [OpenJDK](https://openjdk.java.net/), but it can also install [AdoptOpenJDK](https://adoptopenjdk.net/) and [Amazon Corretto](https://corretto.aws/).
 
 ## Maintainers
 

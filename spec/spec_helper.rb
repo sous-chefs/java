@@ -3,6 +3,7 @@ require 'chefspec/berkshelf'
 
 require_relative '../libraries/adopt_openjdk_helpers'
 require_relative '../libraries/adopt_openjdk_macos_helpers'
+require_relative '../libraries/certificate_helpers'
 require_relative '../libraries/corretto_helpers'
 require_relative '../libraries/openjdk_helpers'
 

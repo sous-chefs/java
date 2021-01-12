@@ -17,6 +17,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+include Java::Cookbook::CertificateHelpers
+
 property :cert_alias, String,
   name_property: true,
   description: 'The alias of the certificate in the keystore. This defaults to the name of the resource'
@@ -27,9 +30,14 @@ property :java_home, String,
 
 property :java_version, String,
   default: lazy { node['java']['jdk_version'] },
-  description: 'The java version'
+  description: 'The major java version'
+
+property :cacerts, [true, false],
+  default: true,
+  description: 'Specify true for interacting with the Java installation cacerts file. (Java 9+)'
 
 property :keystore_path, String,
+  default: lazy { default_truststore_path(java_version, java_home) },
   description: 'Path to the keystore'
 
 property :keystore_passwd, String,
@@ -49,46 +57,43 @@ property :starttls, String,
   equal_to: %w(smtp pop3 imap ftp xmpp xmpp-server irc postgres mysql lmtp nntp sieve ldap),
   description: 'A protocol specific STARTTLS argument to use when fetching from an ssl_endpoint'
 
+property :file_cache_path, String,
+  default: Chef::Config[:file_cache_path],
+  description: 'Location to store certificate files'
+
 action :install do
   require 'openssl'
 
-  java_home = new_resource.java_home
-  Chef::Log.info java_home
-  keytool = "#{java_home}/bin/keytool"
-  truststore = if new_resource.keystore_path.nil?
-                 truststore_default_location
-               else
-                 new_resource.keystore_path
-               end
-  truststore_passwd = new_resource.keystore_passwd
-  certalias = new_resource.cert_alias
+  keystore_argument = keystore_argument(new_resource.java_version, new_resource.cacerts, new_resource.keystore_path)
+
   certdata = new_resource.cert_data || fetch_certdata
 
   hash = OpenSSL::Digest::SHA512.hexdigest(certdata)
-  certfile = "#{Chef::Config[:file_cache_path]}/#{certalias}.cert.#{hash}"
-  cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -rfc -alias \"#{certalias}\"")
+  certfile = ::File.join(new_resource.file_cache_path, "#{new_resource.cert_alias}.cert.#{hash}")
+
+  cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -rfc -alias \"#{new_resource.cert_alias}\"")
   cmd.run_command
   keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
 
   keystore_cert_digest = keystore_cert.empty? ? nil : OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
   certfile_digest = OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
   if keystore_cert_digest == certfile_digest
-    Chef::Log.debug("Certificate \"#{certalias}\" in keystore \"#{truststore}\" is up-to-date.")
+    Chef::Log.debug("Certificate \"#{new_resource.cert_alias}\" in keystore \"#{new_resource.keystore_path}\" is up-to-date.")
   else
-    cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v")
+    cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -v")
     cmd.run_command
-    Chef::Log.info(cmd.format_for_exception)
+    Chef::Log.debug(cmd.format_for_exception)
     Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-    has_key = !cmd.stdout[/Alias name: \b#{certalias}\s*$/i].nil?
+    has_key = !cmd.stdout[/Alias name: \b#{new_resource.cert_alias}\s*$/i].nil?
 
     if has_key
-      converge_by("delete existing certificate #{certalias} from #{truststore}") do
-        cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
+      converge_by("delete existing certificate #{new_resource.cert_alias} from #{new_resource.keystore_path}") do
+        cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -delete -alias \"#{new_resource.cert_alias}\" #{keystore_argument} -storepass #{new_resource.keystore_passwd}")
         cmd.run_command
         Chef::Log.debug(cmd.format_for_exception)
         unless cmd.exitstatus == 0
-          Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
+          Chef::Application.fatal!("Error deleting existing certificate \"#{new_resource.cert_alias}\" in " \
               "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
         end
       end
@@ -96,8 +101,8 @@ action :install do
 
     ::File.open(certfile, 'w', 0o644) { |f| f.write(certdata) }
 
-    converge_by("add certificate #{certalias} to keystore #{truststore}") do
-      cmd = Mixlib::ShellOut.new("#{keytool} -import -trustcacerts -alias \"#{certalias}\" -file #{certfile} -keystore #{truststore} -storepass #{truststore_passwd} -noprompt")
+    converge_by("add certificate #{new_resource.cert_alias} to keystore #{new_resource.keystore_path}") do
+      cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -import -trustcacerts -alias \"#{new_resource.cert_alias}\" -file #{certfile} #{keystore_argument} -storepass #{new_resource.keystore_passwd} -noprompt")
       cmd.run_command
       Chef::Log.debug(cmd.format_for_exception)
 
@@ -110,33 +115,26 @@ action :install do
 end
 
 action :remove do
-  certalias = new_resource.name
-  truststore = if new_resource.keystore_path.nil?
-                 truststore_default_location
-               else
-                 new_resource.keystore_path
-               end
-  truststore_passwd = new_resource.keystore_passwd
-  keytool = "#{new_resource.java_home}/bin/keytool"
+  keystore_argument = keystore_argument(new_resource.java_version, new_resource.cacerts, new_resource.keystore_path)
 
-  cmd = Mixlib::ShellOut.new("#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep \"#{certalias}\"")
+  cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -v | grep \"#{new_resource.cert_alias}\"")
   cmd.run_command
-  has_key = !cmd.stdout[/Alias name: #{certalias}/].nil?
-  does_not_exist = cmd.stdout[/Alias <#{certalias}> does not exist/].nil?
+  has_key = !cmd.stdout[/Alias name: #{new_resource.cert_alias}/].nil?
+  does_not_exist = cmd.stdout[/Alias <#{new_resource.cert_alias}> does not exist/].nil?
   Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless (cmd.exitstatus == 0) || does_not_exist
 
   if has_key
-    converge_by("remove certificate #{certalias} from #{truststore}") do
-      cmd = Mixlib::ShellOut.new("#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}")
+    converge_by("remove certificate #{new_resource.cert_alias} from #{new_resource.keystore_path}") do
+      cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -delete -alias \"#{new_resource.cert_alias}\" #{keystore_argument} -storepass #{new_resource.keystore_passwd}")
       cmd.run_command
       unless cmd.exitstatus == 0
-        Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
+        Chef::Application.fatal!("Error deleting existing certificate \"#{new_resource.cert_alias}\" in " \
             "keystore so it can be updated: #{cmd.exitstatus}", cmd.exitstatus)
       end
     end
   end
 
-  FileUtils.rm_f("#{Chef::Config[:file_cache_path]}/#{certalias}.cert.*")
+  FileUtils.rm_f("#{new_resource.file_cache_path}/#{new_resource.cert_alias}.cert.*")
 end
 
 action_class do
@@ -158,13 +156,5 @@ action_class do
     end
 
     Chef::Application.fatal!('At least one of cert_data, cert_file or ssl_endpoint attributes must be provided.', 999)
-  end
-
-  def truststore_default_location
-    if new_resource.java_version.to_i > 8
-      "#{new_resource.java_home}/lib/security/cacerts"
-    else
-      "#{new_resource.java_home}/jre/lib/security/cacerts"
-    end
   end
 end
