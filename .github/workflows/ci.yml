@@ -61,8 +61,9 @@ jobs:
           - adoptopenjdk-14-openj9
           - adoptopenjdk-14-openj9-large-heap
           - adoptopenjdk-removal-11-openj9
-          # - corretto-11
-          # - corretto-8
+          - corretto-8
+          - corretto-11
+          - corretto-15
           - custom-package-8
           - custom-package-11
           - custom-package-11-openj9
