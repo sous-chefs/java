@@ -130,7 +130,7 @@ RSpec.describe Java::Cookbook::CorrettoHelpers do
       let(:machine) { 'x86_64' }
 
       it 'returns the default directory value for Corrretto 11 x64' do
-        expect(subject.corretto_sub_dir(version)).to include '11.0.9.11.1'
+        expect(subject.corretto_sub_dir(version)).to include '11.0.9.12.1'
       end
     end
 
@@ -139,7 +139,7 @@ RSpec.describe Java::Cookbook::CorrettoHelpers do
       let(:machine) { 'aarch64' }
 
       it 'returns the default directory value for Corrretto 11 aarch64' do
-        expect(subject.corretto_sub_dir(version)).to include '11.0.9.11.1'
+        expect(subject.corretto_sub_dir(version)).to include '11.0.9.12.1'
       end
     end
 
