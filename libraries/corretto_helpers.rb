@@ -51,7 +51,7 @@ module Java
         ver = if version == '8'
                 full_version || '8.275.01.1'
               elsif version.to_s == '11'
-                full_version || '11.0.9.11.1'
+                full_version || '11.0.9.12.1'
               elsif version.to_s == '15'
                 full_version || '15.0.1.9.1'
               end
