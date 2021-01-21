@@ -18,15 +18,15 @@ module Java
       def default_corretto_checksum(version)
         if version.to_s == '8'
           if node['kernel']['machine'].match?('x86_64')
-            '25415701c864ec301975097f207e909d065eb7c452a501c0e4b4487e77fbdc7a'
+            '5db96ea7c5fa34de4eadbc41e2adf1fccb7e373b5788f77e26e0d69b9e368b7f'
           elsif node['kernel']['machine'].match?('aarch64')
-            '7b86c40410c75de44c311fe127bb1dd02c43040312d66b1363737ab3e7d77011'
+            '124875d5d2b3b540d40a584605385c03e71bf57f782baf5130e0bfee18b680c1'
           end
         elsif version.to_s == '11'
           if node['kernel']['machine'].match?('x86_64')
-            '448494766be37bb8a4ecd983a09742d28b1fa426684417b0dec2f3b03c44f3a3'
+            'bf9380ee0cdd78fafb6d0cdfa0c1a97baaaec44432a15c8c2f296696ad9ed631'
           elsif node['kernel']['machine'].match?('aarch64')
-            'e25669eb74d6c270af303bc0d1d859dd9ff16a0288f00a9d0ba4105467fc9695'
+            '18f4716151f4786abe6b185aab2cc5f5ad7b15f899d7eb143a81ccda8690f6f6'
           end
         elsif version.to_s == '15'
           if node['kernel']['machine'].match?('x86_64')
@@ -49,9 +49,9 @@ module Java
 
       def corretto_sub_dir(version, full_version = nil)
         ver = if version == '8'
-                full_version || '8.275.01.1'
+                full_version || '8.282.08.1'
               elsif version.to_s == '11'
-                full_version || '11.0.9.12.1'
+                full_version || '11.0.10.9.1'
               elsif version.to_s == '15'
                 full_version || '15.0.1.9.1'
               end
