@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 8.6.0 - *2021-01-22*
 
 - Added Amazon Corretto 15 support to `corretto_install`
 - Added configurable `file_cache_path` property to `java_certificate`
