@@ -1,5 +1,6 @@
 resource_name :adoptopenjdk_macos_install
 provides :adoptopenjdk_macos_install
+unified_mode true
 
 include Java::Cookbook::AdoptOpenJdkMacOsHelpers
 

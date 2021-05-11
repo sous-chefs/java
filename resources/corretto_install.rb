@@ -1,5 +1,6 @@
 resource_name :corretto_install
 provides :corretto_install
+unified_mode true
 
 include Java::Cookbook::CorrettoHelpers
 

@@ -1,5 +1,6 @@
 resource_name :adoptopenjdk_install
 provides :adoptopenjdk_install
+unified_mode true
 
 default_action :install
 

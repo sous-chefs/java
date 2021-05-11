@@ -1,5 +1,6 @@
 resource_name :openjdk_source_install
 provides :openjdk_source_install
+unified_mode true
 
 include Java::Cookbook::OpenJdkHelpers
 default_action :install
