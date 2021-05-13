@@ -4,13 +4,9 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-- resolved cookstyle error: resources/adoptopenjdk_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
-- resolved cookstyle error: resources/adoptopenjdk_linux_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
-- resolved cookstyle error: resources/adoptopenjdk_macos_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
-- resolved cookstyle error: resources/corretto_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
-- resolved cookstyle error: resources/openjdk_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
-- resolved cookstyle error: resources/openjdk_pkg_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
-- resolved cookstyle error: resources/openjdk_source_install.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
+- Chef 17 updates: enable `unified_mode` on all resources
+- Bump required Chef Infra Client to >= 15.3
+
 ## 8.6.0 - *2021-01-22*
 
 - Added Amazon Corretto 15 support to `corretto_install`

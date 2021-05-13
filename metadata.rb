@@ -5,7 +5,7 @@ license           'Apache-2.0'
 description       'Recipes and resources for installing Java and managing certificates'
 source_url        'https://github.com/sous-chefs/java'
 issues_url        'https://github.com/sous-chefs/java/issues'
-chef_version      '>= 15.0'
+chef_version      '>= 15.3'
 version           '8.6.0'
 
 supports 'debian'
