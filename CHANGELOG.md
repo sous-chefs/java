@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Remove Corretto checksum code defualts as this changes reguarly,
+    and is not provide in the SHA256 format via an API
+- Set unified_mode to true for Chef 17 support
+- Bump the minimum Chef version to 15.3 for unified_mode support
+
 ## 8.6.1 - *2021-06-01*
 
 ## 8.6.0 - *2021-01-22*

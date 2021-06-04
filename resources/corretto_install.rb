@@ -1,6 +1,5 @@
-resource_name :corretto_install
 provides :corretto_install
-
+unified_mode true
 include Java::Cookbook::CorrettoHelpers
 
 property :version, String, name_property: true, description: 'Java version to install'
@@ -13,7 +12,6 @@ property :url, String,
 
 property :checksum, String,
   regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/,
-  default: lazy { default_corretto_checksum(version) },
   description: 'The checksum for the downloaded file'
 
 property :java_home, String,
@@ -62,7 +60,7 @@ action :install do
 
   remote_file "#{Chef::Config[:file_cache_path]}/#{tarball_name}" do
     source new_resource.url
-    checksum new_resource.checksum
+    checksum new_resource.checksum if new_resource.checksum
     retries new_resource.retries
     retry_delay new_resource.retry_delay
     mode '644'

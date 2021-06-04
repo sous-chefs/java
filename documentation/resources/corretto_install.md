@@ -16,7 +16,7 @@ Introduced: v8.0.0
 | version               | String          |                                      | Java version to install                                                                                           |
 | full_version          | String          |                                      | Used to configure the package directory, change this is the version installed by the package is no longer correct |
 | url                   | String          | `default_corretto_url(version)`      | The URL to download from                                                                                          |
-| checksum              | String          | `default_corretto_checksum(version)` | The checksum for the downloaded file                                                                              |
+| checksum              | String          |                                      | The checksum for the downloaded file                                                                              |
 | java_home             | String          | Based on the version                 | Set to override the java_home                                                                                     |
 | java_home_mode        | Integer, String | `0755`                               | The permission for the Java home directory                                                                        |
 | java_home_owner       | String          | `root`                               | Owner of the Java Home                                                                                            |

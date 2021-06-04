@@ -1,7 +1,5 @@
-resource_name :adoptopenjdk_install
 provides :adoptopenjdk_install
-
-default_action :install
+unified_mode true
 
 # Common options
 property :version, String, name_property: true, description: 'Java version to install'
