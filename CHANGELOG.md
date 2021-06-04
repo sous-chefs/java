@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+## 8.6.1 - *2021-06-01*
+
 ## 8.6.0 - *2021-01-22*
 
 - Added Amazon Corretto 15 support to `corretto_install`
