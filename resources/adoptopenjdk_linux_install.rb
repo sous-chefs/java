@@ -1,7 +1,7 @@
-resource_name :adoptopenjdk_linux_install
 provides :adoptopenjdk_linux_install
-
+unified_mode true
 include Java::Cookbook::AdoptOpenJdkHelpers
+
 property :version, String, name_property: true, description: 'Java version to install'
 
 property :variant, String,

@@ -1,8 +1,6 @@
-resource_name :openjdk_install
 provides :openjdk_install
-
+unified_mode true
 include Java::Cookbook::OpenJdkHelpers
-default_action :install
 
 property :version, String, name_property: true, description: 'Java major version to install'
 property :install_type, String,
