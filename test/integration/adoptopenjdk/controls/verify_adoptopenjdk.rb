@@ -1,17 +1,17 @@
-variant = attribute('variant', description: 'Variant being used: openj9, openj9-large-heap, or hotspot')
-java_version = attribute('java_version', description: 'Which version of java should be installed')
-certificate_sha256_checksum = attribute('certificate_sha256_checksum',
+variant = input('variant', description: 'Variant being used: openj9, openj9-large-heap, or hotspot')
+java_version = input('java_version', description: 'Which version of java should be installed')
+certificate_sha256_checksum = input('certificate_sha256_checksum',
                                         value: '64:F3:3B:A7:EF:C3:5C:6B:2D:ED:95:0B:CB:4E:96:3B:12:97:B8:62:BA:1A:8E:30:13:B0:B0:59:77:12:31:EA',
                                         description: 'The SHA256 checksum of the certificate'
-                                       )
-parent_install_dir = attribute('parent_install_dir',
+)
+parent_install_dir = input('parent_install_dir',
                       value: "java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-adoptopenjdk-#{variant}",
                       description: 'The parent of the Java home')
-keystore_location = attribute('keystore_location',
+keystore_location = input('keystore_location',
                               value: nil,
                               description: 'Where the java keystore is located'
-                             )
-keystore_password = attribute('keystore_password',
+)
+keystore_password = input('keystore_password',
                               value: 'changeit',
                               description: 'Password to the Java keystore')
 

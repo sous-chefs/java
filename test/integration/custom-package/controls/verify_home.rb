@@ -1,9 +1,9 @@
-variant = attribute('variant', description: 'Variant being used: openj9, openj9-large-heap, or hotspot')
-java_version = attribute('java_version', description: 'Which version of java should be installed')
-parent_install_dir = attribute('parent_install_dir',
+variant = input('variant', description: 'Variant being used: openj9, openj9-large-heap, or hotspot')
+java_version = input('java_version', description: 'Which version of java should be installed')
+parent_install_dir = input('parent_install_dir',
                      value: "java-#{java_version.to_i > 8 ? java_version.to_i : java_version.split('.')[1]}-adoptopenjdk-#{variant}",
                      description: 'The parent of the Java home')
-java_home_dir = attribute('java_home_dir', description: 'Name of the JAVA_HOME directory')
+java_home_dir = input('java_home_dir', description: 'Name of the JAVA_HOME directory')
 
 control 'check-java-version' do
   impact 1.0
