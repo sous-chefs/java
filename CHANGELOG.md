@@ -20,6 +20,11 @@ This file is used to list changes made in each version of the Java cookbook.
 - resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:2:24 warning: `InSpec/Deprecations/AttributeHelper`
 - resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:5:16 warning: `InSpec/Deprecations/AttributeHelper`
 - resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:8:13 warning: `InSpec/Deprecations/AttributeHelper`
+
+## 9.0.1 - *2021-08-30*
+
+- Standardise files with files in sous-chefs/repo-management
+
 ## 9.0.0 - *2021-06-04*
 
 - Remove Corretto checksum code defualts as this changes reguarly,
