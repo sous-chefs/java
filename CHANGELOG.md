@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 10.0.0 - *2021-09-02*
 
 - Remove recipes to stop confusing users
