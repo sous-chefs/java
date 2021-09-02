@@ -4,22 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:1:11 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:2:16 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:3:31 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:6:40 convention: `Layout/ClosingParenthesisIndentation`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:7:22 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:10:21 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:13:30 convention: `Layout/ClosingParenthesisIndentation`
-- resolved cookstyle error: test/integration/adoptopenjdk/controls/verify_adoptopenjdk.rb:14:21 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/custom-package/controls/verify_home.rb:1:11 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/custom-package/controls/verify_home.rb:2:16 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/custom-package/controls/verify_home.rb:3:22 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/custom-package/controls/verify_home.rb:6:17 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:1:11 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:2:24 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:5:16 warning: `InSpec/Deprecations/AttributeHelper`
-- resolved cookstyle error: test/integration/remove-adoptopenjdk/controls/verify_adoptopenjdk-removal.rb:8:13 warning: `InSpec/Deprecations/AttributeHelper`
+- Remove recipes to stop confusing users
 
 ## 9.0.1 - *2021-08-30*
 
