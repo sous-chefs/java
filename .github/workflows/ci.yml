@@ -2,40 +2,13 @@
 name: ci
 
 'on':
-  pull_request:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['Lint & Unit Test']
+    types: ['completed']
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
-
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@main
-
   integration:
-    needs: [mdl, yamllint, delivery]
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -92,7 +65,7 @@ jobs:
           os: ${{ matrix.os }}
 
   integration-macos:
-    needs: [mdl, yamllint, delivery]
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: macos-latest
     steps:
       - name: Check out code
