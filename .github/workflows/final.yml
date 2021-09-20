@@ -3,8 +3,8 @@ name: 'Final'
 
 'on':
   workflow_run:
-    workflows: ['ci']
-    types: ['completed']
+    workflows: [ci]
+    types: [completed]
 
 jobs:
   on-success:

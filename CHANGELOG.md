@@ -4,10 +4,9 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-this is going to make MDL cry
-## Unreleased
-
-
+- Split out workflows to allow standardfiles to control markdown, yaml and delivery
+- Adds a "Final" workflow to set a known pass/failure hook
+  - This allows us to have Terraform set the Final workflow as a required check
 
 ## 10.0.0 - *2021-09-02*
 
