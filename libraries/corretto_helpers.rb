@@ -6,18 +6,7 @@ module Java
       end
 
       def default_corretto_url(version)
-        case version.to_s
-        when '8'
-          "https://corretto.aws/downloads/latest/amazon-corretto-8-#{corretto_arch}-linux-jdk.tar.gz"
-        when '11'
-          "https://corretto.aws/downloads/latest/amazon-corretto-11-#{corretto_arch}-linux-jdk.tar.gz"
-        when '15'
-          "https://corretto.aws/downloads/latest/amazon-corretto-15-#{corretto_arch}-linux-jdk.tar.gz"
-        when '16'
-          "https://corretto.aws/downloads/latest/amazon-corretto-16-#{corretto_arch}-linux-jdk.tar.gz"
-        else
-          raise 'Correcto version not recognised'
-        end
+        "https://corretto.aws/downloads/latest/amazon-corretto-#{version}-#{corretto_arch}-linux-jdk.tar.gz"
       end
 
       def default_corretto_bin_cmds(version)
@@ -36,17 +25,21 @@ module Java
       end
 
       def corretto_sub_dir(version, full_version = nil)
-        case version
-        when '8'
-          ver = full_version || '8.302.08.1'
-        when '11'
-          ver = full_version || '11.0.12.7.1'
-        when '15'
-          ver = full_version || '15.0.2.7.1'
-        when '16'
-          ver = full_version || '16.0.2.7.1'
+        if full_version.nil?
+          case version
+          when '8'
+            ver = '8.302.08.1'
+          when '11'
+            ver = '11.0.12.7.1'
+          when '15'
+            ver = '15.0.2.7.1'
+          when '16'
+            ver = '16.0.2.7.1'
+          else
+            raise 'Correcto version not recognised'
+          end
         else
-          raise 'Correcto version not recognised'
+          ver = full_version
         end
 
         "amazon-corretto-#{ver}-linux-#{corretto_arch}"
