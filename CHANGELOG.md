@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Revert worklfow split out
 - Rename InSpec attribute folders to input
 - Add Corretto 16
 - Update the Corretto minor version numbers

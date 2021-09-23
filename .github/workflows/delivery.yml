@@ -32,3 +32,104 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Markdown Lint
         uses: actionshub/markdownlint@main
+
+  integration:
+    needs: [delivery, yamllint, mdl]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - amazonlinux-2
+          - debian-10
+          - debian-11
+          - centos-7
+          - centos-8
+          - ubuntu-1804
+          - ubuntu-2004
+        suite:
+          - openjdk-11
+          - openjdk-12
+          - openjdk-13
+          - openjdk-pkg-8
+          - openjdk-pkg-11
+          - adoptopenjdk-8-openj9
+          - adoptopenjdk-11-hotspot
+          - adoptopenjdk-11-openj9
+          - adoptopenjdk-11-openj9-large-heap
+          - adoptopenjdk-14-hotspot
+          - adoptopenjdk-14-openj9
+          - adoptopenjdk-14-openj9-large-heap
+          - adoptopenjdk-removal-11-openj9
+          - corretto-8
+          - corretto-11
+          - corretto-15
+          - corretto-16
+          - custom-package-8
+          - custom-package-11
+          - custom-package-11-openj9
+          - custom-package-11-openj9-large-heap
+        include:
+          - os: ubuntu-2004
+            suite: openjdk-pkg-14
+        exclude:
+          - os: debian-9
+            suite: openjdk-pkg-11
+          - os: debian-10
+            suite: openjdk-pkg-8
+      fail-fast: false
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Dokken
+        uses: actionshub/test-kitchen@main
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+
+  integration-macos:
+    needs: [delivery, yamllint, mdl]
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Kitchen Converge
+        uses: actionshub/test-kitchen@main
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.macos.yml
+          TERM: xterm-256color
+        with:
+          suite: adoptopenjdk-14
+          os: macos
+          action: converge
+      - name: Source Profile for JAVA_HOME
+        run: |
+          source /etc/profile
+          echo "sourced profile for JAVA_HOME"
+          echo "New JAVA home after Chef run is: ${JAVA_HOME}"
+          # Magic line for github actions to persist the change
+          echo "JAVA_HOME=${JAVA_HOME}" >> $GITHUB_ENV
+      - name: Kitchen Verify
+        uses: actionshub/test-kitchen@main
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.macos.yml
+          TERM: xterm-256color
+        with:
+          suite: adoptopenjdk-14
+          os: macos
+          action: verify
+
+  final:
+    runs-on: ubuntu-latest
+    needs: [integration, integration-macos]
+    steps:
+      - run: echo ${{needs.integration.outputs}}
+      - run: echo ${{needs.integration-macos.outputs}}
