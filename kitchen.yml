@@ -180,7 +180,7 @@ suites:
       variant: hotspot
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
-      input_files: []
+      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-hotspot.yml]
 
   # 11 Removal
   - name: adoptopenjdk-removal-11-openj9
