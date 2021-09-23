@@ -14,8 +14,8 @@ jobs:
       matrix:
         os:
           - amazonlinux-2
-          - debian-9
           - debian-10
+          - debian-11
           - centos-7
           - centos-8
           - ubuntu-1804
@@ -37,6 +37,7 @@ jobs:
           - corretto-8
           - corretto-11
           - corretto-15
+          - corretto-16
           - custom-package-8
           - custom-package-11
           - custom-package-11-openj9
