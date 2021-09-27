@@ -36,16 +36,7 @@ module Java
             end
           end
         when 'debian'
-          if platform?('debian')
-            case node['platform_version'].to_i
-            when 9
-              'source'
-            when 10
-              version.to_i == 11 ? 'package' : 'source'
-            end
-          else
-            version.to_i == 10 ? 'source' : 'package'
-          end
+          'package'
         when 'suse'
           case version.to_i
           when 8, 9, 11

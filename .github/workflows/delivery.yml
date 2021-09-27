@@ -72,9 +72,9 @@ jobs:
           - os: ubuntu-2004
             suite: openjdk-pkg-14
         exclude:
-          - os: debian-9
-            suite: openjdk-pkg-11
           - os: debian-10
+            suite: openjdk-pkg-8
+          - os: debian-11
             suite: openjdk-pkg-8
       fail-fast: false
     steps:

@@ -8,6 +8,8 @@ This file is used to list changes made in each version of the Java cookbook.
 - Rename InSpec attribute folders to input
 - Add Corretto 16
 - Update the Corretto minor version numbers
+- Default the Debian install method to package
+- Remove End of Life Debian 9 testing
 
 ## 10.0.1 - *2021-09-21*
 
