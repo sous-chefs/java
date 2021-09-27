@@ -40,7 +40,7 @@ module Java
             case node['platform_version'].to_i
             when 9
               'source'
-            when 10
+            when 10, 11
               version.to_i == 11 ? 'package' : 'source'
             else
               'package'
