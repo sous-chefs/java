@@ -50,6 +50,13 @@ module Java
           else
             version.to_i == 10 ? 'source' : 'package'
           end
+
+          if platform?('ubuntu') && node['platform_version'] == '20.04' && version == 14
+            'source'
+          else
+            'package'
+          end
+
         when 'suse'
           case version.to_i
           when 8, 9, 11
