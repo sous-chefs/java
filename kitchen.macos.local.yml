@@ -22,4 +22,4 @@ suites:
       variant: openj9
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/attributes/adoptopenjdk-14-macos.yml]
+      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-macos.yml]
