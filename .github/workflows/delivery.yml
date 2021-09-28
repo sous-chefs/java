@@ -53,22 +53,22 @@ jobs:
           - openjdk-pkg-11
           - openjdk-pkg-16
           - openjdk-pkg-17
-          - adoptopenjdk-8-openj9
-          - adoptopenjdk-11-hotspot
-          - adoptopenjdk-11-openj9
-          - adoptopenjdk-11-openj9-large-heap
-          - adoptopenjdk-14-hotspot
-          - adoptopenjdk-14-openj9
-          - adoptopenjdk-14-openj9-large-heap
-          - adoptopenjdk-removal-11-openj9
-          - corretto-8
-          - corretto-11
-          - corretto-15
-          - corretto-16
-          - custom-package-8
-          - custom-package-11
-          - custom-package-11-openj9
-          - custom-package-11-openj9-large-heap
+          # - adoptopenjdk-8-openj9
+          # - adoptopenjdk-11-hotspot
+          # - adoptopenjdk-11-openj9
+          # - adoptopenjdk-11-openj9-large-heap
+          # - adoptopenjdk-14-hotspot
+          # - adoptopenjdk-14-openj9
+          # - adoptopenjdk-14-openj9-large-heap
+          # - adoptopenjdk-removal-11-openj9
+          # - corretto-8
+          # - corretto-11
+          # - corretto-15
+          # - corretto-16
+          # - custom-package-8
+          # - custom-package-11
+          # - custom-package-11-openj9
+          # - custom-package-11-openj9-large-heap
       fail-fast: false
     steps:
       - name: Check out code
