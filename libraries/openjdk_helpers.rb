@@ -6,8 +6,19 @@ module Java
       end
 
       def default_openjdk_install_method(version)
-        if node['platform_family'] == 'amazon'
+        case node['platform_family']
+        when 'amazon'
           'source'
+        when 'rhel'
+          supported = lts.delete('11')
+          supported.include?(version) ? 'package' : 'source'
+        when 'debian'
+          if node['platform_version'].to_i == 10
+            supported = lts.delete('17')
+            supported.include?(version) ? 'package' : 'source'
+          else
+            lts.include?(version) ? 'package' : 'source'
+          end
         else
           lts.include?(version) ? 'package' : 'source'
         end
