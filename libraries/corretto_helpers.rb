@@ -20,7 +20,7 @@ module Java
         when '16'
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jlink jmap jmod jpackage jps jrunscript jshell jstack jstat jstatd keytool rmid rmiregistry serialver)
         else
-          raise 'Correcto version not recognised'
+          raise 'Corretto version not recognised'
         end
       end
 
@@ -36,7 +36,7 @@ module Java
           when '16'
             ver = '16.0.2.7.1'
           else
-            raise 'Correcto version not recognised'
+            raise 'Corretto version not recognised'
           end
         else
           ver = full_version

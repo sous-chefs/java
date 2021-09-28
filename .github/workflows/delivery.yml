@@ -70,7 +70,7 @@ jobs:
           - custom-package-11-openj9-large-heap
         include:
           - os: ubuntu-2004
-            suite: openjdk-pkg-14
+            suite: openjdk-pkg-17
         exclude:
           - os: debian-10
             suite: openjdk-pkg-8

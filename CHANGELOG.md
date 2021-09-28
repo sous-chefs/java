@@ -9,7 +9,11 @@ This file is used to list changes made in each version of the Java cookbook.
 - Add Corretto 16
 - Update the Corretto minor version numbers
 - Default the Debian install method to package
-- Remove End of Life Debian 9 testing
+- Remove testing for end of life Debian 9
+- Remove testing for end of life OpenJDK suites
+- Primarily support OpenJDK LTS versions 8, 11, 17
+- Drop support for OpenJDK package installs for non-LTS versions
+  - These packages are still possible to install though they will now default to a source install
 
 ## 10.0.1 - *2021-09-21*
 

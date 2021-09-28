@@ -25,13 +25,13 @@ platforms:
 
 suites:
   # OpenJDK
-  - name: openjdk-10
+  - name: openjdk-8
     run_list:
       - recipe[test::openjdk]
-    attributes: {version: "10"}
+    attributes: {version: "8"}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: {java_version: "10"}
+      inputs: {java_version: "8"}
 
   - name: openjdk-11
     run_list:
@@ -41,32 +41,16 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: {java_version: "11"}
 
-  - name: openjdk-12
+  - name: openjdk-17
     run_list:
       - recipe[test::openjdk]
-    attributes: {version: "12"}
+    attributes: {version: "17"}
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: {java_version: "12"}
-
-  - name: openjdk-13
-    run_list:
-      - recipe[test::openjdk]
-    attributes: {version: "13"}
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: {java_version: "13"}
+      inputs: {java_version: "17"}
+    # excludes: ["ubuntu-18.04"]
 
   # OpenJDK_PKG
-  - name: openjdk-pkg-7
-    run_list:
-      - recipe[test::openjdk_pkg]
-    attributes: {version: "7"}
-    verifier:
-      inspec_tests: [test/integration/openjdk_pkg]
-      inputs: {java_version: "7"}
-    includes: ["amazonlinux-2", "centos-7"]
-
   - name: openjdk-pkg-8
     run_list:
       - recipe[test::openjdk_pkg]
@@ -84,14 +68,14 @@ suites:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: "11"}
 
-  - name: openjdk-pkg-14
+  - name: openjdk-pkg-17
     run_list:
       - recipe[test::openjdk_pkg]
-    attributes: {version: "14"}
+    attributes: {version: "17"}
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
-      inputs: {java_version: "14"}
-    includes: [ubuntu-20.04]
+      inputs: {java_version: "17"}
+    excludes: [ubuntu-18.04]
 
   # AdoptOpenJDK
   # Version 8

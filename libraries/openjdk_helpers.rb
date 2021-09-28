@@ -1,72 +1,12 @@
 module Java
   module Cookbook
     module OpenJdkHelpers
+      def lts
+        %w(8 11 17)
+      end
+
       def default_openjdk_install_method(version)
-        case node['platform_family']
-        when 'amazon'
-          case version.to_i
-          when 7, 8, 11
-            'package'
-          else
-            'source'
-          end
-        when 'rhel', 'fedora'
-          case node['platform_version'].to_i
-          when 7
-            case version.to_i
-            when 6, 7, 8, 11
-              'package'
-            else
-              'source'
-            end
-          when 8
-            case version.to_i
-            when 8, 11
-              'package'
-            else
-              'source'
-            end
-          else
-            # Assume Fedora
-            case version.to_i
-            when 8, 11
-              'package'
-            else
-              'source'
-            end
-          end
-        when 'debian'
-          if platform?('debian')
-            case node['platform_version'].to_i
-            when 9
-              'source'
-            when 10, 11
-              version.to_i == 11 ? 'package' : 'source'
-            else
-              'package'
-            end
-          elsif platform?('ubuntu') && version.to_i == 14
-            'source'
-          else
-            version.to_i == 10 ? 'source' : 'package'
-          end
-
-          if platform?('ubuntu') && node['platform_version'] == '20.04' && version == 14
-            'source'
-          else
-            'package'
-          end
-
-        when 'suse'
-          case version.to_i
-          when 8, 9, 11
-            'package'
-          else
-            'source'
-          end
-        else
-          'package'
-        end
+        lts.include?(version.to_i) ? 'package' : 'source'
       end
 
       def default_openjdk_url(version)
@@ -81,6 +21,8 @@ module Java
           'https://download.java.net/java/GA/jdk12/33/GPL/openjdk-12_linux-x64_bin.tar.gz'
         when '13'
           'https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz'
+        when '17'
+          'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz'
         else
           Chef::Log.fatal('Version specified does not have a URL value set')
           raise 'No checksum value'
@@ -99,6 +41,8 @@ module Java
           'b43bc15f4934f6d321170419f2c24451486bc848a2179af5e49d10721438dd56'
         when '13'
           '5f547b8f0ffa7da517223f6f929a5055d749776b1878ccedbd6cc1334f4d6f4d'
+        when '17'
+          'aef49cc7aa606de2044302e757fa94c8e144818e93487081c4fd319ca858134b'
         else
           Chef::Log.fatal('Version specified does not have a c value set')
           raise 'No checksum value'
@@ -117,7 +61,7 @@ module Java
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '11'
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
-        when '12', '13', '14', '15', 'latest'
+        when '12', '13', '14', '15', '16', '17', 'latest'
           %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
@@ -129,7 +73,7 @@ module Java
           amazon: version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : "java-#{version}-amazon-corretto",
           %w(rhel fedora) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           suse: version.to_i == 8 ? ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
-          freebsd: version.to_i.eql?(7) ? 'openjdk' : "openjdk#{version}",
+          freebsd: "openjdk#{version}",
           arch: "openjdk#{version}",
           debian: ["openjdk-#{version}-jdk", "openjdk-#{version}-jre-headless"],
           default: ["openjdk-#{version}-jdk"]
