@@ -15,6 +15,8 @@ This file is used to list changes made in each version of the Java cookbook.
 - Drop support for OpenJDK package installs for non-LTS versions
   - These packages are still possible to install though they will now default to a source install
 - Direct Amazon users to Amazon Corretto instead of installing OpenJDK
+- Drop package install support for Java 8. Most supported operating systems no longer support OpenJDK 8
+  - To install OpenJDK 8, a 'source' install from an internal mirror is now recommended
 
 ## 10.0.1 - *2021-09-21*
 

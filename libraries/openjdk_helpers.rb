@@ -2,11 +2,11 @@ module Java
   module Cookbook
     module OpenJdkHelpers
       def lts
-        %w(8 11 17)
+        %w(11 17)
       end
 
       def default_openjdk_install_method(version)
-        if platform?('amazon')
+        if node['platform_family'] == 'amazon'
           'source'
         else
           lts.include?(version) ? 'package' : 'source'
@@ -25,6 +25,12 @@ module Java
           'https://download.java.net/java/GA/jdk12/33/GPL/openjdk-12_linux-x64_bin.tar.gz'
         when '13'
           'https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz'
+        when '14'
+          'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz'
+        when '15'
+          'https://download.java.net/java/GA/jdk15/779bf45e88a44cbd9ea6621d33e33db1/36/GPL/openjdk-15_linux-x64_bin.tar.gz'
+        when '16'
+          'https://download.java.net/java/GA/jdk16/7863447f0ab643c585b9bdebf67c69db/36/GPL/openjdk-16_linux-x64_bin.tar.gz'
         when '17'
           'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz'
         else
@@ -45,6 +51,12 @@ module Java
           'b43bc15f4934f6d321170419f2c24451486bc848a2179af5e49d10721438dd56'
         when '13'
           '5f547b8f0ffa7da517223f6f929a5055d749776b1878ccedbd6cc1334f4d6f4d'
+        when '14'
+          'c7006154dfb8b66328c6475447a396feb0042608ee07a96956547f574a911c09'
+        when '15'
+          'bb67cadee687d7b486583d03c9850342afea4593be4f436044d785fba9508fb7'
+        when '16'
+          'e952958f16797ad7dc7cd8b724edd69ec7e0e0434537d80d6b5165193e33b931'
         when '17'
           'aef49cc7aa606de2044302e757fa94c8e144818e93487081c4fd319ca858134b'
         else

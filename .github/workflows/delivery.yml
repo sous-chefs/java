@@ -47,11 +47,11 @@ jobs:
           - ubuntu-1804
           - ubuntu-2004
         suite:
-          - openjdk-8
           - openjdk-11
+          - openjdk-16
           - openjdk-17
-          - openjdk-pkg-8
           - openjdk-pkg-11
+          - openjdk-pkg-16
           - openjdk-pkg-17
           - adoptopenjdk-8-openj9
           - adoptopenjdk-11-hotspot
@@ -69,11 +69,6 @@ jobs:
           - custom-package-11
           - custom-package-11-openj9
           - custom-package-11-openj9-large-heap
-        # exclude:
-        #   - os: debian-10
-        #     suite: openjdk-pkg-8
-        #   - os: debian-11
-        #     suite: openjdk-pkg-8
       fail-fast: false
     steps:
       - name: Check out code
