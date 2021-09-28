@@ -41,6 +41,14 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: {java_version: "11"}
 
+  - name: openjdk-16
+    run_list:
+      - recipe[test::openjdk]
+    attributes: {version: "16"}
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      inputs: {java_version: "16"}
+
   - name: openjdk-17
     run_list:
       - recipe[test::openjdk]
@@ -67,6 +75,15 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: "11"}
+
+  - name: openjdk-pkg-16
+    run_list:
+      - recipe[test::openjdk_pkg]
+    attributes: {version: "16"}
+    verifier:
+      inspec_tests: [test/integration/openjdk_pkg]
+      inputs: {java_version: "16"}
+    excludes: ["ubuntu-18.04", "amazonlinux-2"]
 
   - name: openjdk-pkg-17
     run_list:
