@@ -68,7 +68,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/adoptopenjdk]
       input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-hotspot.yml]
-      
+
   - name: adoptopenjdk-8-openj9
     run_list:
       - recipe[test::adoptopenjdk]
