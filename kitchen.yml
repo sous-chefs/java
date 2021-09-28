@@ -75,7 +75,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/openjdk_pkg]
       inputs: {java_version: "17"}
-    excludes: [ubuntu-18.04]
+    excludes: ["ubuntu-18.04", "amazonlinux-2"]
 
   # AdoptOpenJDK
   # Version 8

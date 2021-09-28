@@ -6,7 +6,11 @@ module Java
       end
 
       def default_openjdk_install_method(version)
-        lts.include?(version.to_i) ? 'package' : 'source'
+        if platform?('amazon')
+          'source'
+        else
+          lts.include?(version) ? 'package' : 'source'
+        end
       end
 
       def default_openjdk_url(version)
@@ -70,7 +74,7 @@ module Java
 
       def default_openjdk_pkg_names(version)
         value_for_platform_family(
-          amazon: version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : "java-#{version}-amazon-corretto",
+          amazon: ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"],
           %w(rhel fedora) => version.to_i < 11 ? ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           suse: version.to_i == 8 ? ["java-1_#{version}_0-openjdk", "java-1_#{version}_0-openjdk-devel"] : ["java-#{version}-openjdk", "java-#{version}-openjdk-devel"],
           freebsd: "openjdk#{version}",

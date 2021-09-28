@@ -14,6 +14,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - Primarily support OpenJDK LTS versions 8, 11, 17
 - Drop support for OpenJDK package installs for non-LTS versions
   - These packages are still possible to install though they will now default to a source install
+- Direct Amazon users to Amazon Corretto instead of installing OpenJDK
 
 ## 10.0.1 - *2021-09-21*
 
