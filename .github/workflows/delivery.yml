@@ -50,9 +50,6 @@ jobs:
           - openjdk-11
           - openjdk-16
           - openjdk-17
-          - openjdk-pkg-11
-          - openjdk-pkg-16
-          - openjdk-pkg-17
           # - adoptopenjdk-8-openj9
           # - adoptopenjdk-11-hotspot
           # - adoptopenjdk-11-openj9
