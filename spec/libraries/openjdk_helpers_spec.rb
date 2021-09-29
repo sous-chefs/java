@@ -114,8 +114,6 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
           end
         end
       end
-
-
     end
 
     # context 'Debian 11' do
@@ -126,6 +124,5 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
     #     expect(subject.default_openjdk_install_method(version)).to eq 'package'
     #   end
     # end
-
   end
 end
