@@ -14,7 +14,7 @@ module Java
           supported.include?(version) ? 'package' : 'source'
         when 'debian'
           case node['platform_version']
-          when '10', '18'
+          when '10', '18.04'
             supported = lts - ['17']
             supported.include?(version) ? 'package' : 'source'
           when '9'
