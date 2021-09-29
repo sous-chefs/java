@@ -13,12 +13,12 @@ module Java
           supported = lts.delete('11')
           supported.include?(version) ? 'package' : 'source'
         when 'debian'
-          if node['platform_version'].to_i == 10
+          case node['platform_version']
+          when '10', '18'
             supported = lts - ['17']
             supported.include?(version) ? 'package' : 'source'
-          elsif node['platform_version'].to_i == 18
-            supported = lts - ['17']
-            supported.include?(version) ? 'package' : 'source'
+          when '9'
+            %w(8).include?(version) ? 'package' : 'source'
           else
             lts.include?(version) ? 'package' : 'source'
           end

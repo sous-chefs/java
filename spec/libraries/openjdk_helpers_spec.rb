@@ -55,25 +55,33 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
     context 'Debian' do
       let(:platform_family) { 'debian' }
 
-      # context '9' do
-      #   let(:platform_version) { '9' }
+      context '9' do
+        let(:platform_version) { '9' }
 
-      #   context 'OpenJDK 17' do
-      #     let(:version) { '17' }
+        context 'OpenJDK 8' do
+          let(:version) { '8' }
 
-      #     it 'should default to a source install' do
-      #       expect(subject.default_openjdk_install_method(version)).to eq 'source'
-      #     end
-      #   end
+          it 'should default to a package install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'package'
+          end
+        end
 
-      #   context 'OpenJDK 11' do
-      #     let(:version) { '11' }
+        context 'OpenJDK 11' do
+          let(:version) { '11' }
 
-      #     it 'should default to a package install' do
-      #       expect(subject.default_openjdk_install_method(version)).to eq 'package'
-      #     end
-      #   end
-      # end
+          it 'should default to a source install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'source'
+          end
+        end
+
+        context 'OpenJDK 17' do
+          let(:version) { '17' }
+
+          it 'should default to a source install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'source'
+          end
+        end
+      end
 
       context '10' do
         let(:platform_version) { '10' }
@@ -97,6 +105,46 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
 
       context '11' do
         let(:platform_version) { '11' }
+
+        context 'OpenJDK 17' do
+          let(:version) { '17' }
+
+          it 'should default to a package install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'package'
+          end
+        end
+
+        context 'OpenJDK 11' do
+          let(:version) { '11' }
+
+          it 'should default to a package install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'package'
+          end
+        end
+      end
+
+      context 'Ubuntu 18.04' do
+        let(:platform_version) { '18.04' }
+
+        context 'OpenJDK 17' do
+          let(:version) { '17' }
+
+          it 'should default to a source install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'source'
+          end
+        end
+
+        context 'OpenJDK 11' do
+          let(:version) { '11' }
+
+          it 'should default to a package install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'package'
+          end
+        end
+      end
+
+      context 'Ubuntu 20.04' do
+        let(:platform_version) { '20.04' }
 
         context 'OpenJDK 17' do
           let(:version) { '17' }

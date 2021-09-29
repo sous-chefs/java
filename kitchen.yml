@@ -14,6 +14,7 @@ platforms:
   - name: amazonlinux-2
   - name: centos-7
   - name: centos-8
+  - name: debian-9
   - name: debian-10
   - name: debian-11
   - name: freebsd-11
@@ -59,27 +60,27 @@ suites:
 
   # AdoptOpenJDK
   # Version 8
-  - name: adoptopenjdk-8-hotspot
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 8
-      variant: hotspot
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-hotspot.yml]
+  # - name: adoptopenjdk-8-hotspot
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 8
+  #     variant: hotspot
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-hotspot.yml]
 
-  - name: adoptopenjdk-8-openj9
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 8
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-openj9.yml]
+  # - name: adoptopenjdk-8-openj9
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 8
+  #     variant: openj9
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-openj9.yml]
 
-  - name: adoptopenjdk-8-openj9-large-heap
+  # - name: adoptopenjdk-8-openj9-large-heap
     run_list:
       - recipe[test::adoptopenjdk]
     attributes:
@@ -90,65 +91,65 @@ suites:
       input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-openj9-large-heap.yml]
 
   # Version 11
-  - name: adoptopenjdk-11-hotspot
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 11
-      variant: hotspot
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-hotspot.yml]
-  - name: adoptopenjdk-11-openj9
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 11
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9.yml]
-  - name: adoptopenjdk-11-openj9-large-heap
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 11
-      variant: openj9-large-heap
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9-large-heap.yml]
+  # - name: adoptopenjdk-11-hotspot
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 11
+  #     variant: hotspot
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-hotspot.yml]
+  # - name: adoptopenjdk-11-openj9
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 11
+  #     variant: openj9
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9.yml]
+  # - name: adoptopenjdk-11-openj9-large-heap
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 11
+  #     variant: openj9-large-heap
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9-large-heap.yml]
 
-  # Version 14
-  - name: adoptopenjdk-14-openj9-large-heap
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 14
-      variant: openj9-large-heap
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-openj9-large-heap.yml]
-  - name: adoptopenjdk-14-openj9
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 14
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-openj9.yml]
-  - name: adoptopenjdk-14-hotspot
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 14
-      variant: hotspot
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-hotspot.yml]
+  # # Version 14
+  # - name: adoptopenjdk-14-openj9-large-heap
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 14
+  #     variant: openj9-large-heap
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-openj9-large-heap.yml]
+  # - name: adoptopenjdk-14-openj9
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 14
+  #     variant: openj9
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-openj9.yml]
+  # - name: adoptopenjdk-14-hotspot
+  #   run_list:
+  #     - recipe[test::adoptopenjdk]
+  #   attributes:
+  #     version: 14
+  #     variant: hotspot
+  #   verifier:
+  #     inspec_tests: [test/integration/adoptopenjdk]
+  #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-hotspot.yml]
 
-  # 11 Removal
-  - name: adoptopenjdk-removal-11-openj9
+  # # 11 Removal
+  # - name: adoptopenjdk-removal-11-openj9
     run_list:
       - recipe[test::remove-adoptopenjdk-11-openj9]
     attributes:
@@ -159,70 +160,70 @@ suites:
       input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9.yml]
 
   # Corretto
-  - name: corretto-8
-    run_list:
-      - recipe[test::corretto]
-    attributes: {version: "8"}
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: {java_version: "8"}
-  - name: corretto-11
-    run_list:
-      - recipe[test::corretto]
-    attributes: {version: "11"}
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: {java_version: "11"}
-  - name: corretto-15
-    run_list:
-      - recipe[test::corretto]
-    attributes: {version: "15"}
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: {java_version: "15"}
-  - name: corretto-16
-    run_list:
-      - recipe[test::corretto]
-    attributes: {version: "16"}
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: {java_version: "16"}
+  # - name: corretto-8
+  #   run_list:
+  #     - recipe[test::corretto]
+  #   attributes: {version: "8"}
+  #   verifier:
+  #     inspec_tests: [test/integration/corretto]
+  #     inputs: {java_version: "8"}
+  # - name: corretto-11
+  #   run_list:
+  #     - recipe[test::corretto]
+  #   attributes: {version: "11"}
+  #   verifier:
+  #     inspec_tests: [test/integration/corretto]
+  #     inputs: {java_version: "11"}
+  # - name: corretto-15
+  #   run_list:
+  #     - recipe[test::corretto]
+  #   attributes: {version: "15"}
+  #   verifier:
+  #     inspec_tests: [test/integration/corretto]
+  #     inputs: {java_version: "15"}
+  # - name: corretto-16
+  #   run_list:
+  #     - recipe[test::corretto]
+  #   attributes: {version: "16"}
+  #   verifier:
+  #     inspec_tests: [test/integration/corretto]
+  #     inputs: {java_version: "16"}
 
-  # Custom URL tests
-  - name: custom-package-8
-    run_list:
-      - recipe[test::custom_package]
-    attributes:
-      version: 8
-      variant: hotspot
-      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
-      checksum: 7b7884f2eb2ba2d47f4c0bf3bb1a2a95b73a3a7734bd47ebf9798483a7bcc423
-    verifier:
-      inspec_tests: [test/integration/custom-package]
-      input_files: [test/integration/custom-package/inputs/hotspot-8.yml]
-  - name: custom-package-11
-    run_list:
-      - recipe[test::custom_package]
-    attributes:
-      version: 11
-      variant: hotspot
-      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_hotspot_11.0.6_10.tar.gz
-      checksum: 330d19a2eaa07ed02757d7a785a77bab49f5ee710ea03b4ee2fa220ddd0feffc
-    verifier:
-      inspec_tests: [test/integration/custom-package]
-      input_files: [test/integration/custom-package/inputs/hotspot-11.yml]
-  - name: custom-package-11-openj9
-    run_list:
-      - recipe[test::custom_package]
-    attributes:
-      version: 11
-      variant: openj9
-      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_openj9_11.0.6_10_openj9-0.18.1.tar.gz
-      checksum: 1530172ee98edd129954fcdca1bf725f7b30c8bfc3cdc381c88de96b7d19e690
-    verifier:
-      inspec_tests: [test/integration/custom-package]
-      input_files: [test/integration/custom-package/inputs/openj9-11.yml]
-  - name: custom-package-11-openj9-large-heap
+  # # Custom URL tests
+  # - name: custom-package-8
+  #   run_list:
+  #     - recipe[test::custom_package]
+  #   attributes:
+  #     version: 8
+  #     variant: hotspot
+  #     url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
+  #     checksum: 7b7884f2eb2ba2d47f4c0bf3bb1a2a95b73a3a7734bd47ebf9798483a7bcc423
+  #   verifier:
+  #     inspec_tests: [test/integration/custom-package]
+  #     input_files: [test/integration/custom-package/inputs/hotspot-8.yml]
+  # - name: custom-package-11
+  #   run_list:
+  #     - recipe[test::custom_package]
+  #   attributes:
+  #     version: 11
+  #     variant: hotspot
+  #     url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_hotspot_11.0.6_10.tar.gz
+  #     checksum: 330d19a2eaa07ed02757d7a785a77bab49f5ee710ea03b4ee2fa220ddd0feffc
+  #   verifier:
+  #     inspec_tests: [test/integration/custom-package]
+  #     input_files: [test/integration/custom-package/inputs/hotspot-11.yml]
+  # - name: custom-package-11-openj9
+  #   run_list:
+  #     - recipe[test::custom_package]
+  #   attributes:
+  #     version: 11
+  #     variant: openj9
+  #     url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_openj9_11.0.6_10_openj9-0.18.1.tar.gz
+  #     checksum: 1530172ee98edd129954fcdca1bf725f7b30c8bfc3cdc381c88de96b7d19e690
+  #   verifier:
+  #     inspec_tests: [test/integration/custom-package]
+  #     input_files: [test/integration/custom-package/inputs/openj9-11.yml]
+  # - name: custom-package-11-openj9-large-heap
     run_list:
       - recipe[test::custom_package]
     attributes:
