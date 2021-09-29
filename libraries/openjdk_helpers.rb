@@ -14,7 +14,10 @@ module Java
           supported.include?(version) ? 'package' : 'source'
         when 'debian'
           if node['platform_version'].to_i == 10
-            supported = lts.delete('17')
+            supported = lts - ['17']
+            supported.include?(version) ? 'package' : 'source'
+          elsif node['platform_version'].to_i == 18
+            supported = lts - ['17']
             supported.include?(version) ? 'package' : 'source'
           else
             lts.include?(version) ? 'package' : 'source'
@@ -46,7 +49,7 @@ module Java
           'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz'
         else
           Chef::Log.fatal('Version specified does not have a URL value set')
-          raise 'No checksum value'
+          raise 'Version supplied does not have a download URL set'
         end
       end
 
@@ -71,7 +74,7 @@ module Java
         when '17'
           'aef49cc7aa606de2044302e757fa94c8e144818e93487081c4fd319ca858134b'
         else
-          Chef::Log.fatal('Version specified does not have a c value set')
+          Chef::Log.fatal('Version specified does not have a checksum value set')
           raise 'No checksum value'
         end
       end
