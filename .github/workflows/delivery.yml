@@ -17,21 +17,21 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
 
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
+  # yamllint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v2
+  #     - name: Run yaml Lint
+  #       uses: actionshub/yamllint@main
 
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@main
+  # mdl:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v2
+  #     - name: Run Markdown Lint
+  #       uses: actionshub/markdownlint@main
 
   integration:
     needs: [delivery, yamllint, mdl]
