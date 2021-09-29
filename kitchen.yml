@@ -81,14 +81,14 @@ suites:
   #     input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-openj9.yml]
 
   # - name: adoptopenjdk-8-openj9-large-heap
-    run_list:
-      - recipe[test::adoptopenjdk]
-    attributes:
-      version: 8
-      variant: openj9-large-heap
-    verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-openj9-large-heap.yml]
+    # run_list:
+    #   - recipe[test::adoptopenjdk]
+    # attributes:
+    #   version: 8
+    #   variant: openj9-large-heap
+    # verifier:
+    #   inspec_tests: [test/integration/adoptopenjdk]
+    #   input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-8-openj9-large-heap.yml]
 
   # Version 11
   # - name: adoptopenjdk-11-hotspot
@@ -150,14 +150,14 @@ suites:
 
   # # 11 Removal
   # - name: adoptopenjdk-removal-11-openj9
-    run_list:
-      - recipe[test::remove-adoptopenjdk-11-openj9]
-    attributes:
-      version: 11
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/remove-adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9.yml]
+    # run_list:
+    #   - recipe[test::remove-adoptopenjdk-11-openj9]
+    # attributes:
+    #   version: 11
+    #   variant: openj9
+    # verifier:
+    #   inspec_tests: [test/integration/remove-adoptopenjdk]
+    #   input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-11-openj9.yml]
 
   # Corretto
   # - name: corretto-8
@@ -224,13 +224,13 @@ suites:
   #     inspec_tests: [test/integration/custom-package]
   #     input_files: [test/integration/custom-package/inputs/openj9-11.yml]
   # - name: custom-package-11-openj9-large-heap
-    run_list:
-      - recipe[test::custom_package]
-    attributes:
-      version: 11
-      variant: openj9-large-heap
-      url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_openj9_linuxXL_11.0.6_10_openj9-0.18.1.tar.gz
-      checksum: 6524d85d2ce334c955a4347015567326067ef15fe5f6a805714b25cace256f40
-    verifier:
-      inspec_tests: [test/integration/custom-package]
-      input_files: [test/integration/custom-package/inputs/openj9-large-heap-11.yml]
+    # run_list:
+    #   - recipe[test::custom_package]
+    # attributes:
+    #   version: 11
+    #   variant: openj9-large-heap
+    #   url: http://ftp.osuosl.org/pub/osl/sous-chefs/OpenJDK11U-jdk_x64_linux_openj9_linuxXL_11.0.6_10_openj9-0.18.1.tar.gz
+    #   checksum: 6524d85d2ce334c955a4347015567326067ef15fe5f6a805714b25cace256f40
+    # verifier:
+    #   inspec_tests: [test/integration/custom-package]
+    #   input_files: [test/integration/custom-package/inputs/openj9-large-heap-11.yml]
