@@ -4,6 +4,19 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Revert worklfow split out
+- Rename InSpec attribute folders to input
+- Add Corretto 16
+- Update the Corretto minor version numbers
+- Default the Debian install method to package
+- Remove testing for end of life OpenJDK suites
+- Primarily support OpenJDK LTS versions 11, 17
+- Drop support for OpenJDK package installs for non-LTS versions
+  - These packages are still possible to install though they will now default to a source install
+- Direct Amazon users to Amazon Corretto instead of installing OpenJDK
+- Drop package install support for Java 8. Most supported operating systems no longer support OpenJDK 8
+  - To install OpenJDK 8, a 'source' install from an internal mirror is now recommended
+
 ## 10.0.1 - *2021-09-21*
 
 - Split out workflows to allow standardfiles to control markdown, yaml and delivery

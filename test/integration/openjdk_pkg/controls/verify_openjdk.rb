@@ -9,12 +9,6 @@ control 'Java is installed & linked correctly' do
   end
 
   describe command('update-alternatives --display java') do
-    # the openjdk 11 package on amazon linux 2 creates a symbolic link
-    # using jre-<version> rather than java-<version> like the other platforms.
-    if os[:name] == 'amazon' && os[:release].start_with?('2') && java_version.to_i == 11
-      its('stdout') { should match %r{\/usr\/lib\/jvm\/jre} }
-    else
-      its('stdout') { should match %r{\/usr\/lib\/jvm\/java} }
-    end
+    its('stdout') { should match %r{/usr/lib/jvm/java} }
   end
 end
