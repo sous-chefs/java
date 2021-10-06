@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 10.1.0 - *2021-10-06*
 
 - Revert worklfow split out
 - Rename InSpec attribute folders to input
