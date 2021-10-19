@@ -1,5 +1,5 @@
 ---
-name: 'Markdown Link Check'
+name: md-links
 
 "on":
   pull_request:
