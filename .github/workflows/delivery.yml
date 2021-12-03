@@ -7,34 +7,15 @@ name: 'Lint & Unit Test'
     branches: [main]
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-
+  rspec:
+    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@resuable-workflows
   yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
-
+    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@resuable-workflows
   mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@main
+    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@resuable-workflows
 
   integration:
-    needs: [delivery, yamllint, mdl]
+    needs: [rspec, yamllint, mdl]
     runs-on: ubuntu-latest
     strategy:
       matrix:
