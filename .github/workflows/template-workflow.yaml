@@ -12,7 +12,7 @@ jobs:
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Run RSpec
-        run: rspec -f j -o tmp/rspec_results.json -f p
+        run: chef exec rspec -f j -o tmp/rspec_results.json -f p
       - name: RSpec Report
         uses: SonicGarden/rspec-report-action@v1
         with:
