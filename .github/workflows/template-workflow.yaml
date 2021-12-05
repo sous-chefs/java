@@ -13,6 +13,8 @@ jobs:
         uses: actionshub/chef-install@main
       - name: Run RSpec
         run: chef exec rspec -f j -o tmp/rspec_results.json -f p
+        env:
+          CHEF_LICENSE: accept-no-persist
       - name: RSpec Report
         uses: SonicGarden/rspec-report-action@v1
         with:
