@@ -64,7 +64,7 @@ jobs:
           os: ${{ matrix.os }}
 
   integration-macos:
-    needs: [delivery, yamllint, mdl]
+    needs: [rspec, yamllint, mdl]
     runs-on: macos-latest
     steps:
       - name: Check out code
