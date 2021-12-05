@@ -1,4 +1,4 @@
-name: Reusable workflow example
+name: Lint & Unit test
 
 'on':
   workflow_call:
