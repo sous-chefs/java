@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+      - name: Install Chef
+        uses: actionshub/chef-install@main
       - name: Run RSpec
         run: rspec -f j -o tmp/rspec_results.json -f p
       - name: RSpec Report
