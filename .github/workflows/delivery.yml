@@ -8,11 +8,11 @@ name: 'Lint & Unit Test'
 
 jobs:
   rspec:
-    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@resuable-workflows
+    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@reusable-workflows
   yamllint:
-    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@resuable-workflows
+    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@reusable-workflows
   mdl:
-    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@resuable-workflows
+    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@reusable-workflows
 
   integration:
     needs: [rspec, yamllint, mdl]
