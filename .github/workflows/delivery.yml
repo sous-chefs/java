@@ -11,7 +11,7 @@ jobs:
     uses: sous-chefs/java/.github/workflows/template-workflow.yaml@reusable-workflows
 
   integration:
-    needs: [rspec, yamllint, mdl]
+    needs: 'rspec'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -60,7 +60,7 @@ jobs:
           os: ${{ matrix.os }}
 
   integration-macos:
-    needs: [rspec, yamllint, mdl]
+    needs: 'rspec'
     runs-on: macos-latest
     steps:
       - name: Check out code
