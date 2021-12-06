@@ -1,5 +1,5 @@
 ---
-name: 'Lint & Unit Test'
+name: 'Test'
 
 'on':
   pull_request:
@@ -7,11 +7,11 @@ name: 'Lint & Unit Test'
     branches: [main]
 
 jobs:
-  rspec:
-    uses: sous-chefs/java/.github/workflows/template-workflow.yaml@reusable-workflows
+  lint-unit:
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yaml@c4d27f78aaae5e927289b1d7f0c4094ba8cf2846
 
   integration:
-    needs: 'rspec'
+    needs: 'lint-unit'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -60,7 +60,7 @@ jobs:
           os: ${{ matrix.os }}
 
   integration-macos:
-    needs: 'rspec'
+    needs: 'lint-unit'
     runs-on: macos-latest
     steps:
       - name: Check out code
