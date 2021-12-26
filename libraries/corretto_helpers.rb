@@ -19,6 +19,8 @@ module Java
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jlink jmap jmod jpackage jps jrunscript jshell jstack jstat jstatd keytool rmid rmiregistry serialver)
         when '16'
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jlink jmap jmod jpackage jps jrunscript jshell jstack jstat jstatd keytool rmid rmiregistry serialver)
+        when '17'
+          %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jlink jmap jmod jpackage jps jrunscript jshell jstack jstat jstatd keytool rmid rmiregistry serialver)
         else
           raise 'Corretto version not recognised'
         end
@@ -35,6 +37,8 @@ module Java
             ver = '15.0.2.7.1'
           when '16'
             ver = '16.0.2.7.1'
+          when '17'
+            ver = '17.0.1.12.1'
           else
             raise 'Corretto version not recognised'
           end
