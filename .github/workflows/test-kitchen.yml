@@ -8,7 +8,7 @@ name: 'Test'
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/shared-workflows/lint-unit.yml@main
+    uses: sous-chefs/.github/.github/shared-workflows/lint-unit.yml@0.0.1
 
   integration:
     needs: 'lint-unit'
