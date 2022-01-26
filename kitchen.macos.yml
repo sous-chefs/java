@@ -22,7 +22,6 @@ platforms:
 suites:
   - name: adoptopenjdk-14
     run_list:
-      - recipe[homebrew]
       - recipe[test::adoptopenjdk]
     attributes:
       version: 14
