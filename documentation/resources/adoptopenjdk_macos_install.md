@@ -13,7 +13,6 @@ Introduced: v8.1.0
 
 | Name          | Type              | Default                    | Description                                                    | Allowed Values |
 | ------------- | ----------------- | -------------------------- | -------------------------------------------------------------- |
-| tap_full      | [true, false]     | `true`                     | Perform a full clone on the tap, as opposed to a shallow clone |
 | tap_url       | String            |                            | The URL of the tap                                             |
 | cask_options  | String            |                            | Options to pass to the brew command during installation        |
 | homebrew_path | String            |                            | The path to the homebrew binary                                |

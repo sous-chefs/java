@@ -25,7 +25,6 @@ Introduced: v7.0.0
 | bin_cmds              | Array             |         | A list of bin_cmds based on the version and variant            |
 | alternatives_priority | Integer           |         | Alternatives priority to set for this Java                     |
 | reset_alternatives    | [true, false]     |         | Whether to reset alternatives before setting                   |
-| tap_full              | [true, false]     | `true`  | Perform a full clone on the tap, as opposed to a shallow clone |
 | tap_url               | String,           |         | The URL of the tap                                             |
 | cask_options          | String,           |         | Options to pass to the brew command during installation        |
 | homebrew_path         | String,           |         | The path to the homebrew binary                                |
