@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 10.1.2 - *2022-01-26*
 
 - Remove delivery and move to calling RSpec directly via a reusable workflow
 
