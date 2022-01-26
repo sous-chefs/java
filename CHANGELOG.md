@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Remove tap_full option as it is no longer available from homebrew
 - Remove delivery and move to calling RSpec directly via a reusable workflow
 
 ## 10.1.1 - *2021-10-19*

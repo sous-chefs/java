@@ -2,10 +2,6 @@ provides :adoptopenjdk_macos_install
 unified_mode true
 include Java::Cookbook::AdoptOpenJdkMacOsHelpers
 
-property :tap_full, [true, false],
-  default: true,
-  description: 'Perform a full clone on the tap, as opposed to a shallow clone'
-
 property :tap_url, String,
   description: 'The URL of the tap'
 
@@ -40,7 +36,6 @@ property :version, String,
 
 action :install do
   homebrew_tap 'AdoptOpenJDK/openjdk' do
-    full               new_resource.tap_full
     homebrew_path      new_resource.homebrew_path
     owner              new_resource.owner
     url                new_resource.tap_url
