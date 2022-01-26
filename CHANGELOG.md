@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Require Chef 16 for resource partials
+- Add resoruce partials for: MacOS, Linux, Java Home and Common as these are used in a multiple places
+
 ## 10.2.0 - *2022-01-26*
 
 - Remove tap_full option as this is no longer supported and there is no replacement

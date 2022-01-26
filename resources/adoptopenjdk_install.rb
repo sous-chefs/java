@@ -1,27 +1,30 @@
 provides :adoptopenjdk_install
 unified_mode true
 
-# Common options
-property :version, String, name_property: true, description: 'Java version to install'
+property :variant,
+          String,
+          description: 'Install flavour', default: 'openj9'
 
-# Linux options
-property :variant, String, description: 'Install flavour', default: 'openj9'
-property :url, String, description: 'The URL to download from'
-property :checksum, String, description: 'The checksum for the downloaded file'
-property :java_home, String, description: 'Set to override the java_home'
-property :java_home_mode, String, description: 'The permission for the Java home directory'
-property :java_home_owner, String, description: 'Owner of the Java Home'
-property :java_home_group, String, description: 'Group for the Java Home'
-property :default, [true, false], description: ' Whether to set this as the default Java'
-property :bin_cmds, Array, description: 'A list of bin_cmds based on the version and variant'
-property :alternatives_priority, Integer, description: 'Alternatives priority to set for this Java'
-property :reset_alternatives, [true, false], description: 'Whether to reset alternatives before setting'
+property :url,
+          String,
+          description: 'The URL to download from'
 
-# MacOS options
-property :tap_url, String, description: 'The URL of the tap'
-property :cask_options, String, description: 'Options to pass to the brew command during installation'
-property :homebrew_path, String, description: 'The path to the homebrew binary'
-property :owner, [String, Integer], description: 'The owner of the Homebrew installation'
+property :checksum,
+          String,
+          description: 'The checksum for the downloaded file'
+
+property :java_home,
+          String,
+          description: 'Set to override the java_home'
+
+property :bin_cmds,
+          Array,
+          description: 'A list of bin_cmds based on the version and variant'
+
+use 'partial/_common'
+use 'partial/_linux'
+use 'partial/_java_home'
+use 'partial/_macos'
 
 action :install do
   case node['platform_family']

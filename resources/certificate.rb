@@ -1,46 +1,57 @@
 unified_mode true
 include Java::Cookbook::CertificateHelpers
 
-property :cert_alias, String,
-  name_property: true,
-  description: 'The alias of the certificate in the keystore. This defaults to the name of the resource'
+property :cert_alias,
+          String,
+          name_property: true,
+          description: 'The alias of the certificate in the keystore. This defaults to the name of the resource'
 
-property :java_home, String,
-  default: lazy { node['java']['java_home'] },
-  description: 'The java home directory'
+property :java_home,
+          String,
+          default: lazy { node['java']['java_home'] },
+          description: 'The java home directory'
 
-property :java_version, String,
-  default: lazy { node['java']['jdk_version'] },
-  description: 'The major java version'
+property :java_version,
+          String,
+          default: lazy { node['java']['jdk_version'] },
+          description: 'The major java version'
 
-property :cacerts, [true, false],
-  default: true,
-  description: 'Specify true for interacting with the Java installation cacerts file. (Java 9+)'
+property :cacerts,
+          [true, false],
+          default: true,
+          description: 'Specify true for interacting with the Java installation cacerts file. (Java 9+)'
 
-property :keystore_path, String,
-  default: lazy { default_truststore_path(java_version, java_home) },
-  description: 'Path to the keystore'
+property :keystore_path,
+          String,
+          default: lazy { default_truststore_path(java_version, java_home) },
+          description: 'Path to the keystore'
 
-property :keystore_passwd, String,
-  default: 'changeit',
-  description: 'Password to the keystore'
+property :keystore_passwd,
+          String,
+          default: 'changeit',
+          description: 'Password to the keystore'
 
-property :cert_data, String,
-  description: 'The certificate data to install'
+property :cert_data,
+          String,
+          description: 'The certificate data to install'
 
-property :cert_file, String,
-  description: 'Path to a certificate file to install'
+property :cert_file,
+          String,
+          description: 'Path to a certificate file to install'
 
-property :ssl_endpoint, String,
-  description: 'An SSL end-point from which to download the certificate'
+property :ssl_endpoint,
+          String,
+          description: 'An SSL end-point from which to download the certificate'
 
-property :starttls, String,
-  equal_to: %w(smtp pop3 imap ftp xmpp xmpp-server irc postgres mysql lmtp nntp sieve ldap),
-  description: 'A protocol specific STARTTLS argument to use when fetching from an ssl_endpoint'
+property :starttls,
+          String,
+          equal_to: %w(smtp pop3 imap ftp xmpp xmpp-server irc postgres mysql lmtp nntp sieve ldap),
+          description: 'A protocol specific STARTTLS argument to use when fetching from an ssl_endpoint'
 
-property :file_cache_path, String,
-  default: Chef::Config[:file_cache_path],
-  description: 'Location to store certificate files'
+property :file_cache_path,
+          String,
+          default: Chef::Config[:file_cache_path],
+          description: 'Location to store certificate files'
 
 action :install do
   require 'openssl'

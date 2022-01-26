@@ -2,23 +2,39 @@ provides :openjdk_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
 
-property :version, String, name_property: true, description: 'Java major version to install'
-property :install_type, String,
-  default: lazy { default_openjdk_install_method(version) },
-  equal_to: %w( package source ),
-  description: 'Installation type'
-property :pkg_names, [String, Array], description: 'List of packages to install'
-property :pkg_version, String, description: 'Package version to install'
-property :java_home, String, description: 'Set to override the java_home'
-property :default, [true, false], description: ' Whether to set this as the defalut Java'
-property :bin_cmds, Array, description: 'A list of bin_cmds based on the version and variant'
-property :alternatives_priority, Integer, description: 'Alternatives priority to set for this Java'
-property :reset_alternatives, [true, false], description: 'Whether to reset alternatives before setting'
-property :url, String, description: 'The URL to download from'
-property :checksum, String, description: 'The checksum for the downloaded file'
-property :java_home_mode, String,  description: 'The permission for the Java home directory'
-property :java_home_owner, String, description: 'Owner of the Java Home'
-property :java_home_group, String, description: 'Group for the Java Home'
+property :install_type,
+          String,
+          default: lazy { default_openjdk_install_method(version) },
+          equal_to: %w( package source ),
+          description: 'Installation type'
+
+property :pkg_names,
+          [String, Array],
+          description: 'List of packages to install'
+
+property :pkg_version,
+          String,
+          description: 'Package version to install'
+
+property :java_home,
+          String,
+          description: 'Set to override the java_home'
+
+property :bin_cmds,
+          Array,
+          description: 'A list of bin_cmds based on the version and variant'
+
+property :url,
+          String,
+          description: 'The URL to download from'
+
+property :checksum,
+          String,
+          description: 'The checksum for the downloaded file'
+
+use 'partial/_common'
+use 'partial/_linux'
+use 'partial/_java_home'
 
 action :install do
   if new_resource.install_type == 'package'
