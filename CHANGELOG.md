@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 10.2.0 - *2022-01-26*
 
 - Remove tap_full option as this is no longer supported and there is no replacement
