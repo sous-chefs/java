@@ -6,6 +6,10 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Remove tap_full option as this is no longer supported and there is no replacement
 
+## 10.1.2 - *2022-01-26*
+
+- Remove delivery and move to calling RSpec directly via a reusable workflow
+
 ## 10.1.1 - *2021-10-19*
 
 Standardise files with files in sous-chefs/repo-management
