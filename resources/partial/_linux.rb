@@ -8,4 +8,4 @@ property :reset_alternatives, [true, false],
 
 property :default, [true, false],
         default: true,
-        description: ' Whether to set this as the defalut Java'
+        description: ' Whether to set this as the default Java'
