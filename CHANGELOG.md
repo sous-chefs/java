@@ -4,11 +4,16 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Require Chef 16 for resource partials
+- Add resource partials for: MacOS, Linux, Java Home and Common as these are used in a multiple places
+
 ## 10.2.2 - *2022-02-14*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 10.2.1 - *2022-02-02*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 10.2.0 - *2022-01-26*
 

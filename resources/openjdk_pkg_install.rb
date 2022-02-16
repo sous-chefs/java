@@ -2,36 +2,27 @@ provides :openjdk_pkg_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
 
-property :version, String,
-  name_property: true,
-  description: 'Java major version to install'
-
 property :pkg_names, [String, Array],
-  default: lazy { default_openjdk_pkg_names(version) },
-  description: 'List of packages to install'
+          default: lazy { default_openjdk_pkg_names(version) },
+          description: 'List of packages to install'
 
 property :pkg_version, String,
-  description: 'Package version to install'
+          description: 'Package version to install'
 
 property :java_home, String,
-  default: lazy { default_openjdk_pkg_java_home(version) },
-  description: 'Set to override the java_home'
-
-property :default, [true, false],
-  default: true,
-  description: ' Whether to set this as the defalut Java'
+          default: lazy { default_openjdk_pkg_java_home(version) },
+          description: 'Set to override the java_home'
 
 property :bin_cmds, Array,
-  default: lazy { default_openjdk_bin_cmds(version) },
-  description: 'A list of bin_cmds based on the version and variant'
+          default: lazy { default_openjdk_bin_cmds(version) },
+          description: 'A list of bin_cmds based on the version and variant'
 
 property :alternatives_priority, Integer,
-  default: 1062,
-  description: 'Alternatives priority to set for this Java'
+          default: 1062,
+          description: 'Alternatives priority to set for this Java'
 
-property :reset_alternatives, [true, false],
-  default: true,
-  description: 'Whether to reset alternatives before setting'
+use 'partial/_common'
+use 'partial/_linux'
 
 action :install do
   if platform?('ubuntu')
