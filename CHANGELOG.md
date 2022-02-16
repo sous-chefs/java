@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 11.0.0 - *2022-02-16*
 
 - Require Chef 16 for resource partials
 - Add resource partials for: MacOS, Linux, Java Home and Common as these are used in a multiple places
