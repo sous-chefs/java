@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Elevate permissions for reuable workflow
+
 ## 11.0.0 - *2022-02-16*
 
 - Require Chef 16 for resource partials
