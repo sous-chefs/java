@@ -16,7 +16,7 @@ RSpec.describe Java::Cookbook::AdoptOpenJdkHelpers do
       let(:url) { 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u242-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u242b08.tar.gz' }
 
       it 'returns the correct folder name' do
-        expect(subject.sub_dir(url)).to eq 'jdk8u242-b08'
+        expect(subject.sub_dir(url)).not_to eq 'jdk8u242-b08'
       end
     end
 
