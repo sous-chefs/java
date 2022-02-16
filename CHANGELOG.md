@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 11.0.1 - *2022-02-16*
 
 - Elevate permissions for reuable workflow
