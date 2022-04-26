@@ -166,20 +166,20 @@ suites:
     verifier:
       inspec_tests: [test/integration/corretto]
       inputs: {java_version: "11"}
-  - name: corretto-15
+  - name: corretto-17
     run_list:
       - recipe[test::corretto]
-    attributes: {version: "15"}
+    attributes: {version: "17"}
     verifier:
       inspec_tests: [test/integration/corretto]
-      inputs: {java_version: "15"}
-  - name: corretto-16
+      inputs: {java_version: "17"}
+  - name: corretto-18
     run_list:
       - recipe[test::corretto]
-    attributes: {version: "16"}
+    attributes: {version: "18"}
     verifier:
       inspec_tests: [test/integration/corretto]
-      inputs: {java_version: "16"}
+      inputs: {java_version: "18"}
 
   # Custom URL tests
   - name: custom-package-8

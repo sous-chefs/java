@@ -4,9 +4,13 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Remove Correto 15 and 16
+- Add Corretto 17 and 18
+- Change the defualt download URL for Corretto to the versioned resources URL, rather than latest.
+
 ## 11.0.2 - *2022-04-20*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 11.0.1 - *2022-02-16*
 
