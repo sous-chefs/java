@@ -18,22 +18,18 @@ module Java
         end
       end
 
-      def default_corretto_minor(version, full_version = nil)
-        if full_version.nil?
-          case version
-          when '8'
-            '8.332.08.1'
-          when '11'
-            '11.0.15.9.1'
-          when '17'
-            '17.0.3.6.1'
-          when '18'
-            '18.0.1.10.1'
-          else
-            raise 'Corretto version not recognised'
-          end
+      def default_corretto_minor(version)
+        case version
+        when '8'
+          '8.332.08.1'
+        when '11'
+          '11.0.15.9.1'
+        when '17'
+          '17.0.3.6.1'
+        when '18'
+          '18.0.1.10.1'
         else
-          full_version
+          raise 'Corretto version not recognised'
         end
       end
 
