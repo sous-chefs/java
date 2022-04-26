@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 11.1.0 - *2022-04-26*
 
 - Remove Correto 15 and 16
