@@ -44,8 +44,8 @@ jobs:
           - adoptopenjdk-removal-11-openj9
           - corretto-8
           - corretto-11
-          - corretto-15
-          - corretto-16
+          - corretto-17
+          - corretto-18
           - custom-package-8
           - custom-package-11
           - custom-package-11-openj9
