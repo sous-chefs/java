@@ -5,10 +5,6 @@ module Java
         node['kernel']['machine'].match?('aarch64') ? 'aarch64' : 'x64'
       end
 
-      def default_corretto_url(version)
-        "https://corretto.aws/downloads/resources/#{version}/amazon-corretto-#{version}-linux-#{corretto_arch}.tar.gz"
-      end
-
       def default_corretto_bin_cmds(version)
         case version.to_s
         when '8'
@@ -22,25 +18,34 @@ module Java
         end
       end
 
-      def corretto_sub_dir(version, full_version = nil)
+      def default_corretto_minor(version)
         if full_version.nil?
           case version
           when '8'
-            ver = '8.332.08.1'
+            '8.332.08.1'
           when '11'
-            ver = '11.0.15.9.1'
+            '11.0.15.9.1'
           when '17'
-            ver = '17.0.3.6.1'
+            '17.0.3.6.1'
           when '18'
-            ver = '18.0.1.10.1'
+            '18.0.1.10.1'
           else
             raise 'Corretto version not recognised'
           end
         else
-          ver = full_version
+          full_version
         end
+      end
 
+      def corretto_sub_dir(version, full_version = nil)
+        ver = full_version.nil? ? default_corretto_minor(version) : full_version
         "amazon-corretto-#{ver}-linux-#{corretto_arch}"
+      end
+
+      def default_corretto_url(version)
+        ver = version.include?('.') ? version : default_corretto_minor(version)
+
+        "https://corretto.aws/downloads/resources/#{ver}/amazon-corretto-#{ver}-linux-#{corretto_arch}.tar.gz"
       end
     end
   end
