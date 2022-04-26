@@ -18,7 +18,7 @@ module Java
         end
       end
 
-      def default_corretto_minor(version)
+      def default_corretto_minor(version, full_version = nil)
         if full_version.nil?
           case version
           when '8'
