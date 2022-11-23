@@ -28,18 +28,18 @@
 # use 'partial/_linux'
 # use 'partial/_java_home'
 
-action :install do
-  # template "/usr/lib/jvm/.java-#{new_resource.version}-adoptopenjdk-#{new_resource.variant}.jinfo" do
-  #   cookbook 'java'
-  #   source 'jinfo.erb'
-  #   owner new_resource.java_home_owner
-  #   group new_resource.java_home_group
-  #   variables(
-  #     priority: new_resource.alternatives_priority,
-  #     bin_cmds: new_resource.bin_cmds,
-  #     name: extract_dir.split('/').last,
-  #     app_dir: new_resource.java_home
-  #   )
-  #   only_if { platform_family?('debian') }
-  # end
-end
+# action :install do
+# template "/usr/lib/jvm/.java-#{new_resource.version}-adoptopenjdk-#{new_resource.variant}.jinfo" do
+#   cookbook 'java'
+#   source 'jinfo.erb'
+#   owner new_resource.java_home_owner
+#   group new_resource.java_home_group
+#   variables(
+#     priority: new_resource.alternatives_priority,
+#     bin_cmds: new_resource.bin_cmds,
+#     name: extract_dir.split('/').last,
+#     app_dir: new_resource.java_home
+#   )
+#   only_if { platform_family?('debian') }
+# end
+# end

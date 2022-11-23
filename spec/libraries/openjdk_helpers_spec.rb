@@ -27,7 +27,7 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
     end
 
     context 'Invalid OpenJDK version' do
-      let(:version) { '18' }
+      let(:version) { '18.2' }
 
       it 'should raise an error' do
         expect { subject.default_openjdk_url(version) }

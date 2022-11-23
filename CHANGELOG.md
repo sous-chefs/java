@@ -101,16 +101,19 @@ Standardise files with files in sous-chefs/repo-management
 - Remove testing for end of life OpenJDK suites
 - Primarily support OpenJDK LTS versions 11, 17
 - Drop support for OpenJDK package installs for non-LTS versions
-  - These packages are still possible to install though they will now default to a source install
+
+  These packages are still possible to install though they will now default to a source install
 - Direct Amazon users to Amazon Corretto instead of installing OpenJDK
 - Drop package install support for Java 8. Most supported operating systems no longer support OpenJDK 8
-  - To install OpenJDK 8, a 'source' install from an internal mirror is now recommended
+
+  To install OpenJDK 8, a 'source' install from an internal mirror is now recommended
 
 ## 10.0.1 - *2021-09-21*
 
 - Split out workflows to allow standardfiles to control markdown, yaml and delivery
 - Adds a "Final" workflow to set a known pass/failure hook
-  - This allows us to have Terraform set the Final workflow as a required check
+
+  This allows us to have Terraform set the Final workflow as a required check
 
 ## 10.0.0 - *2021-09-02*
 
@@ -749,10 +752,10 @@ This version brings a wealth of tests and (backwards-compatible) refactoring, pl
 ## v1.7.0
 
 - [COOK-2001] - improvements for Oracle update-alternatives
-  - When installing an Oracle JDK it is now registered with a higher priority than OpenJDK. (Related to COOK-1131.)
-  - When running both the oracle and oracle_i386 recipes, alternatives are now created for both JDKs.
-  - Alternatives are now created for all binaries listed in version specific attributes. (Related to COOK-1563 and COOK-1635.)
-  - When installing Oracke JDKs on Ubuntu, create .jinfo files for use with update-java-alternatives. Commands to set/install alternatives now only run if needed.
+- When installing an Oracle JDK it is now registered with a higher priority than OpenJDK. (Related to COOK-1131.)
+- When running both the oracle and oracle_i386 recipes, alternatives are now created for both JDKs.
+- Alternatives are now created for all binaries listed in version specific attributes. (Related to COOK-1563 and COOK-1635.)
+- When installing Oracke JDKs on Ubuntu, create .jinfo files for use with update-java-alternatives. Commands to set/install alternatives now only run if needed.
 
 ## v1.6.4
 

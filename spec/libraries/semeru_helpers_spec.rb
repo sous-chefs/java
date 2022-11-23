@@ -71,4 +71,3 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
     end
   end
 end
-
