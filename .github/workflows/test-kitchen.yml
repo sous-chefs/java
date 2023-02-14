@@ -1,7 +1,7 @@
 ---
-name: 'Test'
+name: "Test"
 
-'on':
+"on":
   pull_request:
   push:
     branches: [main]
@@ -17,7 +17,7 @@ jobs:
       issues: write
 
   integration:
-    needs: 'lint-unit'
+    needs: "lint-unit"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -55,9 +55,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Install Chef
-        uses: actionshub/chef-install@main
+        uses: actionshub/chef-install@2.0.4
       - name: Dokken
-        uses: actionshub/test-kitchen@main
+        uses: actionshub/test-kitchen@2.1.0
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -66,15 +66,15 @@ jobs:
           os: ${{ matrix.os }}
 
   integration-macos:
-    needs: 'lint-unit'
+    needs: "lint-unit"
     runs-on: macos-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Install Chef
-        uses: actionshub/chef-install@main
+        uses: actionshub/chef-install@2.0.4
       - name: Kitchen Converge
-        uses: actionshub/test-kitchen@main
+        uses: actionshub/test-kitchen@2.1.0
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
@@ -91,7 +91,7 @@ jobs:
           # Magic line for github actions to persist the change
           echo "JAVA_HOME=${JAVA_HOME}" >> $GITHUB_ENV
       - name: Kitchen Verify
-        uses: actionshub/test-kitchen@main
+        uses: actionshub/test-kitchen@2.1.0
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
