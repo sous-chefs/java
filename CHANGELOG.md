@@ -4,13 +4,15 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 11.1.5 - *2023-02-20*
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
-
 ## 11.1.4 - *2023-02-15*
+
+Standardise files with files in sous-chefs/repo-management
 
 ## 11.1.3 - *2023-02-14*
 
@@ -184,29 +186,17 @@ Standardise files with files in sous-chefs/repo-management
 ## 7.0.0 (2020-03-05)
 
 - Refactored and sped up unit tests.
-
-## Added
-
 - Added `adoptopenjdk_install` resource & documentation
 - Added AdoptOpenJDK 13 testing
-
-## Deprecated
-
 - Removed the adoptopenjdk recipe, please use the `adoptopenjdk_install` resource instead.
 - Increased the minimum Chef requirement to Chef 15 to use the archive resource.
 - Removed AdoptOpenJDK 10 testing
 
 ## 6.0.0 (2020-03-02)
 
-## Deprecated
-
 - The resource alias `java_ark` has been deprecated in favour of `java_oracle_install`
 
 ## 5.0.0 (2020-02-21)
-
-### Added
-
-### Changed
 
 - Fixed java_certificate regex where it checks if cert exists in cacert file.
 - Make Homebrew Cask name an attribute to allow for other options (ex: adoptopenjdk)
@@ -214,11 +204,6 @@ Standardise files with files in sous-chefs/repo-management
 - Make builds parallel
 - Updates package name and link changes for adoptopenjdk
 - Migrated testing to github actions
-
-### Deprecated
-
-### Removed
-
 - Removes openjdk-6
 - Removes openjdk-7 for Ubuntu 16.04
 - Removes openjdk-11 for Ubuntu
@@ -589,18 +574,12 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 ## v1.17.4
 
-### Bug
-
 - **[#111](https://github.com/socrata-cookbooks/java/pull/111)** - Fix alternatives for centos
-
-### Improvement
 
 - **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** - Replace curl with remote_file with cookie header
 - **[#110](https://github.com/socrata-cookbooks/java/pull/110)** - Update openjdk to use the alternatives resource
 
 ## v1.17.2
-
-### Bug
 
 - **[COOK-4136](https://tickets.opscode.com/browse/COOK-4136)** - Add md5 parameter to java_ark resource
 
@@ -617,27 +596,19 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 ## v1.16.4
 
-### Bug
-
 - **[#103](https://github.com/socrata/java/pull/103)** - set alternatives when using ibm_tar recipe
 - **[#104](https://github.com/socrata/java/pull/104)** - Specify windows attributes in attribute files
 
 ## v1.16.2
 
-### Improvement
-
 - **[COOK-3488](https://tickets.opscode.com/browse/COOK-3488)** - set alternatives for ibm jdk
 - **[COOK-3764](https://tickets.opscode.com/browse/COOK-3764)** - IBM Java installer needs 'rpm' package on Ubuntu
-
-### Bug
 
 - **[COOK-3857](https://tickets.opscode.com/browse/COOK-3857)** - do not unescape the java windows url before parsing it
 - **[#95](https://github.com/socrata/java/pull/95)** - fixes update-alternatives for openjdk installs
 - **[#100](https://github.com/socrata/java/pull/100)** - Use escaped quotes for Windows INSTALLDIR
 
 ## v1.16.0
-
-### Improvement
 
 - **[COOK-3823](https://tickets.opscode.com/browse/COOK-3823)** - Upgrade to JDK 7u45-b18
 
@@ -651,8 +622,6 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 ## v1.15.0
 
-### Bug
-
 - Fixing version number. Accidently released at 0.15.x instead of 1.15.x
 
 ## v0.15.2
@@ -663,8 +632,6 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 ## v1.14.0
 
-### Bug
-
 - **[COOK-3704](https://tickets.opscode.com/browse/COOK-3704)** - Fix alternatives when the package is already installed
 - **[COOK-3668](https://tickets.opscode.com/browse/COOK-3668)** - Fix a condition that would result in an error executing action `run` on resource 'bash[update-java-alternatives]'
 - **[COOK-3569](https://tickets.opscode.com/browse/COOK-3569)** - Fix bad checksum length
@@ -672,18 +639,12 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 - **[COOK-3518](https://tickets.opscode.com/browse/COOK-3518)** - Allow Windoes recipe to download from signed S3 url
 - **[COOK-2996](https://tickets.opscode.com/browse/COOK-2996)** - Fix a failure on Centos 6.4 and Oracle JDK 7
 
-### Improvement
-
 - **[COOK-2793](https://tickets.opscode.com/browse/COOK-2793)** - Improve Windows support
 
 ## v1.13.0
 
-### Bug
-
 - **[COOK-3295](https://tickets.opscode.com/browse/COOK-3295)** - Add default `platform_family` option in Java helper
 - **[COOK-3277](https://tickets.opscode.com/browse/COOK-3277)** - Fix support for Fedora
-
-### Improvement
 
 - **[COOK-3278](https://tickets.opscode.com/browse/COOK-3278)** - Upgrade to Oracle Java 7u25
 - **[COOK-3029](https://tickets.opscode.com/browse/COOK-3029)** - Add Oracle RPM support
@@ -691,8 +652,6 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 - **[COOK-2154](https://tickets.opscode.com/browse/COOK-2154)** - Add SmartOS support
 
 ## v1.12.0
-
-### Improvement
 
 - [COOK-2154]: Add SmartOS support to java::openjdk recipe
 - [COOK-3278]: upgrade to Oracle Java 7u25

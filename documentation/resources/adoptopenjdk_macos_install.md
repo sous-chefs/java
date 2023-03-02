@@ -1,6 +1,7 @@
-[back to resource list](https://github.com/sous-chefs/java#resources)
 
 # adoptopenjdk_macos_install
+
+[back to resource list](https://github.com/sous-chefs/java#resources)
 
 Introduced: v8.1.0
 

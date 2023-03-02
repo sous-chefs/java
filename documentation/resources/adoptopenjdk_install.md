@@ -1,6 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/java#resources)
-
 # adoptopenjdk_install
+
+[back to resource list](https://github.com/sous-chefs/java#resources)
 
 Introduced: v7.0.0
 
