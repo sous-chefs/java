@@ -1,6 +1,7 @@
-[back to resource list](https://github.com/sous-chefs/java#resources)
 
 # corretto_install
+
+[back to resource list](https://github.com/sous-chefs/java#resources)
 
 Introduced: v8.0.0
 

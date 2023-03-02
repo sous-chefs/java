@@ -1,6 +1,7 @@
-[back to resource list](https://github.com/sous-chefs/java#resources)
 
 # java_alternatives
+
+[back to resource list](https://github.com/sous-chefs/java#resources)
 
 The `java_alternatives` resource uses `update-alternatives` command to set and unset command alternatives for various Java tools such as java, javac, etc.
 

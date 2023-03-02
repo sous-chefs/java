@@ -1,6 +1,7 @@
-[back to resource list](https://github.com/sous-chefs/java#resources)
 
 # java_jce
+
+[back to resource list](https://github.com/sous-chefs/java#resources)
 
 `java_jce` installs the Java Cryptography Extension (JCE) policy files for a given Java installation.
 
