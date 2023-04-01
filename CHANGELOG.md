@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 11.1.8 - *2023-04-01*
 
 ## 11.1.7 - *2023-04-01*
 
