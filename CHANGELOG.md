@@ -16,17 +16,21 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## 11.1.11 - *2023-04-17*
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 11.1.10 - *2023-04-07*
 
 Standardise files with files in sous-chefs/repo-management
 
 ## 11.1.9 - *2023-04-01*
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 11.1.8 - *2023-04-01*
 
-## 11.1.7 - *2023-04-01*
-
 Standardise files with files in sous-chefs/repo-management
+
+## 11.1.7 - *2023-04-01*
 
 Standardise files with files in sous-chefs/repo-management
 
@@ -490,9 +494,9 @@ Standardise files with files in sous-chefs/repo-management
 
 ## v1.29.0 - (11/14/2014)
 
-- **[#216](https://github.com/agileorbit-cookbooks/java/pull/216)** - Ensure dirs, links, and jinfo files are owned correctly
-- **[#217](https://github.com/agileorbit-cookbooks/java/pull/217)** - Update to Oracle JDK 8u25
-- **[#214](https://github.com/agileorbit-cookbooks/java/pull/214)** - Update to Oracle JDK 7u71-b14
+- **[#216](https://github.com/sous-chefs/java/java/pull/216)** - Ensure dirs, links, and jinfo files are owned correctly
+- **[#217](https://github.com/sous-chefs/java/java/pull/217)** - Update to Oracle JDK 8u25
+- **[#214](https://github.com/sous-chefs/java/java/pull/214)** - Update to Oracle JDK 7u71-b14
 - Adding a connect_timeout option for downloading java.
 - Switched to chef-zero provisioner in test suites.
 - Adding ISSUES.md for guidance on creating new issues for the Java cookbook.
@@ -510,15 +514,15 @@ Standardise files with files in sous-chefs/repo-management
 
 ## v1.26.0 - (8/16/2014)
 
-- **[#201](https://github.com/agileorbit-cookbooks/java/pull/201)** - Allow pinning of package versions for openjdk
-- **[#198](https://github.com/agileorbit-cookbooks/java/pull/198)** - Update Oracle JDK7 to version 7u67
-- **[#189](https://github.com/agileorbit-cookbooks/java/pull/184)** - Support specific version and name for Oracle RPM
+- **[#201](https://github.com/sous-chefs/java/java/pull/201)** - Allow pinning of package versions for openjdk
+- **[#198](https://github.com/sous-chefs/java/java/pull/198)** - Update Oracle JDK7 to version 7u67
+- **[#189](https://github.com/sous-chefs/java/java/pull/184)** - Support specific version and name for Oracle RPM
 
 ## v1.25.0 - (8/1/2014)
 
-- **[#189](https://github.com/agileorbit-cookbooks/java/pull/189)** - Resource ark -> attribute bin_cmds default value
-- **[#168](https://github.com/agileorbit-cookbooks/java/pull/168)** - Add option to put JAVA_HOME in /etc/environment
-- **[#172](https://github.com/agileorbit-cookbooks/java/pull/172)** - Allow ark to pull from http and files ending in .gz.
+- **[#189](https://github.com/sous-chefs/java/java/pull/189)** - Resource ark -> attribute bin_cmds default value
+- **[#168](https://github.com/sous-chefs/java/java/pull/168)** - Add option to put JAVA_HOME in /etc/environment
+- **[#172](https://github.com/sous-chefs/java/java/pull/172)** - Allow ark to pull from http and files ending in .gz.
 - Recommendations for inclusion in community cookbooks
 - Production Deployment with Oracle Java
 - Update testing instructions for chefdk
@@ -531,15 +535,15 @@ Standardise files with files in sous-chefs/repo-management
 
 New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 
-- **[#192](https://github.com/agileorbit-cookbooks/java/pull/192)** - Bump JDK7 URLs to 7u65
-- **[#191](https://github.com/agileorbit-cookbooks/java/pull/192)** - Upgrade Oracle's Java 8 to u11
-- **[#188](https://github.com/agileorbit-cookbooks/java/pull/188)** - Allow for alternatives priority to be set from attribute.
-- **[#176](https://github.com/agileorbit-cookbooks/java/pull/176)** - Change ownership of extracted files
-- **[#169](https://github.com/agileorbit-cookbooks/java/pull/169)** - Add retries and retry_delay parameters to java_ark LWRP
-- **[#167](https://github.com/agileorbit-cookbooks/java/pull/167)** - default: don't fail when using java 8 on windows
-- **[#165](https://github.com/agileorbit-cookbooks/java/pull/165)** - Support for Server JRE
-- **[#158](https://github.com/agileorbit-cookbooks/java/pull/158)** - Updated README for accepting oracle terms
-- **[#157](https://github.com/agileorbit-cookbooks/java/pull/157)** -Remove VirtualBox specific box_urls
+- **[#192](https://github.com/sous-chefs/java/java/pull/192)** - Bump JDK7 URLs to 7u65
+- **[#191](https://github.com/sous-chefs/java/java/pull/192)** - Upgrade Oracle's Java 8 to u11
+- **[#188](https://github.com/sous-chefs/java/java/pull/188)** - Allow for alternatives priority to be set from attribute.
+- **[#176](https://github.com/sous-chefs/java/java/pull/176)** - Change ownership of extracted files
+- **[#169](https://github.com/sous-chefs/java/java/pull/169)** - Add retries and retry_delay parameters to java_ark LWRP
+- **[#167](https://github.com/sous-chefs/java/java/pull/167)** - default: don't fail when using java 8 on windows
+- **[#165](https://github.com/sous-chefs/java/java/pull/165)** - Support for Server JRE
+- **[#158](https://github.com/sous-chefs/java/java/pull/158)** - Updated README for accepting oracle terms
+- **[#157](https://github.com/sous-chefs/java/java/pull/157)** -Remove VirtualBox specific box_urls
 - List AgileOrbit as the maintainer (AgileOrbit took over from Socrata in July 2014)
 
 ## v1.23.0 - (7/25/2014)
@@ -548,100 +552,100 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 
 ## v1.22.0
 
-- **[#148](https://github.com/socrata-cookbooks/java/pull/148)** - Add support for Oracle JDK 1.8.0
-- **[#150](https://github.com/socrata-cookbooks/java/pull/150)** - Make use of Chef's cache directory instead of /tmp
-- **[#151](https://github.com/socrata-cookbooks/java/pull/151)** - Update Test Kitchen suites
-- **[#154](https://github.com/socrata-cookbooks/java/pull/154)** - Add safety check for JDK 8 on non-Oracle
+- **[#148](https://github.com/sous-chefs/java/pull/148)** - Add support for Oracle JDK 1.8.0
+- **[#150](https://github.com/sous-chefs/java/pull/150)** - Make use of Chef's cache directory instead of /tmp
+- **[#151](https://github.com/sous-chefs/java/pull/151)** - Update Test Kitchen suites
+- **[#154](https://github.com/sous-chefs/java/pull/154)** - Add safety check for JDK 8 on non-Oracle
 
 ## v1.21.2
 
-- **[#146](https://github.com/socrata-cookbooks/java/pull/146)** - Update Oracle accept-license-terms cookie format
+- **[#146](https://github.com/sous-chefs/java/pull/146)** - Update Oracle accept-license-terms cookie format
 
 ## v1.21.0
 
-- **[#143](https://github.com/socrata-cookbooks/java/pull/143)** - Symlink /usr/lib/jvm/default-java for both OpenJDK and Oracle
-- **[#144](https://github.com/socrata-cookbooks/java/pull/144)** - Remove /var/lib/alternatives/#{cmd} before calling alternatives (Hopefully fixes sporadic issues when setting alternatives)
-- **[Make default_java_symlink conditional on set_default attribute](https://github.com/socrata-cookbooks/java/commit/e300e235a463382a5022e1dddaac674930b4d138)**
+- **[#143](https://github.com/sous-chefs/java/pull/143)** - Symlink /usr/lib/jvm/default-java for both OpenJDK and Oracle
+- **[#144](https://github.com/sous-chefs/java/pull/144)** - Remove /var/lib/alternatives/#{cmd} before calling alternatives (Hopefully fixes sporadic issues when setting alternatives)
+- **[Make default_java_symlink conditional on set_default attribute](https://github.com/sous-chefs/java/commit/e300e235a463382a5022e1dddaac674930b4d138)**
 
 ## v1.20.0
 
-- **[#137](https://github.com/socrata-cookbooks/java/pull/137)** - Create /usr/lib/jvm/default-java on Debian
-- **[#138](https://github.com/socrata-cookbooks/java/pull/138)** - allow wrapping cookbook without providing templates
-- **[#140](https://github.com/socrata-cookbooks/java/pull/140)** - Adds set_default attribute to toggle setting JDK as default
-- **[#141](https://github.com/socrata-cookbooks/java/pull/141)** - set java_home correctly for oracle_rpm
+- **[#137](https://github.com/sous-chefs/java/pull/137)** - Create /usr/lib/jvm/default-java on Debian
+- **[#138](https://github.com/sous-chefs/java/pull/138)** - allow wrapping cookbook without providing templates
+- **[#140](https://github.com/sous-chefs/java/pull/140)** - Adds set_default attribute to toggle setting JDK as default
+- **[#141](https://github.com/sous-chefs/java/pull/141)** - set java_home correctly for oracle_rpm
 
 ## v1.19.2
 
-- **[#129](https://github.com/socrata-cookbooks/java/pull/129)** - Upgrade to ChefSpec 3
+- **[#129](https://github.com/sous-chefs/java/pull/129)** - Upgrade to ChefSpec 3
 - Rewrite unit tests for better coverage and to work with ChefSpec 3 (various commits)
 - List Socrata as the maintainer (Socrata took over from Opscode in December 2013)
-- **[#133](https://github.com/socrata-cookbooks/java/pull/133)** - Allow jdk_version to be a string or number
-- **[#131](https://github.com/socrata-cookbooks/java/pull/131)** - Fix JDK install on Windows
-- **[Fix openjdk_packages on Arch Linux](https://github.com/socrata-cookbooks/java/commit/677bee7b9bf08988596d40ac65e75984a86bda99)**
+- **[#133](https://github.com/sous-chefs/java/pull/133)** - Allow jdk_version to be a string or number
+- **[#131](https://github.com/sous-chefs/java/pull/131)** - Fix JDK install on Windows
+- **[Fix openjdk_packages on Arch Linux](https://github.com/sous-chefs/java/commit/677bee7b9bf08988596d40ac65e75984a86bda99)**
 
 ## v1.19.0
 
 Refactor the cookbook to better support wrapper cookbooks and other cookbook authoring patterns.
 
-- **[#123](https://github.com/socrata-cookbooks/java/pull/123)** - Update documentation & add warning for issue 122
-- **[#124](https://github.com/socrata-cookbooks/java/pull/124)** - Refactor default recipe to better enable wrapper cookbooks
-- **[#125](https://github.com/socrata-cookbooks/java/pull/125)** - Removes the attribute to purge deprecated packages
-- **[#127](https://github.com/socrata-cookbooks/java/pull/127)** - Add safety check if attributes are unset
-- **[Adds tests for directly using openjdk and oracle recipes](https://github.com/socrata-cookbooks/java/commit/794df596959d65a1a6d5f6c52688bffd8de6bff4)**
-- **[Adds recipes to README](https://github.com/socrata-cookbooks/java/commit/76d52114bb9df084174d43fed143123b1cdbae16)**
-- **[The Opscode CCLA is no longer required](https://github.com/socrata-cookbooks/java/commit/ce4ac25caa8383f185c25c4e32cafef8c0453376)**
-- **[Adds tests for openjdk-7 and oracle-7](https://github.com/socrata-cookbooks/java/commit/9c38af241f68b3198cde4ad6fe2b4cb752062009)**
-- **[#119](https://github.com/socrata-cookbooks/java/pull/119)** - Use java_home instead of java_location for update-alternatives
-- **[Fix java_home for rhel and fedora](https://github.com/socrata-cookbooks/java/commit/71dadbd1bfe2eab50ff21cdab4ded97877911cc4)**
+- **[#123](https://github.com/sous-chefs/java/pull/123)** - Update documentation & add warning for issue 122
+- **[#124](https://github.com/sous-chefs/java/pull/124)** - Refactor default recipe to better enable wrapper cookbooks
+- **[#125](https://github.com/sous-chefs/java/pull/125)** - Removes the attribute to purge deprecated packages
+- **[#127](https://github.com/sous-chefs/java/pull/127)** - Add safety check if attributes are unset
+- **[Adds tests for directly using openjdk and oracle recipes](https://github.com/sous-chefs/java/commit/794df596959d65a1a6d5f6c52688bffd8de6bff4)**
+- **[Adds recipes to README](https://github.com/sous-chefs/java/commit/76d52114bb9df084174d43fed143123b1cdbae16)**
+- **[The Opscode CCLA is no longer required](https://github.com/sous-chefs/java/commit/ce4ac25caa8383f185c25c4e32cafef8c0453376)**
+- **[Adds tests for openjdk-7 and oracle-7](https://github.com/sous-chefs/java/commit/9c38af241f68b3198cde4ad6fe2b4cb752062009)**
+- **[#119](https://github.com/sous-chefs/java/pull/119)** - Use java_home instead of java_location for update-alternatives
+- **[Fix java_home for rhel and fedora](https://github.com/sous-chefs/java/commit/71dadbd1bfe2eab50ff21cdab4ded97877911cc4)**
 
 ## v1.18.0
 
-- **[#118](https://github.com/socrata-cookbooks/java/pull/118)** - Upgrade to 7u51
-- **[#117](https://github.com/socrata-cookbooks/java/pull/117)** - Suggest windows and aws
+- **[#118](https://github.com/sous-chefs/java/pull/118)** - Upgrade to 7u51
+- **[#117](https://github.com/sous-chefs/java/pull/117)** - Suggest windows and aws
 
 ## v1.17.6
 
-- Revert **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** - The headers option was only added to remote_file in Chef 11.6.0, meaning this change breaks older clients.
+- Revert **[COOK-4165]** - The headers option was only added to remote_file in Chef 11.6.0, meaning this change breaks older clients.
 
 ## v1.17.4
 
-- **[#111](https://github.com/socrata-cookbooks/java/pull/111)** - Fix alternatives for centos
+- **[#111](https://github.com/sous-chefs/java/pull/111)** - Fix alternatives for centos
 
-- **[COOK-4165](https://tickets.opscode.com/browse/COOK-4165)** - Replace curl with remote_file with cookie header
-- **[#110](https://github.com/socrata-cookbooks/java/pull/110)** - Update openjdk to use the alternatives resource
+- **[COOK-4165]** - Replace curl with remote_file with cookie header
+- **[#110](https://github.com/sous-chefs/java/pull/110)** - Update openjdk to use the alternatives resource
 
 ## v1.17.2
 
-- **[COOK-4136](https://tickets.opscode.com/browse/COOK-4136)** - Add md5 parameter to java_ark resource
+- **[COOK-4136]** - Add md5 parameter to java_ark resource
 
 ## v1.17.0
 
-- **[COOK-4114](https://tickets.opscode.com/browse/COOK-4114)** - Test Kitchen no longer works after merging Pull Request #95 for openjdk tests on Debian/Ubuntu
-- **[COOK-4124](https://tickets.opscode.com/browse/COOK-4124)** - update-alternatives fails to run
-- **[#81](https://github.com/socrata/java/pull/81)** - Ensure local directory hierarchy
-- **[#97](https://github.com/socrata/java/pull/97)** - Expose LWRP state attributes
-- **[#99](https://github.com/socrata/java/pull/99)** - support for MD5 checksum
-- **[#106](https://github.com/socrata/java/pull/106)** - Fixed windows case to prevent bad java_home variable setting
-- **[Update checksums to the officially-published ones from Oracle](https://github.com/socrata/java/commit/b9e1df24caeb6e22346d2d415b3b4384f15d4ffd)**
-- **[Further test kitchen fixes to use the default recipe](https://github.com/socrata/java/commit/01c0b432705d9cfa6d2dfeaa380983e3f604069f)**
+- **[COOK-4114]** - Test Kitchen no longer works after merging Pull Request #95 for openjdk tests on Debian/Ubuntu
+- **[COOK-4124]** - update-alternatives fails to run
+- **[#81](https://github.com/sous-chefs/java/pulls/pull/81)** - Ensure local directory hierarchy
+- **[#97](https://github.com/sous-chefs/java/pulls/pull/97)** - Expose LWRP state attributes
+- **[#99](https://github.com/sous-chefs/java/pulls/pull/99)** - support for MD5 checksum
+- **[#106](https://github.com/sous-chefs/java/pulls/pull/106)** - Fixed windows case to prevent bad java_home variable setting
+- **[Update checksums to the officially-published ones from Oracle](https://github.com/sous-chefs/java/pulls/commit/b9e1df24caeb6e22346d2d415b3b4384f15d4ffd)**
+- **[Further test kitchen fixes to use the default recipe](https://github.com/sous-chefs/java/pulls/commit/01c0b432705d9cfa6d2dfeaa380983e3f604069f)**
 
 ## v1.16.4
 
-- **[#103](https://github.com/socrata/java/pull/103)** - set alternatives when using ibm_tar recipe
-- **[#104](https://github.com/socrata/java/pull/104)** - Specify windows attributes in attribute files
+- **[#103](https://github.com/sous-chefs/java/pulls/pull/103)** - set alternatives when using ibm_tar recipe
+- **[#104](https://github.com/sous-chefs/java/pulls/pull/104)** - Specify windows attributes in attribute files
 
 ## v1.16.2
 
-- **[COOK-3488](https://tickets.opscode.com/browse/COOK-3488)** - set alternatives for ibm jdk
-- **[COOK-3764](https://tickets.opscode.com/browse/COOK-3764)** - IBM Java installer needs 'rpm' package on Ubuntu
+- **[COOK-3488]** - set alternatives for ibm jdk
+- **[COOK-3764]** - IBM Java installer needs 'rpm' package on Ubuntu
 
-- **[COOK-3857](https://tickets.opscode.com/browse/COOK-3857)** - do not unescape the java windows url before parsing it
-- **[#95](https://github.com/socrata/java/pull/95)** - fixes update-alternatives for openjdk installs
-- **[#100](https://github.com/socrata/java/pull/100)** - Use escaped quotes for Windows INSTALLDIR
+- **[COOK-3857]** - do not unescape the java windows url before parsing it
+- **[#95](https://github.com/sous-chefs/java/pulls/pull/95)** - fixes update-alternatives for openjdk installs
+- **[#100](https://github.com/sous-chefs/java/pulls/pull/100)** - Use escaped quotes for Windows INSTALLDIR
 
 ## v1.16.0
 
-- **[COOK-3823](https://tickets.opscode.com/browse/COOK-3823)** - Upgrade to JDK 7u45-b18
+- **[COOK-3823]** - Upgrade to JDK 7u45-b18
 
 ## v1.15.4
 
@@ -663,24 +667,24 @@ Refactor the cookbook to better support wrapper cookbooks and other cookbook aut
 
 ## v1.14.0
 
-- **[COOK-3704](https://tickets.opscode.com/browse/COOK-3704)** - Fix alternatives when the package is already installed
-- **[COOK-3668](https://tickets.opscode.com/browse/COOK-3668)** - Fix a condition that would result in an error executing action `run` on resource 'bash[update-java-alternatives]'
-- **[COOK-3569](https://tickets.opscode.com/browse/COOK-3569)** - Fix bad checksum length
-- **[COOK-3541](https://tickets.opscode.com/browse/COOK-3541)** - Fix an issue where Java cookbook installs both JDK 6 and JDK 7 when JDK 7 is specified
-- **[COOK-3518](https://tickets.opscode.com/browse/COOK-3518)** - Allow Windoes recipe to download from signed S3 url
-- **[COOK-2996](https://tickets.opscode.com/browse/COOK-2996)** - Fix a failure on Centos 6.4 and Oracle JDK 7
+- **[COOK-3704]** - Fix alternatives when the package is already installed
+- **[COOK-3668]** - Fix a condition that would result in an error executing action `run` on resource 'bash[update-java-alternatives]'
+- **[COOK-3569]** - Fix bad checksum length
+- **[COOK-3541]** - Fix an issue where Java cookbook installs both JDK 6 and JDK 7 when JDK 7 is specified
+- **[COOK-3518]** - Allow Windoes recipe to download from signed S3 url
+- **[COOK-2996]** - Fix a failure on Centos 6.4 and Oracle JDK 7
 
-- **[COOK-2793](https://tickets.opscode.com/browse/COOK-2793)** - Improve Windows support
+- **[COOK-2793]** - Improve Windows support
 
 ## v1.13.0
 
-- **[COOK-3295](https://tickets.opscode.com/browse/COOK-3295)** - Add default `platform_family` option in Java helper
-- **[COOK-3277](https://tickets.opscode.com/browse/COOK-3277)** - Fix support for Fedora
+- **[COOK-3295]** - Add default `platform_family` option in Java helper
+- **[COOK-3277]** - Fix support for Fedora
 
-- **[COOK-3278](https://tickets.opscode.com/browse/COOK-3278)** - Upgrade to Oracle Java 7u25
-- **[COOK-3029](https://tickets.opscode.com/browse/COOK-3029)** - Add Oracle RPM support
-- **[COOK-2931](https://tickets.opscode.com/browse/COOK-2931)** - Add support for the platform `xenserver`
-- **[COOK-2154](https://tickets.opscode.com/browse/COOK-2154)** - Add SmartOS support
+- **[COOK-3278]** - Upgrade to Oracle Java 7u25
+- **[COOK-3029]** - Add Oracle RPM support
+- **[COOK-2931]** - Add support for the platform `xenserver`
+- **[COOK-2154]** - Add SmartOS support
 
 ## v1.12.0
 
