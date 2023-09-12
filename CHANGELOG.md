@@ -4,6 +4,30 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+## 11.1.14 - *2023-09-04*
+
+## 11.1.13 - *2023-07-10*
+
+## 11.1.12 - *2023-05-16*
+
+## 11.1.11 - *2023-04-17*
+
+## 11.1.10 - *2023-04-07*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 11.1.9 - *2023-04-01*
+
+## 11.1.8 - *2023-04-01*
+
+## 11.1.7 - *2023-04-01*
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+## 11.1.6 - *2023-03-02*
+
 Standardise files with files in sous-chefs/repo-management
 
 ## 11.1.5 - *2023-02-20*
