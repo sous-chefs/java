@@ -7,7 +7,7 @@ property :version, String,
           description: 'Java version to install'
 
 property :variant, String,
-          equal_to: %w(opendjdk semeru temurin),
+          equal_to: %w(openjdk semeru temurin),
           default: 'openjdk',
           description: 'Install flavour'
 
