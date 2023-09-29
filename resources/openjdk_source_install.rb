@@ -6,8 +6,13 @@ property :version, String,
           name_property: true,
           description: 'Java version to install'
 
+property :variant, String,
+          equal_to: %w(opendjdk semeru temurin),
+          default: 'openjdk',
+          description: 'Install flavour'
+
 property :url, String,
-          default: lazy { default_openjdk_url(version) },
+          default: lazy { default_openjdk_url(version, variant) },
           description: 'The URL to download from'
 
 property :checksum, String,
@@ -60,6 +65,11 @@ action :install do
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
     action :set
+  end
+
+  append_if_no_line 'Java Home' do
+    path '/etc/profile.d/java.sh'
+    line "export JAVA_HOME=#{new_resource.java_home}"
   end
 end
 
