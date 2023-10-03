@@ -4,12 +4,6 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-## 12.0.1 - *2023-09-30*
-
-- fix OpenJDK variant typo
-
-## 12.0.0 - *2023-09-29*
-
 ## 11.2.2 - *2023-09-28*
 
 ## 11.2.1 - *2023-09-12*
