@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-Standardise files with files in sous-chefs/repo-management
+- Fix `openjdk_pkg_install` to obey `pkg_version` property for all `pkg_names`
 
 ## 11.2.2 - *2023-09-28*
 

@@ -31,8 +31,15 @@ action :install do
     end
   end
 
+  pkg_version =
+    if new_resource.pkg_version && new_resource.pkg_names.is_a?(String)
+      version new_resource.pkg_version
+    elsif new_resource.pkg_version && new_resource.pkg_names.is_a?(Array)
+      Array.new(new_resource.pkg_names.size, new_resource.pkg_version)
+    end
+
   package new_resource.pkg_names do
-    version new_resource.pkg_version if new_resource.pkg_version
+    version pkg_version if pkg_version
   end
 
   node.default['java']['java_home'] = new_resource.java_home
