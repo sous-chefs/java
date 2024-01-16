@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 12.0.2 - *2024-01-16*
 
 - Fix `openjdk_pkg_install` to obey `pkg_version` property for all `pkg_names`
 
