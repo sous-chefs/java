@@ -45,14 +45,7 @@ action :install do
   when 'windows'
     log 'not yet implemented'
   else
-    adoptopenjdk_linux_install new_resource.version do
-      variant new_resource.variant
-      url new_resource.url
-      checksum new_resource.checksum
-      java_home new_resource.java_home
-      java_home_mode new_resource.java_home_mode
-      java_home_group new_resource.java_home_group
-    end
+    log 'not yet implemented'
   end
 end
 
@@ -69,12 +62,6 @@ action :remove do
   when 'windows'
     log 'not yet implemented'
   else
-    adoptopenjdk_linux_install 'linux' do
-      version new_resource.version unless new_resource.version.nil?
-      variant new_resource.variant unless new_resource.variant.nil?
-      java_home new_resource.java_home unless new_resource.java_home.nil?
-      bin_cmds new_resource.bin_cmds unless new_resource.bin_cmds.nil?
-      action :remove
-    end
+    log 'not yet implemented'
   end
 end
