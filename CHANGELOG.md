@@ -6,6 +6,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Add support for OpenJDK versions 19, 20, 21 and 22
 - Remove commented out `adoptopenjdk_linux_install` resource
+- CI: chore(deps): update sous-chefs/.github action to v3.1.0
+- CI: chore(deps): update actionshub/chef-install action to v3
 
 ## 12.0.3 - *2024-01-16*
 
