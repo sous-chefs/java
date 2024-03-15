@@ -13,12 +13,12 @@ Introduced: v8.1.0
 ## Properties
 
 | Name          | Type              | Default                    | Description                                                    | Allowed Values |
-| ------------- | ----------------- | -------------------------- | -------------------------------------------------------------- |
-| tap_url       | String            |                            | The URL of the tap                                             |
-| cask_options  | String            |                            | Options to pass to the brew command during installation        |
-| homebrew_path | String            |                            | The path to the homebrew binary                                |
-| owner         | [String, Integer] |                            | The owner of the Homebrew installation                         |
-| java_home     | String            | `macos_java_home(version)` | MacOS specific JAVA_HOME                                       |
+| ------------- | ----------------- | -------------------------- | -------------------------------------------------------------- | -------------- |
+| tap_url       | String            |                            | The URL of the tap                                             |                |
+| cask_options  | String            |                            | Options to pass to the brew command during installation        |                |
+| homebrew_path | String            |                            | The path to the homebrew binary                                |                |
+| owner         | [String, Integer] |                            | The owner of the Homebrew installation                         |                |
+| java_home     | String            | `macos_java_home(version)` | MacOS specific JAVA_HOME                                       |                |
 | version       | String            | `adoptopenjdk14`           |                                                                | See list below |
 
 ## Allowed Install Versions
