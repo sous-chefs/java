@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- Add support for OpenJDK versions 19, 20, 21 and 22
+- Remove commented out `adoptopenjdk_linux_install` resource
+- CI: chore(deps): update sous-chefs/.github action to v3.1.0
+- CI: chore(deps): update actionshub/chef-install action to v3
+
 ## 12.0.3 - *2024-01-16*
 
 ## 12.0.2 - *2024-01-16*
@@ -551,7 +556,7 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 - default: don't fail when using java 8 on windows
 - Support for Server JRE
 - Updated README for accepting oracle terms
--Remove VirtualBox specific box_urls
+- Remove VirtualBox specific box_urls
 - List AgileOrbit as the maintainer (AgileOrbit took over from Socrata in July 2014)
 
 ## v1.23.0 - (7/25/2014)
@@ -590,7 +595,6 @@ New Cookbook maintainer! **[Agile Orbit](http://agileorbit.com)**
 - Allow jdk_version to be a string or number
 - Fix JDK install on Windows
 - Fix openjdk_packages on Arch Linux
--
 
 ## v1.19.0
 
