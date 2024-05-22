@@ -6,6 +6,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.0.5 - *2024-05-03*
 
 ## 12.0.4 - *2024-05-03*
