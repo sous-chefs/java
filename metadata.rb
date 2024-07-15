@@ -6,7 +6,7 @@ description       'Recipes and resources for installing Java and managing certif
 source_url        'https://github.com/sous-chefs/java'
 issues_url        'https://github.com/sous-chefs/java/issues'
 chef_version      '>= 16.0'
-version           '12.0.5'
+version           '12.0.6'
 
 supports 'debian'
 supports 'ubuntu'
