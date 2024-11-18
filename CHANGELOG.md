@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 12.0.7 - *2024-11-18*
 
 Standardise files with files in sous-chefs/repo-management
