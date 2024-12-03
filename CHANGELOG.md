@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - CI: chore(deps): update sous-chefs/.github action to v3.1.0
 - CI: chore(deps): update actionshub/chef-install action to v3
 - Update platforms
+- Replace AdoptOpenJDK with Eclipse Temurin and IBM Semeru
 
 ## 12.0.7 - *2024-11-18*
 

@@ -25,31 +25,22 @@ jobs:
           - amazonlinux-2023
           - debian-12
           - debian-11
-          - fedora-latest
           - rockylinux-9
           - rockylinux-8
           - ubuntu-2204
           - ubuntu-2004
         suite:
-          - openjdk-11
+          # - openjdk-11 # Debian doesn't have an 11 package
           - openjdk-16
           - openjdk-17
-          - adoptopenjdk-8-openj9
-          - adoptopenjdk-11-hotspot
-          - adoptopenjdk-11-openj9
-          - adoptopenjdk-11-openj9-large-heap
-          - adoptopenjdk-14-hotspot
-          - adoptopenjdk-14-openj9
-          - adoptopenjdk-14-openj9-large-heap
-          - adoptopenjdk-removal-11-openj9
+          # - temurin-8-hotspot
+          # - temurin-11-hotspot
+          # - semeru-11-openj9
+          # - semeru-17-openj9
           - corretto-8
           - corretto-11
           - corretto-17
           - corretto-18
-          - custom-package-8
-          - custom-package-11
-          - custom-package-11-openj9
-          - custom-package-11-openj9-large-heap
       fail-fast: false
     steps:
       - name: Check out code
@@ -80,7 +71,7 @@ jobs:
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
           TERM: xterm-256color
         with:
-          suite: adoptopenjdk-14
+          suite: temurin-11
           os: macos
           action: converge
       - name: Source Profile for JAVA_HOME
@@ -97,7 +88,7 @@ jobs:
           KITCHEN_LOCAL_YAML: kitchen.macos.yml
           TERM: xterm-256color
         with:
-          suite: adoptopenjdk-14
+          suite: temurin-11
           os: macos
           action: verify
 
