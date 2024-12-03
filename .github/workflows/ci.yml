@@ -22,16 +22,14 @@ jobs:
     strategy:
       matrix:
         os:
-          - almalinux-8
-          - amazonlinux-2
-          - debian-10
+          - amazonlinux-2023
+          - debian-12
           - debian-11
-          - centos-7
-          - centos-stream-8
-          - ubuntu-1804
-          - ubuntu-2004
-          - ubuntu-2204
+          - fedora-latest
+          - rockylinux-9
           - rockylinux-8
+          - ubuntu-2204
+          - ubuntu-2004
         suite:
           - openjdk-11
           - openjdk-16

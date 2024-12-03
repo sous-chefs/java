@@ -11,16 +11,14 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux-2
-  - name: centos-7
-  - name: centos-8
-  - name: debian-9
-  - name: debian-10
+  - name: amazonlinux-2023
+  - name: debian-12
   - name: debian-11
-  - name: freebsd-11
-  - name: freebsd-12
+  - name: freebsd-13
   - name: fedora-latest
-  - name: ubuntu-18.04
+  - name: rockylinux-9
+  - name: rockylinux-8
+  - name: ubuntu-22.04
   - name: ubuntu-20.04
 
 suites:

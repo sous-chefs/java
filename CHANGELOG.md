@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - Remove commented out `adoptopenjdk_linux_install` resource
 - CI: chore(deps): update sous-chefs/.github action to v3.1.0
 - CI: chore(deps): update actionshub/chef-install action to v3
+- Update platforms
 
 ## 12.0.7 - *2024-11-18*
 
