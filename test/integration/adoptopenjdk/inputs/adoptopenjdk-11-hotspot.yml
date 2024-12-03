@@ -1,4 +1,0 @@
----
-java_version: 11.0.6
-variant: "hotspot"
-keystore_location: '/usr/lib/jvm/java-11-adoptopenjdk-hotspot/jdk-11.0.6+10/lib/security/cacerts'

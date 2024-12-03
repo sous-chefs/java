@@ -1,4 +1,0 @@
----
-java_version: 11.0.6
-variant: "openj9"
-keystore_location: '/usr/lib/jvm/java-11-adoptopenjdk-openj9/jdk-11.0.6+10/lib/security/cacerts'
