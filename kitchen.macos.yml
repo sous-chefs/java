@@ -20,12 +20,11 @@ platforms:
       gui: false
 
 suites:
-  - name: adoptopenjdk-14
+  - name: default
     run_list:
-      - recipe[test::adoptopenjdk]
+      - recipe[test::openjdk]
     attributes:
-      version: 14
-      variant: openj9
+      version: 17
     verifier:
-      inspec_tests: [test/integration/adoptopenjdk]
-      input_files: [test/integration/adoptopenjdk/inputs/adoptopenjdk-14-macos.yml]
+      inspec_tests: [test/integration/openjdk]
+      inputs: { java_version: "17" }
