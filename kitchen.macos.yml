@@ -20,7 +20,7 @@ platforms:
       gui: false
 
 suites:
-  - name: openjdk-17
+  - name: default
     run_list:
       - recipe[test::openjdk]
     attributes:

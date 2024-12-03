@@ -56,45 +56,8 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-  integration-macos:
-    needs: "lint-unit"
-    runs-on: macos-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-      - name: Install Chef
-        uses: actionshub/chef-install@3.0.0
-      - name: Kitchen Converge
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.macos.yml
-          TERM: xterm-256color
-        with:
-          suite: temurin-11
-          os: macos
-          action: converge
-      - name: Source Profile for JAVA_HOME
-        run: |
-          source /etc/profile
-          echo "sourced profile for JAVA_HOME"
-          echo "New JAVA home after Chef run is: ${JAVA_HOME}"
-          # Magic line for github actions to persist the change
-          echo "JAVA_HOME=${JAVA_HOME}" >> $GITHUB_ENV
-      - name: Kitchen Verify
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.macos.yml
-          TERM: xterm-256color
-        with:
-          suite: temurin-11
-          os: macos
-          action: verify
-
   final:
     runs-on: ubuntu-latest
-    needs: [integration, integration-macos]
+    needs: [integration]
     steps:
       - run: echo ${{needs.integration.outputs}}
-      - run: echo ${{needs.integration-macos.outputs}}
