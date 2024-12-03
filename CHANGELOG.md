@@ -9,6 +9,25 @@ This file is used to list changes made in each version of the Java cookbook.
 - CI: chore(deps): update sous-chefs/.github action to v3.1.0
 - CI: chore(deps): update actionshub/chef-install action to v3
 
+## 12.0.7 - *2024-11-18*
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+## 12.0.6 - *2024-07-15*
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+Standardise files with files in sous-chefs/repo-management
+
+## 12.0.5 - *2024-05-03*
+
+## 12.0.4 - *2024-05-03*
+
+
 ## 12.0.3 - *2024-01-16*
 
 ## 12.0.2 - *2024-01-16*
