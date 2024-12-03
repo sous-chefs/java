@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
-## Unreleased
+## 12.1.0 - *2024-12-03*
 
 - Add support for OpenJDK versions 19, 20, 21 and 22
 - Remove commented out `adoptopenjdk_linux_install` resource
