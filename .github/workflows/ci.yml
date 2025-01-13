@@ -30,14 +30,8 @@ jobs:
           - ubuntu-2204
           - ubuntu-2004
         suite:
-          # - openjdk-11 # Debian doesn't have an 11 package
           - openjdk-16
           - openjdk-17
-          # - temurin-8-hotspot
-          # - temurin-11-hotspot
-          # - semeru-11-openj9
-          # - semeru-17-openj9
-          - corretto-8
           - corretto-11
           - corretto-17
           - corretto-18

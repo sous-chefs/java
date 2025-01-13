@@ -5,9 +5,18 @@ require 'json'
 require 'uri'
 
 TEMURIN_REPOS = {
-  '8' => 'adoptium/temurin8-binaries',
   '11' => 'adoptium/temurin11-binaries',
   '17' => 'adoptium/temurin17-binaries',
+}.freeze
+
+SEMERU_REPOS = {
+  '11' => 'ibmruntimes/semeru11-binaries',
+  '17' => 'ibmruntimes/semeru17-binaries',
+}.freeze
+
+CORRETTO_REPOS = {
+  '11' => 'corretto-11',
+  '17' => 'corretto-17',
 }.freeze
 
 def get_latest_release(repo)
@@ -75,8 +84,6 @@ def current_url_in_cookbook(version)
   content = File.read(helpers_file)
 
   case version
-  when '8'
-    content.match(/temurin.*when '8'\s+'(.+?)'/m)&.[](1)
   when '11'
     content.match(/temurin.*when '11'\s+'(.+?)'/m)&.[](1)
   when '17'

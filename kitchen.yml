@@ -48,16 +48,6 @@ suites:
       inputs: { java_version: "17" }
 
   # Temurin/Semeru
-  - name: temurin-8-hotspot
-    run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 8
-      variant: hotspot
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "8" }
-
   - name: temurin-11-hotspot
     run_list:
       - recipe[test::openjdk]
@@ -88,17 +78,6 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: { java_version: "17" }
 
-  - name: temurin-8
-    run_list:
-      - recipe[test::openjdk]
-    attributes:
-      java:
-        version: "8"
-        flavor: "temurin"
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "8" }
-
   - name: temurin-11
     run_list:
       - recipe[test::openjdk]
@@ -122,13 +101,6 @@ suites:
       inputs: { java_version: "17" }
 
   # Corretto
-  - name: corretto-8
-    run_list:
-      - recipe[test::corretto]
-    attributes: { version: "8" }
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: { java_version: "8" }
   - name: corretto-11
     run_list:
       - recipe[test::corretto]

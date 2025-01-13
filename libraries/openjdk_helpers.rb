@@ -34,12 +34,10 @@ module Java
         end
       end
 
-      def default_openjdk_url(version, flavor = 'openjdk')
-        case flavor.downcase
+      def default_openjdk_url(version, variant = 'openjdk')
+        case variant.downcase
         when 'temurin'
           case version
-          when '8'
-            'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u432-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u432b06.tar.gz'
           when '11'
             'https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.25%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.25_9.tar.gz'
           when '17'
@@ -50,8 +48,6 @@ module Java
           end
         when 'semeru'
           case version
-          when '8'
-            'https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u322-b06_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_8u322b06_openj9-0.30.0.tar.gz'
           when '11'
             'https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.14.1%2B1_openj9-0.30.1/ibm-semeru-open-jdk_x64_linux_11.0.14.1_1_openj9-0.30.1.tar.gz'
           when '16'
@@ -121,10 +117,6 @@ module Java
 
       def default_openjdk_bin_cmds(version)
         case version
-        when '7'
-          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-        when '8'
-          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '9'
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javah javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '10'

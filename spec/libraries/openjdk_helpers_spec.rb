@@ -47,11 +47,6 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
         expect(subject.default_openjdk_url('11', 'temurin'))
           .to eq 'https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.25%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.25_9.tar.gz'
       end
-
-      it 'returns the correct download URL for Temurin 8' do
-        expect(subject.default_openjdk_url('8', 'temurin'))
-          .to eq 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u432-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u432b06.tar.gz'
-      end
     end
   end
 
