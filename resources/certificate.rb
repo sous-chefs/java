@@ -65,7 +65,9 @@ action :install do
 
   cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -rfc -alias \"#{new_resource.cert_alias}\"")
   cmd.run_command
-  keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
+  normalized_stdout = cmd.stdout
+  normalized_stdout = normalized_stdout.gsub(/\r\n/, "\n") if platform?('windows')
+  keystore_cert = normalized_stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
 
   keystore_cert_digest = keystore_cert.empty? ? nil : OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
   certfile_digest = OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
@@ -109,13 +111,16 @@ end
 action :remove do
   keystore_argument = keystore_argument(new_resource.java_version, new_resource.cacerts, new_resource.keystore_path)
 
-  cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -v | grep \"#{new_resource.cert_alias}\"")
+  cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -v -alias \"#{new_resource.cert_alias}\"")
   cmd.run_command
-  has_key = !cmd.stdout[/Alias name: #{new_resource.cert_alias}/].nil?
-  does_not_exist = cmd.stdout[/Alias <#{new_resource.cert_alias}> does not exist/].nil?
-  Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless (cmd.exitstatus == 0) || does_not_exist
+  alias_exists = !cmd.stdout[/Alias name: #{new_resource.cert_alias}/].nil?
+  alias_missing = !cmd.stdout[/Alias <#{new_resource.cert_alias}> does not exist/].nil?
+  # Only raise if command failed AND alias wasn't just missing
+  if cmd.exitstatus != 0 && !alias_missing
+    Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus)
+  end
 
-  if has_key
+  if alias_exists
     converge_by("remove certificate #{new_resource.cert_alias} from #{new_resource.keystore_path}") do
       cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -delete -alias \"#{new_resource.cert_alias}\" #{keystore_argument} -storepass #{new_resource.keystore_passwd}")
       cmd.run_command
