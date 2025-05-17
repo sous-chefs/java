@@ -65,7 +65,7 @@ action :install do
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
     action :set
-  end
+  end unless new_resource.skip_alternatives
 
   append_if_no_line 'Java Home' do
     path '/etc/profile.d/java.sh'
@@ -81,7 +81,7 @@ action :remove do
     bin_cmds new_resource.bin_cmds
     only_if { ::File.exist?(extract_dir) }
     action :unset
-  end
+  end unless new_resource.skip_alternatives
 
   directory "Removing #{extract_dir}" do
     path extract_dir

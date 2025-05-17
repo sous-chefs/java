@@ -51,7 +51,7 @@ action :install do
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
     action :set
-  end
+  end unless new_resource.skip_alternatives
 end
 
 action :remove do
@@ -60,7 +60,7 @@ action :remove do
     bin_cmds new_resource.bin_cmds
     only_if { ::File.exist?(new_resource.java_home) }
     action :unset
-  end
+  end unless new_resource.skip_alternatives
 
   package new_resource.pkg_names do
     action :remove

@@ -46,6 +46,7 @@ action :install do
       bin_cmds new_resource.bin_cmds
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
+      skip_alternatives new_resource.skip_alternatives
     end
   elsif new_resource.install_type == 'source'
     openjdk_source_install new_resource.version do
@@ -58,6 +59,7 @@ action :install do
       bin_cmds new_resource.bin_cmds
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
+      skip_alternatives new_resource.skip_alternatives
     end
   else
     ChefLog.fatal('Invalid install method specified')
@@ -74,6 +76,7 @@ action :remove do
       bin_cmds new_resource.bin_cmds
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
+      skip_alternatives new_resource.skip_alternatives
       action :remove
     end
   elsif new_resource.install_type == 'source'
@@ -87,6 +90,7 @@ action :remove do
       bin_cmds new_resource.bin_cmds
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
+      skip_alternatives new_resource.skip_alternatives
       action :remove
     end
   else

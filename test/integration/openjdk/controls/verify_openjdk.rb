@@ -10,5 +10,9 @@ control 'Java is installed & linked correctly' do
 
   describe command('update-alternatives --display jar') do
     its('stdout') { should match %r{/usr/lib/jvm/java} }
-  end
+  end unless os.suse?
+
+  describe command('update-alternatives --display java') do
+    its('stdout') { should match %r{/usr/lib(64)?/jvm/java} }
+  end if os.suse?
 end

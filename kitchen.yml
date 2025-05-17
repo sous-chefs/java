@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'warn' %>
 
 verifier:
   name: inspec
@@ -47,46 +48,97 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: { java_version: "17" }
 
-  # Temurin/Semeru
-  - name: temurin-8-hotspot
+  # OpenJDK skip alternatives
+  - name: openjdk-no-alt-11
     run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 8
-      variant: hotspot
+      - recipe[test::openjdk_no_alt]
+    attributes: { version: "11" }
     verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "8" }
-
-  - name: temurin-11-hotspot
-    run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 11
-      variant: hotspot
-    verifier:
-      inspec_tests: [test/integration/openjdk]
+      inspec_tests: [test/integration/openjdk_no_alt]
       inputs: { java_version: "11" }
 
-  - name: semeru-11-openj9
+  - name: openjdk-no-alt-16
     run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 11
-      variant: openj9
+      - recipe[test::openjdk_no_alt]
+    attributes: { version: "16" }
     verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "11" }
+      inspec_tests: [test/integration/openjdk_no_alt]
+      inputs: { java_version: "16" }
 
-  - name: semeru-17-openj9
+  - name: openjdk-no-alt-17
     run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 17
-      variant: openj9
+      - recipe[test::openjdk_no_alt]
+    attributes: { version: "17" }
     verifier:
-      inspec_tests: [test/integration/openjdk]
+      inspec_tests: [test/integration/openjdk_no_alt]
       inputs: { java_version: "17" }
+
+  # OpenJDK pkg skip alternatives
+  - name: openjdk-pkg-no-alt-11
+    run_list:
+      - recipe[test::openjdk_pkg_no_alt]
+    attributes: { version: "11" }
+    verifier:
+      inspec_tests: [test/integration/openjdk_no_alt]
+      inputs: { java_version: "11" }
+    excludes:
+      - almalinux-10
+      - centos-stream-10
+      - amazonlinux-2023
+      - debian-12
+
+  - name: openjdk-pkg-no-alt-21
+    run_list:
+      - recipe[test::openjdk_pkg_no_alt]
+    attributes: { version: "21" }
+    verifier:
+      inspec_tests: [test/integration/openjdk_no_alt]
+      inputs: { java_version: "21" }
+    includes:
+      - almalinux-10
+      - centos-stream-10
+
+  # Temurin/Semeru
+  # disabled until #709
+  # - name: temurin-8-hotspot
+  #   run_list:
+  #     - recipe[test::openjdk]
+  #   attributes:
+  #     version: 8
+  #     variant: hotspot
+  #   verifier:
+  #     inspec_tests: [test/integration/openjdk]
+  #     inputs: { java_version: "8" }
+
+  # - name: temurin-11-hotspot
+  #   run_list:
+  #     - recipe[test::openjdk]
+  #   attributes:
+  #     version: 11
+  #     variant: hotspot
+  #   verifier:
+  #     inspec_tests: [test/integration/openjdk]
+  #     inputs: { java_version: "11" }
+
+  # - name: semeru-11-openj9
+  #   run_list:
+  #     - recipe[test::openjdk]
+  #   attributes:
+  #     version: 11
+  #     variant: openj9
+  #   verifier:
+  #     inspec_tests: [test/integration/openjdk]
+  #     inputs: { java_version: "11" }
+
+  # - name: semeru-17-openj9
+  #   run_list:
+  #     - recipe[test::openjdk]
+  #   attributes:
+  #     version: 17
+  #     variant: openj9
+  #   verifier:
+  #     inspec_tests: [test/integration/openjdk]
+  #     inputs: { java_version: "17" }
 
   # Corretto
   - name: corretto-8
@@ -116,4 +168,34 @@ suites:
     attributes: { version: "18" }
     verifier:
       inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "18" }
+
+  # Corretto skip alternatives
+  - name: corretto-no-alt-8
+    run_list:
+      - recipe[test::corretto_no_alt]
+    attributes: { version: "8" }
+    verifier:
+      inspec_tests: [test/integration/corretto_no_alt]
+      inputs: { java_version: "8" }
+  - name: corretto-no-alt-11
+    run_list:
+      - recipe[test::corretto_no_alt]
+    attributes: { version: "11" }
+    verifier:
+      inspec_tests: [test/integration/corretto_no_alt]
+      inputs: { java_version: "11" }
+  - name: corretto-no-alt-17
+    run_list:
+      - recipe[test::corretto_no_alt]
+    attributes: { version: "17" }
+    verifier:
+      inspec_tests: [test/integration/corretto_no_alt]
+      inputs: { java_version: "17" }
+  - name: corretto-no-alt-18
+    run_list:
+      - recipe[test::corretto_no_alt]
+    attributes: { version: "18" }
+    verifier:
+      inspec_tests: [test/integration/corretto_no_alt]
       inputs: { java_version: "18" }

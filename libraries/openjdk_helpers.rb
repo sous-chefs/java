@@ -17,10 +17,16 @@ module Java
         when 'amazon'
           'source'
         when 'rhel'
-          supported = lts.delete('11')
-          supported.include?(version) ? 'package' : 'source'
+          case node['platform_version']
+          when '8', '9'
+            %w(1.8.0 11 17 21).include?(version) ? 'package' : 'source'
+          else
+            %w(21).include?(version) ? 'package' : 'source'
+          end
         when 'debian'
           case node['platform_version']
+          when '12'
+            '17'.eql?(version) ? 'package' : 'source'
           when '10', '18.04'
             supported = lts - ['17']
             supported.include?(version) ? 'package' : 'source'
@@ -139,9 +145,17 @@ module Java
         when '10'
           %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '11'
-          %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+          if platform_family?('suse')
+            %w(jaotc java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+          else
+            %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
+          end
         when '12', '13', '14', '15', '16', '17', '19', '20', '21', '22', 'latest'
-          %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
+          if platform_family?('suse')
+            %w(jaotc javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat rmic unpack200 java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
+          else
+            %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
+          end
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
         end

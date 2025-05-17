@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+- add `skip_alternatives` to resources `corretto_install`, `openjdk_install`, `openjdk_pkg_install`, `openjdk_source_install` for cases when management of alternatives is not desired.
+- update package vs source selection for rhel 10 and derivatives, debian 12.
+- exclude failing binaries from list of alternatives for suse.
+
 ## 12.1.1 - *2024-12-05*
 
 ## 12.1.0 - *2024-12-03*

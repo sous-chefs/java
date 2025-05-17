@@ -41,16 +41,25 @@ platforms:
     driver:
       image: dokken/debian-11
       pid_one_command: /bin/systemd
+    lifecycle:
+      pre_converge:
+        remote: apt-get update
 
   - name: debian-12
     driver:
       image: dokken/debian-12
       pid_one_command: /bin/systemd
+    lifecycle:
+      pre_converge:
+        remote: apt-get update
 
   - name: fedora-latest
     driver:
       image: dokken/fedora-latest
       pid_one_command: /usr/lib/systemd/systemd
+    lifecycle:
+      pre_converge:
+        remote: dnf -y install python3-dnf
 
   - name: opensuse-leap-15
     driver:
