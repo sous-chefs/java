@@ -157,8 +157,8 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
         end
       end
 
-      context 'Ubuntu 20.04' do
-        let(:platform_version) { '20.04' }
+      context 'Ubuntu 24.04' do
+        let(:platform_version) { '24.04' }
 
         context 'OpenJDK 17' do
           let(:version) { '17' }
