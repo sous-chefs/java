@@ -6,11 +6,6 @@ property :version, String,
           name_property: true,
           description: 'Java version to install'
 
-property :variant, String,
-          equal_to: %w(openjdk semeru temurin),
-          default: 'openjdk',
-          description: 'Install flavour'
-
 property :url, String,
           default: lazy { default_openjdk_url(version, variant) },
           description: 'The URL to download from'
@@ -31,6 +26,7 @@ property :bin_cmds, Array,
 use 'partial/_common'
 use 'partial/_linux'
 use 'partial/_java_home'
+use 'partial/_openjdk'
 
 action :install do
   extract_dir = new_resource.java_home.split('/')[0..-2].join('/')

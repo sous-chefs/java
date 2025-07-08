@@ -48,59 +48,66 @@ suites:
       inputs: { java_version: "17" }
 
   # Temurin/Semeru
-  - name: temurin-11-hotspot
+  - name: temurin-8
     run_list:
       - recipe[test::openjdk]
     attributes:
-      version: 11
-      variant: hotspot
+      version: 8
+      variant: temurin
     verifier:
       inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "11" }
-
-  - name: semeru-11-openj9
-    run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 11
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "11" }
-
-  - name: semeru-17-openj9
-    run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 17
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "17" }
+      inputs: { java_version: "8" }
 
   - name: temurin-11
     run_list:
       - recipe[test::openjdk]
     attributes:
-      java:
-        version: "11"
-        flavor: "temurin"
+      version: 11
+      variant: temurin
     verifier:
-      inspec_tests: [test/integration/openjdk]
+      inspec_tests:
+        - test/integration/openjdk
       inputs: { java_version: "11" }
 
   - name: temurin-17
     run_list:
       - recipe[test::openjdk]
     attributes:
-      java:
-        version: "17"
-        flavor: "temurin"
+      version: 17
+      variant: temurin
+    verifier:
+      inspec_tests:
+        - test/integration/openjdk
+      inputs: { java_version: "17" }
+
+  - name: semeru-11
+    run_list:
+      - recipe[test::openjdk]
+    attributes:
+      version: 11
+      variant: semeru
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      inputs: { java_version: "11" }
+
+  - name: semeru-17
+    run_list:
+      - recipe[test::openjdk]
+    attributes:
+      version: 17
+      variant: semeru
     verifier:
       inspec_tests: [test/integration/openjdk]
       inputs: { java_version: "17" }
 
   # Corretto
+  - name: corretto-8
+    run_list:
+      - recipe[test::corretto]
+    attributes: { version: "8" }
+    verifier:
+      inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "8" }
   - name: corretto-11
     run_list:
       - recipe[test::corretto]

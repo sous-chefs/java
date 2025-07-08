@@ -35,6 +35,7 @@ property :checksum,
 use 'partial/_common'
 use 'partial/_linux'
 use 'partial/_java_home'
+use 'partial/_openjdk'
 
 action :install do
   if new_resource.install_type == 'package'

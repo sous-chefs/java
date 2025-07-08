@@ -143,13 +143,30 @@ module Java
       end
 
       def default_openjdk_pkg_java_home(version)
+        # For both standard OpenJDK and Temurin/Semeru variants, use the standard OpenJDK paths
+        # Temurin and Semeru variants are installed using package managers with standard paths
+        
+        # Map architecture to the correct suffix used in Java paths
+        arch = case node['kernel']['machine']
+                when 'x86_64'
+                  'amd64'
+                when 'aarch64', 'arm64'
+                  'arm64'
+                when 'i386', 'i686'
+                  'i386'
+                else
+                  node['kernel']['machine']
+                end
+
+        # For Debian-based systems, Temurin and standard OpenJDK use the same path structure
+        # with architecture-specific suffixes
         value_for_platform_family(
           %w(rhel fedora) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
           amazon: version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/jre-#{version}",
           suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-#{version.to_i == 8 ? "1.#{version}.0" : version}",
           freebsd: "/usr/local/openjdk#{version}",
           arch: "/usr/lib/jvm/java-#{version}-openjdk",
-          debian: "/usr/lib/jvm/java-#{version}-openjdk-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}",
+          debian: "/usr/lib/jvm/java-#{version}-openjdk-#{arch}",
           default: '/usr/lib/jvm/default-java'
         )
       end
