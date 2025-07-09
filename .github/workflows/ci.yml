@@ -30,8 +30,6 @@ jobs:
           - ubuntu-2204
           - ubuntu-2004
         suite:
-          - openjdk-16
-          - openjdk-17
           - corretto-11
           - corretto-17
           - corretto-18
