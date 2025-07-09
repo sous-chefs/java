@@ -145,18 +145,18 @@ module Java
       def default_openjdk_pkg_java_home(version)
         # For both standard OpenJDK and Temurin/Semeru variants, use the standard OpenJDK paths
         # Temurin and Semeru variants are installed using package managers with standard paths
-        
+
         # Map architecture to the correct suffix used in Java paths
         arch = case node['kernel']['machine']
-                when 'x86_64'
-                  'amd64'
-                when 'aarch64', 'arm64'
-                  'arm64'
-                when 'i386', 'i686'
-                  'i386'
-                else
-                  node['kernel']['machine']
-                end
+               when 'x86_64'
+                 'amd64'
+               when 'aarch64', 'arm64'
+                 'arm64'
+               when 'i386', 'i686'
+                 'i386'
+               else
+                 node['kernel']['machine']
+               end
 
         # For Debian-based systems, Temurin and standard OpenJDK use the same path structure
         # with architecture-specific suffixes

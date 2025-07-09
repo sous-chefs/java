@@ -28,7 +28,6 @@ control 'Java path is correct' do
   describe command('update-alternatives --display keytool') do
     its('stdout') { should match %r{link best version is /usr/lib/jvm/java-#{java_version}-openjdk-#{arch_suffix}/bin/keytool} }
     its('stdout') { should match %r{link keytool is /usr/bin/keytool} }
-    its('stdout') { should match %r{priority 1} }
+    its('stdout') { should match /priority 1/ }
   end
 end
-
