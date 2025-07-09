@@ -23,6 +23,7 @@ property :alternatives_priority, Integer,
 
 use 'partial/_common'
 use 'partial/_linux'
+use 'partial/_openjdk'
 
 action :install do
   if platform?('ubuntu')

@@ -50,34 +50,31 @@ suites:
   # Temurin/Semeru
   - name: temurin-8
     run_list:
-      - recipe[test::openjdk]
+      - recipe[test::temurin_pkg]
     attributes:
       version: 8
-      variant: temurin
     verifier:
-      inspec_tests: [test/integration/openjdk]
+      inspec_tests: [test/integration/temurin]
       inputs: { java_version: "8" }
 
   - name: temurin-11
     run_list:
-      - recipe[test::openjdk]
+      - recipe[test::temurin_pkg]
     attributes:
       version: 11
-      variant: temurin
     verifier:
       inspec_tests:
-        - test/integration/openjdk
+        - test/integration/temurin
       inputs: { java_version: "11" }
 
   - name: temurin-17
     run_list:
-      - recipe[test::openjdk]
+      - recipe[test::temurin_pkg]
     attributes:
       version: 17
-      variant: temurin
     verifier:
       inspec_tests:
-        - test/integration/openjdk
+        - test/integration/temurin
       inputs: { java_version: "17" }
 
   - name: semeru-11
