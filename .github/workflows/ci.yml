@@ -35,6 +35,11 @@ jobs:
           - corretto-11
           - corretto-17
           - corretto-18
+          - temurin-8
+          - temurin-11
+          - temurin-17
+          - semeru-11
+          - semeru-17
       fail-fast: false
     steps:
       - name: Check out code
