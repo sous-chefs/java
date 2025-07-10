@@ -42,16 +42,19 @@ action :install do
   yum_repository 'adoptium' do
     description 'Eclipse Adoptium'
     baseurl value_for_platform(
-      'redhat' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rhel/$releasever/$basearch' },
+      'amazon' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/$basearch' },
       'centos' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/centos/$releasever/$basearch' },
       'fedora' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch' },
-      'amazon' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/$basearch' },
-      'rocky' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rocky/$releasever/$basearch' }
+      'opensuse' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/opensuse/$releasever/$basearch' },
+      'oracle' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/oraclelinux/$releasever/$basearch' },
+      'redhat' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rhel/$releasever/$basearch' },
+      'rocky' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rocky/$releasever/$basearch' },
+      'suse' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/sles/$releasever/$basearch' }
     )
     enabled true
     gpgcheck true
     gpgkey 'https://packages.adoptium.net/artifactory/api/gpg/key/public'
-    only_if { platform_family?('rhel', 'fedora', 'amazon', 'rocky') }
+    only_if { platform_family?('rhel', 'fedora', 'amazon', 'rocky', 'suse', 'oraclelinux') }
   end
 
   zypper_repository 'adoptium' do
@@ -100,7 +103,7 @@ action :remove do
 
   yum_repository 'adoptium' do
     action :remove
-    only_if { platform_family?('rhel', 'fedora', 'amazon') }
+    only_if { platform_family?('rhel', 'fedora', 'amazon', 'rocky', 'suse', 'oraclelinux') }
   end
 
   zypper_repository 'adoptium' do
