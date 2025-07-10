@@ -30,31 +30,30 @@ use 'partial/_common'
 use 'partial/_linux'
 
 action :install do
-  # Debian/Ubuntu repository setup
   apt_repository 'adoptium' do
     uri 'https://packages.adoptium.net/artifactory/deb'
     components ['main']
-    distribution node['lsb']['codename'] || node['debian']['distribution_codename']
+    distribution lazy { node['lsb']['codename'] || node['debian']['distribution_codename'] }
     key '843C48A565F8F04B'
     keyserver 'keyserver.ubuntu.com'
     only_if { platform_family?('debian') }
   end
 
-  # RHEL/Fedora/Amazon repository setup
   yum_repository 'adoptium' do
     description 'Eclipse Adoptium'
     baseurl value_for_platform(
-      %w(redhat centos) => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rhel/$releasever/$basearch' },
+      'redhat' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rhel/$releasever/$basearch' },
+      'centos' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/centos/$releasever/$basearch' },
       'fedora' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch' },
-      'amazon' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/$releasever/$basearch' }
+      'amazon' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/$basearch' },
+      'rocky' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rocky/$releasever/$basearch' }
     )
     enabled true
     gpgcheck true
     gpgkey 'https://packages.adoptium.net/artifactory/api/gpg/key/public'
-    only_if { platform_family?('rhel', 'fedora', 'amazon') }
+    only_if { platform_family?('rhel', 'fedora', 'amazon', 'rocky') }
   end
 
-  # SUSE repository setup
   zypper_repository 'adoptium' do
     description 'Eclipse Adoptium'
     baseurl 'https://packages.adoptium.net/artifactory/rpm/opensuse/$releasever/$basearch'
@@ -94,7 +93,6 @@ action :remove do
     action :remove
   end
 
-  # Remove repositories based on platform
   apt_repository 'adoptium' do
     action :remove
     only_if { platform_family?('debian') }

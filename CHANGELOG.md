@@ -4,9 +4,11 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
-- Update Temurin support
+- Add new resource `temurin_package_install`
 - Add script to check for Java updates
-- Remove Java 8 support
+- Update Temurin Java 8 support
+- Update Temurin repositories
+- Update bin commands for all OpenJDK versions
 
 ## 12.1.1 - *2024-12-05*
 
