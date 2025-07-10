@@ -9,6 +9,8 @@ This file is used to list changes made in each version of the Java cookbook.
 - Update Temurin Java 8 support
 - Update Temurin repositories
 - Update bin commands for all OpenJDK versions
+- Fix Java alternatives to prevent unnecessary removal and re-addition of alternatives
+- Move bin_cmds from Java::Cookbook::OpenJdkHelpers to Java::Cookbook::BinCmdHelpers for reuse outside of OpenJDK
 
 ## 12.1.1 - *2024-12-05*
 

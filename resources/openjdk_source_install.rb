@@ -1,6 +1,7 @@
 provides :openjdk_source_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
+include Java::Cookbook::BinCmdHelpers
 
 property :version, String,
           name_property: true,
@@ -20,7 +21,7 @@ property :java_home, String,
           description: 'Set to override the java_home'
 
 property :bin_cmds, Array,
-          default: lazy { default_openjdk_bin_cmds(version) },
+          default: lazy { default_bin_cmds(version) },
           description: 'A list of bin_cmds based on the version and variant'
 
 use 'partial/_common'

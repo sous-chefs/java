@@ -2,6 +2,7 @@ provides :temurin_package_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
 include Java::Cookbook::TemurinHelpers
+include Java::Cookbook::BinCmdHelpers
 
 def default_temurin_pkg_name(version)
   # Validate version against available releases
@@ -19,11 +20,11 @@ property :pkg_version, String,
          description: 'Package version to install'
 
 property :java_home, String,
-         default: lazy { default_openjdk_pkg_java_home(version) },
+         default: lazy { "/usr/lib/jvm/temurin-#{version}-jdk" },
          description: 'Set to override the java_home'
 
 property :bin_cmds, Array,
-         default: lazy { default_openjdk_bin_cmds(version) },
+         default: lazy { default_bin_cmds(version) },
          description: 'A list of bin_cmds based on the version'
 
 use 'partial/_common'
@@ -66,10 +67,8 @@ action :install do
     only_if { platform_family?('suse') }
   end
 
-  pkg_version = new_resource.pkg_version
-
   package new_resource.pkg_name do
-    version pkg_version if pkg_version
+    version new_resource.pkg_version if new_resource.pkg_version
   end
 
   node.default['java']['java_home'] = new_resource.java_home
@@ -80,7 +79,6 @@ action :install do
     priority new_resource.alternatives_priority
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
-    action :set
   end
 end
 
