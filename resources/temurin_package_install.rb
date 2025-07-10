@@ -35,8 +35,11 @@ action :install do
     uri 'https://packages.adoptium.net/artifactory/deb'
     components ['main']
     distribution lazy { node['lsb']['codename'] || node['debian']['distribution_codename'] }
-    key '843C48A565F8F04B'
-    keyserver 'keyserver.ubuntu.com'
+    # TODO: https://github.com/chef/chef/pull/15043
+    # key '843C48A565F8F04B'
+    # keyserver 'keyserver.ubuntu.com'
+    signed_by false
+    trusted true
     only_if { platform_family?('debian') }
   end
 

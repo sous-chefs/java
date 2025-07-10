@@ -11,6 +11,7 @@ This file is used to list changes made in each version of the Java cookbook.
 - Update bin commands for all OpenJDK versions
 - Fix Java alternatives to prevent unnecessary removal and re-addition of alternatives
 - Move bin_cmds from Java::Cookbook::OpenJdkHelpers to Java::Cookbook::BinCmdHelpers for reuse outside of OpenJDK
+- Fix apt_repository failing to install the GPG in the correct location
 
 ## 12.1.1 - *2024-12-05*
 
