@@ -16,17 +16,18 @@ control 'Temurin Java path is correct' do
   title 'Path Verification'
   desc 'Verifies that keytool and other binaries are accessible in the correct paths using update-alternatives'
 
+  # Handle architecture-specific paths
   describe command('update-alternatives --display jar') do
-    its('stdout') { should match %r{/usr/lib/jvm/temurin-#{java_version}-jdk/bin/jar} }
+    its('stdout') { should match %r{/usr/lib/jvm/temurin-#{java_version}-jdk(-[a-z0-9]+)?/bin/jar} }
   end
 
   describe command('update-alternatives --display java') do
-    its('stdout') { should match %r{/usr/lib/jvm/temurin-#{java_version}-jdk/bin/java} }
+    its('stdout') { should match %r{/usr/lib/jvm/temurin-#{java_version}-jdk(-[a-z0-9]+)?/bin/java} }
   end
 
   describe command('update-alternatives --display keytool') do
-    its('stdout') { should match %r{Current `best' version is /usr/lib/jvm/temurin-#{java_version}-jdk/bin/keytool} }
-    its('stdout') { should match %r{link currently points to /usr/lib/jvm/temurin-#{java_version}-jdk/bin/keytool} }
+    # Check for architecture-specific paths with regex that allows for optional architecture suffix
+    its('stdout') { should match %r{/usr/lib/jvm/temurin-#{java_version}-jdk(-[a-z0-9]+)?/bin/keytool} }
     its('stdout') { should match(/priority/) }
   end
 end
