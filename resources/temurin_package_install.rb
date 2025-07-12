@@ -52,7 +52,7 @@ action :install do
       'opensuse' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/opensuse/$releasever/$basearch' },
       'oracle' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/oraclelinux/$releasever/$basearch' },
       'redhat' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rhel/$releasever/$basearch' },
-      'rocky' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rocky/$releasever/$basearch' },
+      'rocky' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rocky/8/$basearch' },
       'suse' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/sles/$releasever/$basearch' }
     )
     enabled true
