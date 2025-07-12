@@ -30,14 +30,14 @@ jobs:
           - ubuntu-2204
           - ubuntu-2004
         suite:
-          # - corretto-11
-          # - corretto-17
-          # - corretto-18
+          - corretto-11
+          - corretto-17
+          - corretto-18
           - temurin-8
           - temurin-11
           - temurin-17
-          # - semeru-11
-          # - semeru-17
+          - semeru-11
+          - semeru-17
       fail-fast: false
     steps:
       - name: Check out code
