@@ -77,6 +77,16 @@ suites:
         - test/integration/temurin
       inputs: { java_version: "17" }
 
+  - name: temurin-21
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 21
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "21" }
+
   - name: semeru-11
     run_list:
       - recipe[test::openjdk]

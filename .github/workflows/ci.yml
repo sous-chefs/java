@@ -36,8 +36,9 @@ jobs:
           - temurin-8
           - temurin-11
           - temurin-17
-          - semeru-11
-          - semeru-17
+          - temurin-21
+          # - semeru-11
+          # - semeru-17
       fail-fast: false
     steps:
       - name: Check out code
