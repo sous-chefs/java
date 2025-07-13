@@ -7,8 +7,6 @@ module Java
 
       def default_corretto_bin_cmds(version)
         case version.to_s
-        when '8'
-          %w(appletviewer clhsdb extcheck hsdb idlj jar jarsigner java java-rmi.cgi javac javadoc javafxpackager javah javap javapackager jcmd jconsole jdb jdeps jfr jhat jinfo jjs jmap jps jrunscript jsadebugd jstack jstat jstatd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
         when '11'
           %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jfr jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
         when '15', '17', '18'
@@ -20,8 +18,6 @@ module Java
 
       def default_corretto_minor(version)
         case version
-        when '8'
-          '8.332.08.1'
         when '11'
           '11.0.15.9.1'
         when '17'

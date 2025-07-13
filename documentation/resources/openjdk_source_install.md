@@ -22,7 +22,7 @@ Introduced: v8.0.0
 | java_home_owner       | String          | `root`                              | Owner of the Java Home                              |
 | java_home_group       | String          | `node['root_group']`                | Group for the Java Home                             |
 | default               | Boolean         | `true`                              | Whether to set this as the defalut Java             |
-| bin_cmds              | Array           | `default_openjdk_bin_cmds(version)` | A list of bin_cmds based on the version and variant |
+| bin_cmds              | Array           | `default_bin_cmds(version)` | A list of bin_cmds based on the version and variant |
 | alternatives_priority | Integer         | `1`                                 | Alternatives priority to set for this Java          |
 | reset_alternatives    | Boolean         | `true`                              | Whether to reset alternatives before setting        |
 

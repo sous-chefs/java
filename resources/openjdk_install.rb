@@ -1,6 +1,7 @@
 provides :openjdk_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
+include Java::Cookbook::BinCmdHelpers
 
 property :install_type,
           String,
@@ -22,6 +23,7 @@ property :java_home,
 
 property :bin_cmds,
           Array,
+          default: lazy { default_bin_cmds(version) },
           description: 'A list of bin_cmds based on the version and variant'
 
 property :url,
@@ -35,6 +37,7 @@ property :checksum,
 use 'partial/_common'
 use 'partial/_linux'
 use 'partial/_java_home'
+use 'partial/_openjdk'
 
 action :install do
   if new_resource.install_type == 'package'

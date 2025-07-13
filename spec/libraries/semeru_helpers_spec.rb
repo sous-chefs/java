@@ -12,11 +12,11 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
       allow(subject).to receive(:[]).with('url').and_return(url)
     end
 
-    context 'OpenJDK Semeru 8' do
-      let(:url) { 'https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u322-b06_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_8u322b06_openj9-0.30.0.tar.gz' }
+    context 'OpenJDK Semeru 17' do
+      let(:url) { 'https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.2%2B8_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_17.0.2_8_openj9-0.30.0.tar.gz' }
 
       it 'returns the correct folder name' do
-        expect(subject.sub_dir(url)).to eq 'jdk8u322-b06'
+        expect(subject.sub_dir(url)).to eq 'jdk-17.0.2-b8'
       end
     end
 
@@ -32,15 +32,6 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
   describe '#defaul_openjdk_url' do
     before do
       allow(subject).to receive(:[]).with('version').and_return(version)
-    end
-
-    context 'Semeru 8' do
-      let(:version) { '8' }
-      let(:variant) { 'semeru' }
-
-      it 'returns the correct URL' do
-        expect(subject.default_openjdk_url(version, variant)).to eq 'https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u322-b06_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_8u322b06_openj9-0.30.0.tar.gz'
-      end
     end
 
     context 'Semeru 11' do

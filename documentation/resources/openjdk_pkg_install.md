@@ -19,7 +19,7 @@ Introduced: v8.1.0
 | pkg_version           | String  | `nil`                                | Package version to install                          |
 | java_home             | String  | Based on the version                 | Set to override the java_home                       |
 | default               | Boolean | `true`                               | Whether to set this as the defalut Java             |
-| bin_cmds              | Array   | `default_openjdk_bin_cmds(version)`  | A list of bin_cmds based on the version and variant |
+| bin_cmds              | Array   | `default_bin_cmds(version)`  | A list of bin_cmds based on the version and variant |
 | alternatives_priority | Integer | `1062`                               | Alternatives priority to set for this Java          |
 | reset_alternatives    | Boolean | `true`                               | Whether to reset alternatives before setting        |
 

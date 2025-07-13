@@ -48,42 +48,61 @@ suites:
       inputs: { java_version: "17" }
 
   # Temurin/Semeru
-  - name: temurin-8-hotspot
+  - name: temurin-8
     run_list:
-      - recipe[test::openjdk]
+      - recipe[test::temurin_pkg]
     attributes:
       version: 8
-      variant: hotspot
     verifier:
-      inspec_tests: [test/integration/openjdk]
+      inspec_tests: [test/integration/temurin]
       inputs: { java_version: "8" }
 
-  - name: temurin-11-hotspot
+  - name: temurin-11
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 11
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "11" }
+
+  - name: temurin-17
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 17
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "17" }
+
+  - name: temurin-21
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 21
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "21" }
+
+  - name: semeru-11
     run_list:
       - recipe[test::openjdk]
     attributes:
       version: 11
-      variant: hotspot
+      variant: semeru
     verifier:
       inspec_tests: [test/integration/openjdk]
       inputs: { java_version: "11" }
 
-  - name: semeru-11-openj9
-    run_list:
-      - recipe[test::openjdk]
-    attributes:
-      version: 11
-      variant: openj9
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "11" }
-
-  - name: semeru-17-openj9
+  - name: semeru-17
     run_list:
       - recipe[test::openjdk]
     attributes:
       version: 17
-      variant: openj9
+      variant: semeru
     verifier:
       inspec_tests: [test/integration/openjdk]
       inputs: { java_version: "17" }
