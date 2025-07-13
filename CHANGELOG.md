@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 13.0.0 - *2025-07-13*
 
 - Add new resource `temurin_package_install`
