@@ -22,6 +22,9 @@ property :alternatives_priority, Integer,
           default: 1062,
           description: 'Alternatives priority to set for this Java'
 
+property :repository_uri, String,
+          description: 'URI for the repository mirror (e.g., "https://custom-mirror.example.com/openjdk/ubuntu")'
+
 use 'partial/_common'
 use 'partial/_linux'
 use 'partial/_openjdk'
@@ -29,7 +32,7 @@ use 'partial/_openjdk'
 action :install do
   if platform?('ubuntu')
     apt_repository 'openjdk-r-ppa' do
-      uri 'ppa:openjdk-r'
+      uri new_resource.repository_uri || 'ppa:openjdk-r'
     end
   end
 

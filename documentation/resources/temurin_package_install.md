@@ -24,6 +24,8 @@ Introduced: v12.0.0
 | `reset_alternatives`  | Boolean        | true                                   | Whether to reset alternatives before setting |
 | `default`             | Boolean        | true                                   | Whether to set this as the default Java      |
 | `skip_alternatives`   | Boolean        | false                                  | Skip alternatives installation completely    |
+| `repository_uri`      | String         | `nil`                                  | URI for the repository mirror to use instead of default repository URLs |
+| air_gap | Boolean | false | Whether to install in air-gap mode |
 
 ## Platform Support
 
@@ -63,7 +65,7 @@ temurin_package_install '11' do
 end
 ```
 
-## Platform Support
+## Supported Platforms
 
 This resource supports the following platforms:
 
@@ -76,8 +78,9 @@ This resource supports the following platforms:
 
 Each platform will have the appropriate Adoptium repository configured automatically.
 
-## Notes
+## Additional Information
 
 - This resource uses the Adoptium API to validate available releases.
 - The resource will warn if a requested version is not available as an LTS release.
 - For most use cases, you can simply specify the major version number.
+- Air-gap mode disables version checking via the Adoptium API and instead uses the version specified in the `pkg_version` property.

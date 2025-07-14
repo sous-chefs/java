@@ -25,6 +25,7 @@ Introduced: v8.1.0
 | alternatives_priority | Integer | `1062`                               | Alternatives priority to set for this Java          |
 | reset_alternatives    | Boolean | `true`                               | Whether to reset alternatives before setting        |
 | skip_alternatives     | Boolean | `false`                              | Skip alternatives installation completely           |
+| repository_uri        | String  | `nil`                                | URI for the repository mirror to use instead of default repository URLs |
 
 ## Examples
 
