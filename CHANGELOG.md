@@ -6,9 +6,9 @@ This file is used to list changes made in each version of the Java cookbook.
 
 - Add `repository_uri` property to `temurin_package_install` and `openjdk_pkg_install` resources to support installation from alternative/internal mirrors ([#728](https://github.com/sous-chefs/java/issues/728))
 - Clarify documentation for `url` property in `openjdk_source_install` resource to note it can be used for internal mirrors
-
 - Standardise files with files in sous-chefs/repo-management
   Update the recommended Ruby VSCode extensions
+- Fix missing skip_alternatives property in openjdk_pkg_install
 
 ## 13.1.0 - *2025-07-14*
 
