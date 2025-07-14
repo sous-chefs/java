@@ -1,6 +1,10 @@
 # temurin_package_install
 
+[back to resource list](https://github.com/sous-chefs/java#resources)
+
 Installs Java Temurin (AdoptOpenJDK) packages provided by Adoptium. This resource handles the repository setup and package installation for Temurin JDK packages across various platforms.
+
+Introduced: v12.0.0
 
 ## Actions
 
@@ -19,6 +23,21 @@ Installs Java Temurin (AdoptOpenJDK) packages provided by Adoptium. This resourc
 | `alternatives_priority` | Integer      | 1062                                   | Priority for alternatives system             |
 | `reset_alternatives`  | Boolean        | true                                   | Whether to reset alternatives before setting |
 | `default`             | Boolean        | true                                   | Whether to set this as the default Java      |
+| `skip_alternatives`   | Boolean        | false                                  | Skip alternatives installation completely    |
+
+## Platform Support
+
+- Debian/Ubuntu: Uses apt_repository with `signed_by false` and `trusted true` options to bypass GPG signature verification issues
+- Amazon Linux/CentOS/RHEL: Uses yum_repository with standard configuration
+- SUSE: Uses zypper_repository with standard configuration
+
+## Architecture Support
+
+This resource supports installation on both x86_64 and ARM64 architectures. On ARM64 platforms (like ARM Macs or ARM-based cloud instances), the package paths may include architecture-specific suffixes (e.g., `/usr/lib/jvm/temurin-8-jdk-arm64/bin/java`).
+
+## Notes
+
+- Due to a bug in Chef's apt_repository resource ([PR #15043](https://github.com/chef/chef/pull/15043)), GPG key verification is disabled by default on Debian-family systems to ensure the repository can be used successfully
 
 ## Examples
 

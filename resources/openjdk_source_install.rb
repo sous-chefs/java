@@ -61,6 +61,7 @@ action :install do
     priority new_resource.alternatives_priority
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
+    not_if { new_resource.skip_alternatives }
     action :set
   end
 
@@ -77,6 +78,7 @@ action :remove do
     java_location new_resource.java_home
     bin_cmds new_resource.bin_cmds
     only_if { ::File.exist?(extract_dir) }
+    not_if { new_resource.skip_alternatives }
     action :unset
   end
 
