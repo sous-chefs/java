@@ -5,6 +5,24 @@ This file is used to list changes made in each version of the Java cookbook.
 ## Unreleased
 
 Standardise files with files in sous-chefs/repo-management
+- Update the recommended Ruby VSCode extensions
+
+## 13.1.0 - *2025-07-14*
+
+- add `skip_alternatives` to resources `corretto_install`, `openjdk_install`, `openjdk_pkg_install`, `openjdk_source_install` for cases when management of alternatives is not desired. (@dschlenk)
+
+## 13.0.0 - *2025-07-13*
+
+- Add new resource `temurin_package_install`
+- Add script to check for Java updates
+- Update Temurin Java 8 support
+- Update Temurin repositories
+- Update bin commands for all OpenJDK versions
+- Fix Java alternatives to prevent unnecessary removal and re-addition of alternatives
+- Move bin_cmds from Java::Cookbook::OpenJdkHelpers to Java::Cookbook::BinCmdHelpers for reuse outside of OpenJDK
+- Fix apt_repository failing to install the GPG in the correct location
+- Add Temurin 21 to the test matrix
+- Remove Semeru from the test matrix
 
 ## 12.1.1 - *2024-12-05*
 

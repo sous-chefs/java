@@ -1,6 +1,7 @@
 provides :openjdk_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
+include Java::Cookbook::BinCmdHelpers
 
 property :install_type,
           String,
@@ -22,6 +23,7 @@ property :java_home,
 
 property :bin_cmds,
           Array,
+          default: lazy { default_bin_cmds(version) },
           description: 'A list of bin_cmds based on the version and variant'
 
 property :url,
@@ -35,6 +37,7 @@ property :checksum,
 use 'partial/_common'
 use 'partial/_linux'
 use 'partial/_java_home'
+use 'partial/_openjdk'
 
 action :install do
   if new_resource.install_type == 'package'
@@ -44,6 +47,7 @@ action :install do
       java_home new_resource.java_home
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
     end
@@ -56,6 +60,7 @@ action :install do
       java_home_group new_resource.java_home_group
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
     end
@@ -72,6 +77,7 @@ action :remove do
       java_home new_resource.java_home
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
       action :remove
@@ -85,6 +91,7 @@ action :remove do
       java_home_group new_resource.java_home_group
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
       action :remove

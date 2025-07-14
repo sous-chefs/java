@@ -34,6 +34,20 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
           .to raise_error('Version supplied does not have a download URL set')
       end
     end
+
+    context 'Temurin' do
+      let(:version) { '17' }
+
+      it 'returns the correct download URL for Temurin' do
+        expect(subject.default_openjdk_url(version, 'temurin'))
+          .to eq 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%2B11/OpenJDK17U-jdk_x64_linux_hotspot_17.0.13_11.tar.gz'
+      end
+
+      it 'returns the correct download URL for Temurin 11' do
+        expect(subject.default_openjdk_url('11', 'temurin'))
+          .to eq 'https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.25%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.25_9.tar.gz'
+      end
+    end
   end
 
   describe '#default_openjdk_install_method' do

@@ -34,71 +34,58 @@ module Java
         end
       end
 
-      def default_openjdk_url(version, variant = nil)
-        # Always default to OpenJDK
-        # If the user passes variant we'll also select that variant's URL
-        case version
-        when '8'
-          case variant
-          when 'semeru'
-            'https://github.com/ibmruntimes/semeru8-binaries/releases/download/jdk8u322-b06_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_8u322b06_openj9-0.30.0.tar.gz'
-          when 'temurin'
-            'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz'
+      def default_openjdk_url(version, variant = 'openjdk')
+        case variant.downcase
+        when 'temurin'
+          case version
+          when '11'
+            'https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.25%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.25_9.tar.gz'
+          when '17'
+            'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%2B11/OpenJDK17U-jdk_x64_linux_hotspot_17.0.13_11.tar.gz'
           else
             Chef::Log.fatal('Version specified does not have a URL value set')
             raise 'Version supplied does not have a download URL set'
           end
-        when '9'
-          'https://download.java.net/java/GA/jdk9/9/binaries/openjdk-9_linux-x64_bin.tar.gz'
-        when '10'
-          'https://download.java.net/java/GA/jdk10/10/binaries/openjdk-10_linux-x64_bin.tar.gz'
-        when '11'
-          case variant
-          when 'semeru'
+        when 'semeru'
+          case version
+          when '11'
             'https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.14.1%2B1_openj9-0.30.1/ibm-semeru-open-jdk_x64_linux_11.0.14.1_1_openj9-0.30.1.tar.gz'
-          when 'temurin'
-            'https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jdk_x64_linux_hotspot_11.0.15_10.tar.gz'
-          else
-            'https://download.java.net/java/ga/jdk11/openjdk-11_linux-x64_bin.tar.gz'
-          end
-        when '12'
-          'https://download.java.net/java/GA/jdk12/33/GPL/openjdk-12_linux-x64_bin.tar.gz'
-        when '13'
-          'https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz'
-        when '14'
-          'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz'
-        when '15'
-          'https://download.java.net/java/GA/jdk15/779bf45e88a44cbd9ea6621d33e33db1/36/GPL/openjdk-15_linux-x64_bin.tar.gz'
-        when '16'
-          case variant
-          when 'semeru'
+          when '16'
             'https://github.com/ibmruntimes/semeru16-binaries/releases/download/jdk-16.0.2%2B7_openj9-0.27.1/ibm-semeru-open-jdk_ppc64le_linux_16.0.2_7_openj9-0.27.1.tar.gz'
-          when 'temurin'
-            'https://github.com/adoptium/temurin16-binaries/releases/download/jdk-16.0.2%2B7/OpenJDK16U-jdk_x64_linux_hotspot_16.0.2_7.tar.gz'
-          else
-            'https://download.java.net/java/GA/jdk16/7863447f0ab643c585b9bdebf67c69db/36/GPL/openjdk-16_linux-x64_bin.tar.gz'
-          end
-        when '17'
-          case variant
-          when 'semeru'
+          when '17'
             'https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.2%2B8_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_17.0.2_8_openj9-0.30.0.tar.gz'
-          when 'temurin'
-            'https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.1%2B10/OpenJDK18U-jdk_x64_linux_hotspot_18.0.1_10.tar.gz'
-          else
-            'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz'
-          end
-        when '18'
-          case variant
-          when 'semeru'
+          when '18'
             'https://github.com/AdoptOpenJDK/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jdk_x64_linux_18.0.1_10_openj9-0.32.0.tar.gz'
-          when 'temurin'
-            'https://github.com/adoptium/temurin18-binaries/releases/download/jdk-18.0.1%2B10/OpenJDK18U-jdk_x64_linux_hotspot_18.0.1_10.tar.gz'
           else
-            'https://download.java.net/java/GA/jdk18.0.1/3f48cabb83014f9fab465e280ccf630b/10/GPL/openjdk-18.0.1_linux-x64_bin.tar.gz'
+            Chef::Log.fatal('Version specified does not have a URL value set')
+            raise 'Version supplied does not have a download URL set'
           end
         else
-          Chef::Log.fatal('Version specified does not have a URL value set')
-          raise 'Version supplied does not have a download URL set'
+          case version
+          when '9'
+            'https://download.java.net/java/GA/jdk9/9/binaries/openjdk-9_linux-x64_bin.tar.gz'
+          when '10'
+            'https://download.java.net/java/GA/jdk10/10/binaries/openjdk-10_linux-x64_bin.tar.gz'
+          when '11'
+            'https://download.java.net/java/ga/jdk11/openjdk-11_linux-x64_bin.tar.gz'
+          when '12'
+            'https://download.java.net/java/GA/jdk12/33/GPL/openjdk-12_linux-x64_bin.tar.gz'
+          when '13'
+            'https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz'
+          when '14'
+            'https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz'
+          when '15'
+            'https://download.java.net/java/GA/jdk15/779bf45e88a44cbd9ea6621d33e33db1/36/GPL/openjdk-15_linux-x64_bin.tar.gz'
+          when '16'
+            'https://download.java.net/java/GA/jdk16/7863447f0ab643c585b9bdebf67c69db/36/GPL/openjdk-16_linux-x64_bin.tar.gz'
+          when '17'
+            'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz'
+          when '18'
+            'https://download.java.net/java/GA/jdk18.0.1/3f48cabb83014f9fab465e280ccf630b/10/GPL/openjdk-18.0.1_linux-x64_bin.tar.gz'
+          else
+            Chef::Log.fatal('Version specified does not have a URL value set')
+            raise 'Version supplied does not have a download URL set'
+          end
         end
       end
 
@@ -128,25 +115,6 @@ module Java
         end
       end
 
-      def default_openjdk_bin_cmds(version)
-        case version
-        when '7'
-          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-        when '8'
-          %w(appletviewer apt ControlPanel extcheck idlj jar jarsigner java javac javadoc javafxpackager javah javap javaws jcmd jconsole jcontrol jdb jdeps jhat jinfo jjs jmap jmc jps jrunscript jsadebugd jstack jstat jstatd jvisualvm keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-        when '9'
-          %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javah javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-        when '10'
-          %w(appletviewer idlj jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool orbd pack200 rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc)
-        when '11'
-          %w(jaotc jar jarsigner java javac javadoc javap jcmd jconsole jdb jdeprscan jdeps jhsdb jimage jinfo jjs jlink jmap jmod jps jrunscript jshell jstack jstat jstatd keytool pack200 rmic rmid rmiregistry serialver unpack200)
-        when '12', '13', '14', '15', '16', '17', '19', '20', '21', '22', 'latest'
-          %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
-        else
-          Chef::Log.fatal('Version specified does not have a default set of bin_cmds')
-        end
-      end
-
       def default_openjdk_pkg_names(version)
         value_for_platform_family(
           amazon: ["java-1.#{version}.0-openjdk", "java-1.#{version}.0-openjdk-devel"],
@@ -160,13 +128,30 @@ module Java
       end
 
       def default_openjdk_pkg_java_home(version)
+        # For both standard OpenJDK and Temurin/Semeru variants, use the standard OpenJDK paths
+        # Temurin and Semeru variants are installed using package managers with standard paths
+
+        # Map architecture to the correct suffix used in Java paths
+        arch = case node['kernel']['machine']
+               when 'x86_64'
+                 'amd64'
+               when 'aarch64', 'arm64'
+                 'arm64'
+               when 'i386', 'i686'
+                 'i386'
+               else
+                 node['kernel']['machine']
+               end
+
+        # For Debian-based systems, Temurin and standard OpenJDK use the same path structure
+        # with architecture-specific suffixes
         value_for_platform_family(
           %w(rhel fedora) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
           amazon: version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/jre-#{version}",
           suse: "/usr/lib#{node['kernel']['machine'] == 'x86_64' ? '64' : nil}/jvm/java-#{version.to_i == 8 ? "1.#{version}.0" : version}",
           freebsd: "/usr/local/openjdk#{version}",
           arch: "/usr/lib/jvm/java-#{version}-openjdk",
-          debian: "/usr/lib/jvm/java-#{version}-openjdk-#{node['kernel']['machine'] == 'x86_64' ? 'amd64' : 'i386'}",
+          debian: "/usr/lib/jvm/java-#{version}-openjdk-#{arch}",
           default: '/usr/lib/jvm/default-java'
         )
       end

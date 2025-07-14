@@ -1,15 +1,11 @@
 provides :openjdk_source_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
+include Java::Cookbook::BinCmdHelpers
 
 property :version, String,
           name_property: true,
           description: 'Java version to install'
-
-property :variant, String,
-          equal_to: %w(openjdk semeru temurin),
-          default: 'openjdk',
-          description: 'Install flavour'
 
 property :url, String,
           default: lazy { default_openjdk_url(version, variant) },
@@ -25,12 +21,13 @@ property :java_home, String,
           description: 'Set to override the java_home'
 
 property :bin_cmds, Array,
-          default: lazy { default_openjdk_bin_cmds(version) },
+          default: lazy { default_bin_cmds(version) },
           description: 'A list of bin_cmds based on the version and variant'
 
 use 'partial/_common'
 use 'partial/_linux'
 use 'partial/_java_home'
+use 'partial/_openjdk'
 
 action :install do
   extract_dir = new_resource.java_home.split('/')[0..-2].join('/')
@@ -64,6 +61,7 @@ action :install do
     priority new_resource.alternatives_priority
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
+    not_if { new_resource.skip_alternatives }
     action :set
   end
 
@@ -80,6 +78,7 @@ action :remove do
     java_location new_resource.java_home
     bin_cmds new_resource.bin_cmds
     only_if { ::File.exist?(extract_dir) }
+    not_if { new_resource.skip_alternatives }
     action :unset
   end
 

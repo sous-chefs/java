@@ -56,7 +56,7 @@ property :file_cache_path,
 action :install do
   require 'openssl'
 
-  keystore_argument = keystore_argument(new_resource.java_version, new_resource.cacerts, new_resource.keystore_path)
+  keystore_argument = keystore_argument(new_resource.cacerts, new_resource.keystore_path)
 
   certdata = new_resource.cert_data || fetch_certdata
 
@@ -107,7 +107,7 @@ action :install do
 end
 
 action :remove do
-  keystore_argument = keystore_argument(new_resource.java_version, new_resource.cacerts, new_resource.keystore_path)
+  keystore_argument = keystore_argument(new_resource.cacerts, new_resource.keystore_path)
 
   cmd = Mixlib::ShellOut.new("#{new_resource.java_home}/bin/keytool -list #{keystore_argument} -storepass #{new_resource.keystore_passwd} -v | grep \"#{new_resource.cert_alias}\"")
   cmd.run_command

@@ -1,6 +1,7 @@
 provides :openjdk_pkg_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
+include Java::Cookbook::BinCmdHelpers
 
 property :pkg_names, [String, Array],
           default: lazy { default_openjdk_pkg_names(version) },
@@ -14,7 +15,7 @@ property :java_home, String,
           description: 'Set to override the java_home'
 
 property :bin_cmds, Array,
-          default: lazy { default_openjdk_bin_cmds(version) },
+          default: lazy { default_bin_cmds(version) },
           description: 'A list of bin_cmds based on the version and variant'
 
 property :alternatives_priority, Integer,
@@ -23,6 +24,7 @@ property :alternatives_priority, Integer,
 
 use 'partial/_common'
 use 'partial/_linux'
+use 'partial/_openjdk'
 
 action :install do
   if platform?('ubuntu')
@@ -50,6 +52,7 @@ action :install do
     priority new_resource.alternatives_priority
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
+    skip_alternatives new_resource.skip_alternatives
     action :set
   end
 end
