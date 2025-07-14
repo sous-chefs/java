@@ -27,12 +27,15 @@ property :bin_cmds, Array,
          default: lazy { default_bin_cmds(version) },
          description: 'A list of bin_cmds based on the version'
 
+property :repository_uri, String,
+         description: 'URI for the repository mirror (e.g., "https://custom-mirror.example.com/artifactory/deb")'
+
 use 'partial/_common'
 use 'partial/_linux'
 
 action :install do
   apt_repository 'adoptium' do
-    uri 'https://packages.adoptium.net/artifactory/deb'
+    uri new_resource.repository_uri || 'https://packages.adoptium.net/artifactory/deb'
     components ['main']
     distribution lazy { node['lsb']['codename'] || node['debian']['distribution_codename'] }
     # TODO: https://github.com/chef/chef/pull/15043
@@ -45,7 +48,7 @@ action :install do
 
   yum_repository 'adoptium' do
     description 'Eclipse Adoptium'
-    baseurl value_for_platform(
+    baseurl new_resource.repository_uri || value_for_platform(
       'amazon' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/$basearch' },
       'centos' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/centos/$releasever/$basearch' },
       'fedora' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch' },
@@ -63,7 +66,7 @@ action :install do
 
   zypper_repository 'adoptium' do
     description 'Eclipse Adoptium'
-    baseurl 'https://packages.adoptium.net/artifactory/rpm/opensuse/$releasever/$basearch'
+    baseurl new_resource.repository_uri || 'https://packages.adoptium.net/artifactory/rpm/opensuse/$releasever/$basearch'
     gpgcheck true
     gpgkey 'https://packages.adoptium.net/artifactory/api/gpg/key/public'
     action :create

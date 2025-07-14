@@ -9,7 +9,7 @@ property :version, String,
 
 property :url, String,
           default: lazy { default_openjdk_url(version, variant) },
-          description: 'The URL to download from'
+          description: 'The URL to download from. Can be an internal mirror URL (e.g., "https://internal-mirror.example.com/java/openjdk/").'
 
 property :checksum, String,
           regex: /^[0-9a-f]{32}$|^[a-zA-Z0-9]{40,64}$/,
