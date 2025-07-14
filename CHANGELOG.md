@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 13.1.0 - *2025-07-14*
 
 - add `skip_alternatives` to resources `corretto_install`, `openjdk_install`, `openjdk_pkg_install`, `openjdk_source_install` for cases when management of alternatives is not desired. (@dschlenk)
