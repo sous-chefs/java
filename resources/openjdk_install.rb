@@ -47,6 +47,7 @@ action :install do
       java_home new_resource.java_home
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
     end
@@ -59,6 +60,7 @@ action :install do
       java_home_group new_resource.java_home_group
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
     end
@@ -75,6 +77,7 @@ action :remove do
       java_home new_resource.java_home
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
       action :remove
@@ -88,6 +91,7 @@ action :remove do
       java_home_group new_resource.java_home_group
       default new_resource.default
       bin_cmds new_resource.bin_cmds
+      skip_alternatives new_resource.skip_alternatives
       alternatives_priority new_resource.alternatives_priority
       reset_alternatives new_resource.reset_alternatives
       action :remove

@@ -3,6 +3,8 @@
 
 [back to resource list](https://github.com/sous-chefs/java#resources)
 
+Installs OpenJDK Java via source or package manager. This resource selects the appropriate installation method based on the `install_type` property and handles cross-platform Java installation including alternatives configuration.
+
 Introduced: v8.0.0
 
 ## Actions
@@ -21,10 +23,11 @@ Introduced: v8.0.0
 | java_home_mode        | Integer, String |         | The permission for the Java home directory          |                    |
 | java_home_owner       | String          |         | Owner of the Java Home                              |                    |
 | java_home_group       | String          |         | Group for the Java Home                             |                    |
-| default               | Boolean         |         | Whether to set this as the defalut Java             |                    |
+| default               | Boolean         |         | Whether to set this as the default Java             |                    |
 | bin_cmds              | Array           |         | A list of bin_cmds based on the version and variant |                    |
 | alternatives_priority | Integer         |         | Alternatives priority to set for this Java          |                    |
 | reset_alternatives    | Boolean         |         | Whether to reset alternatives before setting        |                    |
+| skip_alternatives     | Boolean         | `false` | Skip alternatives installation completely           |                    |
 | pkg_names             | Array           |         | List of packages to install                         |                    |
 | pkg_version           | String          |         | Package version to install                          |                    |
 | install_type          | String          |         | Installation type                                   | `package` `source` |

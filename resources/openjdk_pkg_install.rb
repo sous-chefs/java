@@ -52,6 +52,7 @@ action :install do
     priority new_resource.alternatives_priority
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
+    skip_alternatives new_resource.skip_alternatives
     action :set
   end
 end
