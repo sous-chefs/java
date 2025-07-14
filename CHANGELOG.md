@@ -19,6 +19,8 @@ This file is used to list changes made in each version of the Java cookbook.
 - Add Temurin 21 to the test matrix
 - Remove Semeru from the test matrix
 
+- Update `install` and `remove` actions of `java_certificate` to function on Windows
+
 ## 12.1.1 - *2024-12-05*
 
 ## 12.1.0 - *2024-12-03*
