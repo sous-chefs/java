@@ -9,11 +9,6 @@ TEMURIN_REPOS = {
   '17' => 'adoptium/temurin17-binaries',
 }.freeze
 
-SEMERU_REPOS = {
-  '11' => 'ibmruntimes/semeru11-binaries',
-  '17' => 'ibmruntimes/semeru17-binaries',
-}.freeze
-
 CORRETTO_REPOS = {
   '11' => 'corretto-11',
   '17' => 'corretto-17',

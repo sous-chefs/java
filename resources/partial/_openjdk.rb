@@ -1,4 +1,4 @@
 property :variant, String,
-          equal_to: %w(openjdk semeru temurin),
+          equal_to: %w(openjdk temurin),
           default: 'openjdk',
           description: 'Install flavour'

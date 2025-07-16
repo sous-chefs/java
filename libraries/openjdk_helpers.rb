@@ -46,20 +46,6 @@ module Java
             Chef::Log.fatal('Version specified does not have a URL value set')
             raise 'Version supplied does not have a download URL set'
           end
-        when 'semeru'
-          case version
-          when '11'
-            'https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.14.1%2B1_openj9-0.30.1/ibm-semeru-open-jdk_x64_linux_11.0.14.1_1_openj9-0.30.1.tar.gz'
-          when '16'
-            'https://github.com/ibmruntimes/semeru16-binaries/releases/download/jdk-16.0.2%2B7_openj9-0.27.1/ibm-semeru-open-jdk_ppc64le_linux_16.0.2_7_openj9-0.27.1.tar.gz'
-          when '17'
-            'https://github.com/ibmruntimes/semeru17-binaries/releases/download/jdk-17.0.2%2B8_openj9-0.30.0/ibm-semeru-open-jdk_x64_linux_17.0.2_8_openj9-0.30.0.tar.gz'
-          when '18'
-            'https://github.com/AdoptOpenJDK/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jdk_x64_linux_18.0.1_10_openj9-0.32.0.tar.gz'
-          else
-            Chef::Log.fatal('Version specified does not have a URL value set')
-            raise 'Version supplied does not have a download URL set'
-          end
         else
           case version
           when '9'
@@ -128,8 +114,8 @@ module Java
       end
 
       def default_openjdk_pkg_java_home(version)
-        # For both standard OpenJDK and Temurin/Semeru variants, use the standard OpenJDK paths
-        # Temurin and Semeru variants are installed using package managers with standard paths
+        # For both standard OpenJDK and Temurin variants, use the standard OpenJDK paths
+        # Temurin variant is installed using package managers with standard paths
 
         # Map architecture to the correct suffix used in Java paths
         arch = case node['kernel']['machine']
@@ -143,7 +129,7 @@ module Java
                  node['kernel']['machine']
                end
 
-        # For Debian-based systems, Temurin and standard OpenJDK use the same path structure
+        # For Debian-based systems, Temurin variant uses the same path structure
         # with architecture-specific suffixes
         value_for_platform_family(
           %w(rhel fedora) => version.to_i < 11 ? "/usr/lib/jvm/java-1.#{version}.0" : "/usr/lib/jvm/java-#{version}",
