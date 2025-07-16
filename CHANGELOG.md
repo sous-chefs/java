@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the Java cookbook.
 
+## Unreleased
+
 ## 14.0.0 - *2025-07-16*
 
 - Remove Semeru support as there is no clean yum or apt repository for it
