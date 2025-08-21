@@ -1,0 +1,7 @@
+---
+name: custom-package
+title: Custom package from URL testing
+license: Public domain
+copyright: None
+summary: Verify installation from a custom URL
+version: 0.0.1

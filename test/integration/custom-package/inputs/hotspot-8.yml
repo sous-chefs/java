@@ -1,0 +1,4 @@
+---
+variant: hotspot
+java_version: 1.8.0_232
+java_home_dir: jdk8u232-b09

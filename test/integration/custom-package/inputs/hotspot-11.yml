@@ -1,0 +1,4 @@
+---
+variant: hotspot
+java_version: 11.0.6
+java_home_dir: jdk-11.0.6+10

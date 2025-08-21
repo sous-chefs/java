@@ -1,0 +1,30 @@
+---
+driver:
+  name: exec
+  host: localhost
+
+provisioner:
+  require_chef_omnibus: false
+  name: chef_zero
+  install_strategy: skip
+  chef_client_path: "/opt/chef-workstation/bin/chef-client"
+  deprecations_as_errors: false
+  sudo: true
+
+platforms:
+  - name: macos
+    driver:
+      box: damacus/macos-10.15.4
+      provider: parallels
+      linked_clone: true
+      gui: false
+
+suites:
+  - name: default
+    run_list:
+      - recipe[test::openjdk]
+    attributes:
+      version: 17
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      inputs: { java_version: "17" }

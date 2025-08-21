@@ -1,0 +1,25 @@
+---
+provisioner:
+  name: chef_zero
+  install_strategy: skip
+  channel: current
+
+platforms:
+  - name: macos
+    driver:
+      box: damacus/macos-10.15.4
+      provider: parallels
+      linked_clone: true
+      gui: false
+
+suites:
+  - name: default
+    run_list:
+      - recipe[homebrew]
+      - recipe[test::openjdk]
+    attributes:
+      version: 14
+      variant: openj9
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      input_files: [test/integration/openjdk/inputs/openjdk-14-macos.yml]

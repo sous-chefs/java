@@ -1,0 +1,118 @@
+---
+driver:
+  name: vagrant
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  env: [CHEF_LICENSE=accept]
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: amazonlinux-2023
+  - name: debian-12
+  - name: debian-11
+  - name: freebsd-13
+  - name: fedora-latest
+  - name: rockylinux-9
+  - name: rockylinux-8
+  - name: ubuntu-22.04
+  - name: ubuntu-20.04
+
+suites:
+  # OpenJDK
+  - name: openjdk-11
+    run_list:
+      - recipe[test::openjdk]
+    attributes: { version: "11" }
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      inputs: { java_version: "11" }
+
+  - name: openjdk-16
+    run_list:
+      - recipe[test::openjdk]
+    attributes: { version: "16" }
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      inputs: { java_version: "16" }
+
+  - name: openjdk-17
+    run_list:
+      - recipe[test::openjdk]
+    attributes: { version: "17" }
+    verifier:
+      inspec_tests: [test/integration/openjdk]
+      inputs: { java_version: "17" }
+
+  # Temurin
+  - name: temurin-8
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 8
+    verifier:
+      inspec_tests: [test/integration/temurin]
+      inputs: { java_version: "8" }
+
+  - name: temurin-11
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 11
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "11" }
+
+  - name: temurin-17
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 17
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "17" }
+
+  - name: temurin-21
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 21
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "21" }
+
+  # Corretto
+  - name: corretto-8
+    run_list:
+      - recipe[test::corretto]
+    attributes: { version: "8" }
+    verifier:
+      inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "8" }
+  - name: corretto-11
+    run_list:
+      - recipe[test::corretto]
+    attributes: { version: "11" }
+    verifier:
+      inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "11" }
+  - name: corretto-17
+    run_list:
+      - recipe[test::corretto]
+    attributes: { version: "17" }
+    verifier:
+      inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "17" }
+  - name: corretto-18
+    run_list:
+      - recipe[test::corretto]
+    attributes: { version: "18" }
+    verifier:
+      inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "18" }

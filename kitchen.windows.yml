@@ -1,0 +1,20 @@
+# ---
+# driver:
+#   name: exec
+#   host: localhost
+
+# provisioner:
+#   require_chef_omnibus: false
+#   # chef_client_path: "/opt/chef-workstation/bin/chef-client"
+#   name: chef_zero
+#   deprecations_as_errors: false
+#   log_level: :info
+#   install_strategy: skip
+
+# suites:
+#   - name: adoptopenjdk-13-openj9
+#     run_list:
+#       - recipe[test::adoptopenjdk]
+
+# platforms:
+#    - name: windows_2019
