@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the Java cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 14.0.1 - *2025-09-04*
 
 ## 14.0.0 - *2025-07-16*
