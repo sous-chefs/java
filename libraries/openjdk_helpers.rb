@@ -9,7 +9,7 @@ module Java
       # e.g. https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.3%2B7/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.3_7.tar.gz
       def sub_dir(url)
         URI.parse(url)
-        url.split('/')[7].split('_')[0].gsub('%2', '-').downcase
+        url.split('/')[7].split('_').first.gsub('%2', '-').downcase
       end
 
       def default_openjdk_install_method(version)
