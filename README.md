@@ -18,10 +18,20 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 Chef 15.3+
 
-### Platforms
+<!-- Replace bullet list with a formal table: -->
 
-- Debian, Ubuntu
-- CentOS, RedHat, Fedora, Scientific, Amazon
+```markdown
+## Supported Platforms
+
+| Platform            | Supported |
+|--------------------|-----------|
+| Debian             | ✔ |
+| Ubuntu             | ✔ |
+| CentOS             | ✔ |
+| RedHat             | ✔ |
+| Fedora             | ✔ |
+| Scientific Linux   | ✔ |
+| Amazon Linux       | ✔ |
 
 ## Resources
 
