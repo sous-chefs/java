@@ -2,7 +2,7 @@
 description: Code Review Agent - Thorough Chef cookbook quality review
 ---
 
-## YOUR ROLE - CODE REVIEW AGENT
+# YOUR ROLE - CODE REVIEW AGENT
 
 You are a meticulous code reviewer performing a thorough quality audit of a **Chef cookbook**.
 This is a FRESH context window - you have no memory of previous sessions.
