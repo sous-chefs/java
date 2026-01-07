@@ -213,15 +213,13 @@ Make atomic commits for each category of fix using `mcp3_git_add` and `mcp3_git_
 mcp3_git_commit with message: "fix: correct ChefLog typo to Chef::Log"
 ```
 
-**For multiline commits, use heredoc with stdin:**
+**For multiline commits, use echo with pipe:**
 
 ```fish
-git commit -F - <<EOF
-fix: correct ChefLog typo to Chef::Log
+echo "fix: correct ChefLog typo to Chef::Log
 
 - Fixed typo in openjdk_install.rb action :install
-- Fixed typo in openjdk_install.rb action :remove
-EOF
+- Fixed typo in openjdk_install.rb action :remove" | git commit -F -
 ```
 
 **NEVER use multiline strings in `git commit -m`** - shell escaping is unreliable.
