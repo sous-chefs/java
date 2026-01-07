@@ -132,17 +132,3 @@ action_class do
     end
   end
 end
-
-action :unset do
-  new_resource.bin_cmds.each do |cmd|
-    converge_by("Remove alternative for #{cmd}") do
-      shell_out("#{alternatives_cmd} --remove #{cmd} #{new_resource.java_location}/bin/#{cmd}")
-    end
-  end
-end
-
-action_class do
-  def alternatives_cmd
-    platform_family?('rhel', 'fedora', 'amazon') ? 'alternatives' : 'update-alternatives'
-  end
-end
