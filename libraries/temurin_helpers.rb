@@ -39,11 +39,7 @@ module Java
 
       # Helper to determine if a version is available as LTS
       def temurin_version_available?(version)
-        version = version.to_s
-        lts = temurin_lts_versions
-
-        return true if lts.include?(version.to_i)
-        false
+        temurin_lts_versions.include?(version.to_i)
       end
     end
   end
