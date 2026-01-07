@@ -13,7 +13,7 @@ verifier:
 platforms:
   - name: amazonlinux-2023
   - name: debian-12
-  - name: debian-11
+  - name: debian-13
   - name: freebsd-13
   - name: fedora-latest
   - name: rockylinux-9
@@ -31,14 +31,6 @@ suites:
       inspec_tests: [test/integration/openjdk]
       inputs: { java_version: "11" }
 
-  - name: openjdk-16
-    run_list:
-      - recipe[test::openjdk]
-    attributes: { version: "16" }
-    verifier:
-      inspec_tests: [test/integration/openjdk]
-      inputs: { java_version: "16" }
-
   - name: openjdk-17
     run_list:
       - recipe[test::openjdk]
@@ -48,23 +40,13 @@ suites:
       inputs: { java_version: "17" }
 
   # Temurin
-  - name: temurin-8
-    run_list:
-      - recipe[test::temurin_pkg]
-    attributes:
-      version: 8
-    verifier:
-      inspec_tests: [test/integration/temurin]
-      inputs: { java_version: "8" }
-
   - name: temurin-11
     run_list:
       - recipe[test::temurin_pkg]
     attributes:
       version: 11
     verifier:
-      inspec_tests:
-        - test/integration/temurin
+      inspec_tests: [test/integration/temurin]
       inputs: { java_version: "11" }
 
   - name: temurin-17
@@ -87,6 +69,16 @@ suites:
         - test/integration/temurin
       inputs: { java_version: "21" }
 
+  - name: temurin-25
+    run_list:
+      - recipe[test::temurin_pkg]
+    attributes:
+      version: 25
+    verifier:
+      inspec_tests:
+        - test/integration/temurin
+      inputs: { java_version: "25" }
+
   # Corretto
   - name: corretto-8
     run_list:
@@ -95,6 +87,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/corretto]
       inputs: { java_version: "8" }
+
   - name: corretto-11
     run_list:
       - recipe[test::corretto]
@@ -102,6 +95,7 @@ suites:
     verifier:
       inspec_tests: [test/integration/corretto]
       inputs: { java_version: "11" }
+
   - name: corretto-17
     run_list:
       - recipe[test::corretto]
@@ -109,10 +103,19 @@ suites:
     verifier:
       inspec_tests: [test/integration/corretto]
       inputs: { java_version: "17" }
-  - name: corretto-18
+
+  - name: corretto-21
     run_list:
       - recipe[test::corretto]
-    attributes: { version: "18" }
+    attributes: { version: "21" }
     verifier:
       inspec_tests: [test/integration/corretto]
-      inputs: { java_version: "18" }
+      inputs: { java_version: "21" }
+
+  - name: corretto-25
+    run_list:
+      - recipe[test::corretto]
+    attributes: { version: "25" }
+    verifier:
+      inspec_tests: [test/integration/corretto]
+      inputs: { java_version: "25" }
