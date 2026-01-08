@@ -15,7 +15,7 @@ Introduced: v8.0.0
 ## Properties
 
 | Name                  | Type            | Default | Description                                         | Allowed values     |
-| --------------------- | --------------- | ------- | --------------------------------------------------- | ------------------ |
+|-----------------------|-----------------|---------|-----------------------------------------------------|--------------------|
 | version               | String          |         | Java version to install                             |                    |
 | url                   | String          |         | The URL to download from                            |                    |
 | checksum              | String          |         | The checksum for the downloaded file                |                    |

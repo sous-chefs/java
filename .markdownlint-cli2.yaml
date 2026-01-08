@@ -5,4 +5,3 @@ config:
   reference-links-images: false # MD052
 ignores:
   - .github/copilot-instructions.md
-  - .windsurf/workflows/code-review-agent.md

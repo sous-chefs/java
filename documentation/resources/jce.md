@@ -12,7 +12,7 @@
 ## Properties
 
 | Name           | Type   | Default                                                  | Description                                                                |
-| -------------- | ------ | -------------------------------------------------------- | -------------------------------------------------------------------------- |
+|----------------|--------|----------------------------------------------------------|----------------------------------------------------------------------------|
 | `jdk_version`  | String | `node['java']['jdk_version']`                            | The Java version to install into                                           |
 | `jce_url`      | String | `node['java']['oracle']['jce'][jdk_version]['url']`      | The URL for the JCE distribution                                           |
 | `jce_checksum` | String | `node['java']['oracle']['jce'][jdk_version]['checksum']` | The checksum of the JCE distribution                                       |

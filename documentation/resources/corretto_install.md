@@ -15,7 +15,7 @@ Introduced: v8.0.0
 ## Properties
 
 | Name                  | Type            | Default                              | Description                                                                                                       |
-| --------------------- | --------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+|-----------------------|-----------------|--------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | version               | String          |                                      | Java version to install                                                                                           |
 | full_version          | String          |                                      | Used to configure the package directory, change this is the version installed by the package is no longer correct |
 | url                   | String          | `default_corretto_url(version)`      | The URL to download from                                                                                          |
@@ -28,7 +28,7 @@ Introduced: v8.0.0
 | bin_cmds              | Array           | `default_corretto_bin_cmds(version)` | A list of bin_cmds based on the version and variant                                                               |
 | alternatives_priority | Integer         | `1`                                  | Alternatives priority to set for this Java                                                                        |
 | reset_alternatives    | Boolean         | `true`                               | Whether to reset alternatives before setting                                                                      |
-| skip_alternatives     | Boolean         | `false`                              | Skip alternatives installation completely                                                                          |
+| skip_alternatives     | Boolean         | `false`                              | Skip alternatives installation completely                                                                         |
 
 ## Examples
 

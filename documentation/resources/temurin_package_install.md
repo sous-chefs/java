@@ -13,19 +13,19 @@ Introduced: v12.0.0
 
 ## Properties
 
-| Property              | Type           | Default                                | Description                                  |
-|-----------------------|----------------|----------------------------------------|----------------------------------------------|
-| `version`             | String         | Name Property                          | Java version to install (e.g. '8', '11', '17') |
-| `pkg_name`            | String         | `temurin-#{version}-jdk`               | Package name to install                      |
-| `pkg_version`         | String         | `nil`                                  | Package version to install                   |
-| `java_home`           | String         | Platform-specific JAVA_HOME            | Path to set as JAVA_HOME                     |
-| `bin_cmds`            | Array          | Version-specific binary commands       | Commands for alternatives                    |
-| `alternatives_priority` | Integer      | 1062                                   | Priority for alternatives system             |
-| `reset_alternatives`  | Boolean        | true                                   | Whether to reset alternatives before setting |
-| `default`             | Boolean        | true                                   | Whether to set this as the default Java      |
-| `skip_alternatives`   | Boolean        | false                                  | Skip alternatives installation completely    |
-| `repository_uri`      | String         | `nil`                                  | URI for the repository mirror to use instead of default repository URLs |
-| air_gap | Boolean | false | Whether to install in air-gap mode |
+| Property                | Type    | Default                          | Description                                                             |
+|-------------------------|---------|----------------------------------|-------------------------------------------------------------------------|
+| `version`               | String  | Name Property                    | Java version to install (e.g. '8', '11', '17')                          |
+| `pkg_name`              | String  | `temurin-#{version}-jdk`         | Package name to install                                                 |
+| `pkg_version`           | String  | `nil`                            | Package version to install                                              |
+| `java_home`             | String  | Platform-specific JAVA_HOME      | Path to set as JAVA_HOME                                                |
+| `bin_cmds`              | Array   | Version-specific binary commands | Commands for alternatives                                               |
+| `alternatives_priority` | Integer | 1062                             | Priority for alternatives system                                        |
+| `reset_alternatives`    | Boolean | true                             | Whether to reset alternatives before setting                            |
+| `default`               | Boolean | true                             | Whether to set this as the default Java                                 |
+| `skip_alternatives`     | Boolean | false                            | Skip alternatives installation completely                               |
+| `repository_uri`        | String  | `nil`                            | URI for the repository mirror to use instead of default repository URLs |
+| air_gap                 | Boolean | false                            | Whether to install in air-gap mode                                      |
 
 ## Platform Support
 

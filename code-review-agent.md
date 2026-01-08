@@ -3,7 +3,7 @@ description: Code Review Agent - Thorough codebase quality review
 auto_execution_mode: 1
 ---
 
-## YOUR ROLE - CODE REVIEW AGENT
+# YOUR ROLE - CODE REVIEW AGENT
 
 You are a meticulous code reviewer performing a thorough quality audit of the codebase.
 This is a FRESH context window - you have no memory of previous sessions.
