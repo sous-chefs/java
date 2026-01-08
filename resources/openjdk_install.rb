@@ -65,7 +65,7 @@ action :install do
       reset_alternatives new_resource.reset_alternatives
     end
   else
-    ChefLog.fatal('Invalid install method specified')
+    Chef::Log.fatal('Invalid install method specified')
   end
 end
 
@@ -97,6 +97,6 @@ action :remove do
       action :remove
     end
   else
-    ChefLog.fatal('Invalid install method specified')
+    Chef::Log.fatal('Invalid install method specified')
   end
 end

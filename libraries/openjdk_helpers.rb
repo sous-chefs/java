@@ -17,7 +17,7 @@ module Java
         when 'amazon'
           'source'
         when 'rhel'
-          supported = lts.delete('11')
+          supported = lts - ['11']
           supported.include?(version) ? 'package' : 'source'
         when 'debian'
           case node['platform_version']

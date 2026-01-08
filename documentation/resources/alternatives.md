@@ -13,7 +13,7 @@ The `java_alternatives` resource uses `update-alternatives` command to set and u
 ## Properties
 
 | Name                 | Type          | Default | Description                                                                  |
-| -------------------- | ------------- | ------- | ---------------------------------------------------------------------------- |
+|----------------------|---------------|---------|------------------------------------------------------------------------------|
 | `java_location`      | `String`      |         | Java installation location                                                   |
 | `bin_cmds`           | `String`      |         | Array of Java tool names to set or unset alternatives on                     |
 | `default`            | `true, false` | `true`  | Whether to set the Java tools as system default. Boolean, defaults to `true` |
