@@ -32,8 +32,6 @@ jobs:
         suite:
           - corretto-11
           - corretto-17
-          - corretto-18
-          - temurin-8
           - temurin-11
           - temurin-17
           - temurin-21
