@@ -56,4 +56,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
-      - run: echo ${{needs.integration.outputs}}
+      - run: echo "integration completed"
