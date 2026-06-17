@@ -15,10 +15,10 @@ The `java_alternatives` resource uses `update-alternatives` command to set and u
 | Name                 | Type          | Default | Description                                                                  |
 | -------------------- | ------------- | ------- | ---------------------------------------------------------------------------- |
 | `java_location`      | `String`      |         | Java installation location                                                   |
-| `bin_cmds`           | `String`      |         | Array of Java tool names to set or unset alternatives on                     |
+| `bin_cmds`           | `Array`       |         | Array of Java tool names to set or unset alternatives on                     |
 | `default`            | `true, false` | `true`  | Whether to set the Java tools as system default. Boolean, defaults to `true` |
 | `priority`           | `Integer`     | `1061`  | Priority of the alternatives. Integer, defaults to `1061`                    |
-| `reset_alternatives` | `true, false` | `true`  | Whether to reset alternatives before setting them                            |
+| `reset_alternatives` | `true, false` | `false` | Whether to reset alternatives before setting them                            |
 
 - `java_location`: Java installation location.
 - `bin_cmds`: .
@@ -29,7 +29,7 @@ The `java_alternatives` resource uses `update-alternatives` command to set and u
 
 ```ruby
 java_alternatives "set java alternatives" do
-    java_location '/usr/local/java'
-    bin_cmds ["java", "javac"]
+  java_location '/usr/local/java'
+  bin_cmds ["java", "javac"]
 end
 ```

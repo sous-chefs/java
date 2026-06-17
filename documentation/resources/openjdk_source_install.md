@@ -24,7 +24,7 @@ Introduced: v8.0.0
 | java_home_owner       | String          | `root`                              | Owner of the Java Home                              |
 | java_home_group       | String          | `node['root_group']`                | Group for the Java Home                             |
 | default               | Boolean         | `true`                              | Whether to set this as the default Java             |
-| bin_cmds              | Array           | `default_bin_cmds(version)` | A list of bin_cmds based on the version and variant |
+| bin_cmds              | Array           | `default_bin_cmds(version)`         | A list of bin_cmds based on the version and variant |
 | alternatives_priority | Integer         | `1`                                 | Alternatives priority to set for this Java          |
 | reset_alternatives    | Boolean         | `true`                              | Whether to reset alternatives before setting        |
 | skip_alternatives     | Boolean         | `false`                             | Skip alternatives installation completely           |
@@ -34,13 +34,13 @@ Introduced: v8.0.0
 To install OpenJDK 11 and set it as the default Java:
 
 ```ruby
-openjdk_install '11'
+openjdk_source_install '11'
 ```
 
 To install OpenJDK 11 and set it as second highest priority:
 
 ```ruby
-openjdk_install '11' do
+openjdk_source_install '11' do
   alternatives_priority 2
 end
 ```

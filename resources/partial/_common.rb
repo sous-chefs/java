@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 property :version, String,
           name_property: true,
           description: 'Java version to install'

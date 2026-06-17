@@ -11,19 +11,28 @@ verifier:
   name: inspec
 
 platforms:
+  - name: almalinux-8
+  - name: almalinux-9
+  - name: almalinux-10
   - name: amazonlinux-2023
+  - name: centos-stream-9
+  - name: centos-stream-10
   - name: debian-12
   - name: debian-13
-  - name: freebsd-13
   - name: fedora-latest
-  - name: rockylinux-9
+  - name: oraclelinux-8
+  - name: oraclelinux-9
   - name: rockylinux-8
+  - name: rockylinux-9
+  - name: rockylinux-10
   - name: ubuntu-22.04
-  - name: ubuntu-20.04
+  - name: ubuntu-24.04
 
 suites:
   # OpenJDK
   - name: openjdk-11
+    provisioner:
+      named_run_list: openjdk
     run_list:
       - recipe[test::openjdk]
     attributes: { version: "11" }
@@ -32,6 +41,8 @@ suites:
       inputs: { java_version: "11" }
 
   - name: openjdk-17
+    provisioner:
+      named_run_list: openjdk
     run_list:
       - recipe[test::openjdk]
     attributes: { version: "17" }
@@ -41,6 +52,8 @@ suites:
 
   # Temurin
   - name: temurin-11
+    provisioner:
+      named_run_list: temurin_pkg
     run_list:
       - recipe[test::temurin_pkg]
     attributes:
@@ -50,6 +63,8 @@ suites:
       inputs: { java_version: "11" }
 
   - name: temurin-17
+    provisioner:
+      named_run_list: temurin_pkg
     run_list:
       - recipe[test::temurin_pkg]
     attributes:
@@ -60,6 +75,8 @@ suites:
       inputs: { java_version: "17" }
 
   - name: temurin-21
+    provisioner:
+      named_run_list: temurin_pkg
     run_list:
       - recipe[test::temurin_pkg]
     attributes:
@@ -70,6 +87,8 @@ suites:
       inputs: { java_version: "21" }
 
   - name: temurin-25
+    provisioner:
+      named_run_list: temurin_pkg
     run_list:
       - recipe[test::temurin_pkg]
     attributes:
@@ -80,15 +99,9 @@ suites:
       inputs: { java_version: "25" }
 
   # Corretto
-  - name: corretto-8
-    run_list:
-      - recipe[test::corretto]
-    attributes: { version: "8" }
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: { java_version: "8" }
-
   - name: corretto-11
+    provisioner:
+      named_run_list: corretto
     run_list:
       - recipe[test::corretto]
     attributes: { version: "11" }
@@ -97,25 +110,11 @@ suites:
       inputs: { java_version: "11" }
 
   - name: corretto-17
+    provisioner:
+      named_run_list: corretto
     run_list:
       - recipe[test::corretto]
     attributes: { version: "17" }
     verifier:
       inspec_tests: [test/integration/corretto]
       inputs: { java_version: "17" }
-
-  - name: corretto-21
-    run_list:
-      - recipe[test::corretto]
-    attributes: { version: "21" }
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: { java_version: "21" }
-
-  - name: corretto-25
-    run_list:
-      - recipe[test::corretto]
-    attributes: { version: "25" }
-    verifier:
-      inspec_tests: [test/integration/corretto]
-      inputs: { java_version: "25" }
