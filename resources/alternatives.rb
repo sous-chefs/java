@@ -34,7 +34,7 @@ property :reset_alternatives,
 action :set do
   bin_cmds_to_setup = parse_java_alternatives
   set_alternatives(bin_cmds_to_setup) do |cmd, alt_path|
-    alternative_exists = ::File.exist?("/var/lib/alternatives/#{cmd}") &&
+    alternative_exists = ::File.exist?(alternative_file_path(cmd)) &&
                          alternatives_display(cmd).stdout.include?(alt_path)
     Chef::Log.debug("Alternative for #{cmd} exists with correct path? #{alternative_exists}")
     alternative_exists
@@ -56,6 +56,14 @@ action_class do
 
   def alternatives_display(cmd)
     shell_out(alternatives_cmd, '--display', cmd)
+  end
+
+  def alternative_file_path(cmd)
+    if platform_family?('debian')
+      "/var/lib/dpkg/alternatives/#{cmd}"
+    else
+      "/var/lib/alternatives/#{cmd}"
+    end
   end
 
   def parse_java_alternatives
@@ -101,12 +109,12 @@ action_class do
         end
       end
 
-      alternative_file_exists = ::File.exist?("/var/lib/alternatives/#{cmd}")
+      alternative_file_exists = ::File.exist?(alternative_file_path(cmd))
 
       if !our_alternative_exists || !alternative_file_exists
         converge_by("Add alternative for #{cmd}") do
           if new_resource.reset_alternatives && alternative_file_exists
-            ::FileUtils.rm_f("/var/lib/alternatives/#{cmd}")
+            ::FileUtils.rm_f(alternative_file_path(cmd))
           end
           shell_out!(alternatives_cmd, '--install', bin_path, cmd, alt_path, priority.to_s)
         end
