@@ -2,7 +2,7 @@
 
 [back to resource list](https://github.com/sous-chefs/java#resources)
 
-Installs Java Temurin (AdoptOpenJDK) packages provided by Adoptium. This resource handles the repository setup and package installation for Temurin JDK packages across various platforms.
+Installs Eclipse Temurin packages provided by Adoptium. This resource handles the repository setup and package installation for Temurin JDK packages across various platforms.
 
 Introduced: v12.0.0
 
@@ -13,19 +13,18 @@ Introduced: v12.0.0
 
 ## Properties
 
-| Property              | Type           | Default                                | Description                                  |
-|-----------------------|----------------|----------------------------------------|----------------------------------------------|
-| `version`             | String         | Name Property                          | Java version to install (e.g. '8', '11', '17') |
-| `pkg_name`            | String         | `temurin-#{version}-jdk`               | Package name to install                      |
-| `pkg_version`         | String         | `nil`                                  | Package version to install                   |
-| `java_home`           | String         | Platform-specific JAVA_HOME            | Path to set as JAVA_HOME                     |
-| `bin_cmds`            | Array          | Version-specific binary commands       | Commands for alternatives                    |
-| `alternatives_priority` | Integer      | 1062                                   | Priority for alternatives system             |
-| `reset_alternatives`  | Boolean        | true                                   | Whether to reset alternatives before setting |
-| `default`             | Boolean        | true                                   | Whether to set this as the default Java      |
-| `skip_alternatives`   | Boolean        | false                                  | Skip alternatives installation completely    |
-| `repository_uri`      | String         | `nil`                                  | URI for the repository mirror to use instead of default repository URLs |
-| air_gap | Boolean | false | Whether to install in air-gap mode |
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| `version` | String | Name Property | Java version to install (e.g. '8', '11', '17') |
+| `pkg_name` | String | `temurin-#{version}-jdk` | Package name to install |
+| `pkg_version` | String | `nil` | Package version to install |
+| `java_home` | String | Platform-specific JAVA_HOME | Path to set as JAVA_HOME |
+| `bin_cmds` | Array | Version-specific binary commands | Commands for alternatives |
+| `alternatives_priority` | Integer | `1062` | Priority for alternatives system |
+| `reset_alternatives` | Boolean | `true` | Whether to reset alternatives before setting |
+| `default` | Boolean | `true` | Whether to set this as the default Java |
+| `skip_alternatives` | Boolean | `false` | Skip alternatives installation completely |
+| `repository_uri` | String | `nil` | URI for the repository mirror to use instead of default repository URLs |
 
 ## Platform Support
 
@@ -80,7 +79,5 @@ Each platform will have the appropriate Adoptium repository configured automatic
 
 ## Additional Information
 
-- This resource uses the Adoptium API to validate available releases.
-- The resource will warn if a requested version is not available as an LTS release.
 - For most use cases, you can simply specify the major version number.
-- Air-gap mode disables version checking via the Adoptium API and instead uses the version specified in the `pkg_version` property.
+- `repository_uri` can point package repository setup at an internal mirror.

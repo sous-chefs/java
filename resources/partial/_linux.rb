@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 property :alternatives_priority, Integer,
         default: 1,
         description: 'Alternatives priority to set for this Java'

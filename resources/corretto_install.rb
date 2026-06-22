@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 provides :corretto_install
 unified_mode true
 include Java::Cookbook::CorrettoHelpers
@@ -49,8 +51,6 @@ action :install do
     destination extract_dir
   end
 
-  node.default['java']['java_home'] = new_resource.java_home
-
   # Set up .jinfo file for update-java-alternatives
   template "/usr/lib/jvm/.java-#{new_resource.version}-corretto.jinfo" do
     cookbook 'java'
@@ -90,6 +90,11 @@ action :remove do
     path extract_dir
     recursive true
     only_if { ::File.exist?(extract_dir) }
+    action :delete
+  end
+
+  file "/usr/lib/jvm/.java-#{new_resource.version}-corretto.jinfo" do
+    only_if { platform_family?('debian') }
     action :delete
   end
 end

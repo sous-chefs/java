@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Java
   module Cookbook
     module CertificateHelpers
@@ -11,7 +13,7 @@ module Java
       end
 
       def keystore_argument(cacerts, truststore_path)
-        cacerts ? '-cacerts' : "-keystore #{truststore_path}"
+        cacerts ? ['-cacerts'] : ['-keystore', truststore_path]
       end
     end
   end

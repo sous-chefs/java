@@ -1,63 +1,68 @@
+# frozen_string_literal: true
+
 provides :temurin_package_install
 unified_mode true
 include Java::Cookbook::OpenJdkHelpers
-include Java::Cookbook::TemurinHelpers
 include Java::Cookbook::BinCmdHelpers
 
+use 'partial/_common'
+use 'partial/_linux'
+
 def default_temurin_pkg_name(version)
-  # Validate version against available releases
-  unless temurin_version_available?(version)
-    Chef::Log.warn("Temurin version #{version} might not be available. Available LTS versions: #{temurin_lts_versions.join(', ')}")
-  end
   "temurin-#{version}-jdk"
 end
 
+def default_temurin_rpm_baseurl
+  return 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/$basearch' if platform?('amazon')
+
+  repository_platform = value_for_platform(
+    %w(almalinux oracle redhat rocky) => { 'default' => 'rhel' },
+    'centos' => { 'default' => 'centos' },
+    'fedora' => { 'default' => 'fedora' },
+    'default' => node['platform']
+  )
+
+  "https://packages.adoptium.net/artifactory/rpm/#{repository_platform}/$releasever/$basearch"
+end
+
 property :pkg_name, String,
-         default: lazy { default_temurin_pkg_name(version) },
          description: 'Package name to install'
 
 property :pkg_version, String,
          description: 'Package version to install'
 
 property :java_home, String,
-         default: lazy { "/usr/lib/jvm/temurin-#{version}-jdk" },
          description: 'Set to override the java_home'
 
 property :bin_cmds, Array,
-         default: lazy { default_bin_cmds(version) },
          description: 'A list of bin_cmds based on the version'
 
 property :repository_uri, String,
          description: 'URI for the repository mirror (e.g., "https://custom-mirror.example.com/artifactory/deb")'
 
-use 'partial/_common'
-use 'partial/_linux'
-
 action :install do
+  keyring_path = '/usr/share/keyrings/adoptium.asc'
+  pkg_name = new_resource.pkg_name || default_temurin_pkg_name(new_resource.version)
+  java_home = new_resource.java_home || "/usr/lib/jvm/temurin-#{new_resource.version}-jdk"
+  bin_cmds = new_resource.bin_cmds || default_bin_cmds(new_resource.version)
+
+  remote_file keyring_path do
+    source 'https://packages.adoptium.net/artifactory/api/gpg/key/public'
+    mode '0644'
+    only_if { platform_family?('debian') }
+  end
+
   apt_repository 'adoptium' do
     uri new_resource.repository_uri || 'https://packages.adoptium.net/artifactory/deb'
     components ['main']
     distribution lazy { node['lsb']['codename'] || node['debian']['distribution_codename'] }
-    # TODO: https://github.com/chef/chef/pull/15043
-    # key '843C48A565F8F04B'
-    # keyserver 'keyserver.ubuntu.com'
-    signed_by false
-    trusted true
+    signed_by keyring_path
     only_if { platform_family?('debian') }
   end
 
   yum_repository 'adoptium' do
     description 'Eclipse Adoptium'
-    baseurl new_resource.repository_uri || value_for_platform(
-      'amazon' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/$basearch' },
-      'centos' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/centos/$releasever/$basearch' },
-      'fedora' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch' },
-      'opensuse' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/opensuse/$releasever/$basearch' },
-      'oracle' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/oraclelinux/$releasever/$basearch' },
-      'redhat' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rhel/$releasever/$basearch' },
-      'rocky' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/rocky/8/$basearch' },
-      'suse' => { 'default' => 'https://packages.adoptium.net/artifactory/rpm/sles/$releasever/$basearch' }
-    )
+    baseurl new_resource.repository_uri || default_temurin_rpm_baseurl
     enabled true
     gpgcheck true
     gpgkey 'https://packages.adoptium.net/artifactory/api/gpg/key/public'
@@ -73,15 +78,13 @@ action :install do
     only_if { platform_family?('suse') }
   end
 
-  package new_resource.pkg_name do
+  package pkg_name do
     version new_resource.pkg_version if new_resource.pkg_version
   end
 
-  node.default['java']['java_home'] = new_resource.java_home
-
   java_alternatives 'set-java-alternatives' do
-    java_location new_resource.java_home
-    bin_cmds new_resource.bin_cmds
+    java_location java_home
+    bin_cmds bin_cmds
     priority new_resource.alternatives_priority
     default new_resource.default
     reset_alternatives new_resource.reset_alternatives
@@ -90,20 +93,29 @@ action :install do
 end
 
 action :remove do
+  pkg_name = new_resource.pkg_name || default_temurin_pkg_name(new_resource.version)
+  java_home = new_resource.java_home || "/usr/lib/jvm/temurin-#{new_resource.version}-jdk"
+  bin_cmds = new_resource.bin_cmds || default_bin_cmds(new_resource.version)
+
   java_alternatives 'unset-java-alternatives' do
-    java_location new_resource.java_home
-    bin_cmds new_resource.bin_cmds
-    only_if { ::File.exist?(new_resource.java_home) }
+    java_location java_home
+    bin_cmds bin_cmds
+    only_if { ::File.exist?(java_home) }
     action :unset
     not_if { new_resource.skip_alternatives }
   end
 
-  package new_resource.pkg_name do
+  package pkg_name do
     action :remove
   end
 
   apt_repository 'adoptium' do
     action :remove
+    only_if { platform_family?('debian') }
+  end
+
+  file '/usr/share/keyrings/adoptium.asc' do
+    action :delete
     only_if { platform_family?('debian') }
   end
 

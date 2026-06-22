@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Java
   module Cookbook
     module OpenJdkHelpers
@@ -9,7 +11,7 @@ module Java
       # e.g. https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.3%2B7/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.3_7.tar.gz
       def sub_dir(url)
         URI.parse(url)
-        url.split('/')[7].split('_')[0].gsub('%2', '-').downcase
+        url.split('/')[7].split('_').first.gsub('%2', '-').downcase
       end
 
       def default_openjdk_install_method(version)
@@ -17,17 +19,35 @@ module Java
         when 'amazon'
           'source'
         when 'rhel'
-          supported = lts.delete('11')
+          supported = node['platform_version'].to_i >= 10 ? [] : lts
           supported.include?(version) ? 'package' : 'source'
+        when 'fedora'
+          'source'
         when 'debian'
-          case node['platform_version']
-          when '10', '18.04'
-            supported = lts - ['17']
-            supported.include?(version) ? 'package' : 'source'
-          when '9'
-            %w(8).include?(version) ? 'package' : 'source'
+          if node['platform'] == 'debian'
+            case node['platform_version'].to_i
+            when 9
+              %w(8).include?(version) ? 'package' : 'source'
+            when 10
+              supported = lts - ['17']
+              supported.include?(version) ? 'package' : 'source'
+            when 11
+              lts.include?(version) ? 'package' : 'source'
+            when 12
+              %w(17).include?(version) ? 'package' : 'source'
+            else
+              'source'
+            end
           else
-            lts.include?(version) ? 'package' : 'source'
+            case node['platform_version']
+            when '10', '18.04'
+              supported = lts - ['17']
+              supported.include?(version) ? 'package' : 'source'
+            when '9'
+              %w(8).include?(version) ? 'package' : 'source'
+            else
+              lts.include?(version) ? 'package' : 'source'
+            end
           end
         else
           lts.include?(version) ? 'package' : 'source'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Java
   module Cookbook
     module BinCmdHelpers
@@ -15,7 +17,7 @@ module Java
           %w(jaotc jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
         when '17'
           %w(jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver)
-        when '18', '19', '20', '21', '22', 'latest'
+        when '18', '19', '20', '21', '22', '23', '24', '25', 'latest'
           %w(jarsigner javac javap jconsole jdeprscan jfr jimage jjs jmap jps jshell jstat keytool rmic rmiregistry unpack200 jar java javadoc jcmd jdb jdeps jhsdb jinfo jlink jmod jrunscript jstack jstatd pack200 rmid serialver jwebserver)
         else
           Chef::Log.fatal('Version specified does not have a default set of bin_cmds')

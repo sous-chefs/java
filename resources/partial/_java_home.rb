@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 property :java_home_mode, String,
           default: '0755',
           description: 'The permission for the Java home directory'

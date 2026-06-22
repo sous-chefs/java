@@ -8,13 +8,12 @@ name: "Test"
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@8.0.2
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@8.0.4
     permissions:
-      actions: write
       checks: write
       pull-requests: write
       statuses: write
-      issues: write
+    secrets: inherit
 
   integration:
     needs: "lint-unit"
@@ -22,29 +21,39 @@ jobs:
     strategy:
       matrix:
         os:
+          - almalinux-8
+          - almalinux-9
+          - almalinux-10
           - amazonlinux-2023
+          - centos-stream-9
+          - centos-stream-10
           - debian-12
           - debian-13
-          - rockylinux-9
+          - fedora-latest
+          - oraclelinux-8
+          - oraclelinux-9
           - rockylinux-8
+          - rockylinux-9
+          - rockylinux-10
           - ubuntu-2204
-          - ubuntu-2004
+          - ubuntu-2404
         suite:
-          - corretto-11
-          - corretto-17
-          - corretto-18
-          - temurin-8
+          - openjdk-11
+          - openjdk-17
           - temurin-11
           - temurin-17
           - temurin-21
+          - temurin-25
+          - corretto-11
+          - corretto-17
       fail-fast: false
     steps:
       - name: Check out code
         uses: actions/checkout@v6
       - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
+        uses: sous-chefs/.github/.github/actions/install-workstation@8.0.4
       - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -56,4 +65,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
-      - run: echo ${{needs.integration.outputs}}
+      - run: echo "integration completed"

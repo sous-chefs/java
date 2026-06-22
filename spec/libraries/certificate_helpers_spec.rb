@@ -24,7 +24,7 @@ RSpec.describe Java::Cookbook::CertificateHelpers do
       let(:truststore_path) { '/usr/lib/jvm/corretto-9/jre/lib/security/cacerts' }
 
       it 'returns the correct argument' do
-        expect(subject.keystore_argument(cacerts, truststore_path)).to eq('-cacerts')
+        expect(subject.keystore_argument(cacerts, truststore_path)).to eq(['-cacerts'])
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe Java::Cookbook::CertificateHelpers do
       let(:truststore_path) { '/mycertstore.jks' }
 
       it 'returns the correct argument' do
-        expect(subject.keystore_argument(cacerts, truststore_path)).to eq('-keystore /mycertstore.jks')
+        expect(subject.keystore_argument(cacerts, truststore_path)).to eq(['-keystore', '/mycertstore.jks'])
       end
     end
   end

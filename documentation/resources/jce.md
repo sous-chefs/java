@@ -8,18 +8,21 @@
 ## Actions
 
 - `:install`: Installs the JCE policy files.
+- `:remove`: Removes the staged JCE policy files, archive, and managed policy symlinks.
 
 ## Properties
 
-| Name           | Type   | Default                                                  | Description                                                                |
-| -------------- | ------ | -------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `jdk_version`  | String | `node['java']['jdk_version']`                            | The Java version to install into                                           |
-| `jce_url`      | String | `node['java']['oracle']['jce'][jdk_version]['url']`      | The URL for the JCE distribution                                           |
-| `jce_checksum` | String | `node['java']['oracle']['jce'][jdk_version]['checksum']` | The checksum of the JCE distribution                                       |
-| `jce_cookie`   | String | `node['java']['oracle']['accept_oracle_download_terms']` | Indicates that you accept Oracle's EULA                                    |
-| `jce_home`     | String | `node['java']['oracle']['jce']['home']`                  | The location where JCE files will be decompressed for installation         |
-| `java_home`    | String | `node['java']['java_home']`                              | The location of the Java installation                                      |
-| `principal`    | String | `node['java']['windows']['owner']`                       | For Windows installations only, this determines the owner of the JCE files |
+| Name            | Type   | Default                                                  | Description                                                                |
+| --------------- | ------ | -------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `jdk_version`   | String | Resource name                                            | The Java version to install into                                           |
+| `jce_url`       | String | Required                                                 | The URL for the JCE distribution                                           |
+| `jce_checksum`  | String | Required                                                 | The checksum of the JCE distribution                                       |
+| `jce_cookie`    | String | `''`                                                     | Indicates that you accept Oracle's EULA                                    |
+| `jce_home`      | String | `/usr/lib/jvm/jce`                                       | The location where JCE files will be decompressed for installation         |
+| `java_home`     | String | Required                                                 | The location of the Java installation                                      |
+| `principal`     | String | `administrator`                                          | For Windows installations only, this determines the owner of the JCE files |
+| `download_path` | String | Chef file cache path                                     | Path used to stage the JCE archive                                         |
+| `install_type`  | String | `jdk`                                                    | Whether the Java install is a jdk or jre layout                            |
 
 ## Examples
 

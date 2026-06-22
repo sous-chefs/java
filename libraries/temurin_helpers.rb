@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Java
   module Cookbook
     module TemurinHelpers
@@ -48,7 +50,3 @@ module Java
     end
   end
 end
-
-# Ensure the helper is included in the recipe DSL
-Chef::DSL::Recipe.include Java::Cookbook::TemurinHelpers
-Chef::Resource.include Java::Cookbook::TemurinHelpers

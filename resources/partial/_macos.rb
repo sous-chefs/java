@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 property :tap_url,
         String,
         description: 'The URL of the tap'

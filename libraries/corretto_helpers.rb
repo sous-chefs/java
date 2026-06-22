@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Java
   module Cookbook
     module CorrettoHelpers
