@@ -22,6 +22,10 @@ property :java_home,
           String,
           description: 'Set to override the java_home'
 
+property :source_install_dir,
+          String,
+          description: 'Directory under the versioned parent path where the source archive is installed'
+
 property :bin_cmds,
           Array,
           description: 'A list of bin_cmds based on the version and variant'
@@ -59,7 +63,9 @@ action :install do
       url new_resource.url
       checksum new_resource.checksum
       java_home new_resource.java_home
+      source_install_dir new_resource.source_install_dir
       java_home_mode new_resource.java_home_mode
+      java_home_owner new_resource.java_home_owner
       java_home_group new_resource.java_home_group
       default new_resource.default
       bin_cmds bin_cmds
@@ -93,7 +99,9 @@ action :remove do
       url new_resource.url
       checksum new_resource.checksum
       java_home new_resource.java_home
+      source_install_dir new_resource.source_install_dir
       java_home_mode new_resource.java_home_mode
+      java_home_owner new_resource.java_home_owner
       java_home_group new_resource.java_home_group
       default new_resource.default
       bin_cmds bin_cmds

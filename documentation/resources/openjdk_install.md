@@ -31,6 +31,7 @@ Introduced: v8.0.0
 | pkg_names             | Array           |         | List of packages to install                         |                    |
 | pkg_version           | String          |         | Package version to install                          |                    |
 | install_type          | String          |         | Installation type                                   | `package` `source` |
+| source_install_dir    | String          |         | Source install directory                            |                    |
 
 ## Examples
 
@@ -47,3 +48,17 @@ openjdk_install '11' do
   alternatives_priority 2
 end
 ```
+
+To install a source archive from an internal mirror:
+
+```ruby
+openjdk_install '17' do
+  install_type 'source'
+  url 'https://artifacts.example.com/java/OpenJDK17U-jdk_x64_linux_hotspot_17.0.9_9.tar.gz'
+  checksum 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+end
+```
+
+For source installs, custom URLs install into a directory derived from the archive name unless
+`java_home` or `source_install_dir` is set. Source archives must contain a single top-level
+directory because the source installer strips one leading path component during extraction.

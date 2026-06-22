@@ -5,7 +5,7 @@ license           'Apache-2.0'
 description       'Recipes and resources for installing Java and managing certificates'
 source_url        'https://github.com/sous-chefs/java'
 issues_url        'https://github.com/sous-chefs/java/issues'
-chef_version      '>= 16.0'
+chef_version      '>= 17.5'
 version           '14.0.1'
 
 supports 'almalinux', '>= 8.0'
