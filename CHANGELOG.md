@@ -8,6 +8,24 @@ Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
+## [15.0.0](https://github.com/sous-chefs/java/compare/14.0.1...v15.0.0) (2026-06-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* support source archive upgrades ([#762](https://github.com/sous-chefs/java/issues/762))
+* remove legacy Java node attribute API ([#758](https://github.com/sous-chefs/java/issues/758))
+
+### Features
+
+* remove legacy Java node attribute API ([#758](https://github.com/sous-chefs/java/issues/758)) ([14e673e](https://github.com/sous-chefs/java/commit/14e673eee215a0fb5faca1111399272b04735e4b))
+
+
+### Bug Fixes
+
+* add release-please manifest ([#760](https://github.com/sous-chefs/java/issues/760)) ([e6b0014](https://github.com/sous-chefs/java/commit/e6b00140ecc5f1e83a65d2f7a9173dd33f105431))
+* support source archive upgrades ([#762](https://github.com/sous-chefs/java/issues/762)) ([97433ea](https://github.com/sous-chefs/java/commit/97433eab0686fb9b06b9b57fca75e37cd116fbc3)), closes [#745](https://github.com/sous-chefs/java/issues/745) [#708](https://github.com/sous-chefs/java/issues/708) [#649](https://github.com/sous-chefs/java/issues/649)
+
 ## 14.0.1 - *2025-09-04*
 
 ## 14.0.0 - *2025-07-16*
