@@ -6,7 +6,7 @@ description       'Recipes and resources for installing Java and managing certif
 source_url        'https://github.com/sous-chefs/java'
 issues_url        'https://github.com/sous-chefs/java/issues'
 chef_version      '>= 17.5'
-version           '14.0.1'
+version           '15.0.0'
 
 supports 'almalinux', '>= 8.0'
 supports 'amazon', '>= 2023.0'
