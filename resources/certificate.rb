@@ -75,7 +75,7 @@ action :install do
 
   cmd = keytool('-list', *keystore_arguments, '-storepass', new_resource.keystore_passwd, '-rfc', '-alias', new_resource.cert_alias)
   cmd.run_command
-  keystore_cert = cmd.stdout.match(/^[-]+BEGIN.*END(\s|\w)+[-]+$/m).to_s
+  keystore_cert = cmd.stdout.gsub("\r\n", "\n")[/^-----BEGIN CERTIFICATE-----\n.*?^-----END CERTIFICATE-----$/m].to_s
 
   keystore_cert_digest = keystore_cert.empty? ? nil : OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(keystore_cert).to_der)
   certfile_digest = OpenSSL::Digest::SHA512.hexdigest(OpenSSL::X509::Certificate.new(certdata).to_der)
@@ -87,9 +87,7 @@ action :install do
     Chef::Log.debug(cmd.format_for_exception)
     Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless cmd.exitstatus == 0
 
-    has_key = !cmd.stdout[/Alias name: \b#{Regexp.escape(new_resource.cert_alias)}\s*$/i].nil?
-
-    if has_key
+    if keystore_has_alias?(cmd.stdout)
       converge_by("delete existing certificate #{new_resource.cert_alias} from #{new_resource.keystore_path}") do
         cmd = keytool('-delete', '-alias', new_resource.cert_alias, *keystore_arguments, '-storepass', new_resource.keystore_passwd)
         cmd.run_command
@@ -122,11 +120,10 @@ action :remove do
 
   cmd = keytool('-list', *keystore_arguments, '-storepass', new_resource.keystore_passwd, '-v')
   cmd.run_command
-  has_key = !cmd.stdout[/Alias name: #{Regexp.escape(new_resource.cert_alias)}/].nil?
   does_not_exist = cmd.stdout[/Alias <#{Regexp.escape(new_resource.cert_alias)}> does not exist/]
   Chef::Application.fatal!("Error querying keystore for existing certificate: #{cmd.exitstatus}", cmd.exitstatus) unless (cmd.exitstatus == 0) || does_not_exist
 
-  if has_key
+  if keystore_has_alias?(cmd.stdout)
     converge_by("remove certificate #{new_resource.cert_alias} from #{new_resource.keystore_path}") do
       cmd = keytool('-delete', '-alias', new_resource.cert_alias, *keystore_arguments, '-storepass', new_resource.keystore_passwd)
       cmd.run_command
@@ -142,7 +139,16 @@ end
 
 action_class do
   def keytool(*args)
-    Mixlib::ShellOut.new(::File.join(new_resource.java_home, 'bin', 'keytool'), *args)
+    if platform?('windows')
+      # The verbose listing localises alias labels by default.
+      Mixlib::ShellOut.new(::File.join(new_resource.java_home, 'bin', 'keytool.exe'), '-J-Duser.language=en', '-J-Duser.country=US', *args)
+    else
+      Mixlib::ShellOut.new(::File.join(new_resource.java_home, 'bin', 'keytool'), *args)
+    end
+  end
+
+  def keystore_has_alias?(output)
+    output.match?(/^Alias name: #{Regexp.escape(new_resource.cert_alias)}[ \t]*\r?$/i)
   end
 
   def fetch_certdata

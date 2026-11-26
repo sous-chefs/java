@@ -6,6 +6,8 @@
 Java certificate simplifies adding certificates to a java keystore.
 It can also populate the keystore with a certificate retrieved from a given SSL end-point.
 
+On Windows, set `java_home` to the directory of an installed JDK.
+
 ## Actions
 
 - `:install`: installs a certificate.
