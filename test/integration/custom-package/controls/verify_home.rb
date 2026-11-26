@@ -11,7 +11,7 @@ control 'check-java-version' do
   desc 'Verify the correct version of java is installed'
 
   describe command('java -version 2>&1') do
-    its('stdout') { should match /AdoptOpenJDK/ } unless java_version.to_i == 1
+    its('stdout') { should match(/OpenJDK|Temurin|Corretto/) } unless java_version.to_i == 1
     its('stdout') { should match Regexp.new(java_version.to_s) }
   end
 end

@@ -7,8 +7,26 @@ control 'Java is installed & linked correctly' do
   describe command('java -version 2>&1') do
     its('stdout') { should match java_version.to_s }
   end
+end
+
+control 'Java path is correct' do
+  impact 1.0
+  title 'Path Verification'
+  desc 'Verifies that keytool and other binaries are accessible in the correct paths using update-alternatives'
 
   describe command('update-alternatives --display jar') do
     its('stdout') { should match %r{/usr/lib/jvm/java} }
+  end
+
+  expected_java_home = %r{/usr/lib/jvm/java-#{java_version}[^\s]*/}
+
+  describe command('update-alternatives --display java') do
+    its('stdout') { should match %r{#{expected_java_home}bin/java} }
+  end
+
+  describe command('update-alternatives --display keytool') do
+    its('stdout') { should match %r{#{expected_java_home}bin/keytool} }
+    its('stdout') { should match %r{link (keytool )?(is )?/usr/bin/keytool|keytool - status} }
+    its('stdout') { should match /priority 1/ }
   end
 end

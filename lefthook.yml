@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    rubocop:
+      glob: "*.rb"
+      run: chef exec rubocop {staged_files}
+      skip:
+        - merge
+        - rebase

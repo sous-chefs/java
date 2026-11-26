@@ -34,17 +34,33 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
           .to raise_error('Version supplied does not have a download URL set')
       end
     end
+
+    context 'Temurin' do
+      let(:version) { '17' }
+
+      it 'returns the correct download URL for Temurin' do
+        expect(subject.default_openjdk_url(version, 'temurin'))
+          .to eq 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13%2B11/OpenJDK17U-jdk_x64_linux_hotspot_17.0.13_11.tar.gz'
+      end
+
+      it 'returns the correct download URL for Temurin 11' do
+        expect(subject.default_openjdk_url('11', 'temurin'))
+          .to eq 'https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.25%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.25_9.tar.gz'
+      end
+    end
   end
 
   describe '#default_openjdk_install_method' do
     before do
       allow(subject).to receive(:[]).with(version).and_return(version)
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with('platform').and_return(platform)
       allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
     end
 
     context 'Amazon' do
       let(:platform_family) { 'amazon' }
+      let(:platform) { 'amazon' }
       let(:platform_version) { '2' }
       let(:version) { '17' }
       it 'should default to a source install' do
@@ -52,8 +68,75 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
       end
     end
 
+    context 'RHEL 9' do
+      let(:platform_family) { 'rhel' }
+      let(:platform) { 'almalinux' }
+      let(:platform_version) { '9.6' }
+
+      context 'OpenJDK 11' do
+        let(:version) { '11' }
+
+        it 'should default to a package install' do
+          expect(subject.default_openjdk_install_method(version)).to eq 'package'
+        end
+      end
+
+      context 'OpenJDK 17' do
+        let(:version) { '17' }
+
+        it 'should default to a package install' do
+          expect(subject.default_openjdk_install_method(version)).to eq 'package'
+        end
+      end
+    end
+
+    context 'RHEL 10' do
+      let(:platform_family) { 'rhel' }
+      let(:platform) { 'almalinux' }
+      let(:platform_version) { '10.2' }
+
+      context 'OpenJDK 11' do
+        let(:version) { '11' }
+
+        it 'should default to a source install' do
+          expect(subject.default_openjdk_install_method(version)).to eq 'source'
+        end
+      end
+
+      context 'OpenJDK 17' do
+        let(:version) { '17' }
+
+        it 'should default to a source install' do
+          expect(subject.default_openjdk_install_method(version)).to eq 'source'
+        end
+      end
+    end
+
+    context 'Fedora' do
+      let(:platform_family) { 'fedora' }
+      let(:platform) { 'fedora' }
+      let(:platform_version) { '44' }
+
+      context 'OpenJDK 11' do
+        let(:version) { '11' }
+
+        it 'should default to a source install' do
+          expect(subject.default_openjdk_install_method(version)).to eq 'source'
+        end
+      end
+
+      context 'OpenJDK 17' do
+        let(:version) { '17' }
+
+        it 'should default to a source install' do
+          expect(subject.default_openjdk_install_method(version)).to eq 'source'
+        end
+      end
+    end
+
     context 'Debian' do
       let(:platform_family) { 'debian' }
+      let(:platform) { 'debian' }
 
       context '9' do
         let(:platform_version) { '9' }
@@ -123,7 +206,40 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
         end
       end
 
+      context '12' do
+        let(:platform_version) { '12' }
+
+        context 'OpenJDK 11' do
+          let(:version) { '11' }
+
+          it 'should default to a source install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'source'
+          end
+        end
+
+        context 'OpenJDK 17' do
+          let(:version) { '17' }
+
+          it 'should default to a package install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'package'
+          end
+        end
+      end
+
+      context '13' do
+        let(:platform_version) { '13' }
+
+        context 'OpenJDK 17' do
+          let(:version) { '17' }
+
+          it 'should default to a source install' do
+            expect(subject.default_openjdk_install_method(version)).to eq 'source'
+          end
+        end
+      end
+
       context 'Ubuntu 18.04' do
+        let(:platform) { 'ubuntu' }
         let(:platform_version) { '18.04' }
 
         context 'OpenJDK 17' do
@@ -144,6 +260,7 @@ RSpec.describe Java::Cookbook::OpenJdkHelpers do
       end
 
       context 'Ubuntu 20.04' do
+        let(:platform) { 'ubuntu' }
         let(:platform_version) { '20.04' }
 
         context 'OpenJDK 17' do

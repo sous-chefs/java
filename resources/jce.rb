@@ -1,32 +1,44 @@
+# frozen_string_literal: true
+
+provides :java_jce
 unified_mode true
 
 property :jdk_version,
           String,
-          default: lazy { node['java']['jdk_version'].to_s }, description: 'The Java version to install into'
+          name_property: true, description: 'The Java version to install into'
 
 property :jce_url,
           String,
-          default: lazy { node['java']['oracle']['jce'][jdk_version]['url'] }, description: 'The URL for the JCE distribution'
+          required: true, description: 'The URL for the JCE distribution'
 
 property :jce_checksum,
           String,
-          default: lazy { node['java']['oracle']['jce'][jdk_version]['checksum'] }, description: 'The checksum of the JCE distribution'
+          required: true, description: 'The checksum of the JCE distribution'
 
 property :java_home,
           String,
-          default: lazy { node['java']['java_home'] }, description: 'The location of the Java installation'
+          required: true, description: 'The location of the Java installation'
 
 property :jce_home,
           String,
-          default: lazy { node['java']['oracle']['jce']['home'] }, description: 'The location where JCE files will be decompressed for installation'
+          default: '/usr/lib/jvm/jce', description: 'The location where JCE files will be decompressed for installation'
 
 property :jce_cookie,
           String,
-          default: lazy { node['java']['oracle']['accept_oracle_download_terms'] ? 'oraclelicense=accept-securebackup-cookie' : '' }, description: 'Indicates that you accept Oracles EULA'
+          default: '', description: 'Indicates that you accept Oracles EULA'
 
 property :principal,
           String,
-          default: lazy { platform_family?('windows') ? node['java']['windows']['owner'] : 'administrator' }, description: 'For Windows installations only, this determines the owner of the JCE files'
+          default: 'administrator', description: 'For Windows installations only, this determines the owner of the JCE files'
+
+property :download_path,
+          String,
+          default: Chef::Config[:file_cache_path], description: 'Path used to stage the JCE archive'
+
+property :install_type,
+          String,
+          equal_to: %w(jdk jre),
+          default: 'jdk', description: 'Whether the Java install is a jdk or jre layout'
 
 action :install do
   jdk_version = new_resource.jdk_version
@@ -36,13 +48,20 @@ action :install do
   jce_home = new_resource.jce_home
   jce_cookie = new_resource.jce_cookie
   principal = new_resource.principal
+  download_path = new_resource.download_path
+  install_type = new_resource.install_type
 
   directory ::File.join(jce_home, jdk_version) do
     mode '0755'
     recursive true
   end
 
-  r = remote_file "#{node['java']['download_path']}/jce.zip" do
+  directory download_path do
+    mode '0755'
+    recursive true
+  end
+
+  r = remote_file ::File.join(download_path, 'jce.zip') do
     source jce_url
     checksum jce_checksum
     headers(
@@ -52,7 +71,7 @@ action :install do
   end
 
   # JRE installation does not have a jre folder
-  jre_path = node['java']['install_type'] == 'jdk' ? 'jre' : ''
+  jre_path = install_type == 'jdk' ? 'jre' : ''
 
   if platform_family?('windows')
 
@@ -82,19 +101,23 @@ action :install do
 
   else
     package 'unzip'
-    package 'curl'
 
-    execute 'extract jce' do
-      command <<-EOF
-        rm -rf java_jce
-        mkdir java_jce
-        cd java_jce
-        unzip -o ../jce.zip
-        find ./ -name '*.jar' | xargs -I JCE_JAR mv JCE_JAR #{jce_home}/#{jdk_version}/
-        chmod -R 0644 #{jce_home}/#{jdk_version}/*.jar
-      EOF
-      cwd node['java']['download_path']
-      creates ::File.join(jce_home, jdk_version, 'US_export_policy.jar')
+    archive_file 'extract jce' do
+      path r.path
+      destination ::File.join(download_path, 'java_jce')
+      overwrite true
+      not_if { ::File.exist?(::File.join(jce_home, jdk_version, 'US_export_policy.jar')) }
+    end
+
+    ruby_block 'stage jce policy jars' do
+      block do
+        ::Dir.glob(::File.join(download_path, 'java_jce', '**', '*.jar')).each do |jar|
+          destination = ::File.join(jce_home, jdk_version, ::File.basename(jar))
+          ::FileUtils.mv(jar, destination)
+          ::FileUtils.chmod(0o644, destination)
+        end
+      end
+      not_if { ::File.exist?(::File.join(jce_home, jdk_version, 'US_export_policy.jar')) }
     end
 
     %w(local_policy.jar US_export_policy.jar).each do |jar|
@@ -108,5 +131,34 @@ action :install do
         to ::File.join(jce_home, jdk_version, jar)
       end
     end
+  end
+end
+
+action :remove do
+  jdk_version = new_resource.jdk_version
+  java_home = new_resource.java_home
+  jce_home = new_resource.jce_home
+  download_path = new_resource.download_path
+  jre_path = new_resource.install_type == 'jdk' ? 'jre' : ''
+
+  %w(local_policy.jar US_export_policy.jar).each do |jar|
+    file ::File.join(java_home, jre_path, 'lib', 'security', jar) do
+      action :delete
+      only_if { ::File.symlink?(path) }
+    end
+  end
+
+  directory ::File.join(jce_home, jdk_version) do
+    recursive true
+    action :delete
+  end
+
+  directory ::File.join(download_path, 'java_jce') do
+    recursive true
+    action :delete
+  end
+
+  file ::File.join(download_path, 'jce.zip') do
+    action :delete
   end
 end
